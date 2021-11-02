@@ -2,9 +2,19 @@ package com.example.dicegame;
 
 import java.util.ArrayList;
 
-public final class GameServer {
+public  class GameServer {
     private GameServer(){
     }
+
+    private static GameServer gameServer;
+
+    public static GameServer getGameServer(){
+        if(gameServer==null){
+            gameServer=new GameServer();
+        }
+        return gameServer;
+    }
+
 
     public static ArrayList<Lobby> lobbies = new ArrayList<>();
 
