@@ -4,18 +4,24 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Lobby {
+    private static int lobbyCount;
+
     private Integer id ;
     private ArrayList<Player> players = new ArrayList<>();
     private Player owner;
 
+
+
     public Lobby(String username){
         owner = new Player(username);
         players.add(owner);
-        id= new Random().nextInt(59);
+        this.id = Lobby.lobbyCount;
+        lobbyCount++;
     }
 
-    public Lobby( Player owner,Integer id) {
-        this.id = id;
+    public Lobby( Player owner) {
+        this.id = Lobby.lobbyCount;
+        lobbyCount++;
         this.owner = owner;
     }
 
