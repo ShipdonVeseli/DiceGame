@@ -9,20 +9,20 @@ public  class GameServer {
 
     private static GameServer gameServer;
 
-    public static GameServer getGameServer(){
+    public static GameServer getInstance(){
         if(gameServer==null){
             gameServer=new GameServer();
         }
         return gameServer;
     }
 
-    public static ArrayList<Lobby> lobbies = new ArrayList<>();
+    private   ArrayList<Lobby> lobbies = new ArrayList<>();
 
-    public static ArrayList<Lobby> getLobbies(){
+    public  ArrayList<Lobby> getLobbies(){
         return lobbies;
     }
 
-    public static void createLobby(String username){
+    public  void createLobby(String username){
       //  lobbies.add(new Lobby(username));
         Player player=new Player(username);
         lobbies.add(new Lobby(player));
@@ -32,7 +32,7 @@ public  class GameServer {
 
     }
 
-    public static void setLobbies(Lobby lb){
+    public  void setLobbies(Lobby lb){
         lobbies.add(lb);
     }
 

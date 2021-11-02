@@ -5,18 +5,25 @@
 <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
+<%
+    GameServer gameServer =GameServer.getInstance();
+%>
     <head>
         <title>Index</title>
     </head>
     <body>
+
+
         <h1><%="Welcome "%><%= session.getAttribute("u_name")%></h1>
+
+        %>
         <% if("Create Lobby".equals(request.getParameter("create"))){
-               GameServer.createLobby(session.getAttribute("u_name").toString());
+               gameServer.createLobby(session.getAttribute("u_name").toString());
            }
         %>
 
         <h1>
-            <%!ArrayList<Lobby> lobbies =  GameServer.getLobbies();%>
+            <% ArrayList<Lobby> lobbies =  gameServer.getLobbies();%>
             <%for(Lobby lo: lobbies){ %>
                 <ul>
                     <li><%=lo.getId()%></li>
