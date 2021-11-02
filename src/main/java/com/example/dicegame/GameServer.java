@@ -23,7 +23,13 @@ public  class GameServer {
     }
 
     public static void createLobby(String username){
-        lobbies.add(new Lobby(username));
+      //  lobbies.add(new Lobby(username));
+        Player player=new Player(username);
+        lobbies.add(new Lobby(player,lobbies.size()));
+
+
+
+
     }
 
     public static void setLobbies(Lobby lb){

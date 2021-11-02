@@ -14,7 +14,7 @@ public class Lobby {
         id= new Random().nextInt(59);
     }
 
-    public Lobby(Integer id, Player owner) {
+    public Lobby( Player owner,Integer id) {
         this.id = id;
         this.owner = owner;
     }
