@@ -2,8 +2,8 @@ package com.example.dicegame;
 
 import java.util.ArrayList;
 
-public final class Serverr {
-    private Serverr(){
+public final class GameServer {
+    private GameServer(){
     }
 
     public static ArrayList<Lobby> lobbies = new ArrayList<>();

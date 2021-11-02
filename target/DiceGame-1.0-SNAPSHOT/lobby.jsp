@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.dicegame.Player" %>
-<%@ page import="com.example.dicegame.Serverr" %>
+<%@ page import="com.example.dicegame.Server" %>
 <%@ page import="com.example.dicegame.Lobby" %>
 <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
@@ -9,15 +9,16 @@
         <title>Index</title>
     </head>
     <body>
-        <h1><%="Welcome"%><%= session.getAttribute("u_name")%></h1>
-        <% String x = request.getParameter("create");
-           if("Create Lobby".equals(x)){
-               Serverr.createLobby(session.getAttribute("u_name").toString());
+        <h1><%="Welcome "%><%= session.getAttribute("u_name")%></h1>
+        <% if("Create Lobby".equals(request.getParameter("create"))){
+               Server.createLobby(session.getAttribute("u_name").toString());
            }
+           int i= 5;
         %>
 
+        <p> <%="Hey"+ i%></p>
         <h1>
-            <%!ArrayList<Lobby> lobbies =  Serverr.getLobbies();%>
+            <%!ArrayList<Lobby> lobbies =  Server.getLobbies();%>
             <%for(Lobby lo: lobbies){ %>
                 <ul>
                     <li><%=lo.getId()%></li>
