@@ -1,32 +1,52 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.dicegame.Player" %>
-<%@ page import="com.example.dicegame.Server" %>
+<%@ page import="com.example.dicegame.GameServer" %>
 <%@ page import="com.example.dicegame.Lobby" %>
 <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
+<%
+    String username = session.getAttribute("u_name").toString();
+    response.setIntHeader("Refresh", 5);
+    GameServer gameServer = GameServer.getInstance();
+%>
     <head>
         <title>Index</title>
     </head>
     <body>
-        <h1><%="Welcome "%><%= session.getAttribute("u_name")%></h1>
-        <% if("Create Lobby".equals(request.getParameter("create"))){
-               Server.createLobby(session.getAttribute("u_name").toString());
-           }
-           int i= 5;
-        %>
 
-        <p> <%="Hey"+ i%></p>
+
+        <h1><%="Welcome "%><%= session.getAttribute("u_name")%></h1>
+
+        <% if("Create Lobby".equals(request.getParameter("create"))){
+               gameServer.createLobby(session.getAttribute("u_name").toString());
+           }
+           if(request.getParameter("join") != null){
+               gameServer.addUserToLobby(username, request.getParameter("join").substring(11));
+           }
+
+        %>
+        <form action="lobby.jsp" method="POST">
         <h1>
-            <%!ArrayList<Lobby> lobbies =  Server.getLobbies();%>
+            <% ArrayList<Lobby> lobbies =  gameServer.getLobbies();%>
             <%for(Lobby lo: lobbies){ %>
                 <ul>
-                    <li><%=lo.getId()%></li>
+                    <li><input type="submit" name="join" value='Join Lobby <%=lo.getId()%>'/>
+                        <ul>
+                            <li>
+                                <%String players = "";
+                                for(Player pl: lo.getPlayers()){
+                                    players += pl.toString()+" ";
+                                }%>
+                                <%=players%>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             <%}%>
         </h1>
 
-        <form action="lobby.jsp" method="POST">
+
             <input type="submit" name="create" value="Create Lobby"/>
         </form>
     </body>
