@@ -6,4 +6,9 @@ public class Player {
     public Player(String username){
         playername = username;
     }
+
+    @Override
+    public String toString() {
+        return playername+" ";
+    }
 }

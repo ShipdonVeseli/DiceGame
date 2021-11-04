@@ -6,7 +6,9 @@
 <!DOCTYPE html>
 <html>
 <%
-    GameServer gameServer =GameServer.getInstance();
+    String username = session.getAttribute("u_name").toString();
+    response.setIntHeader("Refresh", 5);
+    GameServer gameServer = GameServer.getInstance();
 %>
     <head>
         <title>Index</title>
@@ -16,22 +18,35 @@
 
         <h1><%="Welcome "%><%= session.getAttribute("u_name")%></h1>
 
-        %>
         <% if("Create Lobby".equals(request.getParameter("create"))){
                gameServer.createLobby(session.getAttribute("u_name").toString());
            }
-        %>
+           if(request.getParameter("join") != null){
+               gameServer.addUserToLobby(username, request.getParameter("join").substring(11));
+           }
 
+        %>
+        <form action="lobby.jsp" method="POST">
         <h1>
             <% ArrayList<Lobby> lobbies =  gameServer.getLobbies();%>
             <%for(Lobby lo: lobbies){ %>
                 <ul>
-                    <li><%=lo.getId()%></li>
+                    <li><input type="submit" name="join" value='Join Lobby <%=lo.getId()%>'/>
+                        <ul>
+                            <li>
+                                <%String players = "";
+                                for(Player pl: lo.getPlayers()){
+                                    players += pl.toString()+" ";
+                                }%>
+                                <%=players%>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             <%}%>
         </h1>
 
-        <form action="lobby.jsp" method="POST">
+
             <input type="submit" name="create" value="Create Lobby"/>
         </form>
     </body>

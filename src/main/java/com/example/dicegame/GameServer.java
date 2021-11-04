@@ -17,13 +17,13 @@ public  class GameServer {
         return gameServer;
     }
 
-    private   ArrayList<Lobby> lobbies = new ArrayList<>();
+    private ArrayList<Lobby> lobbies = new ArrayList<>();
 
-    public  ArrayList<Lobby> getLobbies(){
+    public ArrayList<Lobby> getLobbies(){
         return lobbies;
     }
 
-    public  void createLobby(String username){
+    public void createLobby(String username){
       //  lobbies.add(new Lobby(username));
         Player player=new Player(username);
         lobbies.add(new Lobby(player));
@@ -47,6 +47,14 @@ public  class GameServer {
         }
     }
 
+    public void addUserToLobby(String user,String lobbyid ){
+        try {
+            Lobby lobby =getLobby(Integer.parseInt(lobbyid));
+            lobby.addPlayer(new Player(user));
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+        }
+    }
     public void removeLobby(int id){
         for (Lobby lobby:lobbies) {
             if(lobby.getId()==id){

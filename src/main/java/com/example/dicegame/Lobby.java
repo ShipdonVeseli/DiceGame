@@ -10,17 +10,15 @@ public class Lobby {
     private ArrayList<Player> players = new ArrayList<>();
     private Player owner;
 
-
-
     public Lobby(String username){
-        owner = new Player(username);
-        players.add(owner);
+        players.add(new Player(username));
         this.id = Lobby.lobbyCount;
         lobbyCount++;
     }
 
     public Lobby( Player owner) {
         this.id = Lobby.lobbyCount;
+        players.add(owner);
         lobbyCount++;
         this.owner = owner;
     }
