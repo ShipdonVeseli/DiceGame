@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DiceGame</title>
+    <style>
+        #dcg {
+            border:dotted 3px gray;
+            background-color: lightgray;
+        }
+    </style>
+</head>
+<body>
+<canvas id="dcg" width="640" height="480"></canvas>
+<script>
+    window.onload=function ()
+    {
+        c=document.getElementById('dcg');
+        var cc= c.getContext('2d');
+
+        var background = new Image();
+        background.src = "images\\gamebackground.jpg";
+
+        background.onload = function ()
+        {
+            cc.drawImage(background,0,0);
+        }
+    }
+
+
+</script>
+</script>
+</body>
+</html>
