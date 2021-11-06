@@ -13,6 +13,7 @@ public class HelloServlet extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         response.setContentType("text/html");
 
         // Hello
@@ -21,6 +22,14 @@ public class HelloServlet extends HttpServlet {
         out.println("<h1>" + message + "</h1>");
         out.println("</body></html>");
     }
+
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+
+    }
+
+
 
     public void destroy() {
     }
