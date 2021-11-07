@@ -52,9 +52,9 @@
                 if (!gameServer.isPlayerinLobby(username) || lo.isPlayerInThatLobby(username)) {
         %>
         <ul>
-            <li><input type="submit" name="join" value='Join Lobby <%=lo.getId()%>'/>
+            <li><%if(!gameServer.isPlayerinLobby(username)){ %> <input type="submit" name="join" value='Join Lobby <%=lo.getId()%>'/> <% } %>
 
-                <input type="submit" name="remove" value='Remove Lobby <%=lo.getId()%>'/>
+                <%if(lo.getOwner().getPlayername().equals(username)) { %><input type="submit" name="remove" value='Remove Lobby <%=lo.getId()%>'/> <% } %>
                 <ul>
                     <li>
                         <%
