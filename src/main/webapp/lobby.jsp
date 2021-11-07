@@ -10,7 +10,7 @@
     try {
          username = session.getAttribute("u_name").toString();
     }catch (Exception e){
-        username="erorr";
+        username="error";
         response.sendRedirect("index.html");
     }
     response.setIntHeader("Refresh", 5);
