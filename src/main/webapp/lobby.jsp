@@ -20,7 +20,7 @@
 </h1>
 
 <% if ("Create Lobby".equals(request.getParameter("create"))) {
-    if(!gameServer.hasOwnerCreatedLobby(username)) {
+    if((!gameServer.hasOwnerCreatedLobby(username)) && (!gameServer.isPlayerinLobby(username))) {
         gameServer.createLobby(session.getAttribute("u_name").toString());
     }
 }
