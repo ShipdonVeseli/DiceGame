@@ -23,6 +23,15 @@ public class Lobby {
         this.owner = owner;
     }
 
+    public boolean  isPlayerInThatLobby(String username){
+        for (Player player: players) {
+            if(player.getPlayername().equals(username)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addPlayer(Player player){players.add(player);}
 
     public void removePlayer(Player player) {

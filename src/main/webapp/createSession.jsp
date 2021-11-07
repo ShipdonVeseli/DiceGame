@@ -12,10 +12,12 @@
 </head>
 <body>
     <%
-        if(session.getAttribute("u_name")==null) {
+        if(session.getAttribute("u_name")==null)
+        {
             session.setAttribute("u_name", request.getParameter("username"));
         }
         response.sendRedirect("lobby.jsp");
+
     %>
 </body>
 </html>

@@ -6,7 +6,13 @@
 <!DOCTYPE html>
 <html>
 <%
-    String username = session.getAttribute("u_name").toString();
+    String username;
+    try {
+         username = session.getAttribute("u_name").toString();
+    }catch (Exception e){
+        username="erorr";
+        response.sendRedirect("index.html");
+    }
     response.setIntHeader("Refresh", 5);
     GameServer gameServer = GameServer.getInstance();
 %>
@@ -20,34 +26,34 @@
 </h1>
 
 <% if ("Create Lobby".equals(request.getParameter("create"))) {
-    if((!gameServer.hasOwnerCreatedLobby(username)) && (!gameServer.isPlayerinLobby(username))) {
-        gameServer.createLobby(session.getAttribute("u_name").toString());
+    if ((!gameServer.hasOwnerCreatedLobby(username)) && (!gameServer.isPlayerinLobby(username))) {
+        gameServer.createLobby(username);
     }
 }
     if (request.getParameter("join") != null) {
-        if(!gameServer.isPlayerinLobby(username)) {
+        if (!gameServer.isPlayerinLobby(username)) {
             gameServer.addUserToLobby(username, request.getParameter("join").substring(11));
         }
     }
 
-    if(request.getParameter("remove") != null) {
-        if(gameServer.getLobby(Integer.parseInt(request.getParameter("remove").substring(13))).getOwner().getPlayername().equals(username)) {
+    if (request.getParameter("remove") != null) {
+        if (gameServer.getLobby(Integer.parseInt(request.getParameter("remove").substring(13))).getOwner().getPlayername().equals(username)) {
             gameServer.removeLobby(Integer.parseInt(request.getParameter("remove").substring(13)));
         }
     }
-
 
 
 %>
 
 <form action="lobby.jsp" method="POST">
     <h1>
-        <% ArrayList<Lobby> lobbies = gameServer.getLobbies();%>
         <%
-            for (Lobby lo : lobbies) {
+            for (Lobby lo : gameServer.getLobbies()) {
+                if (!gameServer.isPlayerinLobby(username) || lo.isPlayerInThatLobby(username)) {
         %>
         <ul>
             <li><input type="submit" name="join" value='Join Lobby <%=lo.getId()%>'/>
+
                 <input type="submit" name="remove" value='Remove Lobby <%=lo.getId()%>'/>
                 <ul>
                     <li>
@@ -65,7 +71,10 @@
                 </ul>
             </li>
         </ul>
-        <%}%>
+        <%
+                }
+            }
+        %>
     </h1>
 
 
