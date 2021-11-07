@@ -23,10 +23,12 @@ public class GameServer {
         return lobbies;
     }
 
-    public void createLobby(String username) {
+    public int createLobby(String username) {
         //  lobbies.add(new Lobby(username));
         Player player = new Player(username);
-        lobbies.add(new Lobby(player));
+        Lobby lobby=new Lobby(player);
+        lobbies.add(lobby);
+        return lobby.getId();
     }
 
     public Lobby getLobby(int id) throws NoSuchElementException {

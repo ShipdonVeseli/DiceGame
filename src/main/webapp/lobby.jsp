@@ -27,12 +27,18 @@
 
 <% if ("Create Lobby".equals(request.getParameter("create"))) {
     if ((!gameServer.hasPlayerCreatedLobby(username)) && (!gameServer.isPlayerinLobby(username))) {
-        gameServer.createLobby(username);
+        int lobbyID=gameServer.createLobby(username);
+        session.setAttribute("lobby_id",lobbyID);
     }
 }
     if (request.getParameter("join") != null) {
         if (!gameServer.isPlayerinLobby(username)) {
             gameServer.addUserToLobby(username, request.getParameter("join").substring(11));
+
+            int lobbyID=Integer.parseInt(request.getParameter("join").substring(11));
+            session.setAttribute("lobby_id",lobbyID);
+
+
         }
     }
 
