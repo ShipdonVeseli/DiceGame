@@ -26,7 +26,7 @@
 </h1>
 
 <% if ("Create Lobby".equals(request.getParameter("create"))) {
-    if ((!gameServer.hasOwnerCreatedLobby(username)) && (!gameServer.isPlayerinLobby(username))) {
+    if ((!gameServer.hasPlayerCreatedLobby(username)) && (!gameServer.isPlayerinLobby(username))) {
         gameServer.createLobby(username);
     }
 }
@@ -52,7 +52,8 @@
                 if (!gameServer.isPlayerinLobby(username) || lo.isPlayerInThatLobby(username)) {
         %>
         <ul>
-            <li><%if(!gameServer.isPlayerinLobby(username)){ %> <input type="submit" name="join" value='Join Lobby <%=lo.getId()%>'/> <% } %>
+            <li>Lobby Number <%=lo.getId()%>
+                <%if(!gameServer.isPlayerinLobby(username)){ %> <input type="submit" name="join" value='Join Lobby <%=lo.getId()%>'/> <% } %>
 
                 <%if(lo.getOwner().getPlayername().equals(username)) { %><input type="submit" name="remove" value='Remove Lobby <%=lo.getId()%>'/> <% } %>
                 <ul>
@@ -77,9 +78,9 @@
         %>
     </h1>
 
-
+    <% if(!gameServer.isPlayerinLobby(username) ){ %>
     <input type="submit" name="create" value="Create Lobby"/>
-
+    <% } %>
 </form>
 </body>
 </html>

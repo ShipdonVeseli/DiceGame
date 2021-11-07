@@ -89,7 +89,7 @@ public class GameServer {
         return false;
     }
 
-    public boolean hasOwnerCreatedLobby(String username) {
+    public boolean hasPlayerCreatedLobby(String username) {
         for(Lobby lobby : lobbies) {
             if(lobby.getOwner().getPlayername().equals(username)) {
                 return true;
