@@ -7,11 +7,22 @@
         #dcg {
             border:dotted 3px gray;
             background-color: lightgray;
+            touch-action: none;
+        }
+        #h1 {
+            text-align: center;
+        }
+        #gameDisplay {
+            position: center;
         }
     </style>
 </head>
 <body>
-<canvas id="dcg" width="640" height="480"></canvas>
+<h1 id="h1">Dice Game</h1>
+<div id="gameDisplay" class="gameDisplay" style="text-align:center">
+<canvas id="dcg" width="980" height="550">
+</canvas>
+</div>
 <script>
     window.onload=function ()
     {
