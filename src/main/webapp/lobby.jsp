@@ -30,6 +30,14 @@
         }
     }
 
+    if(request.getParameter("remove") != null) {
+        if(gameServer.getLobby(Integer.parseInt(request.getParameter("remove").substring(13))).getOwner().getPlayername().equals(username)) {
+            gameServer.removeLobby(Integer.parseInt(request.getParameter("remove").substring(13)));
+        }
+    }
+
+
+
 %>
 
 <form action="lobby.jsp" method="POST">
@@ -40,6 +48,7 @@
         %>
         <ul>
             <li><input type="submit" name="join" value='Join Lobby <%=lo.getId()%>'/>
+                <input type="submit" name="remove" value='Remove Lobby <%=lo.getId()%>'/>
                 <ul>
                     <li>
                         <%
@@ -50,7 +59,9 @@
 
                         %>
                         <%=players%>
+
                     </li>
+
                 </ul>
             </li>
         </ul>

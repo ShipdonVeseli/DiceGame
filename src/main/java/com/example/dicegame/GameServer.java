@@ -56,6 +56,12 @@ public class GameServer {
         }
     }
 
+    public void exitUserFromLobby(String user, String lobbyid) {
+        Lobby lobby = getLobby(Integer.parseInt(lobbyid));
+        Player player = new Player(user);
+        lobby.removePlayer(player);
+    }
+
     public void removeLobby(int id) {
         for (Lobby lobby : lobbies) {
             if (lobby.getId() == id) {
@@ -65,6 +71,8 @@ public class GameServer {
         }
         throw new NoSuchElementException("No lobby with id = " + id);
     }
+
+
 
     public void setLobbies(Lobby lb) {
         lobbies.add(lb);
