@@ -7,6 +7,10 @@ public class Player {
         playername = username;
     }
 
+    public String getPlayername() {
+        return playername;
+    }
+
     @Override
     public String toString() {
         return playername+" ";
