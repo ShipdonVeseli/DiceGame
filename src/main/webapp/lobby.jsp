@@ -11,7 +11,7 @@
          username = session.getAttribute("u_name").toString();
     }catch (Exception e){
         username="error";
-        response.sendRedirect("index.html");
+        response.sendRedirect("index.html");//test
     }
     response.setIntHeader("Refresh", 5);
     GameServer gameServer = GameServer.getInstance();
