@@ -10,44 +10,67 @@
     response.setIntHeader("Refresh", 5);
     GameServer gameServer = GameServer.getInstance();
 %>
-    <head>
-        <title>Index</title>
-    </head>
-    <body>
+<head>
+    <title>Index</title>
+</head>
+<body>
 
 
-        <h1><%="Welcome "%><%= session.getAttribute("u_name")%></h1>
+<h1><%="Welcome "%><%= session.getAttribute("u_name")%>
+</h1>
 
-        <% if("Create Lobby".equals(request.getParameter("create"))){
-               gameServer.createLobby(session.getAttribute("u_name").toString());
-           }
-           if(request.getParameter("join") != null){
-               gameServer.addUserToLobby(username, request.getParameter("join").substring(11));
-           }
+<% if ("Create Lobby".equals(request.getParameter("create"))) {
+    if((!gameServer.hasOwnerCreatedLobby(username)) && (!gameServer.isPlayerinLobby(username))) {
+        gameServer.createLobby(session.getAttribute("u_name").toString());
+    }
+}
+    if (request.getParameter("join") != null) {
+        if(!gameServer.isPlayerinLobby(username)) {
+            gameServer.addUserToLobby(username, request.getParameter("join").substring(11));
+        }
+    }
 
+    if(request.getParameter("remove") != null) {
+        if(gameServer.getLobby(Integer.parseInt(request.getParameter("remove").substring(13))).getOwner().getPlayername().equals(username)) {
+            gameServer.removeLobby(Integer.parseInt(request.getParameter("remove").substring(13)));
+        }
+    }
+
+
+
+%>
+
+<form action="lobby.jsp" method="POST">
+    <h1>
+        <% ArrayList<Lobby> lobbies = gameServer.getLobbies();%>
+        <%
+            for (Lobby lo : lobbies) {
         %>
-        <form action="lobby.jsp" method="POST">
-        <h1>
-            <% ArrayList<Lobby> lobbies =  gameServer.getLobbies();%>
-            <%for(Lobby lo: lobbies){ %>
+        <ul>
+            <li><input type="submit" name="join" value='Join Lobby <%=lo.getId()%>'/>
+                <input type="submit" name="remove" value='Remove Lobby <%=lo.getId()%>'/>
                 <ul>
-                    <li><input type="submit" name="join" value='Join Lobby <%=lo.getId()%>'/>
-                        <ul>
-                            <li>
-                                <%String players = "";
-                                for(Player pl: lo.getPlayers()){
-                                    players += pl.toString()+" ";
-                                }%>
-                                <%=players%>
-                            </li>
-                        </ul>
+                    <li>
+                        <%
+                            String players = "";
+                            for (Player pl : lo.getPlayers()) {
+                                players += pl.toString() + " ";
+                            }
+
+                        %>
+                        <%=players%>
+
                     </li>
+
                 </ul>
-            <%}%>
-        </h1>
+            </li>
+        </ul>
+        <%}%>
+    </h1>
 
 
-            <input type="submit" name="create" value="Create Lobby"/>
-        </form>
-    </body>
+    <input type="submit" name="create" value="Create Lobby"/>
+
+</form>
+</body>
 </html>
