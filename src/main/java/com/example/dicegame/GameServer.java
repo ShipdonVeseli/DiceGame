@@ -2,6 +2,7 @@ package com.example.dicegame;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 public class GameServer {
 
@@ -23,7 +24,7 @@ public class GameServer {
         return lobbies;
     }
 
-    public int createLobby(String username) {
+    public UUID createLobby(String username) {
         //  lobbies.add(new Lobby(username));
         Player player = new Player(username);
         Lobby lobby=new Lobby(player);
@@ -31,16 +32,16 @@ public class GameServer {
         return lobby.getId();
     }
 
-    public Lobby getLobby(int id) throws NoSuchElementException {
+    public Lobby getLobby(UUID id) throws NoSuchElementException {
         for (Lobby lobby : lobbies) {
-            if (lobby.getId() == id) {
+            if (lobby.getId().equals( id)) {
                 return lobby;
             }
         }
         throw new NoSuchElementException("No lobby with id = " + id);
     }
 
-    public void addPlayerToLobby(Player player, int lobbyid) {
+    public void addPlayerToLobby(Player player, UUID lobbyid) {
         try {
             Lobby lobby = getLobby(lobbyid);
             lobby.addPlayer(player);
@@ -51,7 +52,8 @@ public class GameServer {
 
     public void addUserToLobby(String user, String lobbyid) {
         try {
-            Lobby lobby = getLobby(Integer.parseInt(lobbyid));
+
+            Lobby lobby = getLobby(UUID.fromString(lobbyid));
             lobby.addPlayer(new Player(user));
         } catch (NoSuchElementException e) {
             e.printStackTrace();
@@ -59,14 +61,15 @@ public class GameServer {
     }
 
     public void exitUserFromLobby(String user, String lobbyid) {
-        Lobby lobby = getLobby(Integer.parseInt(lobbyid));
+
+        Lobby lobby = getLobby(UUID.fromString(lobbyid));
         Player player = new Player(user);
         lobby.removePlayer(player);
     }
 
-    public void removeLobby(int id) {
+    public void removeLobby(UUID id) {
         for (Lobby lobby : lobbies) {
-            if (lobby.getId() == id) {
+            if (lobby.getId().equals(id)) {
                 lobbies.remove(lobby);
                 return;
             }

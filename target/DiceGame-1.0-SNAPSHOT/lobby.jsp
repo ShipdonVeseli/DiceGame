@@ -3,6 +3,7 @@
 <%@ page import="com.example.dicegame.GameServer" %>
 <%@ page import="com.example.dicegame.Lobby" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.UUID" %>
 <!DOCTYPE html>
 <html>
 <%
@@ -10,8 +11,8 @@
     try {
          username = session.getAttribute("u_name").toString();
     }catch (Exception e){
-        username="erorr";
-        response.sendRedirect("index.html");
+        username="error";
+        response.sendRedirect("index.html");//test
     }
     response.setIntHeader("Refresh", 5);
     GameServer gameServer = GameServer.getInstance();
@@ -27,7 +28,7 @@
 
 <% if ("Create Lobby".equals(request.getParameter("create"))) {
     if ((!gameServer.hasPlayerCreatedLobby(username)) && (!gameServer.isPlayerinLobby(username))) {
-        int lobbyID=gameServer.createLobby(username);
+        UUID lobbyID=gameServer.createLobby(username);
         session.setAttribute("lobby_id",lobbyID);
     }
 }
@@ -43,8 +44,8 @@
     }
 
     if (request.getParameter("remove") != null) {
-        if (gameServer.getLobby(Integer.parseInt(request.getParameter("remove").substring(13))).getOwner().getPlayername().equals(username)) {
-            gameServer.removeLobby(Integer.parseInt(request.getParameter("remove").substring(13)));
+        if (gameServer.getLobby(UUID.fromString(request.getParameter("remove").substring(13))).getOwner().getPlayername().equals(username)) {
+            gameServer.removeLobby(UUID.fromString(request.getParameter("remove").substring(13)));
         }
     }
 

@@ -3,6 +3,7 @@
 <%@ page import="com.example.dicegame.GameServer" %>
 <%@ page import="com.example.dicegame.Lobby" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.UUID" %>
 <!DOCTYPE html>
 <html>
 <%
@@ -27,7 +28,7 @@
 
 <% if ("Create Lobby".equals(request.getParameter("create"))) {
     if ((!gameServer.hasPlayerCreatedLobby(username)) && (!gameServer.isPlayerinLobby(username))) {
-        int lobbyID=gameServer.createLobby(username);
+        UUID lobbyID=gameServer.createLobby(username);
         session.setAttribute("lobby_id",lobbyID);
     }
 }
@@ -43,8 +44,8 @@
     }
 
     if (request.getParameter("remove") != null) {
-        if (gameServer.getLobby(Integer.parseInt(request.getParameter("remove").substring(13))).getOwner().getPlayername().equals(username)) {
-            gameServer.removeLobby(Integer.parseInt(request.getParameter("remove").substring(13)));
+        if (gameServer.getLobby(UUID.fromString(request.getParameter("remove").substring(13))).getOwner().getPlayername().equals(username)) {
+            gameServer.removeLobby(UUID.fromString(request.getParameter("remove").substring(13)));
         }
     }
 

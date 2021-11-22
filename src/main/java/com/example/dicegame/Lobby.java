@@ -2,22 +2,21 @@ package com.example.dicegame;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.UUID;
 
 public class Lobby {
     private static int lobbyCount;
 
-    private Integer id ;
+    private UUID id =UUID.randomUUID();
     private ArrayList<Player> players = new ArrayList<>();
     private Player owner;
 
     public Lobby(String username){
         players.add(new Player(username));
-        this.id = Lobby.lobbyCount;
         lobbyCount++;
     }
 
     public Lobby( Player owner) {
-        this.id = Lobby.lobbyCount;
         players.add(owner);
         lobbyCount++;
         this.owner = owner;
@@ -44,7 +43,7 @@ public class Lobby {
 
     public Player getOwner(){return owner;}
 
-    public Integer getId(){
+    public UUID getId(){
         return id;
     }
 
