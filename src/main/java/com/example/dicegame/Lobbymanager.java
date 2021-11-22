@@ -35,7 +35,7 @@ public class Lobbymanager {
       return false;
    }
 
-}
+
 
    public void addPlayerToLobby(Player player, UUID lobbyid) {
       try {
