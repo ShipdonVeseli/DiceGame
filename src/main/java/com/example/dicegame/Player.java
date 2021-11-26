@@ -11,6 +11,10 @@ public class Player {
         return playername;
     }
 
+    public void setPlayername(String playername) {
+        this.playername = playername;
+    }
+
     @Override
     public String toString() {
         return playername+" ";

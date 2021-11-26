@@ -46,21 +46,19 @@ public class Lobbymanager {
       }
    }
 
-   public void addUserToLobby(String user, String lobbyid) {
-      try {
-
-         Lobby lobby = getLobby(UUID.fromString(lobbyid));
-         lobby.addPlayer(new Player(user));
-      } catch (NoSuchElementException e) {
-         e.printStackTrace();
-      }
+   public void addUserToLobby(String user, UUID lobbyid) {
+     addPlayerToLobby(new Player(user),lobbyid);
    }
 
-   public void exitUserFromLobby(String user, String lobbyid) {
-
+   public void exitUserFromLobby(String userName, String lobbyid) {
       Lobby lobby = getLobby(UUID.fromString(lobbyid));
-      Player player = new Player(user);
-      lobby.removePlayer(player);
+      for (Player pl:lobby.getPlayers()) {
+         if(pl.equals(userName)){
+            lobby.removePlayer(pl);
+            return;
+         }
+      }
+      throw new NoSuchElementException("No lobby with id = " + lobbyid);
    }
 
    public void removeLobby(UUID id) {
@@ -72,6 +70,7 @@ public class Lobbymanager {
       }
       throw new NoSuchElementException("No lobby with id = " + id);
    }
+
    public UUID createLobby(String username) {
       //  lobbies.add(new Lobby(username));
       Player player = new Player(username);
@@ -88,6 +87,8 @@ public class Lobbymanager {
       }
       throw new NoSuchElementException("No lobby with id = " + id);
    }
+
+
 
 
 }
