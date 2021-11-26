@@ -73,8 +73,7 @@ public class Lobbymanager {
 
    public UUID createLobby(String username) {
       //  lobbies.add(new Lobby(username));
-      Player player = new Player(username);
-      Lobby lobby=new Lobby(player);
+      Lobby lobby=new Lobby(new Player(username));
       lobbies.add(lobby);
       return lobby.getId();
    }
