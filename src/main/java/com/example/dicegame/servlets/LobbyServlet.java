@@ -58,12 +58,8 @@ public class LobbyServlet extends HttpServlet {
 
             case "leave":
                 try {
-                    if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
                         String IDofLobby = (request.getParameter("lobbyID"));
                         gameServer.getLobbymanager().removePlayerFromLobby(username, IDofLobby);
-                    } else {
-                        response.sendError(0);//ToDo correct Error handling
-                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
