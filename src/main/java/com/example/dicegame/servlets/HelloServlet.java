@@ -1,4 +1,4 @@
-package com.example.dicegame;
+package com.example.dicegame.servlets;
 
 import java.io.*;
 import javax.servlet.http.*;
