@@ -30,7 +30,11 @@ public class LobbyServlet extends HttpServlet {
             case "join":
                 UUID lobbyID = UUID.fromString(request.getParameter("lobbyID"));
                 try {
-                    gameServer.getLobbymanager().addUserToLobby(username, lobbyID);
+                    if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
+                        gameServer.getLobbymanager().addUserToLobby(username, lobbyID);
+                    } else {
+                        response.sendError(0);//ToDo correct Error handling
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -38,10 +42,15 @@ public class LobbyServlet extends HttpServlet {
 
             case "create":
                 try {
-                    String id=gameServer.getLobbymanager().createLobby(username).toString();
-                    Cookie cookie =new Cookie("lobbyID",id);
+                    if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
+                        String id = gameServer.getLobbymanager().createLobby(username).toString();
+                        Cookie cookie = new Cookie("lobbyID", id);
+                        response.addCookie(cookie);
+                    } else {
+                        response.sendError(0);//ToDo correct Error handling
+                    }
 
-                    response.addCookie(cookie);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -49,8 +58,13 @@ public class LobbyServlet extends HttpServlet {
 
             case "leave":
                 try {
-                    String IDofLobby = (request.getParameter("lobbyID"));
-                    gameServer.getLobbymanager().removePlayerFromLobby(username, IDofLobby);
+                    if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
+                        String IDofLobby = (request.getParameter("lobbyID"));
+                        gameServer.getLobbymanager().removePlayerFromLobby(username, IDofLobby);
+                    } else {
+                        response.sendError(0);//ToDo correct Error handling
+                    }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
