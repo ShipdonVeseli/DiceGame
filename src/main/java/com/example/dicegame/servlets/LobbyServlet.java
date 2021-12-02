@@ -2,6 +2,7 @@ package com.example.dicegame.servlets;
 
 import com.example.dicegame.GameServer;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +36,10 @@ public class LobbyServlet extends HttpServlet {
 
             case "create":
                 try {
-                    gameServer.getLobbymanager().createLobby(username);
+                    String id=gameServer.getLobbymanager().createLobby(username).toString();
+                    Cookie cookie =new Cookie("lobbyID",id);
+
+                    response.addCookie(cookie);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
