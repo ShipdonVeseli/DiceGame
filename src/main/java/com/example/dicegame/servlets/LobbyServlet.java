@@ -9,42 +9,50 @@ import java.io.IOException;
 import java.util.UUID;
 
 public class LobbyServlet extends HttpServlet {
-    private  GameServer gameServer =GameServer.getInstance();
+    private GameServer gameServer = GameServer.getInstance();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-      lobbyFunctions(request,response);
+        lobbyFunctions(request, response);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        lobbyFunctions(request,response);
+        lobbyFunctions(request, response);
     }
 
-    private void lobbyFunctions(HttpServletRequest request, HttpServletResponse response){
-        String mode= request.getParameter("mode");
+    private void lobbyFunctions(HttpServletRequest request, HttpServletResponse response) {
+        String mode = request.getParameter("mode");
 
-        switch (mode){
+        String username = request.getParameter("username");
+        switch (mode) {
             case "join":
-                UUID lobbyID= UUID.fromString(request.getParameter("lobbyID"));
-                String username= request.getParameter("username");
+                UUID lobbyID = UUID.fromString(request.getParameter("lobbyID"));
                 try {
-                    gameServer.getLobbymanager().addUserToLobby(username,lobbyID);
-                }catch (Exception e){
-
+                    gameServer.getLobbymanager().addUserToLobby(username, lobbyID);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 break;
 
             case "create":
-
+                try {
+                    gameServer.getLobbymanager().createLobby(username);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
 
             case "leave":
-
+                try {
+                    String IDofLobby = (request.getParameter("lobbyID"));
+                    gameServer.getLobbymanager().removePlayerFromLobby(username, IDofLobby);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
         }
 
 
     }
-
 
 
     public void destroy() {
