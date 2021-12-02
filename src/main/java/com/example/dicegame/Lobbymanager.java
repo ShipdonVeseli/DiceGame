@@ -37,28 +37,28 @@ public class Lobbymanager {
 
 
 
-   public void addPlayerToLobby(Player player, UUID lobbyid) {
+   public void addPlayerToLobby(Player player, UUID lobbyId) {
       try {
-         Lobby lobby = getLobby(lobbyid);
+         Lobby lobby = getLobby(lobbyId);
          lobby.addPlayer(player);
       } catch (NoSuchElementException e) {
          e.printStackTrace();
       }
    }
 
-   public void addUserToLobby(String user, UUID lobbyid) {
-     addPlayerToLobby(new Player(user),lobbyid);
+   public void addUserToLobby(String userName, UUID lobbyId) {
+     addPlayerToLobby(new Player(userName),lobbyId);
    }
 
-   public void exitUserFromLobby(String userName, String lobbyid) {
-      Lobby lobby = getLobby(UUID.fromString(lobbyid));
+   public void exitUserFromLobby(String userName, String lobbyId) {
+      Lobby lobby = getLobby(UUID.fromString(lobbyId));
       for (Player pl:lobby.getPlayers()) {
          if(pl.equals(userName)){
             lobby.removePlayer(pl);
             return;
          }
       }
-      throw new NoSuchElementException("No lobby with id = " + lobbyid);
+      throw new NoSuchElementException("No lobby with id = " + lobbyId);
    }
 
    public void removeLobby(UUID id) {
