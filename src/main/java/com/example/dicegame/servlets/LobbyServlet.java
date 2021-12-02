@@ -49,8 +49,6 @@ public class LobbyServlet extends HttpServlet {
                     } else {
                         response.sendError(0);//ToDo correct Error handling
                     }
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -60,7 +58,6 @@ public class LobbyServlet extends HttpServlet {
                 try {
                         String IDofLobby = (request.getParameter("lobbyID"));
                         gameServer.getLobbymanager().removePlayerFromLobby(username, IDofLobby);
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
