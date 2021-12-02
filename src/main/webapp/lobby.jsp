@@ -27,14 +27,14 @@
 </h1>
 
 <% if ("Create Lobby".equals(request.getParameter("create"))) {
-    if ((!gameServer.hasPlayerCreatedLobby(username)) && (!gameServer.isPlayerinLobby(username))) {
-        UUID lobbyID=gameServer.createLobby(username);
+    if ((!gameServer.getLobbymanager().hasPlayerCreatedLobby(username)) && (!gameServer.getLobbymanager().isPlayerinLobby(username))) {
+        UUID lobbyID=gameServer.getLobbymanager().createLobby(username);
         session.setAttribute("lobby_id",lobbyID);
     }
 }
     if (request.getParameter("join") != null) {
-        if (!gameServer.isPlayerinLobby(username)) {
-            gameServer.addUserToLobby(username, request.getParameter("join").substring(11));
+        if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
+            gameServer.getLobbymanager().addUserToLobby(username, UUID.fromString(request.getParameter("join").substring(11)));
 
             int lobbyID=Integer.parseInt(request.getParameter("join").substring(11));
             session.setAttribute("lobby_id",lobbyID);
@@ -44,8 +44,8 @@
     }
 
     if (request.getParameter("remove") != null) {
-        if (gameServer.getLobby(UUID.fromString(request.getParameter("remove").substring(13))).getOwner().getPlayername().equals(username)) {
-            gameServer.removeLobby(UUID.fromString(request.getParameter("remove").substring(13)));
+        if (gameServer.getLobbymanager().getLobby(UUID.fromString(request.getParameter("remove").substring(13))).getOwner().getPlayername().equals(username)) {
+            gameServer.getLobbymanager().removeLobby(UUID.fromString(request.getParameter("remove").substring(13)));
         }
     }
 
@@ -55,12 +55,12 @@
 <form action="lobby.jsp" method="POST">
     <h1>
         <%
-            for (Lobby lo : gameServer.getLobbies()) {
-                if (!gameServer.isPlayerinLobby(username) || lo.isPlayerInThatLobby(username)) {
+            for (Lobby lo : gameServer.getLobbymanager().getLobbies()) {
+                if (!gameServer.getLobbymanager().isPlayerinLobby(username) || lo.isPlayerInThatLobby(username)) {
         %>
         <ul>
             <li>Lobby Number <%=lo.getId()%>
-                <%if(!gameServer.isPlayerinLobby(username)){ %> <input type="submit" name="join" value='Join Lobby <%=lo.getId()%>'/> <% } %>
+                <%if(!gameServer.getLobbymanager().isPlayerinLobby(username)){ %> <input type="submit" name="join" value='Join Lobby <%=lo.getId()%>'/> <% } %>
 
                 <%if(lo.getOwner().getPlayername().equals(username)) { %><input type="submit" name="remove" value='Remove Lobby <%=lo.getId()%>'/> <% } %>
                 <ul>
@@ -85,7 +85,7 @@
         %>
     </h1>
 
-    <% if(!gameServer.isPlayerinLobby(username) ){ %>
+    <% if(!gameServer.getLobbymanager().isPlayerinLobby(username) ){ %>
     <input type="submit" name="create" value="Create Lobby"/>
     <% } %>
 </form>
