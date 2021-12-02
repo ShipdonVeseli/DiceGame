@@ -44,7 +44,7 @@
     }
 
     if (request.getParameter("remove") != null) {
-        if (gameServer.getLobbymanager().getLobby(UUID.fromString(request.getParameter("remove").substring(13))).getOwner().getPlayername().equals(username)) {
+        if (gameServer.getLobbymanager().getLobby(UUID.fromString(request.getParameter("remove").substring(13))).getOwner().getPlayerName().equals(username)) {
             gameServer.getLobbymanager().removeLobby(UUID.fromString(request.getParameter("remove").substring(13)));
         }
     }
@@ -62,7 +62,7 @@
             <li>Lobby Number <%=lo.getId()%>
                 <%if(!gameServer.getLobbymanager().isPlayerinLobby(username)){ %> <input type="submit" name="join" value='Join Lobby <%=lo.getId()%>'/> <% } %>
 
-                <%if(lo.getOwner().getPlayername().equals(username)) { %><input type="submit" name="remove" value='Remove Lobby <%=lo.getId()%>'/> <% } %>
+                <%if(lo.getOwner().getPlayerName().equals(username)) { %><input type="submit" name="remove" value='Remove Lobby <%=lo.getId()%>'/> <% } %>
                 <ul>
                     <li>
                         <%

@@ -1,23 +1,23 @@
 package com.example.dicegame;
 
 public class Player {
-    private String playername;
+    private String playerName;
 
     public Player(String username){
-        playername = username;
+        playerName = username;
     }
 
-    public String getPlayername() {
-        return playername;
+    public String getPlayerName() {
+        return playerName;
     }
 
-    public void setPlayername(String playername) {
-        this.playername = playername;
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
     }
 
     @Override
     public String toString() {
-        return playername+" ";
+        return playerName +" ";
     }
 
 

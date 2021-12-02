@@ -18,7 +18,7 @@ public class Lobbymanager {
     public boolean isPlayerinLobby(String username) {
         for (Lobby lobby : lobbies) {
             for (Player player : lobby.getPlayers()) {
-                if (player.getPlayername().equals(username)) {
+                if (player.getPlayerName().equals(username)) {
                     return true;
                 }
             }
@@ -28,7 +28,7 @@ public class Lobbymanager {
 
     public boolean hasPlayerCreatedLobby(String username) {
         for (Lobby lobby : lobbies) {
-            if (lobby.getOwner().getPlayername().equals(username)) {
+            if (lobby.getOwner().getPlayerName().equals(username)) {
                 return true;
             }
         }

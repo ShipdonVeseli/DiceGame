@@ -5,13 +5,11 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 
 public class GameServer {
-
+    private static GameServer gameServer;
     private Lobbymanager lobbymanager;
 
     private GameServer() {
     }
-
-    private static GameServer gameServer;
 
     public static GameServer getInstance() {
         if (gameServer == null) {

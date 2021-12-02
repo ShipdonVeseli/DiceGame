@@ -1,7 +1,6 @@
 package com.example.dicegame;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.UUID;
 
 public class Lobby {
@@ -24,7 +23,7 @@ public class Lobby {
 
     public boolean  isPlayerInThatLobby(String username){
         for (Player player: players) {
-            if(player.getPlayername().equals(username)){
+            if(player.getPlayerName().equals(username)){
                 return true;
             }
         }
