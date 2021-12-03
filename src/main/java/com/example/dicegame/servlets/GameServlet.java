@@ -28,7 +28,7 @@ public class GameServlet extends HttpServlet {
 
                 break;
 
-            default:
+            case "start-game":
 
                 break;
         }

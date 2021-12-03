@@ -9,6 +9,7 @@ public class Lobby {
     private UUID id =UUID.randomUUID();
     private ArrayList<Player> players = new ArrayList<>();
     private Player owner;
+    private Game game=new Game();
 
     public Lobby(String username){
         players.add(new Player(username));
@@ -46,4 +47,11 @@ public class Lobby {
         return id;
     }
 
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
 }
