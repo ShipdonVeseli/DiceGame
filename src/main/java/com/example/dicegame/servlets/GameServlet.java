@@ -18,7 +18,20 @@ public class GameServlet extends HttpServlet {
     }
 
     private void gameFunctions(HttpServletRequest request, HttpServletResponse response){
+        String mode = request.getParameter("mode");
+        switch (mode){
+            case "make-move":
 
+                break;
+
+            case "get-move":
+
+                break;
+
+            default:
+
+                break;
+        }
     }
 
 }
