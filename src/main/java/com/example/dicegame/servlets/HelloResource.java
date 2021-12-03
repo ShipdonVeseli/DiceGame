@@ -1,4 +1,4 @@
-package com.example.dicegame;
+package com.example.dicegame.servlets;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

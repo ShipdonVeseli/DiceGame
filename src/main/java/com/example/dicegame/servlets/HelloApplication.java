@@ -1,4 +1,4 @@
-package com.example.dicegame;
+package com.example.dicegame.servlets;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
