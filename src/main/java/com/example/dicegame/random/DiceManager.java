@@ -3,7 +3,7 @@ package com.example.dicegame.random;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class dice {
+public class DiceManager {
     private RandomContext randomContext=new RandomContext();
 
     private Queue<Integer> dices=new ConcurrentLinkedQueue<>();
