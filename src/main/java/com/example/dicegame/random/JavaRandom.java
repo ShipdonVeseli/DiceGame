@@ -3,8 +3,22 @@ package com.example.dicegame.random;
 import java.util.Queue;
 
 public class JavaRandom implements RandomStrategy{
+    private final int size =200;
+
+
     @Override
     public Queue<Integer> fillQueue(Queue queue) throws Exception {
-        return null;
+        final int min=1;
+        final int max=6;
+
+        for (int i=0;i<size;i++){
+            int randomDice= min+(int)(Math.random()*((max-min)+1)) ;
+            queue.add(randomDice);
+        }
+        return queue;
     }
+
+
+
+
 }
