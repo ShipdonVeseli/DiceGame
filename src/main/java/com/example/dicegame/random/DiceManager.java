@@ -4,6 +4,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class DiceManager {
+    public final static int size =200;
     private RandomContext randomContext=new RandomContext();
 
     private Queue<Integer> dices=new ConcurrentLinkedQueue<>();
