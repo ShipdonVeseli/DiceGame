@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class DiceManager {
     private static DiceManager diceManager;
 
-    public final static int size =200;
+    public final static int size =1000;
 
     private RandomContext randomContext=new RandomContext();
 

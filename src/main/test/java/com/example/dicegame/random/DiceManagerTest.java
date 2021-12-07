@@ -1,5 +1,6 @@
 package com.example.dicegame.random;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
@@ -7,11 +8,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DiceManagerTest {
 
+    DiceManager diceManager=DiceManager.getInstanz();
+    @BeforeEach
+    void setUp() {
+
+    }
 
     @RepeatedTest(100)
     public void testGetDice(){
         try {
-            DiceManager diceManager=DiceManager.getInstanz();
 
             int result=diceManager.getDice();
 
