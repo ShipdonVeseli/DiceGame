@@ -4,10 +4,23 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class DiceManager {
+    private static DiceManager diceManager;
+
     public final static int size =200;
+
     private RandomContext randomContext=new RandomContext();
 
     private Queue<Integer> dices=new ConcurrentLinkedQueue<>();
+
+    public static DiceManager getInstanz(){
+        if(diceManager==null){
+            diceManager=new DiceManager();
+        }
+        return diceManager;
+    }
+
+    private DiceManager() {
+    }
 
     public int getDice(){
         if(dices.size()==0){

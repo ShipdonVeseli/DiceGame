@@ -11,7 +11,7 @@ class DiceManagerTest {
     @RepeatedTest(100)
     public void testGetDice(){
         try {
-            DiceManager diceManager=new DiceManager();
+            DiceManager diceManager=DiceManager.getInstanz();
 
             int result=diceManager.getDice();
 
