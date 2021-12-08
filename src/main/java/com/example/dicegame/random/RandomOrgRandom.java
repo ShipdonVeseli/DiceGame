@@ -11,11 +11,14 @@ public class RandomOrgRandom implements RandomStrategy{
     private final String websiteURL ="https://www.random.org/integers/";
     private final String httpMethod ="GET";
 
+
+
     @Override
     public Queue<Integer> fillQueue(Queue queue) throws Exception {
         System.out.println("Try to get values from random.org");
-        throw new Exception("This is not implemented");
-        //return queue;
+        //throw new Exception("This is not implemented");
+        getRandomValuesFromRandomOrg(queue);
+        return queue;
     }
 
 
@@ -25,38 +28,22 @@ public class RandomOrgRandom implements RandomStrategy{
     }
 
     //FixME
-    public void getRandomValuesFromRandomOrg()throws Exception{
+    public void getRandomValuesFromRandomOrg(Queue<String> queue)throws Exception{
         try {
             URL url=new URL(genURL(DiceManager.size,1,6,1,"10","plain","new"));
             HttpURLConnection connection=(HttpURLConnection) url.openConnection();
             connection.setRequestMethod(httpMethod);
-
-      /*      connection.setRequestProperty("num", String.valueOf(DiceManager.size));
-            connection.setRequestProperty("min", "1");
-            connection.setRequestProperty("max", "6");
-
-            connection.setRequestProperty("col", "1");
-            connection.setRequestProperty("base", "10");
-            connection.setRequestProperty("format", "plain");
-
-            connection.setRequestProperty("rnd", "new");*/
-
-
 
             System.out.println(connection.getURL());
 
             int responseCode= connection.getResponseCode();
             System.out.println( "response code=  "+ responseCode);
             if(responseCode!=200){
-                //TODO: Throw Exeption
+                throw new Exception("Random.org can not be reached");
             }
             InputStream response =connection.getInputStream();
 
-            write(response);
-
-
-
-
+            write(response,queue);
         }catch (Exception e){
             e.printStackTrace();
             throw e;
@@ -64,10 +51,15 @@ public class RandomOrgRandom implements RandomStrategy{
     }
 
 
-    private void write(InputStream inputStream){
+    private void write(InputStream inputStream,Queue<String> queue){
         BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(inputStream));
         String line=null;
-        bufferedReader.lines().forEach(e-> System.out.println(e));
+        bufferedReader.lines().forEach(e-> {
+                    System.out.println(e);
+                    queue.add(e.toString());
+                }
+
+        );
 //        do {
 //            try {
 //
