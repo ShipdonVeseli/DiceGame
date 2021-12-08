@@ -36,6 +36,11 @@ public class RandomOrgRandom implements RandomStrategy{
 
             connection.setRequestProperty("rnd", "new");
 
+            int responseCode= connection.getResponseCode();
+            System.out.println( "response code=  "+ responseCode);
+            if(responseCode!=200){
+                //TODO: Throw Exeption
+            }
             InputStream response =connection.getInputStream();
 
             write(response);

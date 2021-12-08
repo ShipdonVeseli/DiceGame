@@ -26,6 +26,7 @@ public class LobbyServlet extends HttpServlet {
         String mode = request.getParameter("mode");
 
         String username = request.getParameter("username");
+
         switch (mode) {
             case "join":
                 UUID lobbyID = UUID.fromString(request.getParameter("lobbyID"));
@@ -61,6 +62,17 @@ public class LobbyServlet extends HttpServlet {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                break;
+
+
+            case "get-Lobbies":
+                //TODO
+                break;
+
+
+            default:
+
+                //TODO:Return Erorr
                 break;
         }
     }
