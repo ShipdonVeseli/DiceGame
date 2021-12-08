@@ -19,14 +19,19 @@ public class RandomOrgRandom implements RandomStrategy{
     }
 
 
+    private String genURL(int num,int min,int max, int col,String base,String format,String rnd){
+
+        return websiteURL+"?"+"num="+num+"&min="+min+"&max="+max+"&col="+col+"&base="+base+"&format="+format+"&rnd="+rnd;
+    }
+
     //FixME
     public void getRandomValuesFromRandomOrg()throws Exception{
         try {
-            URL url=new URL(websiteURL);
+            URL url=new URL(genURL(DiceManager.size,1,6,1,"10","plain","new"));
             HttpURLConnection connection=(HttpURLConnection) url.openConnection();
             connection.setRequestMethod(httpMethod);
 
-            connection.setRequestProperty("num", String.valueOf(DiceManager.size));
+      /*      connection.setRequestProperty("num", String.valueOf(DiceManager.size));
             connection.setRequestProperty("min", "1");
             connection.setRequestProperty("max", "6");
 
@@ -34,7 +39,11 @@ public class RandomOrgRandom implements RandomStrategy{
             connection.setRequestProperty("base", "10");
             connection.setRequestProperty("format", "plain");
 
-            connection.setRequestProperty("rnd", "new");
+            connection.setRequestProperty("rnd", "new");*/
+
+
+
+            System.out.println(connection.getURL());
 
             int responseCode= connection.getResponseCode();
             System.out.println( "response code=  "+ responseCode);
