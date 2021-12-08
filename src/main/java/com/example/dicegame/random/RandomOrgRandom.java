@@ -13,6 +13,7 @@ public class RandomOrgRandom implements RandomStrategy{
 
 
 
+
     @Override
     public Queue<Integer> fillQueue(Queue queue) throws Exception {
         System.out.println("Try to get values from random.org");
@@ -28,7 +29,7 @@ public class RandomOrgRandom implements RandomStrategy{
     }
 
     //FixME
-    public void getRandomValuesFromRandomOrg(Queue<String> queue)throws Exception{
+    public void getRandomValuesFromRandomOrg(Queue<Integer> queue)throws Exception{
         try {
             URL url=new URL(genURL(DiceManager.size,1,6,1,"10","plain","new"));
             HttpURLConnection connection=(HttpURLConnection) url.openConnection();
@@ -51,12 +52,12 @@ public class RandomOrgRandom implements RandomStrategy{
     }
 
 
-    private void write(InputStream inputStream,Queue<String> queue){
+    private void write(InputStream inputStream,Queue<Integer> queue){
         BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(inputStream));
         String line=null;
         bufferedReader.lines().forEach(e-> {
                     System.out.println(e);
-                    queue.add(e.toString());
+                    queue.add(Integer.valueOf(e.toString()));
                 }
 
         );
