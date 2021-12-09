@@ -14,10 +14,4 @@ public class RandomContext {
         return strategy.fillQueue(queue);
     }
 
-
-
-
-
-
-
 }

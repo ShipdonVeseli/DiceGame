@@ -4,6 +4,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class DiceManager {
+
     private static DiceManager diceManager;
 
     public final static int size =1000;
@@ -44,16 +45,6 @@ public class DiceManager {
                 } catch (Exception exception) {
                     exception.printStackTrace();
                 }
-
         }
-
     }
-
-
-
-
-
-
-
-
 }

@@ -8,7 +8,9 @@ import java.net.URL;
 public class HttpSend {
 
     private String url;
+
     private HttpURLConnection connection;
+
     private String httpMethode;
 
     private int parameterCount = 0;
@@ -51,9 +53,9 @@ public class HttpSend {
         return connection.getResponseCode();
     }
 
-    public void init() throws IOException{
-        URL urlNet=new URL(url);
-        connection=(HttpURLConnection) urlNet.openConnection();
+    public void init() throws IOException {
+        URL urlNet = new URL(url);
+        connection = (HttpURLConnection) urlNet.openConnection();
         connection.setRequestMethod(httpMethode);
     }
 
