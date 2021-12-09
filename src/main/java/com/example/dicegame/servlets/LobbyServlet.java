@@ -37,11 +37,11 @@ public class LobbyServlet extends HttpServlet {
 
     private String getParmeterValue(Map<String, String[]> map, String name) {
         final String[] result = new String[1];
-        result[0]="error";
+        result[0] = "error";
         map.forEach((e, v) -> {
-           if (e.equalsIgnoreCase(name)){
-               result[0] =v[0];
-           }
+            if (e.equalsIgnoreCase(name)) {
+                result[0] = v[0];
+            }
         });
         return result[0];
     }
@@ -53,14 +53,14 @@ public class LobbyServlet extends HttpServlet {
 
             printNames(map);
 
-            String mode = getParmeterValue(map,"mode");//request.getParameter("mode");
+            String mode = getParmeterValue(map, "mode");//request.getParameter("mode");
 
-            String username = getParmeterValue(map,"username");//request.getParameter("username");
+            String username = getParmeterValue(map, "username");//request.getParameter("username");
 
 
             switch (mode) {
                 case "join":
-                    UUID lobbyID = UUID.fromString(getParmeterValue(map,"lobbyID"));//request.getParameter("lobbyID"));
+                    UUID lobbyID = UUID.fromString(getParmeterValue(map, "lobbyID"));//request.getParameter("lobbyID"));
                     try {
                         if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
                             gameServer.getLobbymanager().addUserToLobby(username, lobbyID);
@@ -95,14 +95,11 @@ public class LobbyServlet extends HttpServlet {
                     }
                     break;
 
-
                 case "get-Lobbies":
                     //TODO
                     break;
 
-
                 default:
-
                     //TODO:Return Erorr
                     break;
             }
