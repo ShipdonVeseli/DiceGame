@@ -57,4 +57,15 @@ class LobbyServletTest {
         }
     }
 
+    @Test
+    public void testJoinLobby(){
+
+
+    }
+
+    @Test
+    public void testLeaveLobby(){
+
+    }
+
 }
