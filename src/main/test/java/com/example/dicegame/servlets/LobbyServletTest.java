@@ -21,9 +21,9 @@ class LobbyServletTest {
             System.out.println(httpSend.getUrl());
             System.out.println(code);
 
-            int expecedCode = 200;
+            int expectedCode = 200;
 
-            assertEquals(code, expecedCode);
+            assertEquals(code, expectedCode);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,7 +59,6 @@ class LobbyServletTest {
 
     @Test
     public void testJoinLobby(){
-
 
     }
 
