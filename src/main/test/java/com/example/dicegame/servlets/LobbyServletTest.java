@@ -7,6 +7,36 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LobbyServletTest {
 
+    @Test
+    public void testIfLobbyServletCanBeReachedLobby() {
+        try {
+
+            HttpSend httpSend = new HttpSend("http://localhost:8079/Lobby-servlet");
+            httpSend.setHttpMethode("GET");
+
+
+
+            httpSend.init();
+
+            int code=httpSend.getStatus();
+            httpSend.start();
+
+            System.out.println(httpSend.getUrl());
+            System.out.println(code);
+
+            int expecedCode=200;
+
+            assertEquals(code,expecedCode);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+
+
+    }
+
+
 
     @Test
     public void testCreateLobby() {
@@ -16,7 +46,7 @@ class LobbyServletTest {
             httpSend.setHttpMethode("GET");
 
             httpSend.addParameter("mode", "create");
-            httpSend.addParameter("username", "Test-User");
+           httpSend.addParameter("username", "TestUser");
 
             httpSend.init();
 
@@ -31,8 +61,6 @@ class LobbyServletTest {
             e.printStackTrace();
             fail();
         }
-
-
     }
 
 }
