@@ -74,6 +74,8 @@ public class Lobbymanager {
         //  lobbies.add(new Lobby(username));
         Lobby lobby = new Lobby(new Player(username));
         lobbies.add(lobby);
+        System.out.println("added Lobby");
+        System.out.println(lobby);
         toString();
         return lobby.getId();
     }

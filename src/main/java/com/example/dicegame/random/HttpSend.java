@@ -37,7 +37,7 @@ public class HttpSend {
 
     public void addParameter(String parameterName, String value) {
         if (parameterCount == 0) {
-            url += "/?";
+            url += "?";
         } else {
             url += "&";
         }
