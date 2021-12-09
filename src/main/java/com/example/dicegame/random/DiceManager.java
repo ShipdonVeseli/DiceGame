@@ -24,24 +24,29 @@ public class DiceManager {
 
     public int getDice(){
         if(dices.size()==0){
-            fillQueue();
+            fillQueue(0);
         }
         return dices.poll();
     }
 
-    private void fillQueue(){
+    private void fillQueue(int count){
         try {
             randomContext.SetStrategy(new RandomOrgRandom());
             randomContext.fillQueue(dices);
         }catch (Exception e){
             //if Random.org can not be reached
             e.printStackTrace();
-            //use java Random Instead
-            try {
-                randomContext.SetStrategy(new JavaRandom());
-                randomContext.fillQueue(dices);
-            }catch (Exception exception){
-                exception.printStackTrace();
+
+            if(count>5) {
+                //use java Random Instead
+                try {
+                    randomContext.SetStrategy(new JavaRandom());
+                    randomContext.fillQueue(dices);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            }else {
+                fillQueue(count++);
             }
         }
 
