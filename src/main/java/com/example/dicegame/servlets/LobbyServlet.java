@@ -60,7 +60,7 @@ public class LobbyServlet extends HttpServlet {
 
             switch (mode) {
                 case "join":
-                    UUID lobbyID = UUID.fromString(request.getParameter("lobbyID"));
+                    UUID lobbyID = UUID.fromString(getParmeterValue(map,"lobbyID"));//request.getParameter("lobbyID"));
                     try {
                         if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
                             gameServer.getLobbymanager().addUserToLobby(username, lobbyID);
