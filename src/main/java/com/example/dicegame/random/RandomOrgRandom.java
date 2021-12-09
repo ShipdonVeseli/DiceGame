@@ -31,18 +31,29 @@ public class RandomOrgRandom implements RandomStrategy{
     //FixME
     public void getRandomValuesFromRandomOrg(Queue<Integer> queue)throws Exception{
         try {
-            URL url=new URL(genURL(DiceManager.size,1,6,1,"10","plain","new"));
+           /* URL url=new URL(genURL(DiceManager.size,1,6,1,"10","plain","new"));
             HttpURLConnection connection=(HttpURLConnection) url.openConnection();
-            connection.setRequestMethod(httpMethod);
+            connection.setRequestMethod(httpMethod);*/
+            HttpSend httpSend=new HttpSend(websiteURL);
+            httpSend.setHttpMethode(httpMethod);
 
-            System.out.println(connection.getURL());
+            httpSend.addParameter("num",String.valueOf(DiceManager.size));
+            httpSend.addParameter("min","1");
+            httpSend.addParameter("max","6");
+            httpSend.addParameter("col","1");
+            httpSend.addParameter("base","10");
+            httpSend.addParameter("format","plain");
+            httpSend.addParameter("rnd","new");
 
-            int responseCode= connection.getResponseCode();
+            httpSend.init();
+            System.out.println(httpSend.getUrl());
+
+            int responseCode= httpSend.getStatus();
             System.out.println( "response code=  "+ responseCode);
             if(responseCode!=200){
                 throw new Exception("Random.org can not be reached");
             }
-            InputStream response =connection.getInputStream();
+            InputStream response =httpSend.start();
 
             write(response,queue);
         }catch (Exception e){

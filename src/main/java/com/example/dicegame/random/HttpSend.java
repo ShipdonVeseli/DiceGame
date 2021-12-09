@@ -17,6 +17,10 @@ public class HttpSend {
         this.url = url;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
     public int getNumberOfParameters() {
         return parameterCount;
     }
@@ -49,7 +53,7 @@ public class HttpSend {
 
     public void init() throws IOException{
         URL urlNet=new URL(url);
-        HttpURLConnection connection=(HttpURLConnection) urlNet.openConnection();
+        connection=(HttpURLConnection) urlNet.openConnection();
         connection.setRequestMethod(httpMethode);
     }
 
