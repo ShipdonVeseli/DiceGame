@@ -9,6 +9,7 @@ public class GameServer {
     private Lobbymanager lobbymanager;
 
     private GameServer() {
+        this.lobbymanager = new Lobbymanager();
     }
 
     public static GameServer getInstance() {
