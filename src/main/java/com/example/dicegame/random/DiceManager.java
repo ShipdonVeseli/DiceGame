@@ -37,7 +37,6 @@ public class DiceManager {
             //if Random.org can not be reached
             e.printStackTrace();
 
-            if(count>5) {
                 //use java Random Instead
                 try {
                     randomContext.SetStrategy(new JavaRandom());
@@ -45,9 +44,7 @@ public class DiceManager {
                 } catch (Exception exception) {
                     exception.printStackTrace();
                 }
-            }else {
-                fillQueue(count++);
-            }
+
         }
 
     }
