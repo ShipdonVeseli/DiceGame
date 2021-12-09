@@ -23,57 +23,63 @@ public class LobbyServlet extends HttpServlet {
     }
 
     private void lobbyFunctions(HttpServletRequest request, HttpServletResponse response) {
-        String mode = request.getParameter("mode");
+        try {
 
-        String username = request.getParameter("username");
 
-        switch (mode) {
-            case "join":
-                UUID lobbyID = UUID.fromString(request.getParameter("lobbyID"));
-                try {
-                    if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
-                        gameServer.getLobbymanager().addUserToLobby(username, lobbyID);
-                    } else {
-                        response.sendError(0);//ToDo correct Error handling
+            String mode = request.getParameter("mode");
+
+            String username = request.getParameter("username");
+
+            switch (mode) {
+                case "join":
+                    UUID lobbyID = UUID.fromString(request.getParameter("lobbyID"));
+                    try {
+                        if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
+                            gameServer.getLobbymanager().addUserToLobby(username, lobbyID);
+                        } else {
+                            response.sendError(0);//ToDo correct Error handling
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
+                    break;
 
-            case "create":
-                try {
-                    if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
-                        String id = gameServer.getLobbymanager().createLobby(username).toString();
-                        Cookie cookie = new Cookie("lobbyID", id);
-                        response.addCookie(cookie);
-                    } else {
-                        response.sendError(0);//ToDo correct Error handling
+                case "create":
+                    try {
+                        if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
+                            String id = gameServer.getLobbymanager().createLobby(username).toString();
+                            Cookie cookie = new Cookie("lobbyID", id);
+                            response.addCookie(cookie);
+                        } else {
+                            response.sendError(0);//ToDo correct Error handling
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
+                    break;
 
-            case "leave":
-                try {
+                case "leave":
+                    try {
                         String IDofLobby = (request.getParameter("lobbyID"));
                         gameServer.getLobbymanager().removePlayerFromLobby(username, IDofLobby);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
 
 
-            case "get-Lobbies":
-                //TODO
-                break;
+                case "get-Lobbies":
+                    //TODO
+                    break;
 
 
-            default:
+                default:
 
-                //TODO:Return Erorr
-                break;
+                    //TODO:Return Erorr
+                    break;
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

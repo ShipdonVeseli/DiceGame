@@ -74,6 +74,7 @@ public class Lobbymanager {
         //  lobbies.add(new Lobby(username));
         Lobby lobby = new Lobby(new Player(username));
         lobbies.add(lobby);
+        toString();
         return lobby.getId();
     }
 
@@ -86,5 +87,10 @@ public class Lobbymanager {
         throw new NoSuchElementException("No lobby with id = " + id);
     }
 
-
+    @Override
+    public String toString() {
+        return "Lobbymanager{" +
+                "lobbies=" + lobbies +
+                '}';
+    }
 }
