@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.Map;
 import java.util.UUID;
 
@@ -35,7 +34,7 @@ public class LobbyServlet extends HttpServlet {
         });
     }
 
-    private String getParmeterValue(Map<String, String[]> map, String name) {
+    private String getParameterValue(Map<String, String[]> map, String name) {
         final String[] result = new String[1];
         result[0] = "error";
         map.forEach((e, v) -> {
@@ -53,14 +52,14 @@ public class LobbyServlet extends HttpServlet {
 
             printNames(map);
 
-            String mode = getParmeterValue(map, "mode");//request.getParameter("mode");
+            String mode = getParameterValue(map, "mode");
 
-            String username = getParmeterValue(map, "username");//request.getParameter("username");
+            String username = getParameterValue(map, "username");
 
 
             switch (mode) {
                 case "join":
-                    UUID lobbyID = UUID.fromString(getParmeterValue(map, "lobbyID"));//request.getParameter("lobbyID"));
+                    UUID lobbyID = UUID.fromString(getParameterValue(map, "lobbyID"));
                     try {
                         if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
                             gameServer.getLobbymanager().addUserToLobby(username, lobbyID);

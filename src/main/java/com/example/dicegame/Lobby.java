@@ -9,7 +9,7 @@ public class Lobby {
     private UUID id = UUID.randomUUID();
     private ArrayList<Player> players = new ArrayList<>();
     private Player owner;
-    private Game game = new Game();
+    private Game game;
 
     public Lobby(String username) {
         players.add(new Player(username));
@@ -21,6 +21,12 @@ public class Lobby {
         lobbyCount++;
         this.owner = owner;
     }
+
+    public void startGame(){
+        game=new Game(this);
+    }
+
+
 
     public boolean isPlayerInThatLobby(String username) {
         for (Player player : players) {
@@ -55,9 +61,7 @@ public class Lobby {
         return game;
     }
 
-    public void setGame(Game game) {
-        this.game = game;
-    }
+
 
     @Override
     public String toString() {
@@ -68,4 +72,6 @@ public class Lobby {
                 ", game=" + game +
                 '}';
     }
+
+
 }
