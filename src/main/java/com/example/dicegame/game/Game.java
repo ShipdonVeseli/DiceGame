@@ -1,4 +1,6 @@
-package com.example.dicegame;
+package com.example.dicegame.game;
+
+import com.example.dicegame.Lobby;
 
 public class Game {
     private Lobby lobby;

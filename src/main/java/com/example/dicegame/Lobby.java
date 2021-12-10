@@ -1,5 +1,7 @@
 package com.example.dicegame;
 
+import com.example.dicegame.game.Game;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
