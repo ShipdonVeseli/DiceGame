@@ -1,18 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Dice Game</title>
 </head>
+
 <body>
     <h1 id="h1">Dice Game</h1>
-    <form id="createSession" action="createSession.jsp">
-        Username: <input type="text" name="username"/>
+    <form id="createSession" onsubmit="setUsername()">
+        Username: <input type="text" id="username"/>
         <input type="submit" value="Set Username"/>
     </form>
-
-    <form action="game.html">
-        <input type="submit" value="Start Game">
+    <form id="loggedin" onsubmit="logout()">
+        <input type="submit" value="Logout">
+        <ul id="lobbies">
+        </ul>
     </form>
 </body>
+
+<script>
+    async function getLobbies(){
+         const response = await fetch("http://localhost:8079/Lobby-servlet?mode=get-Lobbies", {
+             method: "POST",
+             headers: {
+                 "Content-Type": "application/json"
+             }
+        })
+        for (let [key, value] of response.headers) {
+            if(`${key}` === "lobbies"){
+                var jsonobject = JSON.parse(`${value}`);
+                console.log(jsonobject.lobbyid)
+            }
+        }
+    }
+    if(sessionStorage.getItem("username") !== null) {
+        document.getElementById("createSession").style.display = "none";
+        getLobbies();
+
+    }else{
+        document.getElementById("loggedin").style.display = "none";
+    }
+
+    function logout(){
+        sessionStorage.removeItem("username");
+    }
+
+    function setUsername(){
+        sessionStorage.setItem("username", document.getElementById("username").value);
+        document.getElementById("createSession").style.display = "none";
+    }
+</script>
 </html>

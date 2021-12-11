@@ -95,4 +95,12 @@ public class Lobbymanager {
                 "lobbies=" + lobbies +
                 '}';
     }
+
+    public String converToJSON() {
+        String result = "";
+        for(Lobby lobby: this.getLobbies()){
+            result += "{\"lobbyid\": \""+lobby.getId().toString()+"\", \"owner\": \""+lobby.getOwner().getPlayerName()+"\"}";
+        }
+        return result;
+    }
 }
