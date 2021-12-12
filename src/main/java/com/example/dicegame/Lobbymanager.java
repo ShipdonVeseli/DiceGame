@@ -60,6 +60,19 @@ public class Lobbymanager {
         throw new NoSuchElementException("No lobby with id = " + lobbyId);
     }
 
+    public Lobby removePlayerFromLobby2(String userName) {
+        for (Lobby lobby: this.lobbies) {
+            for (Player player : lobby.getPlayers()){
+                if (player.getPlayerName().equals(userName)) {
+                    lobby.removePlayer(player);
+                    if(lobby.getPlayers().size() == 0) removeLobby(lobby.getId());
+                    return lobby;
+                }
+            }
+        }
+        throw new NoSuchElementException("No Player found with = " + userName);
+    }
+
     public void removeLobby(UUID id) {
         for (Lobby lobby : lobbies) {
             if (lobby.getId().equals(id)) {
@@ -97,10 +110,30 @@ public class Lobbymanager {
     }
 
     public String converToJSON() {
-        String result = "";
-        for(Lobby lobby: this.getLobbies()){
-            result += "{\"lobbyid\": \""+lobby.getId().toString()+"\", \"owner\": \""+lobby.getOwner().getPlayerName()+"\"}";
+        String result = "[";
+        for(int i = 0; i < getLobbies().size(); i++){
+            result += "{\"lobbyid\": \"" + lobbies.get(i).getId().toString() + "\", \"lobbyowner\": \"" + lobbies.get(i).getOwner().getPlayerName() + "\", \"players\": \"";
+            for(int j=0; j < lobbies.get(i).getPlayers().size(); j++){
+                result += lobbies.get(i).getPlayers().get(j).getPlayerName();
+                if(j != lobbies.get(i).getPlayers().size() -1 ) result += ",";
+            }
+            result += "\"}";
+            if(i != getLobbies().size() -1 ) result += ",";
         }
+        result += "]";
+        System.out.println(result);
         return result;
+    }
+
+    public boolean checkUsername(String username) {
+        for (Lobby lobby: this.lobbies) {
+            for (Player player : lobby.getPlayers()){
+                if (player.getPlayerName().equals(username)) {
+                    lobby.removePlayer(player);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

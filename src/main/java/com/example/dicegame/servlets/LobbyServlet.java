@@ -28,9 +28,7 @@ public class LobbyServlet extends HttpServlet {
     private void lobbyFunctions(HttpServletRequest request, HttpServletResponse response) {
         try {
             String mode = request.getParameter("mode");
-
             String username = request.getParameter("username");
-
             switch (mode) {
                 case "join":
                     UUID lobbyID = UUID.fromString(request.getParameter("lobbyID"));
@@ -38,13 +36,13 @@ public class LobbyServlet extends HttpServlet {
                         if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
                             gameServer.getLobbymanager().addUserToLobby(username, lobbyID);
                         } else {
+                            gameServer.getLobbymanager().removePlayerFromLobby2(username);
                             response.sendError(0);//ToDo correct Error handling
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     break;
-
                 case "create":
                     try {
                         if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
@@ -52,6 +50,8 @@ public class LobbyServlet extends HttpServlet {
                             Cookie cookie = new Cookie("lobbyID", id);
                             response.addCookie(cookie);
                         } else {
+                            gameServer.getLobbymanager().removePlayerFromLobby2(username);
+                            gameServer.getLobbymanager().createLobby(username);
                             response.sendError(0);//ToDo correct Error handling
                         }
                     } catch (Exception e) {
@@ -62,7 +62,7 @@ public class LobbyServlet extends HttpServlet {
                 case "leave":
                     try {
                         String IDofLobby = (request.getParameter("lobbyID"));
-                        gameServer.getLobbymanager().removePlayerFromLobby(username, IDofLobby);
+                        Lobby lobby = gameServer.getLobbymanager().removePlayerFromLobby2(username);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -74,6 +74,14 @@ public class LobbyServlet extends HttpServlet {
                    System.out.println(gameServer.getLobbymanager().converToJSON());
                     response.setHeader("lobbies", gameServer.getLobbymanager().converToJSON());
                     break;
+
+                case "check":
+                    if(gameServer.getLobbymanager().checkUsername(username)){
+                        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    }else{
+                        response.setStatus(HttpServletResponse.SC_OK);
+                    }
+                    break;
                 default:
 
                     //TODO:Return Erorr
@@ -84,33 +92,6 @@ public class LobbyServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
-
-    private void getLobbies(HttpServletResponse response) {
-
-        response.setContentType("text/html");
-
-        // Hello
-        PrintWriter out = null;
-        try {
-            out = response.getWriter();
-            out.println("<html><body>");
-            for(Lobby lobby: gameServer.getLobbymanager().getLobbies()){
-                out.println("<ul>");
-                out.println("<li>"+lobby.getOwner()+" Lobby </li>");
-                    out.println("<ul>");
-                    for(Player player: lobby.getPlayers()){
-                        out.println("<li>"+player.getPlayerName()+"</li>");
-                    }
-                    out.println("</ul>");
-                out.println("</ul>");
-            }
-            out.println("</body></html>");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
 
     public void destroy() {
     }
