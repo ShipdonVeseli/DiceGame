@@ -4,7 +4,7 @@ import com.example.dicegame.GameServer;
 import com.example.dicegame.Lobby;
 
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @WebServlet(name = "LobbyServlet", value = "/Lobby-servlet")
-public class LobbyServlet  {
+public class LobbyServlet extends HttpServlet {
     private GameServer gameServer = GameServer.getInstance();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
