@@ -30,8 +30,9 @@ public class Lobby {
         game=new Game(this);
     }
 
-
-
+    public boolean isHasGameStarted() {
+        return hasGameStarted;
+    }
 
     public boolean isPlayerInThatLobby(String username) {
         for (Player player : players) {
