@@ -10,32 +10,26 @@ class LobbyServletTest {
     @Test
     public void testIfLobbyServletCanBeReachedLobby() {
         try {
-
             HttpSend httpSend = new HttpSend("http://localhost:8079/Lobby-servlet");
             httpSend.setHttpMethode("GET");
 
-
-
             httpSend.init();
 
-            int code=httpSend.getStatus();
+            int code = httpSend.getStatus();
             httpSend.start();
 
             System.out.println(httpSend.getUrl());
             System.out.println(code);
 
-            int expecedCode=200;
+            int expectedCode = 200;
 
-            assertEquals(code,expecedCode);
+            assertEquals(code, expectedCode);
 
         } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
-
-
     }
-
 
 
     @Test
@@ -46,11 +40,11 @@ class LobbyServletTest {
             httpSend.setHttpMethode("GET");
 
             httpSend.addParameter("mode", "create");
-           httpSend.addParameter("username", "TestUser");
+            httpSend.addParameter("username", "TestUser");
 
             httpSend.init();
 
-            int code=httpSend.getStatus();
+            int code = httpSend.getStatus();
             httpSend.start();
 
             System.out.println(httpSend.getUrl());
@@ -61,6 +55,16 @@ class LobbyServletTest {
             e.printStackTrace();
             fail();
         }
+    }
+
+    @Test
+    public void testJoinLobby(){
+
+    }
+
+    @Test
+    public void testLeaveLobby(){
+
     }
 
 }

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 import java.util.UUID;
 
 @WebServlet(name = "LobbyServlet", value = "/Lobby-servlet")
@@ -25,13 +26,44 @@ public class LobbyServlet extends HttpServlet {
         lobbyFunctions(request, response);
     }
 
+    private void printNames(Map<String, String[]> map) {
+        map.forEach((e, v) -> {
+            System.out.println("parameter: " + e + " has Values:");
+
+            for (String parameterValue : v) {
+                System.out.println("Value: " + parameterValue);
+            }
+
+        });
+    }
+
+    private String getParameterValue(Map<String, String[]> map, String name) {
+        final String[] result = new String[1];
+        result[0] = "error";
+        map.forEach((e, v) -> {
+            if (e.equalsIgnoreCase(name)) {
+                result[0] = v[0];
+            }
+        });
+        return result[0];
+    }
+
     private void lobbyFunctions(HttpServletRequest request, HttpServletResponse response) {
         try {
             String mode = request.getParameter("mode");
             String username = request.getParameter("username");
+
+            Map<String, String[]> map = request.getParameterMap();
+
+            printNames(map);
+
+            String mode = getParameterValue(map, "mode");
+
+            String username = getParameterValue(map, "username");
+
             switch (mode) {
                 case "join":
-                    UUID lobbyID = UUID.fromString(request.getParameter("lobbyID"));
+                    UUID lobbyID = UUID.fromString(getParameterValue(map, "lobbyID"));
                     try {
                         if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
                             gameServer.getLobbymanager().addUserToLobby(username, lobbyID);
@@ -68,7 +100,6 @@ public class LobbyServlet extends HttpServlet {
                     }
                     break;
 
-
                 case "get-Lobbies":
                     //TODO
                    System.out.println(gameServer.getLobbymanager().converToJSON());
@@ -82,13 +113,14 @@ public class LobbyServlet extends HttpServlet {
                         response.setStatus(HttpServletResponse.SC_OK);
                     }
                     break;
-                default:
 
+                default:
                     //TODO:Return Erorr
                     break;
             }
 
-        }catch (Exception e) {
+        } catch (Exception e) {
+
             e.printStackTrace();
         }
     }
