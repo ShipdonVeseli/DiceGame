@@ -2,20 +2,17 @@ package com.example.dicegame.servlets;
 
 import com.example.dicegame.GameServer;
 import com.example.dicegame.Lobby;
-import com.example.dicegame.Player;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Map;
 import java.util.UUID;
 
 @WebServlet(name = "LobbyServlet", value = "/Lobby-servlet")
-public class LobbyServlet extends HttpServlet {
+public class LobbyServlet  {
     private GameServer gameServer = GameServer.getInstance();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -26,27 +23,27 @@ public class LobbyServlet extends HttpServlet {
         lobbyFunctions(request, response);
     }
 
-    private void printNames(Map<String, String[]> map) {
-        map.forEach((e, v) -> {
-            System.out.println("parameter: " + e + " has Values:");
-
-            for (String parameterValue : v) {
-                System.out.println("Value: " + parameterValue);
-            }
-
-        });
-    }
-
-    private String getParameterValue(Map<String, String[]> map, String name) {
-        final String[] result = new String[1];
-        result[0] = "error";
-        map.forEach((e, v) -> {
-            if (e.equalsIgnoreCase(name)) {
-                result[0] = v[0];
-            }
-        });
-        return result[0];
-    }
+//    private static void printNames(Map<String, String[]> map) {
+//        map.forEach((e, v) -> {
+//            System.out.println("parameter: " + e + " has Values:");
+//
+//            for (String parameterValue : v) {
+//                System.out.println("Value: " + parameterValue);
+//            }
+//
+//        });
+//    }
+//
+//    private static String getParameterValue(Map<String, String[]> map, String name) {
+//        final String[] result = new String[1];
+//        result[0] = "error";
+//        map.forEach((e, v) -> {
+//            if (e.equalsIgnoreCase(name)) {
+//                result[0] = v[0];
+//            }
+//        });
+//        return result[0];
+//    }
 
     private void lobbyFunctions(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -54,15 +51,15 @@ public class LobbyServlet extends HttpServlet {
 
             Map<String, String[]> map = request.getParameterMap();
 
-            printNames(map);
+            ServletFunctions.printNames(map);
 
-            String mode = getParameterValue(map, "mode");
+            String mode =   ServletFunctions.getParameterValue(map, "mode");
 
-            String username = getParameterValue(map, "username");
+            String username =   ServletFunctions.getParameterValue(map, "username");
 
             switch (mode) {
                 case "join":
-                    UUID lobbyID = UUID.fromString(getParameterValue(map, "lobbyID"));
+                    UUID lobbyID = UUID.fromString(  ServletFunctions.getParameterValue(map, "lobbyID"));
                     try {
                         if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
                             gameServer.getLobbymanager().addUserToLobby(username, lobbyID);
@@ -78,12 +75,15 @@ public class LobbyServlet extends HttpServlet {
                     try {
                         if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
                             String id = gameServer.getLobbymanager().createLobby(username).toString();
-                            Cookie cookie = new Cookie("lobbyID", id);
-                            response.addCookie(cookie);
+//                            Cookie cookie = new Cookie("lobbyID", id);
+//                            response.addCookie(cookie);
+
+                            response.setHeader("lobbyID",id);
                         } else {
                             gameServer.getLobbymanager().removePlayerFromLobby2(username);
-                            gameServer.getLobbymanager().createLobby(username);
-                            response.sendError(0);//ToDo correct Error handling
+
+                            String id = gameServer.getLobbymanager().createLobby(username).toString();
+                            response.setHeader("lobbyID",id);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -92,7 +92,7 @@ public class LobbyServlet extends HttpServlet {
 
                 case "leave":
                     try {
-                        String IDofLobby = (getParameterValue(map, "lobbyID"));//request.getParameter("lobbyID"));
+                        String IDofLobby = (  ServletFunctions.getParameterValue(map, "lobbyID"));//request.getParameter("lobbyID"));
                         Lobby lobby = gameServer.getLobbymanager().removePlayerFromLobby2(username);
                     } catch (Exception e) {
                         e.printStackTrace();

@@ -12,6 +12,7 @@ public class Lobby {
     private ArrayList<Player> players = new ArrayList<>();
     private Player owner;
     private Game game;
+    private boolean hasGameStarted=false;
 
     public Lobby(String username) {
         players.add(new Player(username));
@@ -25,8 +26,10 @@ public class Lobby {
     }
 
     public void startGame(){
+        hasGameStarted=true;
         game=new Game(this);
     }
+
 
 
 
