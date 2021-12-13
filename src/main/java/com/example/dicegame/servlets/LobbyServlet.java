@@ -50,8 +50,7 @@ public class LobbyServlet extends HttpServlet {
 
     private void lobbyFunctions(HttpServletRequest request, HttpServletResponse response) {
         try {
-            String mode = request.getParameter("mode");
-            String username = request.getParameter("username");
+
 
             Map<String, String[]> map = request.getParameterMap();
 
