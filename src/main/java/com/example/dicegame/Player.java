@@ -16,6 +16,18 @@ public class Player {
         playerName = username;
     }
 
+    public void addResources(ArrayList<Resources>additionalResources){
+        resources.addAll(additionalResources);
+    }
+
+    public ArrayList<Resources> getResources() {
+        return resources;
+    }
+
+    public void emptyResources(){
+        resources=new ArrayList<>();
+    }
+
     public String getPlayerName() {
         return playerName;
     }
