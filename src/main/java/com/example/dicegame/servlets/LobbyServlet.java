@@ -92,7 +92,7 @@ public class LobbyServlet extends HttpServlet {
 
                 case "leave":
                     try {
-                        String IDofLobby = (request.getParameter("lobbyID"));
+                        String IDofLobby = (getParameterValue(map, "lobbyID"));//request.getParameter("lobbyID"));
                         Lobby lobby = gameServer.getLobbymanager().removePlayerFromLobby2(username);
                     } catch (Exception e) {
                         e.printStackTrace();

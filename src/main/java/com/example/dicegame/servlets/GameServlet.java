@@ -30,6 +30,8 @@ public class GameServlet extends HttpServlet {
 
             case "start-game":
 
+                response.setHeader("isStarted","false");
+
                 break;
         }
     }
