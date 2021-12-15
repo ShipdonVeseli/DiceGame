@@ -55,8 +55,7 @@ public class LobbyServlet extends HttpServlet {
                     try {
                         if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
                             String id = gameServer.getLobbymanager().createLobby(username).toString();
-//                            Cookie cookie = new Cookie("lobbyID", id);
-//                            response.addCookie(cookie);
+
 
                             response.setHeader("lobbyID",id);
                         } else {
