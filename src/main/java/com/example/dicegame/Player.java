@@ -82,13 +82,22 @@ public class Player {
     }
     public ArrayList<Resource> getResources(int amount){
         ArrayList<Resource> result=new ArrayList<>();
-       for (int i=0;i<amount;i++){
+        amount = checkSize(amount);
+        for (int i=0;i<amount;i++){
            result.add(resources.get(i));
        }
         return result;
     }
 
+    private int checkSize(int amount) {
+        if(amount >resources.size()){
+            amount =resources.size();
+        }
+        return amount;
+    }
+
     public void removeResources(int amount){
+        amount=checkSize(amount);
         for (int i=0;i<amount;i++){
             resources.remove(0);
         }

@@ -10,6 +10,9 @@ public class Dice {
     private int value;
     private DiceManager manager=DiceManager.getInstanz();
 
+    public void setValueForTests(int value){
+        this.value=value;
+    }
 
     public Dice() {
         roll();
