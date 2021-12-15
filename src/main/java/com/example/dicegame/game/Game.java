@@ -10,6 +10,7 @@ public class Game {
     private int gameMode;
     private Lobby lobby;
     private ArrayList<Resource> storage=new ArrayList<>();
+    private int round=0;
 
     public Game(Lobby lobby) {
         this.lobby = lobby;
@@ -18,6 +19,10 @@ public class Game {
     public Game(int gameMode, Lobby lobby) {
         this.gameMode = gameMode;
         this.lobby = lobby;
+    }
+
+    public int getRound() {
+        return round;
     }
 
     public void rollDicesFromOnePlayer(String userName) throws NoSuchElementException {
@@ -35,7 +40,7 @@ public class Game {
     }
 
     //TODO test
-    private void addNewResources(){
+    protected void addNewResources(){
         Player firstPlayer=lobby.getPlayer(0);
         int numberOFNewResource=firstPlayer.getSummOfDiceValues();
 
@@ -48,7 +53,7 @@ public class Game {
     }
 
     //TODO test
-    private void moveResourcesToStorage(){
+    protected void moveResourcesToStorage(){
         Player lastPlayer=lobby.getPlayer(lobby.playerCount()-1);
         int amount=lastPlayer.getSummOfDiceValues();
         ArrayList<Resource> resourcesFromLastPlayer= lastPlayer.getResources(amount);
@@ -60,8 +65,8 @@ public class Game {
 
     //TODO test
     public void moveResources(){
+        round++;
         moveResourcesToStorage();
-
         for (int i=lobby.playerCount()-1;i>=1;i--){
             Player playerReciver=lobby.getPlayer(i);
             Player playerSend=lobby.getPlayer(i--);
@@ -72,7 +77,6 @@ public class Game {
             playerReciver.addResources(resources);
 
             playerSend.removeResources(amount);
-
         }
         addNewResources();
     }
