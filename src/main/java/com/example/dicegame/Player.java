@@ -81,7 +81,11 @@ public class Player {
         return result;
     }
     public ArrayList<Resource> getResources(int amount){
-        return (ArrayList<Resource>) resources.subList(0,amount-1);
+        ArrayList<Resource> result=new ArrayList<>();
+       for (int i=0;i<amount;i++){
+           result.add(resources.get(i));
+       }
+        return result;
     }
 
     public void removeResources(int amount){
