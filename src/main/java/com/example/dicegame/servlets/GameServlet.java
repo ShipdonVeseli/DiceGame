@@ -52,7 +52,7 @@ public class GameServlet extends HttpServlet {
                     break;
 
                 case "make-move":
-
+                    game.moveResources();
                     break;
 
                 case "get-move":
