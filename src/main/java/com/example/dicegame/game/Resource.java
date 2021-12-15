@@ -1,6 +1,6 @@
 package com.example.dicegame.game;
 
-public class Resources {
+public class Resource {
     private boolean blueResource;
 
     public boolean isBlueResource() {

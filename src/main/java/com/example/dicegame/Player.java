@@ -1,7 +1,7 @@
 package com.example.dicegame;
 
 import com.example.dicegame.game.Dice;
-import com.example.dicegame.game.Resources;
+import com.example.dicegame.game.Resource;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -9,23 +9,27 @@ import java.util.NoSuchElementException;
 public class Player {
     private String playerName;
     private ArrayList<Dice> dices = new ArrayList<>();
-    private ArrayList<Resources> resources=new ArrayList<>();
+    private ArrayList<Resource> resources = new ArrayList<>();
 
 
     public Player(String username) {
         playerName = username;
     }
 
-    public void addResources(ArrayList<Resources>additionalResources){
+    public void addResource(Resource resource){
+        resources.add(resource);
+    }
+
+    public void addResources(ArrayList<Resource> additionalResources) {
         resources.addAll(additionalResources);
     }
 
-    public ArrayList<Resources> getResources() {
+    public ArrayList<Resource> getResources() {
         return resources;
     }
 
-    public void emptyResources(){
-        resources=new ArrayList<>();
+    public void emptyResources() {
+        resources = new ArrayList<>();
     }
 
     public String getPlayerName() {
@@ -55,6 +59,14 @@ public class Player {
 
     public void rollAllDices() {
         dices.forEach(e -> e.roll());
+    }
+
+    public int getSummOfDiceValues() {
+        int result = 0;
+        for (Dice dice : dices) {
+            result += dice.getValue();
+        }
+        return result;
     }
 
 

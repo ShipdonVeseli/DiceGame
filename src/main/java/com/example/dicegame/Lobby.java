@@ -67,7 +67,12 @@ public class Lobby {
         return game;
     }
 
-
+    public Player getPlayer(int index){
+        return players.get(index);
+    }
+    public int playerCount(){
+        return players.size();
+    }
 
     @Override
     public String toString() {

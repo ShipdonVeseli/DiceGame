@@ -2,6 +2,7 @@ package com.example.dicegame.servlets;
 
 import com.example.dicegame.GameServer;
 import com.example.dicegame.Lobby;
+import com.example.dicegame.game.Game;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,22 +24,33 @@ public class GameServlet extends HttpServlet {
         gameFunctions(request, response);
     }
 
-    private void gameFunctions(HttpServletRequest request, HttpServletResponse response){
-       // String mode = request.getParameter("mode");
-
+    private void gameFunctions(HttpServletRequest request, HttpServletResponse response) {
         try {
-
             Map<String, String[]> map = request.getParameterMap();
 
             ServletFunctions.printNames(map);
 
-            String mode =   ServletFunctions.getParameterValue(map, "mode");
+            String mode = ServletFunctions.getParameterValue(map, "mode");
+            String username = ServletFunctions.getParameterValue(map, "username");
 
-            String username =   ServletFunctions.getParameterValue(map, "username");
-
-            UUID lobbyIdOfTheGame;
-            Lobby lobbyOfTheGame;
+            UUID lobbyIdOfTheGame = UUID.fromString(ServletFunctions.getParameterValue(map, "lobbyID"));
+            Lobby lobbyOfTheGame = gameServer.getLobbymanager().getLobby(lobbyIdOfTheGame);
+            Game game = lobbyOfTheGame.getGame();
             switch (mode) {
+                //rolls all dices from all Players
+                case "roll-all":
+                    game.rollAllDiceInGame();
+                    break;
+
+                //rolls all dices from the calling Player
+                case "roll-me":
+                    game.rollDicesFromOnePlayer(username);
+                    break;
+
+                case "status":
+
+                    break;
+
                 case "make-move":
 
                     break;
@@ -48,27 +60,20 @@ public class GameServlet extends HttpServlet {
                     break;
 
                 case "start-game":
-                    lobbyIdOfTheGame = UUID.fromString(  ServletFunctions.getParameterValue(map, "lobbyID"));
-                    lobbyOfTheGame=gameServer.getLobbymanager().getLobby(lobbyIdOfTheGame);
                     lobbyOfTheGame.startGame();
                     response.setHeader("isStarted", "true");
-
                     break;
 
                 case "has-Game-started":
-                    lobbyIdOfTheGame = UUID.fromString(  ServletFunctions.getParameterValue(map, "lobbyID"));
-                    lobbyOfTheGame=gameServer.getLobbymanager().getLobby(lobbyIdOfTheGame);
-                    Boolean hasGameStared= lobbyOfTheGame.isHasGameStarted();
+                    Boolean hasGameStared = lobbyOfTheGame.isHasGameStarted();
                     response.setHeader("isStarted", hasGameStared.toString());
-
                     break;
-
 
                 default:
 
                     break;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
