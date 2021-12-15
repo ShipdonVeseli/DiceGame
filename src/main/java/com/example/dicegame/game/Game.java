@@ -21,8 +21,20 @@ public class Game {
         this.lobby = lobby;
     }
 
+    public Lobby getLobby() {
+        return lobby;
+    }
+
+    public int getGameMode() {
+        return gameMode;
+    }
+
     public int getRound() {
         return round;
+    }
+
+    public ArrayList<Resource> getStorage() {
+        return storage;
     }
 
     public void rollDicesFromOnePlayer(String userName) throws NoSuchElementException {

@@ -6,6 +6,8 @@ import com.example.dicegame.random.DiceManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
@@ -15,13 +17,6 @@ class GameTest {
         DiceManager diceManager=DiceManager.getInstanz();
     }
 
-//
-//    @Test
-//    void test(){
-//        Game game=new Game();
-//
-//
-//    }
 
     @Test
     void addNewResourcesTest(){
@@ -40,5 +35,42 @@ class GameTest {
 
         assertEquals(result,expected);
     }
+
+
+    @Test
+    void moveResourcesToStorageTest(){
+        Player p1=new Player("Test1");
+        Player p2 =new Player("Test2");
+        Lobby lobby=new Lobby(p1);
+        lobby.addPlayer(p2);
+        Game game=new Game(lobby);
+
+        ArrayList<Resource>resourcesP2=new ArrayList<>();
+        resourcesP2.add(new Resource());
+        resourcesP2.add(new Resource());
+        resourcesP2.add(new Resource());
+        resourcesP2.add(new Resource());
+        resourcesP2.add(new Resource());
+        resourcesP2.add(new Resource());
+        resourcesP2.add(new Resource());
+        resourcesP2.add(new Resource());
+
+        p2.addResources(resourcesP2);
+
+        int expectedNumberOfResurcesINP2=p2.getResources().size()-p2.getSummOfDiceValues();
+        int expectedNumberOfResurcesINPStorage=p2.getSummOfDiceValues();
+
+
+        game.moveResourcesToStorage();
+
+        int actuallNumberOfResurcesINP2=p2.getResources().size();
+        int actuallNumberOfResurcesINPStorage=game.getStorage().size();
+
+        assertEquals(expectedNumberOfResurcesINP2,actuallNumberOfResurcesINP2);
+        assertEquals(expectedNumberOfResurcesINPStorage,actuallNumberOfResurcesINPStorage);
+
+    }
+
+
 
 }
