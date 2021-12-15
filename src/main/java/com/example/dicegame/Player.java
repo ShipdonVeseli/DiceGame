@@ -5,6 +5,7 @@ import com.example.dicegame.game.Resource;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 public class Player {
     private String playerName;
@@ -44,9 +45,17 @@ public class Player {
         dices.add(dice);
     }
 
-    public void removeDice(Dice dice) {
-
+    public void removeDice(UUID diceID) throws  NoSuchElementException{
+        for (Dice dice:dices             ) {
+            if(dice.getID().equals(diceID)){
+                dices.remove(dice);
+                return;
+            }
+        }
+        throw new NoSuchElementException("No Dice with ID= "+diceID);
     }
+
+
 
     public Dice getDice(Dice dice) throws NoSuchElementException {
         for (Dice diceInPlayer : dices) {
@@ -68,7 +77,15 @@ public class Player {
         }
         return result;
     }
+    public ArrayList<Resource> getResources(int amount){
+        return (ArrayList<Resource>) resources.subList(0,amount-1);
+    }
 
+    public void removeResources(int amount){
+        for (int i=0;i<=amount;i++){
+            resources.remove(0);
+        }
+    }
 
     @Override
     public String toString() {
