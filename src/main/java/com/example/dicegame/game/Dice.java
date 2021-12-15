@@ -10,6 +10,11 @@ public class Dice {
     private int value;
     private DiceManager manager=DiceManager.getInstanz();
 
+
+    public Dice() {
+        roll();
+    }
+
     public int roll(){
         value= manager.getDice();
         return value;
