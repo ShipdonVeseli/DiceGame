@@ -89,7 +89,7 @@ public class Player {
     }
 
     public void removeResources(int amount){
-        for (int i=0;i<=amount;i++){
+        for (int i=0;i<amount;i++){
             resources.remove(0);
         }
     }
