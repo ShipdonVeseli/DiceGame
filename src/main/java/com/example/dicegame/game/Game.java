@@ -51,7 +51,6 @@ public class Game {
         lobby.getPlayers().forEach(e->e.rollAllDices());
     }
 
-    //TODO test
     protected void addNewResources(){
         Player firstPlayer=lobby.getPlayer(0);
         int numberOFNewResource=firstPlayer.getSummOfDiceValues();
@@ -64,7 +63,6 @@ public class Game {
         }
     }
 
-    //TODO test
     protected void moveResourcesToStorage(){
         Player lastPlayer=lobby.getPlayer(lobby.playerCount()-1);
         int amount=lastPlayer.getSummOfDiceValues();
