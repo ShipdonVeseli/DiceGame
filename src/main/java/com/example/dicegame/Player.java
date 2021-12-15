@@ -15,6 +15,7 @@ public class Player {
 
     public Player(String username) {
         playerName = username;
+        addDice(new Dice());
     }
 
     public void addResource(Resource resource){
@@ -55,7 +56,9 @@ public class Player {
         throw new NoSuchElementException("No Dice with ID= "+diceID);
     }
 
-
+    public ArrayList<Dice> getDices() {
+        return dices;
+    }
 
     public Dice getDice(Dice dice) throws NoSuchElementException {
         for (Dice diceInPlayer : dices) {
