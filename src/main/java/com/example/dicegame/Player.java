@@ -105,8 +105,10 @@ public class Player {
 
     @Override
     public String toString() {
-        return playerName + " ";
+        return "Player{" +
+                "playerName='" + playerName + '\'' +
+                ", dices=" + dices +
+                ", resources= \n" + resources +
+                "}\n";
     }
-
-
 }

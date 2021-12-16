@@ -81,8 +81,7 @@ public class Lobby {
                 ", players=" + players +
                 ", owner=" + owner +
                 ", game=" + game +
+                ", hasGameStarted=" + hasGameStarted +
                 '}';
     }
-
-
 }

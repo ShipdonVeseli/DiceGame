@@ -10,4 +10,11 @@ public class Resource {
     public void setBlueResource(boolean blueResource) {
         this.blueResource = blueResource;
     }
+
+    @Override
+    public String toString() {
+        return "Resource{" +
+                "blueResource=" + blueResource +
+                "}\n";
+    }
 }
