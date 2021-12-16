@@ -74,26 +74,35 @@ public class Game {
     }
 
     //TODO test
-    public void moveResources(){
+    public void move(){
         round++;
         moveResourcesToStorage();
+        moveResources();
+        addNewResources();
+    }
+
+    protected void moveResources() {
         for (int i=lobby.playerCount()-1;i>=1;i--){
-            Player playerReciver=lobby.getPlayer(i);
+            Player playerReceiver=lobby.getPlayer(i);
             Player playerSend=lobby.getPlayer(i--);
 
             int amount=playerSend.getSummOfDiceValues();
 
             ArrayList<Resource> resources=playerSend.getResources(amount);
-            playerReciver.addResources(resources);
+            playerReceiver.addResources(resources);
 
             playerSend.removeResources(amount);
         }
-        addNewResources();
     }
 
 
-
-
-
-
+    @Override
+    public String toString() {
+        return "Game{" +
+                "gameMode=" + gameMode +
+                ", lobby=" + lobby +
+                ", storage=" + storage +
+                ", round=" + round +
+                '}';
+    }
 }
