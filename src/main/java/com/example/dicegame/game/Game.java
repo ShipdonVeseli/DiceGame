@@ -84,7 +84,7 @@ public class Game {
     protected void moveResources() {
         for (int i=lobby.playerCount()-1;i>=1;i--){
             Player playerReceiver=lobby.getPlayer(i);
-            Player playerSend=lobby.getPlayer(i--);
+            Player playerSend=lobby.getPlayer(i-1);
 
             int amount=playerSend.getSummOfDiceValues();
 
