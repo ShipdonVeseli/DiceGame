@@ -73,7 +73,6 @@ public class Game {
         lastPlayer.removeResources(amount);
     }
 
-    //TODO test
     public void move(){
         round++;
         moveResourcesToStorage();
