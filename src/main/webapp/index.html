@@ -73,13 +73,19 @@
             return true;
         }
     }
-    function setUsername(){
-        if(checkUsername()) {
+    function setUsername() {
+        if (checkUsername()) {
             localStorage.setItem("username", document.getElementById("username").value);
             document.getElementById("createSession").style.display = "none";
-        }else{
+        } else {
             alert("Please choose another Username.");
         }
     }
+
+    setInterval(() => {
+        window.location = window.location
+    }, 5000);
+
+
 </script>
 </html>
