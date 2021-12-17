@@ -91,7 +91,6 @@ public class LobbyServlet extends HttpServlet {
                         response.setStatus(HttpServletResponse.SC_OK);
                     }
                     break;
-
                 default:
                     //TODO:Return Erorr
                     break;

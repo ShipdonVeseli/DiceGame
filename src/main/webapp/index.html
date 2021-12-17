@@ -5,31 +5,49 @@
 </head>
 
 <body>
-    <h1 id="h1">Dice Game</h1>
-    <form id="createSession" onsubmit="setUsername()">
-        Username: <input type="text" id="username"/>
-        <input type="submit" value="Set Username"/>
-    </form>
-    <form id="loggedin">
-        <input type="submit" value="Logout" onclick="logout()">
-        <ul id="lobbies">
-        </ul>
-        <input type="submit" id="create" value="Create Lobby" onclick="createLobby()">
-        <input type="submit" id="leave" value="Leave Lobby" onclick="leaveLobby()">
-    </form>
+    <div id="all">
+        <h1 id="h1">Dice Game</h1>
+        <form id="createSession" onsubmit="setUsername()">
+            Username: <input type="text" id="username"/>
+            <input type="submit" value="Set Username"/>
+        </form>
+        <form id="loggedin">
+            <input type="submit" value="Logout" onclick="logout()">
+            <ul id="lobbies">
+            </ul>
+            <input type="submit" id="create" value="Create Lobby" onclick="createLobby()">
+            <input type="submit" id="leave" value="Leave Lobby" onclick="leaveLobby()">
+            <input type="submit" id="start" value="Start Lobby" onclick="startLobby()">
+        </form>
+    </div>
 </body>
 
 <script>
-    function createLobby(){
-        fetch("http://localhost:8079/Lobby-servlet?mode=create&username="+localStorage.getItem("username"))
+    function startLobby(){
+        var lobbyid = sessionStorage.getItem("lobbyid");
+        fetch("http://localhost:8079/Game-servlet?mode=start-game&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
+        window.location.href = "http://localhost:8079/game.html"
     }
 
+   async function createLobby(){
+        const createresponse = await fetch("http://localhost:8079/Lobby-servlet?mode=create&username="+localStorage.getItem("username"))
+           for (let [key, value] of createresponse.headers) {
+               console.log(`${key}`)
+               console.log(`${value}`)
+               if(`${key}` === "lobbyid"){
+                   sessionStorage.setItem("lobbyid", `${value}`)
+               }
+           }
+   }
+
     function leaveLobby(){
+       sessionStorage.removeItem("lobbyid");
         fetch("http://localhost:8079/Lobby-servlet?mode=leave&username="+localStorage.getItem("username"))
     }
 
     function joinLobby(id){
-        var lobbyid = document.getElementById(id).getAttribute("name");
+        let lobbyid = document.getElementById(id).getAttribute("name");
+        sessionStorage.setItem("lobbyid", lobbyid);
         const response = fetch("http://localhost:8079/Lobby-servlet?mode=join&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
     }
 
@@ -43,7 +61,8 @@
     }
 
     function insertList(value, index, array){
-        document.getElementById("lobbies").insertAdjacentHTML("beforebegin","<li>"+array[index].lobbyowner+" Lobby <input type='submit' id='"+index+"' onclick='joinLobby("+index+")' name="+array[index].lobbyid+" value='JOIN LOBBY'><ul><li>Players: "+array[index].players+"</li></ul></li>");
+        if(index === 0) document.getElementById("lobbies").innerHTML = "";
+        document.getElementById("lobbies").innerHTML = document.getElementById("lobbies").innerHTML + "<li>"+array[index].lobbyowner+" Lobby <input type='submit' id='"+index+"' onclick='joinLobby("+index+")' name="+array[index].lobbyid+" value='JOIN LOBBY'><ul><li>Players: "+array[index].players+"</li></ul></li>";
     }
 
     function convert(obj){
@@ -81,11 +100,18 @@
             alert("Please choose another Username.");
         }
     }
-
-    setInterval(() => {
-        window.location = window.location
+    async function isGameStarted(lobbyid){
+        console.log(lobbyid)
+        const response2 = await fetch("http://localhost:8079/Game-servlet?mode=has-Game-started&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
+        for (let [key, value] of response2.headers) {
+            if(`${key}` === "isstarted" && `${value}` === "true"){
+                window.location.href = "http://localhost:8079/game.html"
+            }
+        }
+    }
+   setInterval(() => {
+        isGameStarted(sessionStorage.getItem("lobbyid"))
+        convert(getLobbies());
     }, 5000);
-
-
 </script>
 </html>
