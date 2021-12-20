@@ -104,4 +104,10 @@ public class Game {
                 ", round=" + round +
                 '}';
     }
+
+    public String converToJSON() {
+        //TODO
+
+        return "";
+    }
 }
