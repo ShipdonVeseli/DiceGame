@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.util.Queue;
 
 public class RandomOrgRandom implements RandomStrategy{
+    private  int min=1;
+    private  int max=6;
+
     private final String websiteURL ="https://www.random.org/integers/";
     private final String httpMethod ="GET";
 
@@ -16,14 +19,20 @@ public class RandomOrgRandom implements RandomStrategy{
         return queue;
     }
 
+    @Override
+    public void setRange(int min, int max) {
+        this.min=min;
+        this.max=max;
+    }
+
     public void getRandomValuesFromRandomOrg(Queue<Integer> queue)throws Exception{
         try {
             HttpSend httpSend=new HttpSend(websiteURL);
             httpSend.setHttpMethode(httpMethod);
 
             httpSend.addParameter("num",String.valueOf(DiceManager.size));
-            httpSend.addParameter("min","1");
-            httpSend.addParameter("max","6");
+            httpSend.addParameter("min", String.valueOf(min));
+            httpSend.addParameter("max", String.valueOf(max));
             httpSend.addParameter("col","1");
             httpSend.addParameter("base","10");
             httpSend.addParameter("format","plain");
