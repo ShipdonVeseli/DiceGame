@@ -1,4 +1,4 @@
-package com.example.dicegame.GameSatistic;
+package com.example.dicegame.gameSatistic;
 
 public class Statistics {
 

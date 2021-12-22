@@ -2,7 +2,7 @@ package com.example.dicegame.game;
 
 import com.example.dicegame.Lobby;
 import com.example.dicegame.Player;
-import com.example.dicegame.GameSatistic.Statistics;
+import com.example.dicegame.gameSatistic.Statistics;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
