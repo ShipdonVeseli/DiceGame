@@ -17,7 +17,8 @@ public class Lobby {
     private boolean hasGameStarted=false;
 
     public Lobby(String username) {
-        players.add(new Player(username));
+        this.owner=new Player(username);
+        players.add(owner);
         lobbyCount++;
     }
 
@@ -84,7 +85,10 @@ public class Lobby {
 
         result += "\"players\": [";
         for (Player player : players) {
-            result += player.convertToJSON() + ",";
+            result += player.convertToJSON() ;
+            if (players.size()>1){
+                result+=",";
+            }
         }
         result += "]";
 

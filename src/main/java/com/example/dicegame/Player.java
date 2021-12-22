@@ -1,6 +1,7 @@
 package com.example.dicegame;
 
 import com.example.dicegame.game.Dice;
+import com.example.dicegame.game.Game;
 import com.example.dicegame.game.Resource;
 
 import java.util.ArrayList;
@@ -109,17 +110,15 @@ public class Player {
         result += "\"playerName\": " + playerName +",";
         result += "\"dices\": [";
         for (Dice dice : dices) {
-            result += dice.convertToJSON() + ",";
+            result += dice.convertToJSON() ;
+            if (dices.size()>1){
+                result+=",";
+            }
         }
         result += "],";
 
         result += "\"resources\": [";
-        for (Resource resource : resources) {
-            result += resource.convertToJSON() + ",";
-        }
-        result += "]";
-
-
+        result=Game.printResourcesJson(result, resources);
         result += "}]";
         return result;
     }

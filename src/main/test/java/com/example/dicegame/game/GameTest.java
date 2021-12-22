@@ -17,6 +17,16 @@ class GameTest {
         DiceManager diceManager=DiceManager.getInstanz();
     }
 
+    @Test
+    void testConvertToJson(){
+        Lobby lobby=new Lobby("Test User");
+        Game game=new Game(lobby);
+
+
+        String actualResult=game.convertToJSON();
+
+        System.out.println(actualResult);
+    }
 
     @Test
     void addNewResourcesTest(){

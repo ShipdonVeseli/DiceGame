@@ -112,12 +112,21 @@ public class Game {
         result += "\"round\": " + round +",";
 
         result += "\"storage\": [";
+        result= printResourcesJson(result, storage);
+        result += "}]";
+        return result;
+    }
+
+    public static String printResourcesJson(String result, ArrayList<Resource> storage) {
         for (Resource resource : storage) {
-            result += resource.convertToJSON() + ",";
+            result += resource.convertToJSON();
+            if (storage.size()>1){
+                result+=",";
+            }
         }
         result += "]";
 
-        result += "}]";
+
         return result;
     }
 }
