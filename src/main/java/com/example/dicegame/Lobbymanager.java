@@ -109,7 +109,7 @@ public class Lobbymanager {
                 '}';
     }
 
-    public String converToJSON() {
+    public String convertToJSON() {
         String result = "[";
         for(int i = 0; i < getLobbies().size(); i++){
             result += "{\"lobbyid\": \"" + lobbies.get(i).getId().toString() + "\", \"lobbyowner\": \"" + lobbies.get(i).getOwner().getPlayerName() + "\", \"players\": \"";

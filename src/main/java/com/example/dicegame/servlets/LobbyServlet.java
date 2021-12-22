@@ -27,14 +27,11 @@ public class LobbyServlet extends HttpServlet {
 
     private void lobbyFunctions(HttpServletRequest request, HttpServletResponse response) {
         try {
-
-
             Map<String, String[]> map = request.getParameterMap();
 
             ServletFunctions.printNames(map);
 
             String mode =   ServletFunctions.getParameterValue(map, "mode");
-
             String username =   ServletFunctions.getParameterValue(map, "username");
 
             switch (mode) {
@@ -80,8 +77,8 @@ public class LobbyServlet extends HttpServlet {
 
                 case "get-Lobbies":
                     //TODO
-                   System.out.println(gameServer.getLobbymanager().converToJSON());
-                    response.setHeader("lobbies", gameServer.getLobbymanager().converToJSON());
+                   System.out.println(gameServer.getLobbymanager().convertToJSON());
+                    response.setHeader("lobbies", gameServer.getLobbymanager().convertToJSON());
                     break;
 
                 case "check":

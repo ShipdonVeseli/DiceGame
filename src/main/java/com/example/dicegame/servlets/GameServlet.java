@@ -48,15 +48,11 @@ public class GameServlet extends HttpServlet {
                     break;
 
                 case "status":
-                    response.setHeader("gameStatus",game.converToJSON());
+                    response.setHeader("gameStatus", game.converToJSON());
                     break;
 
                 case "make-move":
                     game.move();
-                    break;
-
-                case "get-move":
-
                     break;
 
                 case "start-game":
