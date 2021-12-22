@@ -1,6 +1,8 @@
 package com.example.dicegame;
 
+import com.example.dicegame.game.Dice;
 import com.example.dicegame.game.Game;
+import com.example.dicegame.game.Resource;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -74,6 +76,21 @@ public class Lobby {
         return players.size();
     }
 
+    public String convertToJSON(){
+        String result = "[{";
+        result += "\"id\": " + id +",";
+        result += "\"owner\": " + owner.convertToJSON() +",";
+        result += "\"hasGameStarted\": " + hasGameStarted +",";
+
+        result += "\"players\": [";
+        for (Player player : players) {
+            result += player.convertToJSON() + ",";
+        }
+        result += "]";
+
+        result += "}]";
+        return result;
+    }
     @Override
     public String toString() {
         return "Lobby{" +

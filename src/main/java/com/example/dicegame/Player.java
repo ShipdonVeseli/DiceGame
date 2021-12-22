@@ -18,7 +18,7 @@ public class Player {
         addDice(new Dice());
     }
 
-    public void addResource(Resource resource){
+    public void addResource(Resource resource) {
         resources.add(resource);
     }
 
@@ -46,14 +46,14 @@ public class Player {
         dices.add(dice);
     }
 
-    public void removeDice(UUID diceID) throws  NoSuchElementException{
-        for (Dice dice:dices             ) {
-            if(dice.getID().equals(diceID)){
+    public void removeDice(UUID diceID) throws NoSuchElementException {
+        for (Dice dice : dices) {
+            if (dice.getID().equals(diceID)) {
                 dices.remove(dice);
                 return;
             }
         }
-        throw new NoSuchElementException("No Dice with ID= "+diceID);
+        throw new NoSuchElementException("No Dice with ID= " + diceID);
     }
 
     public ArrayList<Dice> getDices() {
@@ -80,27 +80,48 @@ public class Player {
         }
         return result;
     }
-    public ArrayList<Resource> getResources(int amount){
-        ArrayList<Resource> result=new ArrayList<>();
+
+    public ArrayList<Resource> getResources(int amount) {
+        ArrayList<Resource> result = new ArrayList<>();
         amount = checkSize(amount);
-        for (int i=0;i<amount;i++){
-           result.add(resources.get(i));
-       }
+        for (int i = 0; i < amount; i++) {
+            result.add(resources.get(i));
+        }
         return result;
     }
 
     private int checkSize(int amount) {
-        if(amount >resources.size()){
-            amount =resources.size();
+        if (amount > resources.size()) {
+            amount = resources.size();
         }
         return amount;
     }
 
-    public void removeResources(int amount){
-        amount=checkSize(amount);
-        for (int i=0;i<amount;i++){
+    public void removeResources(int amount) {
+        amount = checkSize(amount);
+        for (int i = 0; i < amount; i++) {
             resources.remove(0);
         }
+    }
+
+    public String convertToJSON() {
+        String result = "[{";
+        result += "\"playerName\": " + playerName +",";
+        result += "\"dices\": [";
+        for (Dice dice : dices) {
+            result += dice.convertToJSON() + ",";
+        }
+        result += "],";
+
+        result += "\"resources\": [";
+        for (Resource resource : resources) {
+            result += resource.convertToJSON() + ",";
+        }
+        result += "]";
+
+
+        result += "}]";
+        return result;
     }
 
     @Override

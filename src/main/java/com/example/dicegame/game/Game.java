@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class Game {
-    private int gameMode;
+    private int gameMode=1;
     private Lobby lobby;
     private ArrayList<Resource> storage=new ArrayList<>();
     private int round=0;
@@ -105,9 +105,19 @@ public class Game {
                 '}';
     }
 
-    public String converToJSON() {
-        //TODO
+    public String convertToJSON() {
+        String result = "[{";
+        result += "\"gameMode\": " + gameMode +",";
+        result += "\"lobby\": " + lobby.convertToJSON() +",";
+        result += "\"round\": " + round +",";
 
-        return "";
+        result += "\"storage\": [";
+        for (Resource resource : storage) {
+            result += resource.convertToJSON() + ",";
+        }
+        result += "]";
+
+        result += "}]";
+        return result;
     }
 }

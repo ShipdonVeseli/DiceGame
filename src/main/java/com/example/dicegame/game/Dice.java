@@ -31,6 +31,14 @@ public class Dice {
         return value;
     }
 
+    public String convertToJSON(){
+        return "{"
+                +"\"uuid\": "
+                +uuid.toString()+","
+                +"\"value\": "
+                +value
+                +"}";
+    }
 
     @Override
     public String toString() {

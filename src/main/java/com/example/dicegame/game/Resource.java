@@ -11,6 +11,10 @@ public class Resource {
         this.blueResource = blueResource;
     }
 
+    public String convertToJSON(){
+        return "{"+"\"blueResource\": "+blueResource+"}";
+    }
+
     @Override
     public String toString() {
         return "Resource{" +
