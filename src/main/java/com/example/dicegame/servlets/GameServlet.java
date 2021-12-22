@@ -79,22 +79,27 @@ public class GameServlet extends HttpServlet {
 
                 case "get-Activity":
                     //TODO
+                    response.setHeader("Activity", game.getStatistics().getActivity());
                     break;
 
                 case "get-Throughput":
                     //TODO
+                    response.setHeader("Throughput", game.getStatistics().getThroughput());
                     break;
 
                 case "get-Number-in-System":
                     //TODO
+                    response.setHeader("Number-in-System", game.getStatistics().getNumberinSystem());
                     break;
 
                 case "get-Time-in-System":
                     //TODO
+                    response.setHeader("Time-in-System", game.getStatistics().getTimeinSystem());
                     break;
 
-                case "get-Your-performance":
+                case "get-Your-Performance":
                     //TODO
+                    response.setHeader("Your-Performance", game.getStatistics().getYourPerformance());
                     break;
 
                 default:

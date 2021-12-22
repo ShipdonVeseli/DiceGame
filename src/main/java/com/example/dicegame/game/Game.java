@@ -12,6 +12,7 @@ public class Game {
     private ArrayList<Resource> storage = new ArrayList<>();
     private int round = 0;
     private int activePlayerIndex = 0;
+    private Statistics statistics=new Statistics();
 
     public Game(Lobby lobby) {
         this.lobby = lobby;
@@ -20,6 +21,10 @@ public class Game {
     public Game(int gameMode, Lobby lobby) {
         this.gameMode = gameMode;
         this.lobby = lobby;
+    }
+
+    public Statistics getStatistics() {
+        return statistics;
     }
 
     public boolean checkIfPlayerIsActivePlayer(String playerName) {
