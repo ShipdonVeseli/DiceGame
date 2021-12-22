@@ -1,4 +1,4 @@
-package com.example.dicegame.game;
+package com.example.dicegame.game.Satistic;
 
 public class Statistics {
 
@@ -6,7 +6,6 @@ public class Statistics {
         //TODO
         return "";
     }
-
 
     public String getThroughput(){
         //TODO
