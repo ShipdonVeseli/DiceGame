@@ -2,6 +2,7 @@ package com.example.dicegame.game;
 
 import com.example.dicegame.random.DiceManager;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class Dice {
@@ -47,5 +48,18 @@ public class Dice {
                 ", value=" + value +
                 ", manager=" + manager +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dice dice = (Dice) o;
+        return value == dice.value && Objects.equals(uuid, dice.uuid) && Objects.equals(manager, dice.manager);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid, value, manager);
     }
 }

@@ -6,6 +6,7 @@ import com.example.dicegame.game.Resource;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Player {
@@ -130,5 +131,18 @@ public class Player {
                 ", dices=" + dices +
                 ", resources= \n" + resources +
                 "}\n";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return Objects.equals(playerName, player.playerName) && Objects.equals(dices, player.dices) && Objects.equals(resources, player.resources);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(playerName, dices, resources);
     }
 }

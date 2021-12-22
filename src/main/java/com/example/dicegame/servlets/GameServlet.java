@@ -39,12 +39,20 @@ public class GameServlet extends HttpServlet {
             switch (mode) {
                 //rolls all dices from all Players
                 case "roll-all":
-                    game.rollAllDiceInGame();
+                    if (game.checkIfPlayerIsActivePlayer(username)) {
+                        game.rollAllDiceInGame();
+                    } else {
+                        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    }
                     break;
 
                 //rolls all dices from the calling Player
                 case "roll-me":
-                    game.rollDicesFromOnePlayer(username);
+                    if (game.checkIfPlayerIsActivePlayer(username)) {
+                        game.rollDicesFromOnePlayer(username);
+                    } else {
+                        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    }
                     break;
 
                 case "status":
@@ -52,7 +60,11 @@ public class GameServlet extends HttpServlet {
                     break;
 
                 case "make-move":
-                    game.move();
+                    if (game.checkIfPlayerIsActivePlayer(username)) {
+                        game.move();
+                    } else {
+                        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    }
                     break;
 
                 case "start-game":
