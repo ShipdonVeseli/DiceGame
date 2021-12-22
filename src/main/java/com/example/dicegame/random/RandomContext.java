@@ -14,4 +14,8 @@ public class RandomContext {
         return strategy.fillQueue(queue);
     }
 
+    public void setRange(int min,int max) {
+        strategy.setRange(min,max);
+    }
+
 }
