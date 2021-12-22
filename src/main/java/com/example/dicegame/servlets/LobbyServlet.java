@@ -42,7 +42,7 @@ public class LobbyServlet extends HttpServlet {
                             gameServer.getLobbymanager().addUserToLobby(username, lobbyID);
                         } else {
                             gameServer.getLobbymanager().removePlayerFromLobby2(username);
-                            response.sendError(0);//ToDo correct Error handling
+                            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -76,7 +76,7 @@ public class LobbyServlet extends HttpServlet {
                     break;
 
                 case "get-Lobbies":
-                    //TODO
+
                    System.out.println(gameServer.getLobbymanager().convertToJSON());
                     response.setHeader("lobbies", gameServer.getLobbymanager().convertToJSON());
                     break;
@@ -90,7 +90,7 @@ public class LobbyServlet extends HttpServlet {
                     break;
 
                 default:
-                    //TODO:Return Erorr
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     break;
             }
 

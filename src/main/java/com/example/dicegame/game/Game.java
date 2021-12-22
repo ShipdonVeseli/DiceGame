@@ -126,7 +126,6 @@ public class Game {
         }
         result += "]";
 
-
         return result;
     }
 }

@@ -66,7 +66,7 @@ public class GameServlet extends HttpServlet {
                     break;
 
                 default:
-
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     break;
             }
         } catch (Exception e) {
