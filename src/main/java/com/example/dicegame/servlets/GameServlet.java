@@ -77,6 +77,26 @@ public class GameServlet extends HttpServlet {
                     response.setHeader("isStarted", hasGameStared.toString());
                     break;
 
+                case "get-Activity":
+                    //TODO
+                    break;
+
+                case "get-Throughput":
+                    //TODO
+                    break;
+
+                case "get-Number-in-System":
+                    //TODO
+                    break;
+
+                case "get-Time-in-System":
+                    //TODO
+                    break;
+
+                case "get-Your-performance":
+                    //TODO
+                    break;
+
                 default:
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     break;
