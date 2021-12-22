@@ -7,6 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class ResourceTest {
 
     @Test
-    void convertToJSON() {
+    void convertToJSONTest() {
     }
 }

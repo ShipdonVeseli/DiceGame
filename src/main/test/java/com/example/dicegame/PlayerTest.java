@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlayerTest {
 
     @Test
-    void convertToJSON() {
+    void convertToJSONTest() {
+
     }
 }
