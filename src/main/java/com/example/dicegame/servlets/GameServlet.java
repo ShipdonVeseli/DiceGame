@@ -89,12 +89,12 @@ public class GameServlet extends HttpServlet {
 
                 case "get-Number-in-System":
                     //TODO
-                    response.setHeader("Number-in-System", game.getStatistics().getNumberinSystem());
+                    response.setHeader("Number-in-System", game.getStatistics().getNumberInSystem());
                     break;
 
                 case "get-Time-in-System":
                     //TODO
-                    response.setHeader("Time-in-System", game.getStatistics().getTimeinSystem());
+                    response.setHeader("Time-in-System", game.getStatistics().getTimeInSystem());
                     break;
 
                 case "get-Your-Performance":

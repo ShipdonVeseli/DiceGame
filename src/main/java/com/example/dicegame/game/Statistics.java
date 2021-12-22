@@ -16,12 +16,12 @@ public class Statistics {
         return "";
     }
 
-    public String getNumberinSystem(){
+    public String getNumberInSystem(){
         //TODO
         return "";
     }
 
-    public String getTimeinSystem(){
+    public String getTimeInSystem(){
         //TODO
         return "";
     }
