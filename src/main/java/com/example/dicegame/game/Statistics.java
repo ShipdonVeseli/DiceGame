@@ -2,9 +2,6 @@ package com.example.dicegame.game;
 
 public class Statistics {
 
-
-
-
     public String getActivity(){
         //TODO
         return "";
