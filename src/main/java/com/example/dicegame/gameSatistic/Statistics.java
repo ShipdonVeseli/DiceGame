@@ -1,6 +1,12 @@
 package com.example.dicegame.gameSatistic;
 
+import java.util.ArrayList;
+
 public class Statistics {
+    private GameData gameData=new GameData();
+    private ArrayList <PlayerData> playerDataArrayList=new ArrayList<>();
+    private ArrayList<RessourceData> ressourceDataArrayList =new ArrayList<>();
+
 
     public String getActivity(){
         //TODO
