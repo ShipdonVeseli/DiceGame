@@ -93,7 +93,7 @@ public class Lobby {
     public String convertToJSON() {
         String result = "[{";
         result += "\"id\": " + id + ",";
-        result += "\"owner\": " + owner.convertToJSON() + ",";
+        //result += "\"owner\": " + owner.convertToJSON() + ",";
         result += "\"hasGameStarted\": " + hasGameStarted + ",";
 
         result += "\"players\": [";
@@ -114,7 +114,7 @@ public class Lobby {
         return "Lobby{" +
                 "id=" + id +
                 ", players=" + players +
-             //   ", owner=" + owner +
+                ", owner=" + owner +
                 ", game=" + game +
                 ", hasGameStarted=" + hasGameStarted +
                 '}';
