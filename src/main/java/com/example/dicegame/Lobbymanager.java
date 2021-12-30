@@ -61,11 +61,11 @@ public class Lobbymanager {
     }
 
     public Lobby removePlayerFromLobby2(String userName) {
-        for (Lobby lobby: this.lobbies) {
-            for (Player player : lobby.getPlayers()){
+        for (Lobby lobby : this.lobbies) {
+            for (Player player : lobby.getPlayers()) {
                 if (player.getPlayerName().equals(userName)) {
                     lobby.removePlayer(player);
-                    if(lobby.getPlayers().size() == 0) removeLobby(lobby.getId());
+                    if (lobby.getPlayers().size() == 0) removeLobby(lobby.getId());
                     return lobby;
                 }
             }
@@ -93,14 +93,15 @@ public class Lobbymanager {
         return lobby.getId();
     }
 
-    public Lobby getLobbyByUsername(String username){
-        for (Lobby lobby: lobbies){
-            for(Player player: lobby.getPlayers()){
-                if(player.getPlayerName().equals(username)) return lobby;
+    public Lobby getLobbyByUsername(String username) {
+        for (Lobby lobby : lobbies) {
+            for (Player player : lobby.getPlayers()) {
+                if (player.getPlayerName().equals(username)) return lobby;
             }
         }
         throw new NoSuchElementException("No Player with = " + username);
     }
+
     public Lobby getLobby(UUID id) throws NoSuchElementException {
         for (Lobby lobby : lobbies) {
             if (lobby.getId().equals(id)) {
@@ -119,14 +120,14 @@ public class Lobbymanager {
 
     public String convertToJSON() {
         String result = "[";
-        for(int i = 0; i < getLobbies().size(); i++){
+        for (int i = 0; i < getLobbies().size(); i++) {
             result += "{\"lobbyid\": \"" + lobbies.get(i).getId().toString() + "\", \"lobbyowner\": \"" + lobbies.get(i).getOwner().getPlayerName() + "\", \"players\": \"";
-            for(int j=0; j < lobbies.get(i).getPlayers().size(); j++){
+            for (int j = 0; j < lobbies.get(i).getPlayers().size(); j++) {
                 result += lobbies.get(i).getPlayers().get(j).getPlayerName();
-                if(j != lobbies.get(i).getPlayers().size() -1 ) result += ",";
+                if (j != lobbies.get(i).getPlayers().size() - 1) result += ",";
             }
             result += "\"}";
-            if(i != getLobbies().size() -1 ) result += ",";
+            if (i != getLobbies().size() - 1) result += ",";
         }
         result += "]";
         System.out.println(result);
@@ -134,8 +135,8 @@ public class Lobbymanager {
     }
 
     public boolean checkUsername(String username) {
-        for (Lobby lobby: this.lobbies) {
-            for (Player player : lobby.getPlayers()){
+        for (Lobby lobby : this.lobbies) {
+            for (Player player : lobby.getPlayers()) {
                 if (player.getPlayerName().equals(username)) {
                     lobby.removePlayer(player);
                     return true;

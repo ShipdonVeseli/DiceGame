@@ -111,9 +111,15 @@ public class Player extends StatisticSuspect {
         String result = "[{";
         result += "\"playerName\": " + "\""+playerName +"\",";
         result += "\"dices\": [";
-        for (Dice dice : dices) {
-            result += dice.convertToJSON() ;
-            if (dices.size()>1){
+//        for (Dice dice : dices) {
+//            result += dice.convertToJSON() ;
+//            if (dices.size()>1){
+//                result+=",";
+//            }
+//        }
+        for (int i = 0; i <dices.size() ; i++) {
+            result += dices.get(i).convertToJSON() ;
+            if(i<dices.size()-1){
                 result+=",";
             }
         }

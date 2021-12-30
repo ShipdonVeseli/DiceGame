@@ -97,9 +97,16 @@ public class Lobby {
         result += "\"hasGameStarted\": " + hasGameStarted + ",";
 
         result += "\"players\": [";
-        for (Player player : players) {
-            result += player.convertToJSON();
-            if (players.size() > 1) {
+//        for (Player player : players) {
+//            result += player.convertToJSON();
+//            if (players.size() > 1) {
+//                result += ",";
+//            }
+//        }
+
+        for (int i = 0; i < players.size(); i++) {
+            result+=players.get(i).convertToJSON();
+            if(i<players.size()-1){
                 result += ",";
             }
         }
