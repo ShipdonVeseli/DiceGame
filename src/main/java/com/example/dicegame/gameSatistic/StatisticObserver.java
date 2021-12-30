@@ -6,9 +6,9 @@ public interface StatisticObserver {
 
     void saveDiceRolled(String playerName, int value);
 
-    void saveRessourceAddedToStorrage(int OrderOfArival,int timeInSystem);
+    void saveRessourceAddedToStorage(int OrderOfArival, int timeInSystem);
 
-    void saveNmberOFResourcesInGame(int number);
+    void saveNumberOFResourcesInGame(int number);
 
-    void saveNumberOFResourcesInStorrage(int number);
+    void saveNumberOFResourcesInStorage(int number);
 }

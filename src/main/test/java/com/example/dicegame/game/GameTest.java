@@ -22,7 +22,6 @@ class GameTest {
         Lobby lobby=new Lobby("Test User");
         Game game=new Game(lobby);
 
-
         String actualResult=game.convertToJSON();
 
         System.out.println(actualResult);
@@ -32,12 +31,23 @@ class GameTest {
     void testConvertToJson2(){
         Lobby lobby=new Lobby("Test User");
         Game game=new Game(lobby);
-
         game.move();
         String actualResult=game.convertToJSON();
 
         System.out.println(actualResult);
     }
+
+    @Test
+    void testConvertToJson3(){
+        Lobby lobby=new Lobby("Test User");
+        lobby.addPlayer(new Player("lucas"));
+        Game game=new Game(lobby);
+        game.move();
+        String actualResult=game.convertToJSON();
+
+        System.out.println(actualResult);
+    }
+
 
     @Test
     void addNewResourcesTest(){

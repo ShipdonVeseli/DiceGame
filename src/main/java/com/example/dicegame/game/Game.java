@@ -143,9 +143,15 @@ public class Game extends StatisticSuspect {
     }
 
     public static String printResourcesJson(String result, ArrayList<Resource> storage) {
-        for (Resource resource : storage) {
-            result += resource.convertToJSON();
-            if (storage.size() > 1) {
+//        for (Resource resource : storage) {
+//            result += resource.convertToJSON();
+//            if (storage.size() > 1) {
+//                result += ",";
+//            }
+//        }
+        for (int i = 0; i < storage.size(); i++) {
+            result += storage.get(i).convertToJSON();
+            if(i<storage.size()-1){
                 result += ",";
             }
         }

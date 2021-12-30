@@ -45,17 +45,17 @@ public class Statistics implements StatisticObserver{
     }
 
     @Override
-    public void saveRessourceAddedToStorrage(int OrderOfArival, int timeInSystem) {
+    public void saveRessourceAddedToStorage(int OrderOfArival, int timeInSystem) {
 
     }
 
     @Override
-    public void saveNmberOFResourcesInGame(int number) {
+    public void saveNumberOFResourcesInGame(int number) {
 
     }
 
     @Override
-    public void saveNumberOFResourcesInStorrage(int number) {
+    public void saveNumberOFResourcesInStorage(int number) {
 
     }
 }
