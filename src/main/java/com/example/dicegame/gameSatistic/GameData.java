@@ -30,8 +30,4 @@ public class GameData {
         return numberOFResourcesInStorage.get(round);
     }
 
-
-
-
-
 }

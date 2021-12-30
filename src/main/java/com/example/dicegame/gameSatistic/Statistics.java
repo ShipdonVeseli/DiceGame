@@ -35,27 +35,46 @@ public class Statistics implements StatisticObserver{
 
 
     @Override
-    public void saveMovedRessource(String playerName, int NumberOfMovedResources) {
+    public void saveMovedRessource(String playerName, int numberOfMovedResources) {
 
+        for (PlayerData player:playerDataArrayList) {
+            if(player.getPlayerName().equals(playerName)){
+                player.addMovedResource(numberOfMovedResources);
+                return;
+            }
+        }
+        PlayerData playerData=new PlayerData(playerName);
+        playerData.addMovedResource(numberOfMovedResources);
+        playerDataArrayList.add(playerData);
     }
 
     @Override
     public void saveDiceRolled(String playerName, int value) {
-
+        for (PlayerData player:playerDataArrayList) {
+            if(player.getPlayerName().equals(playerName)){
+                player.addDiceValue(value);
+                return;
+            }
+        }
+        PlayerData playerData=new PlayerData(playerName);
+        playerData.addDiceValue(value);
+        playerDataArrayList.add(playerData);
     }
 
     @Override
-    public void saveRessourceAddedToStorage(int OrderOfArival, int timeInSystem) {
-
+    public void saveRessourceAddedToStorage(int orderOfArival, int timeInSystem) {
+        RessourceData ressourceData=new RessourceData();
+        ressourceData.setOrderOfArrival(orderOfArival);
+        ressourceData.setTimeInSystem(timeInSystem);
     }
 
     @Override
     public void saveNumberOFResourcesInGame(int number) {
-
+        gameData.addNumberOFResourcesInGameInGameRound(number);
     }
 
     @Override
     public void saveNumberOFResourcesInStorage(int number) {
-
+        gameData.addNumberOFResourcesInStorageInGameRound(number);
     }
 }
