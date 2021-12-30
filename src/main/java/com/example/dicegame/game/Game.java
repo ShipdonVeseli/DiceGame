@@ -2,7 +2,6 @@ package com.example.dicegame.game;
 
 import com.example.dicegame.Lobby;
 import com.example.dicegame.Player;
-import com.example.dicegame.gameSatistic.StatisticObserver;
 import com.example.dicegame.gameSatistic.StatisticSuspect;
 import com.example.dicegame.gameSatistic.Statistics;
 
@@ -19,11 +18,25 @@ public class Game extends StatisticSuspect {
 
     public Game(Lobby lobby) {
         this.lobby = lobby;
+        init();
     }
 
     public Game(int gameMode, Lobby lobby) {
         this.gameMode = gameMode;
         this.lobby = lobby;
+        init();
+    }
+
+    public void init(){
+        addObserver(statistics);
+        lobby.getPlayers().forEach(e->{
+            e.addObserver(statistics);
+
+            e.addResource(new Resource(false));
+            e.addResource(new Resource(false));
+            e.addResource(new Resource(false));
+            e.addResource(new Resource(false));
+        });
     }
 
     public Statistics getStatistics() {

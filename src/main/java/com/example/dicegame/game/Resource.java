@@ -5,6 +5,13 @@ import java.util.Objects;
 public class Resource {
     private boolean blueResource;
 
+    public Resource() {
+    }
+
+    public Resource(boolean blueResource) {
+        this.blueResource = blueResource;
+    }
+
     public boolean isBlueResource() {
         return blueResource;
     }

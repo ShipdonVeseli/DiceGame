@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Statistics implements StatisticObserver{
     private GameData gameData=new GameData();
     private ArrayList <PlayerData> playerDataArrayList=new ArrayList<>();
-    private ArrayList<RessourceData> ressourceDataArrayList =new ArrayList<>();
+    private ArrayList<RessourceData> resourceDataArrayList =new ArrayList<>();
 
 
     public String getActivity(){
@@ -66,6 +66,7 @@ public class Statistics implements StatisticObserver{
         RessourceData ressourceData=new RessourceData();
         ressourceData.setOrderOfArrival(orderOfArival);
         ressourceData.setTimeInSystem(timeInSystem);
+        resourceDataArrayList.add(ressourceData);
     }
 
     @Override

@@ -14,4 +14,6 @@ public abstract class StatisticSuspect {
         observers.add(observer);
     }
 
+
+
 }
