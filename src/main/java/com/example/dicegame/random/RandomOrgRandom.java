@@ -49,7 +49,7 @@ public class RandomOrgRandom implements RandomStrategy{
     private void write(InputStream inputStream,Queue<Integer> queue){
         BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(inputStream));
         bufferedReader.lines().forEach(e-> {
-                  //  System.out.println(e);
+                   System.out.println(e);
                     queue.add(Integer.valueOf(e.toString()));
                 }
 
