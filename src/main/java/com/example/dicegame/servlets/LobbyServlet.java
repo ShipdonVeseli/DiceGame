@@ -81,14 +81,10 @@ public class LobbyServlet extends HttpServlet {
                     response.setHeader("lobbies", gameServer.getLobbymanager().convertToJSON());
                     break;
 
-                case "check":
-                    if(gameServer.getLobbymanager().checkUsername(username)){
-                        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    }else{
-                        response.setStatus(HttpServletResponse.SC_OK);
-                    }
+                case "get-lobby-id":
+                    Lobby lobby = gameServer.getLobbymanager().getLobbyByUsername(username);
+                    response.setHeader("lobbyid", lobby.getId().toString());
                     break;
-
                 default:
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     break;

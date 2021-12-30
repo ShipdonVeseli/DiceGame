@@ -3,89 +3,22 @@
 <head>
     <title>Dice Game</title>
 </head>
-
 <body>
-    <h1 id="h1">Dice Game</h1>
-    <form id="createSession" onsubmit="setUsername()">
-        Username: <input type="text" id="username"/>
-        <input type="submit" value="Set Username"/>
-    </form>
-    <form id="loggedin">
-        <input type="submit" value="Logout" onclick="logout()">
-        <ul id="lobbies">
-        </ul>
-        <input type="submit" id="create" value="Create Lobby" onclick="createLobby()">
-        <input type="submit" id="leave" value="Leave Lobby" onclick="leaveLobby()">
-    </form>
+    <div id="all">
+        <h1 id="h1">Dice Game</h1>
+        <form id="createSession" onsubmit="setUsername()">
+            Username: <input type="text" id="username"/>
+            <input type="submit" value="Set Username"/>
+        </form>
+        <form id="loggedin">
+            <input type="submit" value="Logout" onclick="logout()">
+            <ul id="lobbies">
+            </ul>
+            <input type="submit" id="create" value="Create Lobby" onclick="createLobby()">
+            <input type="submit" id="leave" value="Leave Lobby" onclick="leaveLobby()">
+            <input type="submit" id="start" value="Start Lobby" onclick="startLobby()">
+        </form>
+    </div>
 </body>
-
-<script>
-    function createLobby(){
-        fetch("http://localhost:8079/Lobby-servlet?mode=create&username="+localStorage.getItem("username"))
-    }
-
-    function leaveLobby(){
-        fetch("http://localhost:8079/Lobby-servlet?mode=leave&username="+localStorage.getItem("username"))
-    }
-
-    function joinLobby(id){
-        var lobbyid = document.getElementById(id).getAttribute("name");
-        const response = fetch("http://localhost:8079/Lobby-servlet?mode=join&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
-    }
-
-    async function getLobbies(){
-        const response = await fetch("http://localhost:8079/Lobby-servlet?mode=get-Lobbies")
-        for (let [key, value] of response.headers) {
-            if(`${key}` === "lobbies"){
-                return JSON.parse(`${value}`);
-            }
-        }
-    }
-
-    function insertList(value, index, array){
-        document.getElementById("lobbies").insertAdjacentHTML("beforebegin","<li>"+array[index].lobbyowner+" Lobby <input type='submit' id='"+index+"' onclick='joinLobby("+index+")' name="+array[index].lobbyid+" value='JOIN LOBBY'><ul><li>Players: "+array[index].players+"</li></ul></li>");
-    }
-
-    function convert(obj){
-        obj.then((result) => {
-            result.forEach(insertList)
-            return result;
-        }).catch(err=>console.log(err))
-    }
-    if(localStorage.getItem("username") !== null) {
-        document.getElementById("createSession").style.display = "none";
-        convert(getLobbies());
-    }else{
-        document.getElementById("loggedin").style.display = "none";
-    }
-
-    function logout(){
-        localStorage.removeItem("username");
-    }
-
-    async function checkUsername() {
-        let response =  await fetch("http://localhost:8079/Lobby-servlet?mode=check&username="+localStorage.getItem("username"))
-        console.log(localStorage.getItem("username"))
-        console.log(response.status)
-        if(response.status === 400){
-            return false;
-        }else{
-            return true;
-        }
-    }
-    function setUsername() {
-        if (checkUsername()) {
-            localStorage.setItem("username", document.getElementById("username").value);
-            document.getElementById("createSession").style.display = "none";
-        } else {
-            alert("Please choose another Username.");
-        }
-    }
-
-    setInterval(() => {
-        window.location = window.location
-    }, 5000);
-
-
-</script>
+<script src="lobby.js"></script>
 </html>

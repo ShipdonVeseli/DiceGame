@@ -93,6 +93,14 @@ public class Lobbymanager {
         return lobby.getId();
     }
 
+    public Lobby getLobbyByUsername(String username){
+        for (Lobby lobby: lobbies){
+            for(Player player: lobby.getPlayers()){
+                if(player.getPlayerName().equals(username)) return lobby;
+            }
+        }
+        throw new NoSuchElementException("No Player with = " + username);
+    }
     public Lobby getLobby(UUID id) throws NoSuchElementException {
         for (Lobby lobby : lobbies) {
             if (lobby.getId().equals(id)) {
