@@ -29,6 +29,17 @@ class GameTest {
     }
 
     @Test
+    void testConvertToJson2(){
+        Lobby lobby=new Lobby("Test User");
+        Game game=new Game(lobby);
+
+        game.move();
+        String actualResult=game.convertToJSON();
+
+        System.out.println(actualResult);
+    }
+
+    @Test
     void addNewResourcesTest(){
         Player p1=new Player("Test1");
         Player p2 =new Player("Test2");
