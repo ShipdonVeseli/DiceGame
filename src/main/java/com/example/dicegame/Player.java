@@ -3,13 +3,14 @@ package com.example.dicegame;
 import com.example.dicegame.game.Dice;
 import com.example.dicegame.game.Game;
 import com.example.dicegame.game.Resource;
+import com.example.dicegame.gameSatistic.StatisticSuspect;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Player {
+public class Player extends StatisticSuspect {
     private String playerName;
     private ArrayList<Dice> dices = new ArrayList<>();
     private ArrayList<Resource> resources = new ArrayList<>();

@@ -114,7 +114,7 @@ public class Lobby {
         return "Lobby{" +
                 "id=" + id +
                 ", players=" + players +
-                ", owner=" + owner +
+             //   ", owner=" + owner +
                 ", game=" + game +
                 ", hasGameStarted=" + hasGameStarted +
                 '}';

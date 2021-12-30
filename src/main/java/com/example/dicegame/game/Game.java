@@ -2,12 +2,14 @@ package com.example.dicegame.game;
 
 import com.example.dicegame.Lobby;
 import com.example.dicegame.Player;
+import com.example.dicegame.gameSatistic.StatisticObserver;
+import com.example.dicegame.gameSatistic.StatisticSuspect;
 import com.example.dicegame.gameSatistic.Statistics;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
-public class Game {
+public class Game extends StatisticSuspect {
     private int gameMode = 1;
     private Lobby lobby;
     private ArrayList<Resource> storage = new ArrayList<>();
