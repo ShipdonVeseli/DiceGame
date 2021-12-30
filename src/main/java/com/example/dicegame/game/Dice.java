@@ -35,7 +35,7 @@ public class Dice {
     public String convertToJSON(){
         return "{"
                 +"\"uuid\": "
-                +uuid.toString()+","
+                +"\""+uuid.toString()+"\""+","
                 +"\"value\": "
                 +value
                 +"}";
