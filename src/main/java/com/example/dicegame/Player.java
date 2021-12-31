@@ -14,6 +14,7 @@ public class Player extends StatisticSuspect {
     private String playerName;
     private ArrayList<Dice> dices = new ArrayList<>();
     private ArrayList<Resource> resources = new ArrayList<>();
+    private int savedRessources=0;
 
 
     public Player(String username) {
@@ -87,6 +88,14 @@ public class Player extends StatisticSuspect {
         return result;
     }
 
+    public void addmovedRessources(int amount){
+        savedRessources+=amount;
+    }
+
+    public void saveMovedResources(){
+        saveNumberOfMovedResources(playerName,savedRessources);
+        savedRessources=0;
+    }
     public ArrayList<Resource> getResources(int amount) {
         ArrayList<Resource> result = new ArrayList<>();
         amount = checkSize(amount);
@@ -107,9 +116,11 @@ public class Player extends StatisticSuspect {
         amount = checkSize(amount);
         for (int i = 0; i < amount; i++) {
             resources.remove(0);
-            saveNumberOfMovedResources(playerName, amount);
+            //saveNumberOfMovedResources(playerName, amount);
         }
     }
+
+
 
     public String convertToJSON() {
         String result = "[{";

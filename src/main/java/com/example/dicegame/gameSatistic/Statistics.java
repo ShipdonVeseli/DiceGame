@@ -2,21 +2,23 @@ package com.example.dicegame.gameSatistic;
 
 import java.util.ArrayList;
 
-public class Statistics implements StatisticObserver{
-    private GameData gameData=new GameData();
-    private ArrayList <PlayerData> playerDataArrayList=new ArrayList<>();
-    private ArrayList<RessourceData> resourceDataArrayList =new ArrayList<>();
+public class Statistics implements StatisticObserver {
+    private GameData gameData = new GameData();
+    private ArrayList<PlayerData> playerDataArrayList = new ArrayList<>();
+    private ArrayList<RessourceData> resourceDataArrayList = new ArrayList<>();
 
 
-    public String getActivity(){
-        //TODO
-        String result="[{";
+    public String getActivity() {
+
+        String result = "[{";
+        result += "\"playerDataArrayList\": ";
+
         for (int i = 0; i < playerDataArrayList.size(); i++) {
-            result+="{";
-            result+=playerDataArrayList.get(i).convertToJSON();
-            result+="}";
-            if (i<playerDataArrayList.size()-1){
-                result+=",";
+            result += "[]";
+            result += playerDataArrayList.get(i).convertToJSON();
+            result += "]";
+            if (i < playerDataArrayList.size() - 1) {
+                result += ",";
             }
         }
 
@@ -25,22 +27,22 @@ public class Statistics implements StatisticObserver{
         return result;
     }
 
-    public String getThroughput(){
+    public String getThroughput() {
         //TODO
         return "";
     }
 
-    public String getNumberInSystem(){
+    public String getNumberInSystem() {
         //TODO
         return "";
     }
 
-    public String getTimeInSystem(){
+    public String getTimeInSystem() {
         //TODO
         return "";
     }
 
-    public String getYourPerformance(){
+    public String getYourPerformance() {
         //TODO
         return "";
     }
@@ -49,33 +51,33 @@ public class Statistics implements StatisticObserver{
     @Override
     public void saveMovedRessource(String playerName, int numberOfMovedResources) {
 
-        for (PlayerData player:playerDataArrayList) {
-            if(player.getPlayerName().equals(playerName)){
+        for (PlayerData player : playerDataArrayList) {
+            if (player.getPlayerName().equals(playerName)) {
                 player.addMovedResource(numberOfMovedResources);
                 return;
             }
         }
-        PlayerData playerData=new PlayerData(playerName);
+        PlayerData playerData = new PlayerData(playerName);
         playerData.addMovedResource(numberOfMovedResources);
         playerDataArrayList.add(playerData);
     }
 
     @Override
     public void saveDiceRolled(String playerName, int value) {
-        for (PlayerData player:playerDataArrayList) {
-            if(player.getPlayerName().equals(playerName)){
+        for (PlayerData player : playerDataArrayList) {
+            if (player.getPlayerName().equals(playerName)) {
                 player.addDiceValue(value);
                 return;
             }
         }
-        PlayerData playerData=new PlayerData(playerName);
+        PlayerData playerData = new PlayerData(playerName);
         playerData.addDiceValue(value);
         playerDataArrayList.add(playerData);
     }
 
     @Override
     public void saveRessourceAddedToStorage(int orderOfArival, int timeInSystem) {
-        RessourceData ressourceData=new RessourceData();
+        RessourceData ressourceData = new RessourceData();
         ressourceData.setOrderOfArrival(orderOfArival);
         ressourceData.setTimeInSystem(timeInSystem);
         resourceDataArrayList.add(ressourceData);

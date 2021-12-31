@@ -27,7 +27,7 @@ public class Game extends StatisticSuspect {
     public Game(int gameMode, Lobby lobby) {
         this.gameMode = gameMode;
         this.lobby = lobby;
-        init();
+        //init();
     }
 
     public void init(){
@@ -96,6 +96,7 @@ public class Game extends StatisticSuspect {
 
             firstPlayer.addResource(resource);
         }
+
     }
 
     protected void moveResourcesToStorage() {
@@ -106,6 +107,8 @@ public class Game extends StatisticSuspect {
         storage.addAll(resourcesFromLastPlayer);
 
         lastPlayer.removeResources(amount);
+
+        lastPlayer.addmovedRessources(amount);
     }
 
     public void move() {
@@ -117,8 +120,11 @@ public class Game extends StatisticSuspect {
         if (activePlayerIndex < lobby.playerCount() - 1) {
             activePlayerIndex++;
         } else {
+
             activePlayerIndex = 0;
         }
+
+        lobby.getPlayers().forEach(e->e.saveMovedResources());
     }
 
     protected void moveResources() {
@@ -132,6 +138,10 @@ public class Game extends StatisticSuspect {
             playerReceiver.addResources(resources);
 
             playerSend.removeResources(amount);
+
+            playerSend.addmovedRessources(amount);
+
+
         }
     }
 

@@ -46,13 +46,12 @@ public class PlayerData {
     public String convertToJSON(){
 
         String result="{";
-
-        result+="\"PlayerName\": "+playerName+",";
+        result+="\"PlayerName\": \""+playerName+"\",";
         result+="\"Data\": "+"[";
         if(diceValues.size()==movedResources.size())  {
             for (int i = 0; i < diceValues.size(); i++) {
                 result+="{";
-                result+="\"diceValue\": "+diceValues.get(i)+",";
+                result+="\"round\": "+i+",";
                 result+="\"diceValue\": "+diceValues.get(i)+",";
                 result+="\"movedResource\": "+movedResources.get(i);
                 result+="}";
@@ -60,9 +59,10 @@ public class PlayerData {
                     result+=",";
                 }
             }
+        }else {
+            System.out.println("error");
+            System.out.println(diceValues.size()+" "+movedResources.size() );
         }
-
-
         result += "]}";
         return result;
     }
