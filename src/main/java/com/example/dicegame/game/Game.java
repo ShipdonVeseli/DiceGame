@@ -10,11 +10,14 @@ import java.util.NoSuchElementException;
 
 public class Game extends StatisticSuspect {
     private int gameMode = 1;
-    private Lobby lobby;
-    private ArrayList<Resource> storage = new ArrayList<>();
     private int round = 0;
     private int activePlayerIndex = 0;
+
+    private Lobby lobby;
+
     private Statistics statistics=new Statistics();
+
+    private ArrayList<Resource> storage = new ArrayList<>();
 
     public Game(Lobby lobby) {
         this.lobby = lobby;
@@ -156,12 +159,6 @@ public class Game extends StatisticSuspect {
     }
 
     public static String printResourcesJson(String result, ArrayList<Resource> storage) {
-//        for (Resource resource : storage) {
-//            result += resource.convertToJSON();
-//            if (storage.size() > 1) {
-//                result += ",";
-//            }
-//        }
         for (int i = 0; i < storage.size(); i++) {
             result += storage.get(i).convertToJSON();
             if(i<storage.size()-1){

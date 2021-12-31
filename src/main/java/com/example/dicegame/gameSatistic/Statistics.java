@@ -10,7 +10,19 @@ public class Statistics implements StatisticObserver{
 
     public String getActivity(){
         //TODO
-        return "";
+        String result="[{";
+        for (int i = 0; i < playerDataArrayList.size(); i++) {
+            result+="{";
+            result+=playerDataArrayList.get(i).convertToJSON();
+            result+="}";
+            if (i<playerDataArrayList.size()-1){
+                result+=",";
+            }
+        }
+
+
+        result += "}]";
+        return result;
     }
 
     public String getThroughput(){

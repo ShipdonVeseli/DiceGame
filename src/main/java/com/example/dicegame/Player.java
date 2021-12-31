@@ -73,7 +73,10 @@ public class Player extends StatisticSuspect {
     }
 
     public void rollAllDices() {
-        dices.forEach(e -> e.roll());
+        dices.forEach(e -> {
+            e.roll();
+        });
+        saveRolledDiceValue(playerName, getSummOfDiceValues());
     }
 
     public int getSummOfDiceValues() {
@@ -104,29 +107,25 @@ public class Player extends StatisticSuspect {
         amount = checkSize(amount);
         for (int i = 0; i < amount; i++) {
             resources.remove(0);
+            saveNumberOfMovedResources(playerName, amount);
         }
     }
 
     public String convertToJSON() {
         String result = "[{";
-        result += "\"playerName\": " + "\""+playerName +"\",";
+        result += "\"playerName\": " + "\"" + playerName + "\",";
         result += "\"dices\": [";
-//        for (Dice dice : dices) {
-//            result += dice.convertToJSON() ;
-//            if (dices.size()>1){
-//                result+=",";
-//            }
-//        }
-        for (int i = 0; i <dices.size() ; i++) {
-            result += dices.get(i).convertToJSON() ;
-            if(i<dices.size()-1){
-                result+=",";
+
+        for (int i = 0; i < dices.size(); i++) {
+            result += dices.get(i).convertToJSON();
+            if (i < dices.size() - 1) {
+                result += ",";
             }
         }
         result += "],";
 
         result += "\"resources\": [";
-        result=Game.printResourcesJson(result, resources);
+        result = Game.printResourcesJson(result, resources);
         result += "}]";
         return result;
     }
