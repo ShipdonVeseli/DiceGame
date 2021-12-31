@@ -3,50 +3,22 @@
 <head>
     <title>Dice Game</title>
 </head>
-
 <body>
-    <h1 id="h1">Dice Game</h1>
-    <form id="createSession" onsubmit="setUsername()">
-        Username: <input type="text" id="username"/>
-        <input type="submit" value="Set Username"/>
-    </form>
-    <form id="loggedin" onsubmit="logout()">
-        <input type="submit" value="Logout">
-        <ul id="lobbies">
-        </ul>
-    </form>
+    <div id="all">
+        <h1 id="h1">Dice Game</h1>
+        <form id="createSession" onsubmit="setUsername()">
+            Username: <input type="text" id="username"/>
+            <input type="submit" value="Set Username"/>
+        </form>
+        <form id="loggedin">
+            <input type="submit" value="Logout" onclick="logout()">
+            <ul id="lobbies">
+            </ul>
+            <input type="submit" id="create" value="Create Lobby" onclick="createLobby()">
+            <input type="submit" id="leave" value="Leave Lobby" onclick="leaveLobby()">
+            <input type="submit" id="start" value="Start Lobby" onclick="startLobby()">
+        </form>
+    </div>
 </body>
-
-<script>
-    async function getLobbies(){
-         const response = await fetch("http://localhost:8079/Lobby-servlet?mode=get-Lobbies", {
-             method: "POST",
-             headers: {
-                 "Content-Type": "application/json"
-             }
-        })
-        for (let [key, value] of response.headers) {
-            if(`${key}` === "lobbies"){
-                var jsonobject = JSON.parse(`${value}`);
-                console.log(jsonobject.lobbyid)
-            }
-        }
-    }
-    if(sessionStorage.getItem("username") !== null) {
-        document.getElementById("createSession").style.display = "none";
-        getLobbies();
-
-    }else{
-        document.getElementById("loggedin").style.display = "none";
-    }
-
-    function logout(){
-        sessionStorage.removeItem("username");
-    }
-
-    function setUsername(){
-        sessionStorage.setItem("username", document.getElementById("username").value);
-        document.getElementById("createSession").style.display = "none";
-    }
-</script>
+<script src="lobby.js"></script>
 </html>

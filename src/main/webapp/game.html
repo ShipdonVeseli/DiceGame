@@ -4,42 +4,101 @@
     <meta charset="UTF-8">
     <title>DiceGame</title>
     <style>
-        #dcg {
-            border:dotted 3px gray;
-            background-color: lightgray;
-            touch-action: none;
+        canvas {
+            background-color: rgba(0,0,0,0.2);
         }
-        #h1 {
+
+        h1 {
             text-align: center;
         }
-        #gameDisplay {
-            position: center;
+
+        .game {
+            margin: auto;
+            height: 100%;
+            width: 80%;
+            padding: 10px;
         }
     </style>
-</head>
-<body>
-<h1 id="h1">Dice Game</h1>
-<div id="gameDisplay" class="gameDisplay" style="text-align:center">
-<canvas id="dcg" width="980" height="550">
-</canvas>
-</div>
+
 <script>
-    window.onload=function ()
-    {
-        c=document.getElementById('dcg');
-        var cc= c.getContext('2d');
+    let canvas;
+    let ctx;
 
-        var background = new Image();
-        background.src = "images\\gamebackground.jpg";
+    let x = 100;
+    let y = 30;
 
-        background.onload = function ()
-        {
-            cc.drawImage(background,0,0);
+    let players = [];
+
+    function startGame() {
+        canvas = document.getElementById('canvas');
+        ctx = canvas.getContext('2d');
+        ctx.font = "15px verdana";
+
+        loadImages();
+        createplayer();
+        drawImages();
+    }
+
+    function createplayer() {
+        var token;
+        for (let i = 1; i < 11; i++) {
+            let player = {
+                tokensize: 0,
+                token: token = [],
+                row: 0,
+                col: 0,
+                name: 'Player ' + i,
+                x: x,
+                y: y,
+                width: 100,
+                height: 100,
+                src: 'images/player' + i + '.png',
+                img: new Image()
+            };
+
+            player.img.src = player.src;
+            players.push(player);
+
+            if(i < 5) {
+                x += 200;
+            } else if(i===5) {
+                x += 0;
+            } else {
+                x -= 200;
+            }
+
+            if(i===5) {
+                y += 300;
+            }
         }
+
+    }
+
+    function loadImages() {
+        players.forEach(function (player) {
+            player.img = new Image();
+            player.img.src = player.src;
+        });
+    }
+
+    function drawImages() {
+        players.forEach(function (player) {
+            ctx.drawImage(player.img, player.x, player.y, player.width, player.height);
+        });
+
+        requestAnimationFrame(drawImages);
     }
 
 
 </script>
-</script>
+
+</head>
+<body onload="startGame()">
+
+<h1>Dice Game</h1>
+<div class="game">
+    <canvas id="canvas" width="1090" height="500"></canvas>
+</div>
+
 </body>
 </html>
