@@ -41,7 +41,7 @@ function drawCanvas(value, index, array){
         for(let i=0; i < players.length; i++) {
             updateLineToAddToken(players[i]);
             ctx.beginPath();
-            ctx.arc(players[i].token_x, players[i].token_y, 2, 0, 2 * Math.PI);
+            ctx.arc(players[i].token_x, players[i].token_y, 7, 0, 2 * Math.PI);
             ctx.stroke();
         }
     }
@@ -73,8 +73,8 @@ setInterval(() => {
 let canvas;
 let ctx;
 
-let PLAYER_COORDINATE_X = 15;
-let PLAYER_COORDINATE_Y = 15;
+let PLAYER_COORDINATE_X = 50;
+let PLAYER_COORDINATE_Y = 30;
 let token = {
     width: 20,
     height: 20
@@ -116,15 +116,15 @@ function createplayer() {
         players.push(player);
 
         if(i < 5) {
-            PLAYER_COORDINATE_X += 120;
+            PLAYER_COORDINATE_X += 210;
         } else if(i===5) {
             PLAYER_COORDINATE_X += 0;
         } else {
-            PLAYER_COORDINATE_X -= 120;
+            PLAYER_COORDINATE_X -= 210;
         }
 
         if(i===5) {
-            PLAYER_COORDINATE_Y += 100;
+            PLAYER_COORDINATE_Y += 320;
         }
     }
 
@@ -132,15 +132,15 @@ function createplayer() {
 
 function updateLineToAddToken(player) {
     if (player.col < player.width) {
-        player.token_x = player.x + player.col;
-        player.token_y = player.y + player.height + 10 + player.row;
+        player.token_x = player.x + 5 + player.col;
+        player.token_y = player.y + player.height + 15 + player.row;
     } else {
         player.col = 0;
-        player.row += 5;
-        player.token_x = player.x + player.col;
-        player.token_y = player.y + player.height + 10 + player.row;
+        player.row += 15;
+        player.token_x = player.x + 5 + player.col;
+        player.token_y = player.y + player.height + 15 + player.row;
     }
-    player.col += 5;
+    player.col += 15;
 }
 
 function loadImages() {
