@@ -11,6 +11,19 @@
         cc.drawImage(background,0,0);
     }
 }*/
+let dpi = window.devicePixelRatio;
+
+function fix_dpi() {
+//get CSS height
+//the + prefix casts it to an integer
+//the slice method gets rid of "px"
+    let style_height = +getComputedStyle(canvas).getPropertyValue("height").slice(0, -2);
+//get CSS width
+    let style_width = +getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
+//scale the canvas
+    canvas.setAttribute('height', style_height * dpi);
+    canvas.setAttribute('width', style_width * dpi);
+}
 
 async function getStatus(){
     const response = await fetch("http://localhost:8079/Game-servlet?mode=status&username="+localStorage.getItem("username")+"&lobbyID="+sessionStorage.getItem("lobbyid"))
@@ -74,7 +87,7 @@ function startGame() {
     ctx.font = "15px verdana";
     var heightRatio = 0.5;
     canvas.height = canvas.width * heightRatio;
-
+    fix_dpi();
     loadImages();
     createplayer();
     drawImages();
@@ -93,8 +106,8 @@ function createplayer() {
             y: PLAYER_COORDINATE_Y,
             token_x: 0,
             token_y: 0,
-            width: 20,
-            height: 20,
+            width: 100,
+            height: 100,
             src: 'images/player' + i + '.png',
             img: new Image()
         };
@@ -103,11 +116,11 @@ function createplayer() {
         players.push(player);
 
         if(i < 5) {
-            PLAYER_COORDINATE_X += 60;
+            PLAYER_COORDINATE_X += 120;
         } else if(i===5) {
             PLAYER_COORDINATE_X += 0;
         } else {
-            PLAYER_COORDINATE_X -= 60;
+            PLAYER_COORDINATE_X -= 120;
         }
 
         if(i===5) {
