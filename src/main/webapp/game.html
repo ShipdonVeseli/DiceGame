@@ -24,8 +24,8 @@
     let canvas;
     let ctx;
 
-    let x = 100;
-    let y = 30;
+    let PLAYER_COORDINATE_X = 100;
+    let PLAYER_COORDINATE_Y = 30;
 
     let players = [];
 
@@ -48,8 +48,8 @@
                 row: 0,
                 col: 0,
                 name: 'Player ' + i,
-                x: x,
-                y: y,
+                x: PLAYER_COORDINATE_X,
+                y: PLAYER_COORDINATE_Y,
                 width: 100,
                 height: 100,
                 src: 'images/player' + i + '.png',
@@ -60,15 +60,15 @@
             players.push(player);
 
             if(i < 5) {
-                x += 200;
+                PLAYER_COORDINATE_X += 200;
             } else if(i===5) {
-                x += 0;
+                PLAYER_COORDINATE_X += 0;
             } else {
-                x -= 200;
+                PLAYER_COORDINATE_X -= 200;
             }
 
             if(i===5) {
-                y += 300;
+                PLAYER_COORDINATE_Y += 300;
             }
         }
 
