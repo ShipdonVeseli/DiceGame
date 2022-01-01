@@ -26,8 +26,9 @@ function drawCanvas(value, index, array){
         getRound(value, index, array)
     }else{
         for(let i=0; i < players.length; i++) {
+            updateLineToAddToken(players[i]);
             ctx.beginPath();
-            ctx.arc(players[i].x, players[i].y+players[i].height+10, 3, 0, 2 * Math.PI);
+            ctx.arc(players[i].token_x, players[i].token_y, 2, 0, 2 * Math.PI);
             ctx.stroke();
         }
     }
@@ -47,7 +48,7 @@ function convert(obj){
 }
 
 function reloadField(){
-    ctx.clearRect(0, 0, 1000,1000)
+    //ctx.clearRect(0, 0, 1000,1000);
     convert(getStatus());
 }
 
@@ -91,6 +92,8 @@ function createplayer() {
             name: 'Player ' + i,
             x: PLAYER_COORDINATE_X,
             y: PLAYER_COORDINATE_Y,
+            token_x: 0,
+            token_y: 0,
             width: 20,
             height: 20,
             src: 'images/player' + i + '.png',
@@ -115,17 +118,17 @@ function createplayer() {
 
 }
 
-function updateLineToAddToken(token, player) {
+function updateLineToAddToken(player) {
     if (player.col < player.width) {
-        token.x = player.x + player.col;
-        token.y = player.y + player.height + 30 + player.row;
+        player.token_x = player.x + player.col;
+        player.token_y = player.y + player.height + 10 + player.row;
     } else {
         player.col = 0;
-        player.row += token.width;
-        token.x = player.x + player.col;
-        token.y = player.y + player.height + 30 + player.row;
+        player.row += 5;
+        player.token_x = player.x + player.col;
+        player.token_y = player.y + player.height + 10 + player.row;
     }
-    player.col += token.width;
+    player.col += 5;
 }
 
 function loadImages() {
