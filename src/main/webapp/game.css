@@ -1,10 +1,33 @@
+body {
+    font-family: Verdana, "Lucida Sans Unicode", sans-serif;
+    background-color: #e0dddd;
+}
+
 #responsive-canvas {
     background-color: rgba(0,0,0,0.2);
     width: 100%;
+    border-radius: 0.25rem;
+    border-color: #141414;
+    border: 1px solid #494b4d;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+    height: 30em;
+    padding-left:0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display:block;
 }
 
 h1 {
+    border-radius: 0.25rem;
+    border-color: #343a40;
+    border: 1px solid #919497;
+    box-shadow: 0 1rem 1rem rgba(0,0,0,.15);
+    padding: 0.8em;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
     text-align: center;
+    color: #343a40;
 }
 
 .game {
