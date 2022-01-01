@@ -55,7 +55,7 @@ class GameTest {
         Player p2 =new Player("Test2");
         Lobby lobby=new Lobby(p1);
         lobby.addPlayer(p2);
-        Game game=new Game(lobby);
+        Game game=new Game(1,lobby);
 
         int expected=p1.getSummOfDiceValues();
         System.out.println("anz= "+expected);
@@ -74,7 +74,7 @@ class GameTest {
         Player p2 =new Player("Test2");
         Lobby lobby=new Lobby(p1);
         lobby.addPlayer(p2);
-        Game game=new Game(lobby);
+        Game game=new Game(1,lobby);
 
         ArrayList<Resource>resourcesP2=new ArrayList<>();
         resourcesP2.add(new Resource());
@@ -115,7 +115,7 @@ class GameTest {
         Player p2 =new Player("Test2");
         Lobby lobby=new Lobby(p1);
         lobby.addPlayer(p2);
-        Game game=new Game(lobby);
+        Game game=new Game(1,lobby);
 
         ArrayList<Resource>resourcesP2=new ArrayList<>();
 
@@ -148,7 +148,7 @@ class GameTest {
         Player p2 =new Player("Test2");
         Lobby lobby=new Lobby(p1);
         lobby.addPlayer(p2);
-        Game game=new Game(lobby);
+        Game game=new Game(1,lobby);
 
         ArrayList<Resource>resourcesP2=new ArrayList<>();
         resourcesP2.add(new Resource());
@@ -209,7 +209,7 @@ class GameTest {
         int expetedP2ResourceCount=1;
         int expetedP3ResourceCount=3;
 
-        Game game=new Game(lobby);
+        Game game=new Game(1,lobby);
         System.out.println(game);
         System.out.println();
         game.moveResources();

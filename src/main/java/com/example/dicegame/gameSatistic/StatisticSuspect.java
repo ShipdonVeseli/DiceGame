@@ -14,6 +14,18 @@ public abstract class StatisticSuspect {
         observers.add(observer);
     }
 
+    public void saveNumberOfMovedResources(String playerName,int amount){
+        observers.forEach(e->{
+            e.saveMovedRessource(playerName,amount);
+        });
+    }
+
+    public void saveRolledDiceValue(String playerName,int value){
+        observers.forEach(e->{
+            e.saveDiceRolled(playerName,value);
+        });
+    }
+
 
 
 }
