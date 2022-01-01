@@ -25,42 +25,39 @@ function fix_dpi() {
     canvas.setAttribute('width', style_width * dpi);
 }
 
-async function getStatus(){
-    const response = await fetch("http://localhost:8079/Game-servlet?mode=status&username="+localStorage.getItem("username")+"&lobbyID="+sessionStorage.getItem("lobbyid"))
+async function getStatus() {
+    const response = await fetch("http://localhost:8079/Game-servlet?mode=status&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
     for (let [key, value] of response.headers) {
-        if(`${key}` === "gamestatus"){
+        if (`${key}` === "gamestatus") {
             return JSON.parse(`${value}`);
         }
     }
 }
 
-function drawCanvas(value, index, array){
-    if(index === 0){
+function drawCanvas(value, index, array) {
+    if (index === 0) {
         getRound(value, index, array)
-    }else{
-        for(let i=0; i < players.length; i++) {
+    } else {
+        for (let i = 0; i < players.length; i++) {
             updateLineToAddToken(players[i]);
-            ctx.beginPath();
-            ctx.arc(players[i].token_x, players[i].token_y, 7, 0, 2 * Math.PI);
-            ctx.stroke();
+            drawToken(players[i]);
         }
     }
 
 }
 
-function getRound(value, index, array){
+function getRound(value, index, array) {
     ctx.fillText(array[index].round, 10, 50);
-
 }
 
-function convert(obj){
+function convert(obj) {
     obj.then((result) => {
         result.forEach(drawCanvas)
         return result;
-    }).catch(err=>console.log(err))
+    }).catch(err => console.log(err))
 }
 
-function reloadField(){
+function reloadField() {
     //ctx.clearRect(0, 0, 1000,1000);
     convert(getStatus());
 }
@@ -93,11 +90,17 @@ function startGame() {
     drawImages();
 }
 
+function drawToken(player) {
+    ctx.beginPath();
+    ctx.arc(player.token_x, player.token_y, 7, 0, 2 * Math.PI);
+    ctx.stroke();
+}
+
 function createplayer() {
     var token;
     for (let i = 1; i < 11; i++) {
         let player = {
-            tokensize: 0,
+            tokensize: 4,
             token: token = [],
             row: 0,
             col: 0,
@@ -115,15 +118,15 @@ function createplayer() {
         player.img.src = player.src;
         players.push(player);
 
-        if(i < 5) {
+        if (i < 5) {
             PLAYER_COORDINATE_X += 210;
-        } else if(i===5) {
+        } else if (i === 5) {
             PLAYER_COORDINATE_X += 0;
         } else {
             PLAYER_COORDINATE_X -= 210;
         }
 
-        if(i===5) {
+        if (i === 5) {
             PLAYER_COORDINATE_Y += 320;
         }
     }
