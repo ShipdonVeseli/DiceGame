@@ -22,6 +22,20 @@ async function getStatus(){
 }
 
 function drawCanvas(value, index, array){
+    if(index === 0){
+        getRound(value, index, array)
+    }else{
+        for(let i=0; i < players.length; i++) {
+            ctx.beginPath();
+            ctx.arc(players[i].x, players[i].y+players[i].height+10, 3, 0, 2 * Math.PI);
+            ctx.stroke();
+        }
+    }
+
+}
+
+function getRound(value, index, array){
+    ctx.fillText(array[index].round, 10, 50);
 
 }
 
@@ -33,7 +47,8 @@ function convert(obj){
 }
 
 function reloadField(){
-   convert(getStatus());
+    ctx.clearRect(0, 0, 1000,1000)
+    convert(getStatus());
 }
 
 
@@ -46,7 +61,10 @@ let ctx;
 
 let PLAYER_COORDINATE_X = 15;
 let PLAYER_COORDINATE_Y = 15;
-
+let token = {
+    width: 20,
+    height: 20
+};
 let players = [];
 
 function startGame() {
@@ -95,6 +113,19 @@ function createplayer() {
         }
     }
 
+}
+
+function updateLineToAddToken(token, player) {
+    if (player.col < player.width) {
+        token.x = player.x + player.col;
+        token.y = player.y + player.height + 30 + player.row;
+    } else {
+        player.col = 0;
+        player.row += token.width;
+        token.x = player.x + player.col;
+        token.y = player.y + player.height + 30 + player.row;
+    }
+    player.col += token.width;
 }
 
 function loadImages() {
