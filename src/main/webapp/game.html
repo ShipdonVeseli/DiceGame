@@ -3,26 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>DiceGame</title>
-    <style>
-        #dcg {
-            border:dotted 3px gray;
-            background-color: lightgray;
-            touch-action: none;
-        }
-        #h1 {
-            text-align: center;
-        }
-        #gameDisplay {
-            position: center;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="game.css">
+
+    <script src="game.js">
+
+    </script>
+
 </head>
-<body>
-<h1 id="h1">Dice Game</h1>
-<div id="gameDisplay" class="gameDisplay" style="text-align:center">
-<canvas id="dcg" width="980" height="550">
-</canvas>
+<body onload="startGame()">
+
+<h1>Dice Game</h1>
+<div class="game">
+    <canvas id="responsive-canvas"></canvas>
 </div>
-<script src="game.js"></script>
+
 </body>
 </html>

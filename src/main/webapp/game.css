@@ -1,0 +1,15 @@
+#responsive-canvas {
+    background-color: rgba(0,0,0,0.2);
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+}
+
+.game {
+    margin: auto;
+    height: 100%;
+    width: 80%;
+    padding: 10px;
+}
