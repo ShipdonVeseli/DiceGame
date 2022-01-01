@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <title>DiceGame</title>
     <style>
-        canvas {
+        #responsive-canvas {
             background-color: rgba(0,0,0,0.2);
+            width: 100%;
         }
 
         h1 {
@@ -24,15 +25,18 @@
     let canvas;
     let ctx;
 
-    let PLAYER_COORDINATE_X = 100;
-    let PLAYER_COORDINATE_Y = 30;
+    let PLAYER_COORDINATE_X = 15;
+    let PLAYER_COORDINATE_Y = 15;
 
     let players = [];
 
     function startGame() {
-        canvas = document.getElementById('canvas');
+        canvas = document.getElementById('responsive-canvas');
         ctx = canvas.getContext('2d');
         ctx.font = "15px verdana";
+        var canvas = document.getElementById('responsive-canvas');
+        var heightRatio = 0.5;
+        canvas.height = canvas.width * heightRatio;
 
         loadImages();
         createplayer();
@@ -50,8 +54,8 @@
                 name: 'Player ' + i,
                 x: PLAYER_COORDINATE_X,
                 y: PLAYER_COORDINATE_Y,
-                width: 100,
-                height: 100,
+                width: 20,
+                height: 20,
                 src: 'images/player' + i + '.png',
                 img: new Image()
             };
@@ -60,15 +64,15 @@
             players.push(player);
 
             if(i < 5) {
-                PLAYER_COORDINATE_X += 200;
+                PLAYER_COORDINATE_X += 60;
             } else if(i===5) {
                 PLAYER_COORDINATE_X += 0;
             } else {
-                PLAYER_COORDINATE_X -= 200;
+                PLAYER_COORDINATE_X -= 60;
             }
 
             if(i===5) {
-                PLAYER_COORDINATE_Y += 300;
+                PLAYER_COORDINATE_Y += 100;
             }
         }
 
@@ -97,7 +101,7 @@
 
 <h1>Dice Game</h1>
 <div class="game">
-    <canvas id="canvas" width="1090" height="500"></canvas>
+    <canvas id="responsive-canvas"></canvas>
 </div>
 
 </body>
