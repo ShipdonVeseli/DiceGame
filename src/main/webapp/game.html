@@ -23,23 +23,6 @@
 <canvas id="dcg" width="980" height="550">
 </canvas>
 </div>
-<script>
-    window.onload=function ()
-    {
-        c=document.getElementById('dcg');
-        var cc= c.getContext('2d');
-
-        var background = new Image();
-        background.src = "images\\gamebackground.jpg";
-
-        background.onload = function ()
-        {
-            cc.drawImage(background,0,0);
-        }
-    }
-
-
-</script>
-</script>
+<script src="game.js"></script>
 </body>
 </html>

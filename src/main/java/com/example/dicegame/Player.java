@@ -105,6 +105,22 @@ public class Player extends StatisticSuspect {
         return result;
     }
 
+    public int getBlueResources(){
+        int counter = 0;
+        for(Resource resource: resources){
+            if(resource.isBlueResource()) counter++;
+        }
+        return counter;
+    }
+
+    public int getNormalResources(){
+        int counter = 0;
+        for(Resource resource: resources){
+            if(!resource.isBlueResource()) counter++;
+        }
+        return counter;
+    }
+
     private int checkSize(int amount) {
         if (amount > resources.size()) {
             amount = resources.size();

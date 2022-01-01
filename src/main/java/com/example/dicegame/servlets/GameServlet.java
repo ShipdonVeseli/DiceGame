@@ -56,7 +56,7 @@ public class GameServlet extends HttpServlet {
                     break;
 
                 case "status":
-                    response.setHeader("gameStatus", game.convertToJSON());
+                    response.setHeader("gameStatus", game.convertToJSON2());
                     break;
 
                 case "make-move":
@@ -69,7 +69,7 @@ public class GameServlet extends HttpServlet {
 
                 case "start-game":
                     lobbyOfTheGame.startGame();
-                    response.setHeader("isStarted", "true");
+                     response.setHeader("isStarted", "true");
                     break;
 
                 case "has-Game-started":
