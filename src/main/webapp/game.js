@@ -35,14 +35,14 @@ async function getStatus() {
 }
 
 function drawCanvas(value, index, array) {
-    if (index === 0) {
-        getRound(value, index, array)
-    } else {
-        for (let i = 0; i < players.length; i++) {
-            updateLineToAddToken(players[i]);
-            drawToken(players[i]);
-        }
-    }
+    // if (index === 0) {
+    //     getRound(value, index, array)
+    // } else {
+    //     for (let i = 0; i < players.length; i++) {
+    //         updateLineToAddToken(players[i]);
+    //         drawToken(players[i]);
+    //     }
+    // }
 
 }
 
@@ -88,12 +88,22 @@ function startGame() {
     loadImages();
     createplayer();
     drawImages();
+    generateStartTokens();
 }
 
 function drawToken(player) {
     ctx.beginPath();
     ctx.arc(player.token_x, player.token_y, 7, 0, 2 * Math.PI);
     ctx.stroke();
+}
+
+function generateStartTokens() {
+    players.forEach(function(player) {
+        for (let i=0; i<player.tokensize; i++) {
+            updateLineToAddToken(player);
+            drawToken(player);
+        }
+    })
 }
 
 function createplayer() {
