@@ -34,20 +34,37 @@ async function getStatus() {
     }
 }
 
+function rollDice(){
+    fetch("http://localhost:8079/Game-servlet?mode=roll-all&username="+localStorage.getItem("username")+"&lobbyID=" + sessionStorage.getItem("lobbyid"))
+    fetch("http://localhost:8079/Game-servlet?mode=make-move&username="+localStorage.getItem("username")+"&lobbyID=" + sessionStorage.getItem("lobbyid"))
+}
+function loadDiceImage(dicevalue, playerindex){
+    let dice = new Image();
+    dice.src = "/images/Dice"+dicevalue+".png";
+    ctx.drawImage(dice, players[playerindex].x+players[playerindex].width+15, players[playerindex].y, 50, 50);
+}
 function drawCanvas(value, index, array) {
-    // if (index === 0) {
-    //     getRound(value, index, array)
-    // } else {
-    //     for (let i = 0; i < players.length; i++) {
-    //         updateLineToAddToken(players[i]);
-    //         drawToken(players[i]);
-    //     }
-    // }
+     if (index === 0) {
+         ctx.clearRect(0, 0, 1500,1000);
+         getRound(value, index, array)
+     } else {
+         loadDiceImage(array[index].dicevalue, index-1);
+         players[index-1].tokensize =  array[index].blueresources + array[index].normalresources;
+         for (let i=0; i<players[index-1].tokensize; i++) {
+             if(index > 6){
+                 updateLineToAddTokenForBottomRow(players[index-1]);
+                 drawToken(players[index-1]);
+             }else{
+                 updateLineToAddTokenForUpperRow(players[index-1]);
+                 drawToken(players[index-1]);
+             }
+         }
+    }
 
 }
 
 function getRound(value, index, array) {
-    ctx.fillText(array[index].round, 10, 50);
+    ctx.fillText(array[index].round, 1250, 400);
 }
 
 function convert(obj) {
@@ -58,12 +75,16 @@ function convert(obj) {
 }
 
 function reloadField() {
-    //ctx.clearRect(0, 0, 1000,1000);
     convert(getStatus());
 }
 
 
 setInterval(() => {
+    for(let i = 0; i < players.length; i++){
+        players[i].tokensize = 0;
+        players[i].row = 0;
+        players[i].col = 0;
+    }
     reloadField();
 }, 5000);
 
@@ -81,7 +102,7 @@ let players = [];
 function startGame() {
     canvas = document.getElementById('responsive-canvas');
     ctx = canvas.getContext('2d');
-    ctx.font = "15px verdana";
+    ctx.font = "35px Arial";
     var heightRatio = 0.5;
     canvas.height = canvas.width * heightRatio;
     fix_dpi();
@@ -100,7 +121,7 @@ function drawToken(player) {
 function generateStartTokens() {
     players.forEach(function(player) {
         for (let i=0; i<player.tokensize; i++) {
-            updateLineToAddToken(player);
+            updateLineToAddTokenForUpperRow(player);
             drawToken(player);
         }
     })
@@ -110,7 +131,7 @@ function createplayer() {
     var token;
     for (let i = 1; i < 11; i++) {
         let player = {
-            tokensize: 4,
+            tokensize: 0,
             token: token = [],
             row: 0,
             col: 0,
@@ -143,7 +164,7 @@ function createplayer() {
 
 }
 
-function updateLineToAddToken(player) {
+function updateLineToAddTokenForUpperRow(player) {
     if (player.col < player.width) {
         player.token_x = player.x + 5 + player.col;
         player.token_y = player.y + player.height + 15 + player.row;
@@ -152,6 +173,19 @@ function updateLineToAddToken(player) {
         player.row += 15;
         player.token_x = player.x + 5 + player.col;
         player.token_y = player.y + player.height + 15 + player.row;
+    }
+    player.col += 15;
+}
+
+function updateLineToAddTokenForBottomRow(player) {
+    if(player.col < player.width) {
+        player.token_x = player.x + 5 + player.col;
+        player.token_y = player.y - 15 + player.row;
+    } else {
+        player.col = 0;
+        player.row -= 15;
+        player.token_x = player.x + 5 + player.col;
+        player.token_y = player.y - 15 + player.row;
     }
     player.col += 15;
 }
@@ -167,7 +201,6 @@ function drawImages() {
     players.forEach(function (player) {
         ctx.drawImage(player.img, player.x, player.y, player.width, player.height);
     });
-
     requestAnimationFrame(drawImages);
 }
 
