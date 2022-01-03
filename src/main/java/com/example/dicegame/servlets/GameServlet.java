@@ -47,13 +47,13 @@ public class GameServlet extends HttpServlet {
                     break;
 
                 //rolls all dices from the calling Player
-                case "roll-me":
-                    if (game.checkIfPlayerIsActivePlayer(username)) {
-                        game.rollDicesFromOnePlayer(username);
-                    } else {
-                        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    }
-                    break;
+//                case "roll-me":
+//                    if (game.checkIfPlayerIsActivePlayer(username)) {
+//                        game.rollDicesFromOnePlayer(username);
+//                    } else {
+//                        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+//                    }
+//                    break;
 
                 case "status":
                     response.setHeader("gameStatus", game.convertToJSON2());
@@ -104,10 +104,6 @@ public class GameServlet extends HttpServlet {
                     response.setHeader("Time-in-System", game.getStatistics().getTimeInSystem());
                     break;
 
-                case "get-Your-Performance":
-                    //TODO
-                    response.setHeader("Your-Performance", game.getStatistics().getYourPerformance());
-                    break;
 
                 default:
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

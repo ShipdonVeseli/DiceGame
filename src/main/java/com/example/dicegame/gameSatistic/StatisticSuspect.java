@@ -38,6 +38,12 @@ public abstract class StatisticSuspect {
         });
     }
 
+    public void saveRessourceInStorage(int timeInSystem){
+        observers.forEach(e->{
+            e.saveRessourceAddedToStorage(timeInSystem);
+        });
+    }
+
 
 
 }

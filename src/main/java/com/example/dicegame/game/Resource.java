@@ -4,12 +4,32 @@ import java.util.Objects;
 
 public class Resource {
     private boolean blueResource;
+    private int timeInSystem=0;
+    private boolean alreadySaved=false;
 
     public Resource() {
     }
 
     public Resource(boolean blueResource) {
         this.blueResource = blueResource;
+    }
+
+    public void increaseTimeInSystem(){
+        if(blueResource){
+            timeInSystem++;
+        }
+    }
+
+    public boolean isAlreadySaved() {
+        return alreadySaved;
+    }
+
+    public void setAlreadySaved(boolean alreadySaved) {
+        this.alreadySaved = alreadySaved;
+    }
+
+    public int getTimeInSystem() {
+        return timeInSystem;
     }
 
     public boolean isBlueResource() {

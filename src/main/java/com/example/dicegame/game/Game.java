@@ -126,6 +126,11 @@ public class Game extends StatisticSuspect {
         moveResources();
         addNewResources();
 
+        changeActivePlayer();
+        statisticValuesSaving();
+    }
+
+    private void changeActivePlayer() {
         if (activePlayerIndex < lobby.playerCount() - 1) {
             activePlayerIndex++;
         } else {
@@ -133,10 +138,21 @@ public class Game extends StatisticSuspect {
             activePlayerIndex = 0;
         }
         dicesAlreadyRolled=false;
+    }
 
+    private void statisticValuesSaving() {
+        lobby.increaseTimeInSystemInOllPlayerResources();
         saveNumberInStorage(storage.size());
-        saveNumberInGame(lobby.getNumberOfAllRessourcesFromAllPlayers());
+        saveNumberInGame(lobby.getNumberOfAllResourcesFromAllPlayers());
         lobby.getPlayers().forEach(e->e.saveMovedResources());
+
+        storage.forEach(e->{
+            if(!e.isAlreadySaved()){
+                e.setAlreadySaved(true);
+                saveRessourceInStorage(e.getTimeInSystem());
+            }
+
+        });
     }
 
     protected void moveResources() {

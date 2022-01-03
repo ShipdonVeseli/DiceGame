@@ -2,7 +2,7 @@ package com.example.dicegame.gameSatistic;
 
 import java.util.ArrayList;
 
-public class GameData {
+public class GameData implements StatisticData{
     private ArrayList<Integer> numberOFResourcesInGame=new ArrayList<>();
     private ArrayList<Integer> numberOFResourcesInStorage =new ArrayList<>();
 
@@ -30,4 +30,8 @@ public class GameData {
         return numberOFResourcesInStorage.get(round);
     }
 
+    @Override
+    public String convertToJSON() {
+        return "";
+    }
 }

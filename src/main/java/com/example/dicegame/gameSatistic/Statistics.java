@@ -12,15 +12,13 @@ public class Statistics implements StatisticObserver {
 
         String result = "[{";
         result += "\"playerDataArrayList\": [";
-
-        for (int i = 0; i < playerDataArrayList.size(); i++) {
-        //    result += "";
-            result += playerDataArrayList.get(i).convertToJSON();
-          //  result += "]";
-            if (i < playerDataArrayList.size() - 1) {
-                result += ",";
-            }
-        }
+        result+=printDataToJson(playerDataArrayList.toArray(new StatisticData[playerDataArrayList.size()]));
+//        for (int i = 0; i < playerDataArrayList.size(); i++) {
+//            result += playerDataArrayList.get(i).convertToJSON();
+//            if (i < playerDataArrayList.size() - 1) {
+//                result += ",";
+//            }
+//        }
 
         result += "]}]";
         return result;
@@ -72,14 +70,33 @@ public class Statistics implements StatisticObserver {
     }
 
     public String getTimeInSystem() {
-        //TODO
-        return "";
+        String result = "[{";
+        result += "\"resourceDataArrayList\": [";
+
+        result+=printDataToJson( resourceDataArrayList.toArray(new StatisticData[resourceDataArrayList.size()]));
+//        for (int i = 0; i < resourceDataArrayList.size(); i++) {
+//            result += resourceDataArrayList.get(i).convertToJSON();
+//            if (i < resourceDataArrayList.size() - 1) {
+//                result += ",";
+//            }
+//        }
+
+        result += "]}]";
+        return result;
     }
 
-    public String getYourPerformance() {
-        //TODO
-        return "";
+    private String printDataToJson(StatisticData[] data){
+      String result="";
+
+            for (int i = 0; i < data.length; i++) {
+                result += data[i].convertToJSON();
+                if (i < data.length - 1) {
+                    result += ",";
+                }
+            }
+        return result;
     }
+
 
 
     @Override
@@ -110,9 +127,10 @@ public class Statistics implements StatisticObserver {
     }
 
     @Override
-    public void saveRessourceAddedToStorage(int orderOfArival, int timeInSystem) {
+    public void saveRessourceAddedToStorage( int timeInSystem) {
+        int orderOfArrival =resourceDataArrayList.size();
         RessourceData ressourceData = new RessourceData();
-        ressourceData.setOrderOfArrival(orderOfArival);
+        ressourceData.setOrderOfArrival(orderOfArrival);
         ressourceData.setTimeInSystem(timeInSystem);
         resourceDataArrayList.add(ressourceData);
     }

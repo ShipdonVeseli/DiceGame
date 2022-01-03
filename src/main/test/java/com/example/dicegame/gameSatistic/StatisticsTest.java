@@ -101,4 +101,56 @@ class StatisticsTest {
             fail();
         }
     }
+
+
+    @Test
+    void getTimeInSystemTest(){
+        Lobby lobby = new Lobby("test 1");
+        lobby.addPlayer(new Player("test 2"));
+        Game game = new Game(lobby);
+
+        try {
+            game.rollAllDiceInGame();
+            game.move();
+
+            game.rollAllDiceInGame();
+            game.move();
+
+            game.rollAllDiceInGame();
+            game.move();
+
+            game.rollAllDiceInGame();
+            game.move();
+
+            game.rollAllDiceInGame();
+            game.move();
+
+            game.rollAllDiceInGame();
+            game.move();
+
+            game.rollAllDiceInGame();
+            game.move();
+
+            game.rollAllDiceInGame();
+            game.move();
+
+            game.rollAllDiceInGame();
+            game.move();
+
+            game.rollAllDiceInGame();
+            game.move();
+
+            game.rollAllDiceInGame();
+            game.move();
+
+            game.rollAllDiceInGame();
+            game.move();
+            String result = game.getStatistics().getTimeInSystem();
+            System.out.println(result);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
 }
