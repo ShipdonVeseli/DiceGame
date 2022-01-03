@@ -34,31 +34,41 @@ async function getStatus() {
     }
 }
 
-function rollDice(){
-    fetch("http://localhost:8079/Game-servlet?mode=roll-all&username="+localStorage.getItem("username")+"&lobbyID=" + sessionStorage.getItem("lobbyid"))
-    fetch("http://localhost:8079/Game-servlet?mode=make-move&username="+localStorage.getItem("username")+"&lobbyID=" + sessionStorage.getItem("lobbyid"))
+function rollDice() {
+    fetch("http://localhost:8079/Game-servlet?mode=roll-all&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+    fetch("http://localhost:8079/Game-servlet?mode=make-move&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
 }
-function loadDiceImage(dicevalue, playerindex){
+
+let dices = [];
+
+for (let i = 1; i <= 6; i++) {
     let dice = new Image();
-    dice.src = "/images/Dice"+dicevalue+".png";
-    ctx.drawImage(dice, players[playerindex].x+players[playerindex].width+15, players[playerindex].y, 50, 50);
+    dice.src = "/images/Dice" + i + ".png";
+    dices.push(dice);
 }
+
+
+function loadDiceImage(dicevalue, playerindex) {
+    ctx.drawImage(dices[dicevalue-1], players[playerindex].x + players[playerindex].width + 15, players[playerindex].y, 50, 50);
+    requestAnimationFrame(loadDiceImage);
+}
+
 function drawCanvas(value, index, array) {
-     if (index === 0) {
-         ctx.clearRect(0, 0, 1500,1000);
-         getRound(value, index, array)
-     } else {
-         loadDiceImage(array[index].dicevalue, index-1);
-         players[index-1].tokensize =  array[index].blueresources + array[index].normalresources;
-         for (let i=0; i<players[index-1].tokensize; i++) {
-             if(index > 6){
-                 updateLineToAddTokenForBottomRow(players[index-1]);
-                 drawToken(players[index-1]);
-             }else{
-                 updateLineToAddTokenForUpperRow(players[index-1]);
-                 drawToken(players[index-1]);
-             }
-         }
+    if (index === 0) {
+        ctx.clearRect(0, 0, 1500, 1000);
+        getRound(value, index, array)
+    } else {
+        loadDiceImage(array[index].dicevalue, index - 1);
+        players[index - 1].tokensize = array[index].blueresources + array[index].normalresources;
+        for (let i = 0; i < players[index - 1].tokensize; i++) {
+            if (index > 6) {
+                updateLineToAddTokenForBottomRow(players[index - 1]);
+                drawToken(players[index - 1]);
+            } else {
+                updateLineToAddTokenForUpperRow(players[index - 1]);
+                drawToken(players[index - 1]);
+            }
+        }
     }
 
 }
@@ -80,7 +90,7 @@ function reloadField() {
 
 
 setInterval(() => {
-    for(let i = 0; i < players.length; i++){
+    for (let i = 0; i < players.length; i++) {
         players[i].tokensize = 0;
         players[i].row = 0;
         players[i].col = 0;
@@ -119,8 +129,8 @@ function drawToken(player) {
 }
 
 function generateStartTokens() {
-    players.forEach(function(player) {
-        for (let i=0; i<player.tokensize; i++) {
+    players.forEach(function (player) {
+        for (let i = 0; i < player.tokensize; i++) {
             updateLineToAddTokenForUpperRow(player);
             drawToken(player);
         }
@@ -178,7 +188,7 @@ function updateLineToAddTokenForUpperRow(player) {
 }
 
 function updateLineToAddTokenForBottomRow(player) {
-    if(player.col < player.width) {
+    if (player.col < player.width) {
         player.token_x = player.x + 5 + player.col;
         player.token_y = player.y - 15 + player.row;
     } else {
