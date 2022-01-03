@@ -22,7 +22,6 @@ public class Statistics implements StatisticObserver {
             }
         }
 
-
         result += "}]";
         return result;
     }

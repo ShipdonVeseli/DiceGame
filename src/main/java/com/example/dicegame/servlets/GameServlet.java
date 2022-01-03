@@ -78,7 +78,6 @@ public class GameServlet extends HttpServlet {
                     break;
 
                 case "get-Activity":
-                    //TODO
                     response.setHeader("Activity", game.getStatistics().getActivity());
                     break;
 
