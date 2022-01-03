@@ -29,18 +29,23 @@ public class Statistics implements StatisticObserver {
     public String getThroughput() {
 
         String result = "[{";
-        result += "\"Throughput\": ";
+        result += "\"Throughput\": [";
 
-        for (int i = 0; i < playerDataArrayList.size(); i++) {
-            result += "[";
-            result += playerDataArrayList.get(i).convertToJSON();
-            result += "]";
-            if (i < playerDataArrayList.size() - 1) {
+        for (int i = 0; i < gameData.getNumberOFResourcesInStorage().size(); i++) {
+            result += "{";
+            result += "\"round\": "+i;
+            result += ",";
+
+            result += "\"Number of Resources In Storage\": "+gameData.getNumberOFResourcesInStorage().get(i);
+
+            result += "}";
+
+            if (i < gameData.getNumberOFResourcesInStorage().size() - 1) {
                 result += ",";
             }
         }
 
-        result += "}]";
+        result += "]}]";
         return result;
     }
 
