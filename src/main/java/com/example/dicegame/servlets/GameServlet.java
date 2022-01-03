@@ -100,7 +100,6 @@ public class GameServlet extends HttpServlet {
                     break;
 
                 case "get-Time-in-System":
-                    //TODO
                     response.setHeader("Time-in-System", game.getStatistics().getTimeInSystem());
                     break;
 
