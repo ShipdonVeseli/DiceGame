@@ -2,23 +2,44 @@
 <html lang="en">
 <head>
     <title>Dice Game</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div id="all">
-        <h1 id="h1">Dice Game</h1>
-        <form id="createSession" onsubmit="setUsername()">
-            Username: <input type="text" id="username"/>
-            <input type="submit" value="Set Username"/>
-        </form>
-        <form id="loggedin">
-            <input type="submit" value="Logout" onclick="logout()">
+<div id="all" class="login-box">
+    <h2 id="h2">Dice Game</h2>
+    <form id="createSession" onsubmit="setUsername()">
+        <div class="user-box">
+            <input type="text" id="username" required=""/>
+            <label>Username</label>
+        </div>
+        <a>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <input type="submit" value="Set Username" style="background-color: #141e30; color: white; border: none"/>
+        </a>
+    </form>
+
+    <form id="loggedin">
+        <div class="logout">
+            <input type="submit" value="Logout" onclick="logout()" style="width: 90%; margin: 1em">
+        </div>
+        <div class="createLobby">
+            <input type="submit" value="Create Lobby" id="create" onclick="createLobby()">
+        </div>
+        <div class="leaveLobby">
+            <input type="submit" value="Leave Lobby" id="leave" onclick="leaveLobby()">
+        </div>
+        <div class="startGame">
+            <input type="submit" value="Start Lobby" id="start" onclick="startLobby()">
+        </div>
+        <div class="showlobbies">
             <ul id="lobbies">
             </ul>
-            <input type="submit" id="create" value="Create Lobby" onclick="createLobby()">
-            <input type="submit" id="leave" value="Leave Lobby" onclick="leaveLobby()">
-            <input type="submit" id="start" value="Start Lobby" onclick="startLobby()">
-        </form>
-    </div>
+        </div>
+    </form>
+</div>
 </body>
 <script src="lobby.js"></script>
 </html>
