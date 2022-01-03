@@ -68,9 +68,13 @@ public class GameServlet extends HttpServlet {
                     break;
 
                 case "get-Active-Player":
-                    int activePlayerIndex=game.getActivePlayerIndex();
-                    String activePlayerName=lobbyOfTheGame.getPlayer(activePlayerIndex).getPlayerName();
-                    response.setHeader("ActivePlayer", activePlayerName);
+                    try {
+                        int activePlayerIndex = game.getActivePlayerIndex();
+                        String activePlayerName = lobbyOfTheGame.getPlayer(activePlayerIndex).getPlayerName();
+                        response.setHeader("ActivePlayer", activePlayerName);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                     break;
 
                 case "start-game":
