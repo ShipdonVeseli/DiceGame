@@ -11,10 +11,28 @@ public class Statistics implements StatisticObserver {
     public String getActivity() {
 
         String result = "[{";
-        result += "\"playerDataArrayList\": ";
+        result += "\"playerDataArrayList\": [";
 
         for (int i = 0; i < playerDataArrayList.size(); i++) {
-            result += "[]";
+        //    result += "";
+            result += playerDataArrayList.get(i).convertToJSON();
+          //  result += "]";
+            if (i < playerDataArrayList.size() - 1) {
+                result += ",";
+            }
+        }
+
+        result += "]}]";
+        return result;
+    }
+
+    public String getThroughput() {
+
+        String result = "[{";
+        result += "\"Throughput\": ";
+
+        for (int i = 0; i < playerDataArrayList.size(); i++) {
+            result += "[";
             result += playerDataArrayList.get(i).convertToJSON();
             result += "]";
             if (i < playerDataArrayList.size() - 1) {
@@ -24,11 +42,6 @@ public class Statistics implements StatisticObserver {
 
         result += "}]";
         return result;
-    }
-
-    public String getThroughput() {
-        //TODO
-        return "";
     }
 
     public String getNumberInSystem() {

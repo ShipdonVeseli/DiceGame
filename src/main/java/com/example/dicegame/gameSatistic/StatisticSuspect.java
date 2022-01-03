@@ -26,6 +26,12 @@ public abstract class StatisticSuspect {
         });
     }
 
+    public void saveNumberInStorage(int amount){
+        observers.forEach(e->{
+            e.saveNumberOFResourcesInStorage(amount);
+        });
+    }
+
 
 
 }
