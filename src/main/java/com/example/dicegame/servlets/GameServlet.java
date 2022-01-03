@@ -92,12 +92,10 @@ public class GameServlet extends HttpServlet {
                     break;
 
                 case "get-Throughput":
-                    //TODO
                     response.setHeader("Throughput", game.getStatistics().getThroughput());
                     break;
 
                 case "get-Number-in-System":
-                    //TODO
                     response.setHeader("Number-in-System", game.getStatistics().getNumberInSystem());
                     break;
 
