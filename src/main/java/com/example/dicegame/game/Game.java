@@ -12,6 +12,7 @@ public class Game extends StatisticSuspect {
     private int gameMode = 1;
     private int round = 0;
     private int activePlayerIndex = 0;
+    private boolean dicesAlreadyRolled=false;
 
     private Lobby lobby;
 
@@ -73,11 +74,14 @@ public class Game extends StatisticSuspect {
     }
 
     public void rollDicesFromOnePlayer(String userName) throws NoSuchElementException {
-        for (Player playerInLobby : lobby.getPlayers()) {
-            if (userName.equals(playerInLobby)) {
-                playerInLobby.rollAllDices();
-                return;
+        if(!dicesAlreadyRolled) {
+            for (Player playerInLobby : lobby.getPlayers()) {
+                if (userName.equals(playerInLobby)) {
+                    playerInLobby.rollAllDices();
+                    return;
+                }
             }
+            dicesAlreadyRolled=true;
         }
         throw new NoSuchElementException("No Player with Username= " + userName);
     }
@@ -123,6 +127,7 @@ public class Game extends StatisticSuspect {
 
             activePlayerIndex = 0;
         }
+        dicesAlreadyRolled=false;
 
         lobby.getPlayers().forEach(e->e.saveMovedResources());
     }
