@@ -39,70 +39,48 @@ public class GameServlet extends HttpServlet {
             switch (mode) {
                 //rolls all dices from all Players
                 case "roll-all":
-                    if (game.checkIfPlayerIsActivePlayer(username)) {
-                        game.rollAllDiceInGame();
-                    } else {
-                        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    }
+                    rollAll(response, username, game);
                     break;
 
-                //rolls all dices from the calling Player
-//                case "roll-me":
-//                    if (game.checkIfPlayerIsActivePlayer(username)) {
-//                        game.rollDicesFromOnePlayer(username);
-//                    } else {
-//                        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-//                    }
-//                    break;
-
                 case "status":
-                    response.setHeader("gameStatus", game.convertToJSON2());
+                    status(response, game);
                     break;
 
                 case "make-move":
-                    if (game.checkIfPlayerIsActivePlayer(username)) {
-                        game.move();
-                    } else {
-                        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    }
+                    makeMove(response, username, game);
                     break;
 
                 case "get-Active-Player":
-                    try {
-                        int activePlayerIndex = game.getActivePlayerIndex();
-                        String activePlayerName = lobbyOfTheGame.getPlayer(activePlayerIndex).getPlayerName();
-                        response.setHeader("ActivePlayer", activePlayerName);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+                    getActivePlayers(response, lobbyOfTheGame, game);
+                    break;
+
+                case "get-Round":
+                    getRound(response, game);
                     break;
 
                 case "start-game":
-                    lobbyOfTheGame.startGame();
-                     response.setHeader("isStarted", "true");
+                    startGame(response, lobbyOfTheGame);
                     break;
 
                 case "has-Game-started":
-                    Boolean hasGameStared = lobbyOfTheGame.isHasGameStarted();
-                    response.setHeader("isStarted", hasGameStared.toString());
+                    hasGameStarted(response, lobbyOfTheGame);
                     break;
 
                 case "get-Activity":
-                    response.setHeader("Activity", game.getStatistics().getActivity());
+                    getActivity(response, game);
                     break;
 
                 case "get-Throughput":
-                    response.setHeader("Throughput", game.getStatistics().getThroughput());
+                    getThroughput(response, game);
                     break;
 
                 case "get-Number-in-System":
-                    response.setHeader("Number-in-System", game.getStatistics().getNumberInSystem());
+                    getNumberInSystem(response, game);
                     break;
 
                 case "get-Time-in-System":
-                    response.setHeader("Time-in-System", game.getStatistics().getTimeInSystem());
+                    getTimeInSystem(response, game);
                     break;
-
 
                 default:
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -110,6 +88,67 @@ public class GameServlet extends HttpServlet {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void getTimeInSystem(HttpServletResponse response, Game game) {
+        response.setHeader("Time-in-System", game.getStatistics().getTimeInSystem());
+    }
+
+    private void getNumberInSystem(HttpServletResponse response, Game game) {
+        response.setHeader("Number-in-System", game.getStatistics().getNumberInSystem());
+    }
+
+    private void getThroughput(HttpServletResponse response, Game game) {
+        response.setHeader("Throughput", game.getStatistics().getThroughput());
+    }
+
+    private void getActivity(HttpServletResponse response, Game game) {
+        response.setHeader("Activity", game.getStatistics().getActivity());
+    }
+
+    private void hasGameStarted(HttpServletResponse response, Lobby lobbyOfTheGame) {
+        Boolean hasGameStared = lobbyOfTheGame.isHasGameStarted();
+        response.setHeader("isStarted", hasGameStared.toString());
+    }
+
+    private void startGame(HttpServletResponse response, Lobby lobbyOfTheGame) {
+        lobbyOfTheGame.startGame();
+        response.setHeader("isStarted", "true");
+    }
+
+    private void getRound(HttpServletResponse response, Game game) {
+        int round = game.getRound();
+        response.setHeader("getRound", String.valueOf(round));
+    }
+
+    private void getActivePlayers(HttpServletResponse response, Lobby lobbyOfTheGame, Game game) {
+        try {
+            int activePlayerIndex = game.getActivePlayerIndex();
+            String activePlayerName = lobbyOfTheGame.getPlayer(activePlayerIndex).getPlayerName();
+            response.setHeader("ActivePlayer", activePlayerName);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void status(HttpServletResponse response, Game game) {
+        response.setHeader("gameStatus", game.convertToJSON2());
+    }
+
+    private void makeMove(HttpServletResponse response, String username, Game game) {
+        if (game.checkIfPlayerIsActivePlayer(username)) {
+            game.move();
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    private void rollAll(HttpServletResponse response, String username, Game game) {
+        if (game.checkIfPlayerIsActivePlayer(username)) {
+            game.rollAllDiceInGame();
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
