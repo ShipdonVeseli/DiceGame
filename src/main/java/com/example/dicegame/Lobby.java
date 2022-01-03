@@ -90,6 +90,13 @@ public class Lobby {
         return players.size();
     }
 
+    public int getNumberOfAllRessourcesFromAllPlayers(){
+        final int[] result = {0};
+        players.forEach(e->{
+            result[0] +=e.getResources().size();
+        });
+        return result[0];
+    }
     public String convertToJSON() {
         String result = "[{";
         result += "\"id\": " +"\""+ id + "\""+",";

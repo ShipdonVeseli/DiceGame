@@ -50,8 +50,25 @@ public class Statistics implements StatisticObserver {
     }
 
     public String getNumberInSystem() {
-        //TODO
-        return "";
+        String result = "[{";
+        result += "\"Number In System\": [";
+
+        for (int i = 0; i < gameData.getNumberOFResourcesInGame().size(); i++) {
+            result += "{";
+            result += "\"round\": "+i;
+            result += ",";
+
+            result += "\"Number of Resources In Game\": "+gameData.getNumberOFResourcesInGame().get(i);
+
+            result += "}";
+
+            if (i < gameData.getNumberOFResourcesInGame().size() - 1) {
+                result += ",";
+            }
+        }
+
+        result += "]}]";
+        return result;
     }
 
     public String getTimeInSystem() {

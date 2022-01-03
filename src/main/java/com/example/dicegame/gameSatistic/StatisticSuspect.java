@@ -32,6 +32,12 @@ public abstract class StatisticSuspect {
         });
     }
 
+    public void saveNumberInGame(int amount){
+        observers.forEach(e->{
+            e.saveNumberOFResourcesInGame(amount);
+        });
+    }
+
 
 
 }

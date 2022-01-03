@@ -130,6 +130,7 @@ public class Game extends StatisticSuspect {
         dicesAlreadyRolled=false;
 
         saveNumberInStorage(storage.size());
+        saveNumberInGame(lobby.getNumberOfAllRessourcesFromAllPlayers());
         lobby.getPlayers().forEach(e->e.saveMovedResources());
     }
 
