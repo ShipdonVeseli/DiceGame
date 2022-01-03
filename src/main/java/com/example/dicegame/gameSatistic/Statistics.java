@@ -13,12 +13,6 @@ public class Statistics implements StatisticObserver {
         String result = "[{";
         result += "\"playerDataArrayList\": [";
         result+=printDataToJson(playerDataArrayList.toArray(new StatisticData[playerDataArrayList.size()]));
-//        for (int i = 0; i < playerDataArrayList.size(); i++) {
-//            result += playerDataArrayList.get(i).convertToJSON();
-//            if (i < playerDataArrayList.size() - 1) {
-//                result += ",";
-//            }
-//        }
 
         result += "]}]";
         return result;
@@ -33,9 +27,7 @@ public class Statistics implements StatisticObserver {
             result += "{";
             result += "\"round\": "+i;
             result += ",";
-
             result += "\"Number of Resources In Storage\": "+gameData.getNumberOFResourcesInStorage().get(i);
-
             result += "}";
 
             if (i < gameData.getNumberOFResourcesInStorage().size() - 1) {
@@ -55,9 +47,7 @@ public class Statistics implements StatisticObserver {
             result += "{";
             result += "\"round\": "+i;
             result += ",";
-
             result += "\"Number of Resources In Game\": "+gameData.getNumberOFResourcesInGame().get(i);
-
             result += "}";
 
             if (i < gameData.getNumberOFResourcesInGame().size() - 1) {
@@ -74,12 +64,6 @@ public class Statistics implements StatisticObserver {
         result += "\"resourceDataArrayList\": [";
 
         result+=printDataToJson( resourceDataArrayList.toArray(new StatisticData[resourceDataArrayList.size()]));
-//        for (int i = 0; i < resourceDataArrayList.size(); i++) {
-//            result += resourceDataArrayList.get(i).convertToJSON();
-//            if (i < resourceDataArrayList.size() - 1) {
-//                result += ",";
-//            }
-//        }
 
         result += "]}]";
         return result;
