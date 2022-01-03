@@ -177,6 +177,11 @@ ul {
 }
 input[type="submit"] {
     cursor: pointer;
+    border: none;
+    background-color: #141e30;
+    padding: 1em;
+    color: white;
+    font-weight: bold;
 }
 .createLobby:before,
 .createLobby:after,
