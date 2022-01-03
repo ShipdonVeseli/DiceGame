@@ -31,6 +31,7 @@ public class Game extends StatisticSuspect {
         //init();
     }
 
+
     public void init(){
         addObserver(statistics);
         lobby.getPlayers().forEach(e->{
@@ -41,6 +42,10 @@ public class Game extends StatisticSuspect {
             e.addResource(new Resource(false));
             e.addResource(new Resource(false));
         });
+    }
+
+    public int getActivePlayerIndex() {
+        return activePlayerIndex;
     }
 
     public Statistics getStatistics() {
