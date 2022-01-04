@@ -47,10 +47,6 @@ for (let i = 1; i <= 6; i++) {
     dices.push(dice);
 }
 
-function defineContextFontSize(fontsize) {
-    ctx.font = fontsize + 'px verdana';
-}
-
 function loadDiceImage(dicevalue, playerindex) {
     ctx.drawImage(dices[dicevalue-1], players[playerindex].x + players[playerindex].width + 15, players[playerindex].y, 50, 50);
     requestAnimationFrame(loadDiceImage);
@@ -77,7 +73,7 @@ function drawCanvas(value, index, array) {
 }
 
 function getRound(value, index, array) {
-    defineContextFontSize(20);
+    ctx.font = '20px verdana';
     ctx.fillText(array[index].round, 1250, 400);
 }
 
