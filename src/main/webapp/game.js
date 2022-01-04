@@ -116,7 +116,6 @@ let players = [];
 function startGame() {
     canvas = document.getElementById('responsive-canvas');
     ctx = canvas.getContext('2d');
-    ctx.font = "35px Arial";
     var heightRatio = 0.5;
     canvas.height = canvas.width * heightRatio;
     fix_dpi();
