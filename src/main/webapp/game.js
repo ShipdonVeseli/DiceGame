@@ -57,6 +57,7 @@ function drawCanvas(value, index, array) {
         ctx.clearRect(0, 0, 1500, 1000);
         getRound(value, index, array)
     } else {
+        drawPlayerNames(value, index, array);
         loadDiceImage(array[index].dicevalue, index - 1);
         players[index - 1].tokensize = array[index].blueresources + array[index].normalresources;
         for (let i = 0; i < players[index - 1].tokensize; i++) {
@@ -70,6 +71,16 @@ function drawCanvas(value, index, array) {
         }
     }
 
+}
+
+function drawPlayerNames(value, index, array) {
+    ctx.font = '15px calibri';
+    let playername = array[index].playername;
+    if(index < 6) {
+        ctx.fillText(playername, players[index-1].x, players[index-1].y - 10, players[index-1].width);
+    } else {
+        ctx.fillText(playername, players[index-1].x, players[index-1].y + players[index-1].height + 20, players[index-1].width);
+    }
 }
 
 function getRound(value, index, array) {
