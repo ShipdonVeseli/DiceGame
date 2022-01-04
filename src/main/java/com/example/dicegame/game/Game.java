@@ -12,11 +12,12 @@ public class Game extends StatisticSuspect {
     private int gameMode = 1;
     private int round = 0;
     private int activePlayerIndex = 0;
-    private boolean dicesAlreadyRolled=false;
+    private int gameLength = 20;
+    private boolean dicesAlreadyRolled = false;
 
     private Lobby lobby;
 
-    private Statistics statistics=new Statistics();
+    private Statistics statistics = new Statistics();
 
     private ArrayList<Resource> storage = new ArrayList<>();
 
@@ -32,17 +33,49 @@ public class Game extends StatisticSuspect {
     }
 
 
-    public void init(){
+    public void init() {
         addObserver(statistics);
-        lobby.getPlayers().forEach(e->{
+        lobby.getPlayers().forEach(e -> {
             e.addObserver(statistics);
+        });
+        addStartResources();
+    }
 
+    public int getGameLength() {
+        return gameLength;
+    }
+
+    public void setGameLength(int gameLength) {
+        this.gameLength = gameLength;
+    }
+
+    public boolean checkIfGameHasNotEnded(){
+        return round<=gameLength;
+    }
+
+    private void addStartResources() {
+        lobby.getPlayers().forEach(e -> {
             e.addResource(new Resource(false));
             e.addResource(new Resource(false));
             e.addResource(new Resource(false));
             e.addResource(new Resource(false));
         });
     }
+
+    public void reset() {
+        round = 0;
+        activePlayerIndex = 0;
+        dicesAlreadyRolled = false;
+        storage = new ArrayList<>();
+
+        statistics.reset();
+        lobby.getPlayers().forEach(e -> {
+            e.reset();
+        });
+
+        addStartResources();
+    }
+
 
     public int getActivePlayerIndex() {
         return activePlayerIndex;
@@ -56,7 +89,7 @@ public class Game extends StatisticSuspect {
         try {
             Player player = lobby.getPlayer(playerName);
             return lobby.getPlayer(activePlayerIndex).equals(player);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -79,14 +112,14 @@ public class Game extends StatisticSuspect {
     }
 
     public void rollDicesFromOnePlayer(String userName) throws NoSuchElementException {
-        if(!dicesAlreadyRolled) {
+        if (!dicesAlreadyRolled) {
             for (Player playerInLobby : lobby.getPlayers()) {
                 if (userName.equals(playerInLobby)) {
                     playerInLobby.rollAllDices();
                     return;
                 }
             }
-            dicesAlreadyRolled=true;
+            dicesAlreadyRolled = true;
         }
         throw new NoSuchElementException("No Player with Username= " + userName);
     }
@@ -121,13 +154,15 @@ public class Game extends StatisticSuspect {
     }
 
     public void move() {
-        round++;
-        moveResourcesToStorage();
-        moveResources();
-        addNewResources();
+        if(round<=gameLength) {
+            round++;
+            moveResourcesToStorage();
+            moveResources();
+            addNewResources();
 
-        changeActivePlayer();
-        statisticValuesSaving();
+            changeActivePlayer();
+            statisticValuesSaving();
+        }
     }
 
     private void changeActivePlayer() {
@@ -137,17 +172,17 @@ public class Game extends StatisticSuspect {
 
             activePlayerIndex = 0;
         }
-        dicesAlreadyRolled=false;
+        dicesAlreadyRolled = false;
     }
 
     private void statisticValuesSaving() {
         lobby.increaseTimeInSystemInOllPlayerResources();
         saveNumberInStorage(storage.size());
         saveNumberInGame(lobby.getNumberOfAllResourcesFromAllPlayers());
-        lobby.getPlayers().forEach(e->e.saveMovedResources());
+        lobby.getPlayers().forEach(e -> e.saveMovedResources());
 
-        storage.forEach(e->{
-            if(!e.isAlreadySaved()){
+        storage.forEach(e -> {
+            if (!e.isAlreadySaved()) {
                 e.setAlreadySaved(true);
                 saveRessourceInStorage(e.getTimeInSystem());
             }
@@ -202,14 +237,14 @@ public class Game extends StatisticSuspect {
         result += "\"lobbyid\": \"" + lobby.getId() + "\",";
         result += "\"round\": " + round + ",";
         result += "\"activePlayerIndex\": " + activePlayerIndex + ",";
-        result += "\"storage\": " + storage.size()+ "},";
+        result += "\"storage\": " + storage.size() + "},";
 
-        for(int i=0; i < lobby.playerCount(); i++){
-            result += "{\"playername\": \"" +lobby.getPlayer(i).getPlayerName()+"\",";
+        for (int i = 0; i < lobby.playerCount(); i++) {
+            result += "{\"playername\": \"" + lobby.getPlayer(i).getPlayerName() + "\",";
             result += "\"dicevalue\": " + lobby.getPlayer(i).getSummOfDiceValues() + ",";
             result += "\"blueresources\": " + lobby.getPlayer(i).getBlueResources() + ",";
             result += "\"normalresources\": " + lobby.getPlayer(i).getNormalResources() + "}";
-            if(i != lobby.playerCount()-1) result+= ",";
+            if (i != lobby.playerCount() - 1) result += ",";
         }
         result += "]";
         return result;
@@ -218,7 +253,7 @@ public class Game extends StatisticSuspect {
     public static String printResourcesJson(String result, ArrayList<Resource> storage) {
         for (int i = 0; i < storage.size(); i++) {
             result += storage.get(i).convertToJSON();
-            if(i<storage.size()-1){
+            if (i < storage.size() - 1) {
                 result += ",";
             }
         }

@@ -14,7 +14,7 @@ public class Player extends StatisticSuspect {
     private String playerName;
     private ArrayList<Dice> dices = new ArrayList<>();
     private ArrayList<Resource> resources = new ArrayList<>();
-    private int savedRessources=0;
+    private int savedRessources = 0;
 
 
     public Player(String username) {
@@ -88,14 +88,15 @@ public class Player extends StatisticSuspect {
         return result;
     }
 
-    public void addmovedRessources(int amount){
-        savedRessources+=amount;
+    public void addmovedRessources(int amount) {
+        savedRessources += amount;
     }
 
-    public void saveMovedResources(){
-        saveNumberOfMovedResources(playerName,savedRessources);
-        savedRessources=0;
+    public void saveMovedResources() {
+        saveNumberOfMovedResources(playerName, savedRessources);
+        savedRessources = 0;
     }
+
     public ArrayList<Resource> getResources(int amount) {
         ArrayList<Resource> result = new ArrayList<>();
         amount = checkSize(amount);
@@ -105,18 +106,18 @@ public class Player extends StatisticSuspect {
         return result;
     }
 
-    public int getBlueResources(){
+    public int getBlueResources() {
         int counter = 0;
-        for(Resource resource: resources){
-            if(resource.isBlueResource()) counter++;
+        for (Resource resource : resources) {
+            if (resource.isBlueResource()) counter++;
         }
         return counter;
     }
 
-    public int getNormalResources(){
+    public int getNormalResources() {
         int counter = 0;
-        for(Resource resource: resources){
-            if(!resource.isBlueResource()) counter++;
+        for (Resource resource : resources) {
+            if (!resource.isBlueResource()) counter++;
         }
         return counter;
     }
@@ -136,6 +137,10 @@ public class Player extends StatisticSuspect {
         }
     }
 
+    public void reset() {
+        savedRessources = 0;
+        resources = new ArrayList<>();
+    }
 
 
     public String convertToJSON() {

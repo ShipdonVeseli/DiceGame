@@ -81,7 +81,11 @@ public class Statistics implements StatisticObserver {
         return result;
     }
 
-
+    public void reset(){
+        gameData=new GameData();
+        playerDataArrayList=new ArrayList<>();
+        resourceDataArrayList=new ArrayList<>();
+    }
 
     @Override
     public void saveMovedRessource(String playerName, int numberOfMovedResources) {

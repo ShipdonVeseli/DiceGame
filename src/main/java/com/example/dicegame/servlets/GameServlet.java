@@ -82,6 +82,18 @@ public class GameServlet extends HttpServlet {
                     getTimeInSystem(response, game);
                     break;
 
+                case "set-game-length":
+                    setGameLength(map, game);
+                    break;
+
+                case "get-game-length":
+                    getGameLength(response, game);
+                    break;
+
+                case "reset":
+                    reset(game);
+                    break;
+
                 default:
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     break;
@@ -89,6 +101,19 @@ public class GameServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void reset(Game game) {
+        game.reset();
+    }
+
+    private void getGameLength(HttpServletResponse response, Game game) {
+        response.setHeader("get-game-length", String.valueOf(game.getGameLength()));
+    }
+
+    private void setGameLength(Map<String, String[]> map, Game game) {
+        int gameLength = Integer.parseInt(ServletFunctions.getParameterValue(map, "gameLength"));
+        game.setGameLength(gameLength);
     }
 
     private void getTimeInSystem(HttpServletResponse response, Game game) {
@@ -127,7 +152,7 @@ public class GameServlet extends HttpServlet {
             int activePlayerIndex = game.getActivePlayerIndex();
             String activePlayerName = lobbyOfTheGame.getPlayer(activePlayerIndex).getPlayerName();
             response.setHeader("ActivePlayer", activePlayerName);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -138,10 +163,12 @@ public class GameServlet extends HttpServlet {
 
     private void makeMove(HttpServletResponse response, String username, Game game) {
         if (game.checkIfPlayerIsActivePlayer(username)) {
-            game.move();
-        } else {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            if(game.checkIfGameHasNotEnded()) {
+                game.move();
+                return;
+            }
         }
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
     }
 
     private void rollAll(HttpServletResponse response, String username, Game game) {
