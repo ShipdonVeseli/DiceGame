@@ -39,6 +39,19 @@ function rollDice() {
     fetch("http://localhost:8079/Game-servlet?mode=make-move&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
 }
 
+function getActivePlayer(value, index, array) {
+    fetch("http://localhost:8079/Game-servlet?mode=get-Active-Player&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+
+    let indexOfActivePlayer = array[index].activePlayerIndex + 1;
+    return array[indexOfActivePlayer].playername;
+}
+
+function drawActivePlayer(value, index, array) {
+    let activePlayer = getActivePlayer(value, index, array);
+    ctx.font = '15px verdana';
+    ctx.fillText('Active Player: ' + activePlayer, canvas.width/3, canvas.height/2);
+}
+
 let dices = [];
 
 for (let i = 1; i <= 6; i++) {
@@ -55,7 +68,8 @@ function loadDiceImage(dicevalue, playerindex) {
 function drawCanvas(value, index, array) {
     if (index === 0) {
         ctx.clearRect(0, 0, 1500, 1000);
-        getRound(value, index, array)
+        getRound(value, index, array);
+        drawActivePlayer(value, index, array);
     } else {
         drawPlayerNames(value, index, array);
         loadDiceImage(array[index].dicevalue, index - 1);
