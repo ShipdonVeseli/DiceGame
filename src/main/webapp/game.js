@@ -61,7 +61,7 @@ function drawCanvas(value, index, array) {
         loadDiceImage(array[index].dicevalue, index - 1);
         players[index - 1].tokensize = array[index].blueresources + array[index].normalresources;
         for (let i = 0; i < players[index - 1].tokensize; i++) {
-            if (index > 6) {
+            if (index > 5) {
                 updateLineToAddTokenForBottomRow(players[index - 1]);
                 drawToken(players[index - 1]);
             } else {
@@ -75,11 +75,11 @@ function drawCanvas(value, index, array) {
 
 function drawPlayerNames(value, index, array) {
     ctx.font = '15px calibri';
-    let playername = array[index].playername;
+    players[index-1].name = array[index].playername;
     if(index < 6) {
-        ctx.fillText(playername, players[index-1].x, players[index-1].y - 10, players[index-1].width);
+        ctx.fillText(players[index-1].name, players[index-1].x, players[index-1].y - 10, players[index-1].width);
     } else {
-        ctx.fillText(playername, players[index-1].x, players[index-1].y + players[index-1].height + 20, players[index-1].width);
+        ctx.fillText(players[index-1].name, players[index-1].x, players[index-1].y + players[index-1].height + 20, players[index-1].width);
     }
 }
 
