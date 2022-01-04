@@ -16,6 +16,7 @@ body {
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
     border-radius: 10px;
+    word-break: break-word;
 }
 
 .login-box h2 {
@@ -164,8 +165,15 @@ body {
     }
 }
 
-ul {
+table { width: 100%;
+}
+
+th, td {
     color: white;
+    border: 0.1rem solid white;
+    padding: 0.5rem;
+    width: 100%;
+    text-align: center;
 }
 
 #create, #leave, #start {
@@ -223,8 +231,7 @@ input[type="submit"] {
 }
 .createLobby, .logout, .startGame, .leaveLobby {
     position: relative;
-    padding: 1.4rem 4.2rem;
-    padding-right: 3.1rem;
+    padding: 0rem 4.2rem;
     font-size: 1.4rem;
     color: white;
     letter-spacing: 1.1rem;
