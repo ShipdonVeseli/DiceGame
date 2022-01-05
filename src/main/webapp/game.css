@@ -5,12 +5,9 @@ body {
 
 #responsive-canvas {
     background-color: rgba(0,0,0,0.2);
-    width: 85%;
+    width: 80%;
     border-radius: 0.25rem;
-    border-color: #141414;
-    border: 1px solid #494b4d;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
-    height: 30em;
     padding-left:0;
     padding-right: 0;
     margin-left: auto;
@@ -28,6 +25,12 @@ h1 {
     margin-bottom: 0.5rem;
     text-align: center;
     color: #343a40;
+}
+
+.infos{
+    font-size: larger;
+    font-style: oblique;
+    text-align: center;
 }
 
 .game {

@@ -36,20 +36,16 @@ async function getStatus() {
 
 function rollDice() {
     fetch("http://localhost:8079/Game-servlet?mode=roll-all&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
-    fetch("http://localhost:8079/Game-servlet?mode=make-move&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
 }
 
+function moveTokens(){
+    fetch("http://localhost:8079/Game-servlet?mode=make-move&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+}
 function getActivePlayer(value, index, array) {
     fetch("http://localhost:8079/Game-servlet?mode=get-Active-Player&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
 
     let indexOfActivePlayer = array[index].activePlayerIndex + 1;
     return array[indexOfActivePlayer].playername;
-}
-
-function drawActivePlayer(value, index, array) {
-    let activePlayer = getActivePlayer(value, index, array);
-    ctx.font = '15px verdana';
-    ctx.fillText('Active Player: ' + activePlayer, canvas.width/3, canvas.height/2);
 }
 
 let dices = [];
@@ -68,8 +64,7 @@ function loadDiceImage(dicevalue, playerindex) {
 function drawCanvas(value, index, array) {
     if (index === 0) {
         ctx.clearRect(0, 0, 1500, 1000);
-        getRound(value, index, array);
-        drawActivePlayer(value, index, array);
+        document.getElementById("info").innerText = "Active Player: " + getActivePlayer(value,index,array) + " - Round: "+array[index].round;
     } else {
         drawPlayerNames(value, index, array);
         loadDiceImage(array[index].dicevalue, index - 1);
@@ -97,11 +92,6 @@ function drawPlayerNames(value, index, array) {
     }
 }
 
-function getRound(value, index, array) {
-    ctx.font = '20px verdana';
-    ctx.fillText(array[index].round, 1250, 400);
-}
-
 function convert(obj) {
     obj.then((result) => {
         result.forEach(drawCanvas)
@@ -126,8 +116,8 @@ setInterval(() => {
 let canvas;
 let ctx;
 
-let PLAYER_COORDINATE_X = 50;
-let PLAYER_COORDINATE_Y = 30;
+let PLAYER_COORDINATE_X = 120;
+let PLAYER_COORDINATE_Y = 60;
 let token = {
     width: 20,
     height: 20
@@ -192,7 +182,7 @@ function createplayer() {
         }
 
         if (i === 5) {
-            PLAYER_COORDINATE_Y += 320;
+            PLAYER_COORDINATE_Y += 380;
         }
     }
 
@@ -200,12 +190,12 @@ function createplayer() {
 
 function updateLineToAddTokenForUpperRow(player) {
     if (player.col < player.width) {
-        player.token_x = player.x + 5 + player.col;
+        player.token_x= player.x + 5 + player.col + player.width;
         player.token_y = player.y + player.height + 15 + player.row;
     } else {
         player.col = 0;
         player.row += 15;
-        player.token_x = player.x + 5 + player.col;
+        player.token_x = player.x + 5 + player.col + player.width;
         player.token_y = player.y + player.height + 15 + player.row;
     }
     player.col += 15;

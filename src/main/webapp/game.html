@@ -13,9 +13,13 @@
 <body onload="startGame()">
 
 <h1>Dice Game</h1>
+
+
 <div class="game">
+    <div class="infos" id="info">activePlayer</div>
     <canvas id="responsive-canvas"></canvas>
     <input type="submit" id="roll" onclick="rollDice()" value="Roll Dices"/>
+    <input type="submit" id="move" onclick="moveTokens()" value="Move Tokens"/>
 </div>
 
 </body>
