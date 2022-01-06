@@ -143,7 +143,7 @@ function startGame() {
     document.getElementById("statistic").style.display = "none";
 }
 
-function showStatistic() {
+function setButtonsForStatistics() {
     var game_id = document.getElementById("game");
     var statistic = document.getElementById("statistic");
     var showStatistic_btn = document.getElementById("showStatistic");
@@ -166,6 +166,37 @@ function showStatistic() {
         game_id.style.display = "none";
         statistic.style.display = "block";
     }
+}
+
+
+function showActivity() {
+    new Chart(document.getElementById("statistic_canvas"), {
+        type: 'bar',
+        data: {
+            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"],
+            datasets: [
+                {
+                    label: "Activity",
+                    backgroundColor: "#3e95cd",
+                    data: [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10]
+                }
+            ]
+        },
+        options: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: 'Activity'
+            },
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+}
+
+function showStatistic() {
+    setButtonsForStatistics();
+    showActivity();
 }
 
 function drawNormalResources(player) {
