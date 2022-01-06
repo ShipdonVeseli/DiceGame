@@ -72,10 +72,10 @@ function drawCanvas(value, index, array) {
         for (let i = 0; i < players[index - 1].tokensize; i++) {
             if (index > 5) {
                 updateLineToAddTokenForBottomRow(players[index - 1]);
-                drawToken(players[index - 1]);
+                drawNormalResources(players[index - 1]);
             } else {
                 updateLineToAddTokenForUpperRow(players[index - 1]);
-                drawToken(players[index - 1]);
+                drawNormalResources(players[index - 1]);
             }
         }
     }
@@ -136,17 +136,27 @@ function startGame() {
     generateStartTokens();
 }
 
-function drawToken(player) {
+function drawNormalResources(player) {
     ctx.beginPath();
     ctx.arc(player.token_x, player.token_y, 7, 0, 2 * Math.PI);
     ctx.stroke();
+    ctx.closePath();
+}
+
+function drawBlueResources(player) {
+    ctx.beginPath();
+    ctx.arc(player.token_x, player.token_y, 7, 0, 2 * Math.PI);
+    ctx.fillStyle = 'blue';
+    ctx.fill();
+    ctx.stroke();
+    ctx.closePath();
 }
 
 function generateStartTokens() {
     players.forEach(function (player) {
         for (let i = 0; i < player.tokensize; i++) {
             updateLineToAddTokenForUpperRow(player);
-            drawToken(player);
+            drawNormalResources(player);
         }
     })
 }
