@@ -68,8 +68,22 @@ function drawCanvas(value, index, array) {
     } else {
         drawPlayerNames(value, index, array);
         loadDiceImage(array[index].dicevalue, index - 1);
+
         players[index - 1].tokensize = array[index].blueresources + array[index].normalresources;
-        for (let i = 0; i < players[index - 1].tokensize; i++) {
+        players[index - 1].normalResources = array[index].normalresources;
+        players[index - 1].blueResources = array[index].blueresources;
+
+        for (let i = 0; i < players[index - 1].blueResources; i++) {
+            if (index > 5) {
+                updateLineToAddTokenForBottomRow(players[index - 1]);
+                drawBlueResources(players[index - 1]);
+            } else {
+                updateLineToAddTokenForUpperRow(players[index - 1]);
+                drawBlueResources(players[index - 1]);
+            }
+        }
+
+        for (let i = 0; i < players[index - 1].normalResources; i++) {
             if (index > 5) {
                 updateLineToAddTokenForBottomRow(players[index - 1]);
                 drawNormalResources(players[index - 1]);
@@ -79,11 +93,11 @@ function drawCanvas(value, index, array) {
             }
         }
     }
-
 }
 
 function drawPlayerNames(value, index, array) {
     ctx.font = '15px calibri';
+    ctx.fillStyle = 'black';
     players[index-1].name = array[index].playername;
     if(index < 6) {
         ctx.fillText(players[index-1].name, players[index-1].x, players[index-1].y - 10, players[index-1].width);
@@ -118,10 +132,7 @@ let ctx;
 
 let PLAYER_COORDINATE_X = 120;
 let PLAYER_COORDINATE_Y = 60;
-let token = {
-    width: 20,
-    height: 20
-};
+
 let players = [];
 
 function startGame() {
@@ -133,7 +144,6 @@ function startGame() {
     loadImages();
     createplayer();
     drawImages();
-    generateStartTokens();
 }
 
 function drawNormalResources(player) {
@@ -152,24 +162,15 @@ function drawBlueResources(player) {
     ctx.closePath();
 }
 
-function generateStartTokens() {
-    players.forEach(function (player) {
-        for (let i = 0; i < player.tokensize; i++) {
-            updateLineToAddTokenForUpperRow(player);
-            drawNormalResources(player);
-        }
-    })
-}
-
 function createplayer() {
-    var token;
     for (let i = 1; i < 11; i++) {
         let player = {
             tokensize: 0,
-            token: token = [],
+            normalResources: 0,
+            blueResources: 0,
             row: 0,
             col: 0,
-            name: 'Player ' + i,
+            name: ' ',
             x: PLAYER_COORDINATE_X,
             y: PLAYER_COORDINATE_Y,
             token_x: 0,
