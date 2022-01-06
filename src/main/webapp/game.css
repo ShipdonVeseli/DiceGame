@@ -16,7 +16,7 @@ body {
 h1 {
     border-radius: 0.25rem;
     border: 1px solid #919497;
-    box-shadow: 0 1rem 1rem rgba(0, 0, 0, .15);
+    box-shadow: 0 1rem 1rem rgba(0,0,0,.15);
     padding: 0.8em;
     font-weight: 500;
     margin-bottom: 0.5rem;
@@ -24,7 +24,7 @@ h1 {
     color: #343a40;
 }
 
-.infos {
+.infos{
     font-size: larger;
     font-style: oblique;
     text-align: center;
@@ -44,7 +44,6 @@ h1 {
     padding: 10px;
 }
 
-
 #statistic_canvas {
     background-color: grey;
     width: 100%; /*600px;*/
@@ -56,94 +55,89 @@ h1 {
     display: block;
 }
 
-
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 600px){
     #responsive-canvas {
-        background-color: grey;
+        background-color: #919497;
         width: 100%; /*600px;*/
         height: auto;
-        border-radius: 0.25rem;
-        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+        border-radius: 0.5rem;
+        box-shadow: 0 1rem 1rem rgba(0,0,0,.15);
         margin-left: auto;
         margin-right: auto;
-        display: block;
+        display:block;
     }
 }
-
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 600px){
     #responsive-canvas {
-        background-color: yellow;
+        background-color: #919497;
         width: 100%; /*600px;*/
         height: auto;
-        border-radius: 0.25rem;
-        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+        border-radius: 0.5rem;
+        box-shadow: 0 1rem 1rem rgba(0,0,0,.15);
         margin-left: auto;
         margin-right: auto;
-        display: block;
+        display:block;
     }
 }
-
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 768px){
     #responsive-canvas {
-        background-color: green;
+        background-color: #919497;
         width: 100%; /*630px;*/
         height: auto;
-        border-radius: 0.25rem;
-        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+        border-radius: 0.5rem;
+        box-shadow: 0 1rem 1rem rgba(0,0,0,.15);
         margin-left: auto;
         margin-right: auto;
-        display: block;
+        display:block;
     }
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 900px){
     #responsive-canvas {
-        background-color: green;
+        background-color: #919497;
         width: 100%; /*700px;*/
         height: auto;
-        border-radius: 0.25rem;
-        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+        border-radius: 0.5rem;
+        box-shadow: 0 1rem 1rem rgba(0,0,0,.15);
         margin-left: auto;
         margin-right: auto;
-        display: block;
+        display:block;
     }
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 992px){
     #responsive-canvas {
-        background-color: red;
+        background-color: #919497;
         width: 100%; /*830px;*/
         height: auto;
-        border-radius: 0.25rem;
-        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+        border-radius: 0.5rem;
+        box-shadow: 0 1rem 1rem rgba(0,0,0,.15);
         margin-left: auto;
         margin-right: auto;
-        display: block;
+        display:block;
     }
 }
-
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 1280px){
     #responsive-canvas {
-        background-color: yellow;
+        background-color: #919497;
         width: 100%; /*1080px;*/
         height: auto;
-        border-radius: 0.25rem;
-        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+        border-radius: 0.5rem;
+        box-shadow: 0 1rem 1rem rgba(0,0,0,.15);
         margin-left: auto;
         margin-right: auto;
-        display: block;
+        display:block;
     }
 }
-
-@media screen and (min-width: 1920px) {
+@media screen and (min-width: 1920px){
     #responsive-canvas {
-        background-color: blue;
+        background-color: #919497;
         width: 100%; /*1850px;*/
         height: auto;
-        border-radius: 0.25rem;
-        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+        border-radius: 0.5rem;
+        box-shadow: 0 1rem 1rem rgba(0,0,0,.15);
         margin-left: auto;
         margin-right: auto;
-        display: block;
+        display:block;
     }
 }

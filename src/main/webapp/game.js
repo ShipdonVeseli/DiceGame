@@ -1,16 +1,3 @@
-/*window.onload=function ()
-{
-    c=document.getElementById('dcg');
-    var cc= c.getContext('2d');
-
-    var background = new Image();
-    background.src = "images\\gamebackground.jpg";
-
-    background.onload = function ()
-    {
-        cc.drawImage(background,0,0);
-    }
-}*/
 let dpi = window.devicePixelRatio;
 
 function fix_dpi() {
@@ -21,8 +8,13 @@ function fix_dpi() {
 //get CSS width
     let style_width = +getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
 //scale the canvas
-    canvas.setAttribute('height', style_height * dpi -100);
-    canvas.setAttribute('width', style_width * dpi -75);
+    if(window.screen.availWidth > 1900){
+        canvas.setAttribute('height', style_height * dpi - 300);
+        canvas.setAttribute('width', style_width * dpi - 500);
+    }else{
+        canvas.setAttribute('height', style_height * dpi -100);
+        canvas.setAttribute('width', style_width * dpi -75);
+    }
 }
 
 async function getStatus() {
@@ -129,8 +121,6 @@ setInterval(() => {
 
 let canvas;
 let ctx;
-let canvas_statistic;
-let ctx_statistic;
 
 let PLAYER_COORDINATE_X = 100;
 let PLAYER_COORDINATE_Y = 20;
@@ -158,13 +148,19 @@ function showStatistic() {
     var statistic = document.getElementById("statistic");
     var showStatistic_btn = document.getElementById("showStatistic");
     var activePlayer = document.getElementById("info");
+    var roll_btn = document.getElementById("roll");
+    var move_btn = document.getElementById("move");
 
     if (game_id.style.display === "none") {
+        roll_btn.style.display = "inline";
+        move_btn.style.display = "inline";
         activePlayer.style.display = "block";
         showStatistic_btn.value = "Show Statistic";
         game_id.style.display = "block";
         statistic.style.display = "none";
     } else {
+        roll_btn.style.display = "none";
+        move_btn.style.display = "none";
         activePlayer.style.display = "none";
         showStatistic_btn.value = "Back";
         game_id.style.display = "none";
