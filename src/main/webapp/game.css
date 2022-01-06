@@ -34,11 +34,11 @@ h1 {
 
 @media screen and (max-width: 600px){
     #responsive-canvas {
-        background-color: grey;
+        background-color: #919497;
         width: 100%; /*600px;*/
         height: auto;
-        border-radius: 0.25rem;
-        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+        border-radius: 0.5rem;
+        box-shadow: 0 1rem 1rem rgba(0,0,0,.15);
         margin-left: auto;
         margin-right: auto;
         display:block;
@@ -46,11 +46,11 @@ h1 {
 }
 @media screen and (min-width: 600px){
     #responsive-canvas {
-        background-color: yellow;
+        background-color: #919497;
         width: 100%; /*600px;*/
         height: auto;
-        border-radius: 0.25rem;
-        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+        border-radius: 0.5rem;
+        box-shadow: 0 1rem 1rem rgba(0,0,0,.15);
         margin-left: auto;
         margin-right: auto;
         display:block;
@@ -58,11 +58,11 @@ h1 {
 }
 @media screen and (min-width: 768px){
     #responsive-canvas {
-        background-color: green;
+        background-color: #919497;
         width: 100%; /*630px;*/
         height: auto;
-        border-radius: 0.25rem;
-        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+        border-radius: 0.5rem;
+        box-shadow: 0 1rem 1rem rgba(0,0,0,.15);
         margin-left: auto;
         margin-right: auto;
         display:block;
@@ -71,11 +71,11 @@ h1 {
 
 @media screen and (min-width: 900px){
     #responsive-canvas {
-        background-color: green;
+        background-color: #919497;
         width: 100%; /*700px;*/
         height: auto;
-        border-radius: 0.25rem;
-        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+        border-radius: 0.5rem;
+        box-shadow: 0 1rem 1rem rgba(0,0,0,.15);
         margin-left: auto;
         margin-right: auto;
         display:block;
@@ -84,11 +84,11 @@ h1 {
 
 @media screen and (min-width: 992px){
     #responsive-canvas {
-        background-color: red;
+        background-color: #919497;
         width: 100%; /*830px;*/
         height: auto;
-        border-radius: 0.25rem;
-        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+        border-radius: 0.5rem;
+        box-shadow: 0 1rem 1rem rgba(0,0,0,.15);
         margin-left: auto;
         margin-right: auto;
         display:block;
@@ -96,11 +96,11 @@ h1 {
 }
 @media screen and (min-width: 1280px){
     #responsive-canvas {
-        background-color: yellow;
+        background-color: #919497;
         width: 100%; /*1080px;*/
         height: auto;
-        border-radius: 0.25rem;
-        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+        border-radius: 0.5rem;
+        box-shadow: 0 1rem 1rem rgba(0,0,0,.15);
         margin-left: auto;
         margin-right: auto;
         display:block;
@@ -108,11 +108,11 @@ h1 {
 }
 @media screen and (min-width: 1920px){
     #responsive-canvas {
-        background-color: blue;
+        background-color: #919497;
         width: 100%; /*1850px;*/
         height: auto;
-        border-radius: 0.25rem;
-        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+        border-radius: 0.5rem;
+        box-shadow: 0 1rem 1rem rgba(0,0,0,.15);
         margin-left: auto;
         margin-right: auto;
         display:block;
