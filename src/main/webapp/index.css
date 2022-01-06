@@ -274,3 +274,37 @@ input[type="submit"] {
     background: white;
     transition-delay: .35s;
 }
+
+@media all and (max-device-width: 1024px){
+    .login-box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        padding: 40px;
+        transform: translate(-50%, -50%);
+        background: rgba(0,0,0,.5);
+        box-sizing: border-box;
+        box-shadow: 0 15px 25px rgba(0,0,0,.6);
+        border-radius: 10px;
+        word-break: break-word;
+        height: 90%;
+        overflow: auto;
+    }
+    input[type="submit"] {
+        font-size: 35px;
+    }
+    form#loggedin {
+        font-size: 35px;
+    }
+    h2 {
+        font-size: 50px;
+    }
+    input#username {
+        font-size: 35px;
+    }
+    label#user {
+        font-size: 20px;
+    }
+
+}

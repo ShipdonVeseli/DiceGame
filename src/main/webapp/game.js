@@ -21,8 +21,8 @@ function fix_dpi() {
 //get CSS width
     let style_width = +getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
 //scale the canvas
-    canvas.setAttribute('height', style_height * dpi);
-    canvas.setAttribute('width', style_width * dpi);
+    canvas.setAttribute('height', style_height * dpi -100);
+    canvas.setAttribute('width', style_width * dpi -75);
 }
 
 async function getStatus() {
@@ -130,8 +130,8 @@ setInterval(() => {
 let canvas;
 let ctx;
 
-let PLAYER_COORDINATE_X = 120;
-let PLAYER_COORDINATE_Y = 60;
+let PLAYER_COORDINATE_X = 100;
+let PLAYER_COORDINATE_Y = 20;
 
 let players = [];
 
@@ -175,8 +175,8 @@ function createplayer() {
             y: PLAYER_COORDINATE_Y,
             token_x: 0,
             token_y: 0,
-            width: 100,
-            height: 100,
+            width: 80,
+            height: 80,
             src: 'images/player' + i + '.png',
             img: new Image()
         };
@@ -185,15 +185,15 @@ function createplayer() {
         players.push(player);
 
         if (i < 5) {
-            PLAYER_COORDINATE_X += 210;
+            PLAYER_COORDINATE_X += 180;
         } else if (i === 5) {
             PLAYER_COORDINATE_X += 0;
         } else {
-            PLAYER_COORDINATE_X -= 210;
+            PLAYER_COORDINATE_X -= 180;
         }
 
         if (i === 5) {
-            PLAYER_COORDINATE_Y += 380;
+            PLAYER_COORDINATE_Y += 300;
         }
     }
 
