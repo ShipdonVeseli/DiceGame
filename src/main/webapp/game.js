@@ -168,7 +168,6 @@ function setButtonsForStatistics() {
     }
 }
 
-
 function showActivity() {
     new Chart(document.getElementById("statistic_canvas"), {
         type: 'bar',
