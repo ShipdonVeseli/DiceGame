@@ -21,13 +21,8 @@ function fix_dpi() {
 //get CSS width
     let style_width = +getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
 //scale the canvas
-    if(window.screen.availWidth > 1900){
-        canvas.setAttribute('height', style_height * dpi - 300);
-        canvas.setAttribute('width', style_width * dpi - 500);
-    }else{
-        canvas.setAttribute('height', style_height * dpi -100);
-        canvas.setAttribute('width', style_width * dpi -75);
-    }
+    canvas.setAttribute('height', style_height * dpi -100);
+    canvas.setAttribute('width', style_width * dpi -75);
 }
 
 async function getStatus() {
@@ -134,6 +129,8 @@ setInterval(() => {
 
 let canvas;
 let ctx;
+let canvas_statistic;
+let ctx_statistic;
 
 let PLAYER_COORDINATE_X = 100;
 let PLAYER_COORDINATE_Y = 20;
@@ -143,12 +140,36 @@ let players = [];
 function startGame() {
     canvas = document.getElementById('responsive-canvas');
     ctx = canvas.getContext('2d');
+    canvas_statistic = document.getElementById('statistic_canvas');
+    ctx_statistic = canvas_statistic.getContext('2d');
     var heightRatio = 0.5;
+    canvas_statistic.height = canvas.width * heightRatio;
     canvas.height = canvas.width * heightRatio;
     fix_dpi();
     loadImages();
     createplayer();
     drawImages();
+
+    document.getElementById("statistic").style.display = "none";
+}
+
+function showStatistic() {
+    var game_id = document.getElementById("game");
+    var statistic = document.getElementById("statistic");
+    var showStatistic_btn = document.getElementById("showStatistic");
+    var activePlayer = document.getElementById("info");
+
+    if (game_id.style.display === "none") {
+        activePlayer.style.display = "block";
+        showStatistic_btn.value = "Show Statistic";
+        game_id.style.display = "block";
+        statistic.style.display = "none";
+    } else {
+        activePlayer.style.display = "none";
+        showStatistic_btn.value = "Back";
+        game_id.style.display = "none";
+        statistic.style.display = "block";
+    }
 }
 
 function drawNormalResources(player) {

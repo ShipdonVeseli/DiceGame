@@ -15,11 +15,18 @@
 <h1>Dice Game</h1>
 
 <div class="infos" id="info">activePlayer</div>
-<div class="game">
+<div class="game" id="game">
     <canvas id="responsive-canvas"></canvas>
     <input type="submit" id="roll" onclick="rollDice()" value="Roll Dices"/>
     <input type="submit" id="move" onclick="moveTokens()" value="Move Tokens"/>
 </div>
+
+<div class="statistic" id="statistic">
+    <canvas id="statistic_canvas"></canvas>
+</div>
+
+<input type="submit" id="showStatistic" onclick="showStatistic()" value="Show Statistic"/>
+
 
 </body>
 </html>
