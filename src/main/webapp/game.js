@@ -176,7 +176,7 @@ function showActivity() {
             labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"],
             datasets: [
                 {
-                    label: "Activity",
+                    label: "Number of Tokens",
                     backgroundColor: "#3e95cd",
                     data: [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10]
                 }
@@ -184,12 +184,29 @@ function showActivity() {
         },
         options: {
             legend: { display: false },
+            responsive: true,
+            maintainAspectRatio: false,
             title: {
                 display: true,
                 text: 'Activity'
             },
-            responsive: true,
-            maintainAspectRatio: false
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Number'
+                    },
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Player'
+                    }
+                }]
+            }
         }
     });
 }
