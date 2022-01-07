@@ -54,12 +54,20 @@ public class Game extends StatisticSuspect {
     }
 
     private void addStartResources() {
-        lobby.getPlayers().forEach(e -> {
-            e.addResource(new Resource(false));
-            e.addResource(new Resource(false));
-            e.addResource(new Resource(false));
-            e.addResource(new Resource(false));
-        });
+//        lobby.getPlayers().forEach(e -> {
+//            e.addResource(new Resource(false));
+//            e.addResource(new Resource(false));
+//            e.addResource(new Resource(false));
+//            e.addResource(new Resource(false));
+//        });
+
+        for (int i = 0; i <lobby.getPlayers().size()-1 ; i++) {
+            Player player=lobby.getPlayer(i);
+            player.addResource(new Resource(false));
+            player.addResource(new Resource(false));
+            player.addResource(new Resource(false));
+            player.addResource(new Resource(false));
+        }
     }
 
     public void reset() {
@@ -141,9 +149,21 @@ public class Game extends StatisticSuspect {
 
     }
 
+//    protected void moveResourcesToStorage() {
+//        Player lastPlayer = lobby.getPlayer(lobby.playerCount() - 1);
+//        int amount = lastPlayer.getSummOfDiceValues();
+//        ArrayList<Resource> resourcesFromLastPlayer = lastPlayer.getResources(amount);
+//
+//        storage.addAll(resourcesFromLastPlayer);
+//
+//        lastPlayer.removeResources(amount);
+//
+//        //lastPlayer.addmovedRessources(amount);
+//    }
+
     protected void moveResourcesToStorage() {
         Player lastPlayer = lobby.getPlayer(lobby.playerCount() - 1);
-        int amount = lastPlayer.getSummOfDiceValues();
+        int amount = lastPlayer.getResources().size();
         ArrayList<Resource> resourcesFromLastPlayer = lastPlayer.getResources(amount);
 
         storage.addAll(resourcesFromLastPlayer);
@@ -153,25 +173,25 @@ public class Game extends StatisticSuspect {
         //lastPlayer.addmovedRessources(amount);
     }
 
+//    protected void moveResources() {
+//        for (int i = lobby.playerCount() - 1; i >= 1; i--) {
+//            Player playerReceiver = lobby.getPlayer(i);
+//            Player playerSend = lobby.getPlayer(i - 1);
+//
+//            int amount = playerSend.getSummOfDiceValues();
+//
+//            ArrayList<Resource> resources = playerSend.getResources(amount);
+//            playerReceiver.addResources(resources);
+//
+//            playerSend.removeResources(amount);
+//
+//            playerSend.addmovedRessources(amount);
+//
+//
+//        }
+//    }
+
     protected void moveResources() {
-        for (int i = lobby.playerCount() - 1; i >= 1; i--) {
-            Player playerReceiver = lobby.getPlayer(i);
-            Player playerSend = lobby.getPlayer(i - 1);
-
-            int amount = playerSend.getSummOfDiceValues();
-
-            ArrayList<Resource> resources = playerSend.getResources(amount);
-            playerReceiver.addResources(resources);
-
-            playerSend.removeResources(amount);
-
-            playerSend.addmovedRessources(amount);
-
-
-        }
-    }
-
-    protected void moveResources2() {
         for (int i =1; i<lobby.playerCount(); i++) {
             Player playerReceiver = lobby.getPlayer(i);
             Player playerSend = lobby.getPlayer(i - 1);
@@ -191,9 +211,10 @@ public class Game extends StatisticSuspect {
     public void move() {
         if(round<=gameLength) {
             round++;
-            moveResourcesToStorage();
-            moveResources2();
+
             addNewResources();
+            moveResources();
+            moveResourcesToStorage();
 
             changeActivePlayer();
             statisticValuesSaving();
