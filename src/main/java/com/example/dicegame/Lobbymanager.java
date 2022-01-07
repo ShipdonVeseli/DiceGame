@@ -94,20 +94,29 @@ public class Lobbymanager {
     }
 
     public Lobby getLobbyByUsername(String username) {
+        String output = "";
+
         for (Lobby lobby : lobbies) {
+            output += "\n\nLobby id=" + lobby.getId();
             for (Player player : lobby.getPlayers()) {
-                if (player.getPlayerName().equals(username)) return lobby;
+                output += "Player=" + player.getPlayerName();
+                if (player.getPlayerName().equals(username))
+                    return lobby;
             }
         }
+        System.out.println("\n\n*******************\nError player not found\n"+"search="+username+"\n"+output+"\n*****************\n\n");
         throw new NoSuchElementException("No Player with = " + username);
     }
 
     public Lobby getLobby(UUID id) throws NoSuchElementException {
+        String output = "";
         for (Lobby lobby : lobbies) {
+            output += "\n\nLobby id=" + lobby.getId();
             if (lobby.getId().equals(id)) {
                 return lobby;
             }
         }
+        System.out.println("\n\n*******************\nError id not found\n"+"search="+id+"\n"+output+"\n*****************\n\n");
         throw new NoSuchElementException("No lobby with id = " + id);
     }
 
