@@ -145,6 +145,7 @@ function startGame() {
     document.getElementById("showActivity").style.display = "none";
     document.getElementById("showThroughput").style.display = "none";
     document.getElementById("showNumberInSystem").style.display = "none";
+    document.getElementById("activity_buttons").style.display = "none";
 }
 
 function setButtonsForStatistics() {
@@ -158,6 +159,7 @@ function setButtonsForStatistics() {
     var activity_btn = document.getElementById("showActivity");
     var throughput_btn = document.getElementById("showThroughput");
     var numberInSystem_btn = document.getElementById("showNumberInSystem");
+    var activity_buttons = document.getElementById("activity_buttons");
 
     if (game_id.style.display === "none") {
         roll_btn.style.display = "inline";
@@ -169,6 +171,7 @@ function setButtonsForStatistics() {
         activity_btn.style.display = "none";
         throughput_btn.style.display = "none";
         numberInSystem_btn.style.display = "none";
+        activity_buttons.style.display = "none";
     } else {
         roll_btn.style.display = "none";
         move_btn.style.display = "none";
@@ -179,16 +182,17 @@ function setButtonsForStatistics() {
         activity_btn.style.display = "inline";
         throughput_btn.style.display = "inline";
         numberInSystem_btn.style.display = "inline";
+        activity_buttons.style.display = "block";
         document.getElementById('buttons').classList.add('statisticButtons');
     }
 }
 
 function showNumberInSystem() {
-    alert("show Number in System");
+    document.getElementById('activity_buttons').style.display = "none";
 }
 
 function showThroughput() {
-    alert("show Throughput");
+    document.getElementById('activity_buttons').style.display = "none";
 }
 
 function showActivity() {
@@ -225,12 +229,13 @@ function showActivity() {
                 xAxes: [{
                     scaleLabel: {
                         display: true,
-                        labelString: 'Player'
+                        labelString: 'Turn'
                     }
                 }]
             }
         }
     });
+
 }
 
 function showStatistic() {
