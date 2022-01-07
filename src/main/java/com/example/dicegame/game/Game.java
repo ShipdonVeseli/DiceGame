@@ -150,14 +150,49 @@ public class Game extends StatisticSuspect {
 
         lastPlayer.removeResources(amount);
 
-        lastPlayer.addmovedRessources(amount);
+        //lastPlayer.addmovedRessources(amount);
+    }
+
+    protected void moveResources() {
+        for (int i = lobby.playerCount() - 1; i >= 1; i--) {
+            Player playerReceiver = lobby.getPlayer(i);
+            Player playerSend = lobby.getPlayer(i - 1);
+
+            int amount = playerSend.getSummOfDiceValues();
+
+            ArrayList<Resource> resources = playerSend.getResources(amount);
+            playerReceiver.addResources(resources);
+
+            playerSend.removeResources(amount);
+
+            playerSend.addmovedRessources(amount);
+
+
+        }
+    }
+
+    protected void moveResources2() {
+        for (int i =1; i<lobby.playerCount(); i++) {
+            Player playerReceiver = lobby.getPlayer(i);
+            Player playerSend = lobby.getPlayer(i - 1);
+
+            int amount = playerSend.getSummOfDiceValues();
+
+            ArrayList<Resource> resources = playerSend.getResources(amount);
+            playerReceiver.addResources(resources);
+
+            playerSend.removeResources(amount);
+
+            playerSend.addmovedRessources(amount);
+
+        }
     }
 
     public void move() {
         if(round<=gameLength) {
             round++;
             moveResourcesToStorage();
-            moveResources();
+            moveResources2();
             addNewResources();
 
             changeActivePlayer();
@@ -190,23 +225,6 @@ public class Game extends StatisticSuspect {
         });
     }
 
-    protected void moveResources() {
-        for (int i = lobby.playerCount() - 1; i >= 1; i--) {
-            Player playerReceiver = lobby.getPlayer(i);
-            Player playerSend = lobby.getPlayer(i - 1);
-
-            int amount = playerSend.getSummOfDiceValues();
-
-            ArrayList<Resource> resources = playerSend.getResources(amount);
-            playerReceiver.addResources(resources);
-
-            playerSend.removeResources(amount);
-
-            playerSend.addmovedRessources(amount);
-
-
-        }
-    }
 
 
     @Override
