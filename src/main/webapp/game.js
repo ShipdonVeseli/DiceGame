@@ -8,13 +8,17 @@ function fix_dpi() {
 //get CSS width
     let style_width = +getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
 //scale the canvas
-    if (window.screen.availWidth > 1900) {
+
+    canvas.setAttribute('width', window.screen.availWidth/1.8);
+    canvas.setAttribute('height', window.screen.availHeight/2.3);
+
+    /*if (window.screen.availWidth > 1900) {
         canvas.setAttribute('height', style_height * dpi - 300);
         canvas.setAttribute('width', style_width * dpi - 500);
     } else {
         canvas.setAttribute('height', style_height * dpi - 100);
         canvas.setAttribute('width', style_width * dpi - 75);
-    }
+    }*/
 }
 
 async function getStatus() {
