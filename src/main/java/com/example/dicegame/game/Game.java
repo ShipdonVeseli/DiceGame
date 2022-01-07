@@ -176,7 +176,7 @@ public class Game extends StatisticSuspect {
             Player playerReceiver = lobby.getPlayer(i);
             Player playerSend = lobby.getPlayer(i - 1);
 
-            int amount = playerSend.getSummOfDiceValues();
+            int amount = playerReceiver.getSummOfDiceValues();
 
             ArrayList<Resource> resources = playerSend.getResources(amount);
             playerReceiver.addResources(resources);
