@@ -242,7 +242,7 @@ function showActivity() {
     document.getElementById('showNumberInSystem').style.display = "none";
     document.getElementById('showThroughput').style.display = "none";
     document.getElementById('activity_buttons').style.display = "block";
-    document.getElementById('back').style.display = "block";
+    document.getElementById('back').style.display = "inline-block";
 
     new Chart(document.getElementById("statistic_canvas"), {
         type: 'bar',
