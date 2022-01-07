@@ -168,6 +168,7 @@ function startGame() {
 
     document.getElementById("statistic").style.display = "none";
     document.getElementById("activity_buttons").style.display = "none";
+    document.getElementById("back").style.display = "none";
 }
 
 function setButtonsForStatistics(button_to_display, value, not_display_btn1, not_display_btn2) {
@@ -214,21 +215,34 @@ function showThroughput() {
     setButtonsForStatistics(showThroughput_btn, "Show Throughput", showActivity_btn, showNumberInSystem_btn);
 }
 
+function backToGame() {
+    document.getElementById('buttons').classList.remove('statisticButtons');
+    document.getElementById('game').style.display = "block";
+    document.getElementById('statistic').style.display = "none";
+    document.getElementById('move').style.display = "inline";
+    document.getElementById('roll').style.display = "inline";
+    document.getElementById('showActivity').style.display = "inline";
+    document.getElementById('showNumberInSystem').style.display = "inline";
+    document.getElementById('showThroughput').style.display = "inline";
+    document.getElementById('activity_buttons').style.display = "none";
+    document.getElementById('back').style.display = "none";
+}
+
 function showActivity() {
+    ctx_statistic.clearRect(0,0,ctx_statistic.width, ctx_statistic.height);
     var getSelectedValue = document.querySelector( 'input[name="activity"]:checked').value;
     console.log("getselect "+ getSelectedValue)
-    let showActivity_btn = document.getElementById('showActivity');
-    let showThroughput_btn = document.getElementById('showThroughput');
-    let showNumberInSystem_btn = document.getElementById('showNumberInSystem');
-    setButtonsForStatistics(showActivity_btn, "Show Activity", showThroughput_btn, showNumberInSystem_btn);
-    let activity_buttons = document.getElementById('activity_buttons');
-    if(activity_buttons.style.display === "none") {
-        activity_buttons.style.display = "block";
-    } else {
-        activity_buttons.style.display = "none";
-    }
 
-    ctx_statistic.clearRect(0,0,ctx_statistic.width, ctx_statistic.height)
+    document.getElementById('buttons').classList.add('statisticButtons');
+    document.getElementById('game').style.display = "none";
+    document.getElementById('statistic').style.display = "block";
+    document.getElementById('move').style.display = "none";
+    document.getElementById('roll').style.display = "none";
+    document.getElementById('showActivity').style.display = "none";
+    document.getElementById('showNumberInSystem').style.display = "none";
+    document.getElementById('showThroughput').style.display = "none";
+    document.getElementById('activity_buttons').style.display = "block";
+    document.getElementById('back').style.display = "block";
 
     new Chart(document.getElementById("statistic_canvas"), {
         type: 'bar',

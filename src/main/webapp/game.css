@@ -12,6 +12,7 @@ body {
 #statistic_canvas {
     padding: 1rem;
     margin-bottom: 1rem;
+    pointer-events: none;
 }
 
 h1 {
