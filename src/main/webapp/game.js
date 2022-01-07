@@ -8,12 +8,12 @@ function fix_dpi() {
 //get CSS width
     let style_width = +getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
 //scale the canvas
-    if(window.screen.availWidth > 1900){
+    if (window.screen.availWidth > 1900) {
         canvas.setAttribute('height', style_height * dpi - 300);
         canvas.setAttribute('width', style_width * dpi - 500);
-    }else{
-        canvas.setAttribute('height', style_height * dpi -100);
-        canvas.setAttribute('width', style_width * dpi -75);
+    } else {
+        canvas.setAttribute('height', style_height * dpi - 100);
+        canvas.setAttribute('width', style_width * dpi - 75);
     }
 }
 
@@ -30,9 +30,10 @@ function rollDice() {
     fetch("http://localhost:8079/Game-servlet?mode=roll-all&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
 }
 
-function moveTokens(){
+function moveTokens() {
     fetch("http://localhost:8079/Game-servlet?mode=make-move&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
 }
+
 function getActivePlayer(value, index, array) {
     fetch("http://localhost:8079/Game-servlet?mode=get-Active-Player&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
 
@@ -49,14 +50,14 @@ for (let i = 1; i <= 6; i++) {
 }
 
 function loadDiceImage(dicevalue, playerindex) {
-    ctx.drawImage(dices[dicevalue-1], players[playerindex].x + players[playerindex].width + 15, players[playerindex].y, 50, 50);
+    ctx.drawImage(dices[dicevalue - 1], players[playerindex].x + players[playerindex].width + 15, players[playerindex].y, 50, 50);
     requestAnimationFrame(loadDiceImage);
 }
 
 function drawCanvas(value, index, array) {
     if (index === 0) {
         ctx.clearRect(0, 0, 1500, 1000);
-        document.getElementById("info").innerText = "Active Player: " + getActivePlayer(value,index,array) + " - Round: "+array[index].round;
+        document.getElementById("info").innerText = "Active Player: " + getActivePlayer(value, index, array) + " - Round: " + array[index].round;
     } else {
         drawPlayerNames(value, index, array);
         loadDiceImage(array[index].dicevalue, index - 1);
@@ -90,11 +91,11 @@ function drawCanvas(value, index, array) {
 function drawPlayerNames(value, index, array) {
     ctx.font = '15px calibri';
     ctx.fillStyle = 'black';
-    players[index-1].name = array[index].playername;
-    if(index < 6) {
-        ctx.fillText(players[index-1].name, players[index-1].x, players[index-1].y - 10, players[index-1].width);
+    players[index - 1].name = array[index].playername;
+    if (index < 6) {
+        ctx.fillText(players[index - 1].name, players[index - 1].x, players[index - 1].y - 10, players[index - 1].width);
     } else {
-        ctx.fillText(players[index-1].name, players[index-1].x, players[index-1].y + players[index-1].height + 20, players[index-1].width);
+        ctx.fillText(players[index - 1].name, players[index - 1].x, players[index - 1].y + players[index - 1].height + 20, players[index - 1].width);
     }
 }
 
@@ -141,15 +142,22 @@ function startGame() {
     drawImages();
 
     document.getElementById("statistic").style.display = "none";
+    document.getElementById("showActivity").style.display = "none";
+    document.getElementById("showThroughput").style.display = "none";
+    document.getElementById("showNumberInSystem").style.display = "none";
 }
 
 function setButtonsForStatistics() {
+    document.getElementById('buttons').classList.remove('statisticButtons');
     var game_id = document.getElementById("game");
     var statistic = document.getElementById("statistic");
     var showStatistic_btn = document.getElementById("showStatistic");
     var activePlayer = document.getElementById("info");
     var roll_btn = document.getElementById("roll");
     var move_btn = document.getElementById("move");
+    var activity_btn = document.getElementById("showActivity");
+    var throughput_btn = document.getElementById("showThroughput");
+    var numberInSystem_btn = document.getElementById("showNumberInSystem");
 
     if (game_id.style.display === "none") {
         roll_btn.style.display = "inline";
@@ -158,6 +166,9 @@ function setButtonsForStatistics() {
         showStatistic_btn.value = "Show Statistic";
         game_id.style.display = "block";
         statistic.style.display = "none";
+        activity_btn.style.display = "none";
+        throughput_btn.style.display = "none";
+        numberInSystem_btn.style.display = "none";
     } else {
         roll_btn.style.display = "none";
         move_btn.style.display = "none";
@@ -165,7 +176,19 @@ function setButtonsForStatistics() {
         showStatistic_btn.value = "Back";
         game_id.style.display = "none";
         statistic.style.display = "block";
+        activity_btn.style.display = "inline";
+        throughput_btn.style.display = "inline";
+        numberInSystem_btn.style.display = "inline";
+        document.getElementById('buttons').classList.add('statisticButtons');
     }
+}
+
+function showNumberInSystem() {
+    alert("show Number in System");
+}
+
+function showThroughput() {
+    alert("show Throughput");
 }
 
 function showActivity() {
@@ -177,12 +200,12 @@ function showActivity() {
                 {
                     label: "Number of Tokens",
                     backgroundColor: "#3e95cd",
-                    data: [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10]
+                    data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
                 }
             ]
         },
         options: {
-            legend: { display: false },
+            legend: {display: false},
             responsive: true,
             maintainAspectRatio: false,
             title: {
@@ -270,7 +293,7 @@ function createplayer() {
 
 function updateLineToAddTokenForUpperRow(player) {
     if (player.col < player.width) {
-        player.token_x= player.x + 5 + player.col + player.width;
+        player.token_x = player.x + 5 + player.col + player.width;
         player.token_y = player.y + player.height + 15 + player.row;
     } else {
         player.col = 0;
