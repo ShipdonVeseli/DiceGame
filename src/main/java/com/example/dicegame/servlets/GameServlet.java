@@ -4,6 +4,7 @@ import com.example.dicegame.GameServer;
 import com.example.dicegame.Lobby;
 import com.example.dicegame.game.Game;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,12 @@ import java.util.UUID;
 @WebServlet(name = "GameServlet", value = "/Game-servlet")
 public class GameServlet extends HttpServlet {
     private GameServer gameServer = GameServer.getInstance();
+
+//    public void init() throws ServletException
+//    {
+//
+//        ServletFunctions.initFunction();
+//    }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         gameFunctions(request, response);

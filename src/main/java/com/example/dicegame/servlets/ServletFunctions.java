@@ -26,6 +26,12 @@ public class ServletFunctions  {
         return result[0];
     }
 
+    public static void initFunction(){
+        System.out.println("************************************************************************************");
+        System.out.println("Server Started");
+        System.out.println("Hallo World");
+        System.out.println("************************************************************************************");
+    }
 
 
 }
