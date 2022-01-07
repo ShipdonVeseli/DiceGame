@@ -1,6 +1,7 @@
 body {
     font-family: Verdana, "Lucida Sans Unicode", sans-serif;
     background-color: #e0dddd;
+    text-align: center;
 }
 
 #responsive-canvas {

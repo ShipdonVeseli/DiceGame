@@ -145,60 +145,66 @@ function startGame() {
     drawImages();
 
     document.getElementById("statistic").style.display = "none";
-    document.getElementById("showActivity").style.display = "none";
-    document.getElementById("showThroughput").style.display = "none";
-    document.getElementById("showNumberInSystem").style.display = "none";
     document.getElementById("activity_buttons").style.display = "none";
 }
 
-function setButtonsForStatistics() {
+function setButtonsForStatistics(button_to_display, value, not_display_btn1, not_display_btn2) {
     document.getElementById('buttons').classList.remove('statisticButtons');
     var game_id = document.getElementById("game");
     var statistic = document.getElementById("statistic");
-    var showStatistic_btn = document.getElementById("showStatistic");
     var activePlayer = document.getElementById("info");
     var roll_btn = document.getElementById("roll");
     var move_btn = document.getElementById("move");
-    var activity_btn = document.getElementById("showActivity");
-    var throughput_btn = document.getElementById("showThroughput");
-    var numberInSystem_btn = document.getElementById("showNumberInSystem");
-    var activity_buttons = document.getElementById("activity_buttons");
 
     if (game_id.style.display === "none") {
+        button_to_display.value = value;
         roll_btn.style.display = "inline";
         move_btn.style.display = "inline";
         activePlayer.style.display = "block";
-        showStatistic_btn.value = "Show Statistic";
         game_id.style.display = "block";
         statistic.style.display = "none";
-        activity_btn.style.display = "none";
-        throughput_btn.style.display = "none";
-        numberInSystem_btn.style.display = "none";
-        activity_buttons.style.display = "none";
+        not_display_btn1.style.display = "inline";
+        not_display_btn2.style.display = "inline";
     } else {
+        button_to_display.value = "Back";
         roll_btn.style.display = "none";
         move_btn.style.display = "none";
         activePlayer.style.display = "none";
-        showStatistic_btn.value = "Back";
         game_id.style.display = "none";
         statistic.style.display = "block";
-        activity_btn.style.display = "inline";
-        throughput_btn.style.display = "inline";
-        numberInSystem_btn.style.display = "inline";
-        activity_buttons.style.display = "block";
+        not_display_btn1.style.display = "none";
+        not_display_btn2.style.display = "none";
         document.getElementById('buttons').classList.add('statisticButtons');
     }
 }
 
 function showNumberInSystem() {
-    document.getElementById('activity_buttons').style.display = "none";
+    let showActivity_btn = document.getElementById('showActivity');
+    let showThroughput_btn = document.getElementById('showThroughput');
+    let showNumberInSystem_btn = document.getElementById('showNumberInSystem');
+    setButtonsForStatistics(showNumberInSystem_btn, "Show Number in System", showActivity_btn, showThroughput_btn);
 }
 
 function showThroughput() {
-    document.getElementById('activity_buttons').style.display = "none";
+    let showActivity_btn = document.getElementById('showActivity');
+    let showThroughput_btn = document.getElementById('showThroughput');
+    let showNumberInSystem_btn = document.getElementById('showNumberInSystem');
+    setButtonsForStatistics(showThroughput_btn, "Show Throughput", showActivity_btn, showNumberInSystem_btn);
 }
 
 function showActivity() {
+    let showActivity_btn = document.getElementById('showActivity');
+    let showThroughput_btn = document.getElementById('showThroughput');
+    let showNumberInSystem_btn = document.getElementById('showNumberInSystem');
+    setButtonsForStatistics(showActivity_btn, "Show Activity", showThroughput_btn, showNumberInSystem_btn);
+
+    let activity_buttons = document.getElementById('activity_buttons');
+    if(activity_buttons.style.display === "none") {
+        activity_buttons.style.display = "block";
+    } else {
+        activity_buttons.style.display = "none";
+    }
+
     new Chart(document.getElementById("statistic_canvas"), {
         type: 'bar',
         data: {
