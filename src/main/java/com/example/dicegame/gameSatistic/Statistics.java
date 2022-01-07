@@ -9,12 +9,21 @@ public class Statistics implements StatisticObserver {
 
 
     public String getActivity() {
-
         String result = "[{";
         result += "\"playerDataArrayList\": [";
         result+=printDataToJson(playerDataArrayList.toArray(new StatisticData[playerDataArrayList.size()]));
-
         result += "]}]";
+        return result;
+    }
+
+    public String getActivity2() {
+        String result = "[";
+        for(int i=0; i < playerDataArrayList.size(); i++){
+            result += "{\"playername\": \""+playerDataArrayList.get(i).getPlayerName()+"\",";
+            result += "\"dicevalues\": " + playerDataArrayList.get(i).getDiceValues() +"}";
+            if(i != playerDataArrayList.size() - 1) result += ",";
+        }
+        result += "]";
         return result;
     }
 

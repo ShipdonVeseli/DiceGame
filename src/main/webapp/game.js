@@ -9,8 +9,6 @@ function fix_dpi() {
     let style_width = +getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
 //scale the canvas
 
-
-
     if (window.screen.availWidth > 1900) {
         canvas.setAttribute('width', window.screen.availWidth/1.8);
         canvas.setAttribute('height', window.screen.availHeight/2.3);
@@ -24,6 +22,16 @@ async function getStatus() {
     const response = await fetch("http://localhost:8079/Game-servlet?mode=status&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
     for (let [key, value] of response.headers) {
         if (`${key}` === "gamestatus") {
+            return JSON.parse(`${value}`);
+        }
+    }
+}
+
+async function getActivity(){
+    const response = await fetch("http://localhost:8079/Game-servlet?mode=get-Activity&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"));
+    for (let [key, value] of response.headers) {
+        console.log(`${key}`);
+        if (`${key}` === "activity") {
             return JSON.parse(`${value}`);
         }
     }
@@ -102,9 +110,22 @@ function drawPlayerNames(value, index, array) {
     }
 }
 
+let dicevalues = []
+function drawActivity(value, index, array){
+    if(index === 0) dicevalues = [];
+    dicevalues.push(array[index].dicevalues)
+}
+
 function convert(obj) {
     obj.then((result) => {
         result.forEach(drawCanvas)
+        return result;
+    }).catch(err => console.log(err))
+}
+
+function convertActivity(obj) {
+    obj.then((result) => {
+        result.forEach(drawActivity)
         return result;
     }).catch(err => console.log(err))
 }
@@ -120,6 +141,7 @@ setInterval(() => {
         players[i].row = 0;
         players[i].col = 0;
     }
+    convertActivity(getActivity());
     reloadField();
 }, 5000);
 
@@ -193,17 +215,20 @@ function showThroughput() {
 }
 
 function showActivity() {
+    var getSelectedValue = document.querySelector( 'input[name="activity"]:checked').value;
+    console.log("getselect "+ getSelectedValue)
     let showActivity_btn = document.getElementById('showActivity');
     let showThroughput_btn = document.getElementById('showThroughput');
     let showNumberInSystem_btn = document.getElementById('showNumberInSystem');
     setButtonsForStatistics(showActivity_btn, "Show Activity", showThroughput_btn, showNumberInSystem_btn);
-
     let activity_buttons = document.getElementById('activity_buttons');
     if(activity_buttons.style.display === "none") {
         activity_buttons.style.display = "block";
     } else {
         activity_buttons.style.display = "none";
     }
+
+    ctx_statistic.clearRect(0,0,ctx_statistic.width, ctx_statistic.height)
 
     new Chart(document.getElementById("statistic_canvas"), {
         type: 'bar',
@@ -213,7 +238,7 @@ function showActivity() {
                 {
                     label: "Number of Tokens",
                     backgroundColor: "#3e95cd",
-                    data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                    data: dicevalues[getSelectedValue-1]
                 }
             ]
         },
@@ -247,10 +272,6 @@ function showActivity() {
 
 }
 
-function showStatistic() {
-    setButtonsForStatistics();
-    showActivity();
-}
 
 function drawNormalResources(player) {
     ctx.beginPath();

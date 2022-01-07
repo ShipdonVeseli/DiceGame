@@ -136,7 +136,8 @@ public class GameServlet extends HttpServlet {
     }
 
     private void getActivity(HttpServletResponse response, Game game) {
-        response.setHeader("Activity", game.getStatistics().getActivity());
+        System.out.println(game.getStatistics().getActivity2());
+        response.setHeader("Activity", game.getStatistics().getActivity2());
     }
 
     private void hasGameStarted(HttpServletResponse response, Lobby lobbyOfTheGame) {
