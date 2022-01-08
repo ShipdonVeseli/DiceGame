@@ -206,6 +206,9 @@ function showNumberInSystem() {
     let showThroughput_btn = document.getElementById('showThroughput');
     let showNumberInSystem_btn = document.getElementById('showNumberInSystem');
     setButtonsForStatistics(showNumberInSystem_btn, "Show Number in System", showActivity_btn, showThroughput_btn);
+    let x_Axis = 'Turn';
+    let y_Axis = 'Number in System';
+    drawBarChart("", x_Axis, y_Axis);
 }
 
 function showThroughput() {
@@ -213,6 +216,9 @@ function showThroughput() {
     let showThroughput_btn = document.getElementById('showThroughput');
     let showNumberInSystem_btn = document.getElementById('showNumberInSystem');
     setButtonsForStatistics(showThroughput_btn, "Show Throughput", showActivity_btn, showNumberInSystem_btn);
+    let x_Axis = 'Turn';
+    let y_Axis = 'Throughput';
+    drawBarChart("", x_Axis, y_Axis);
 }
 
 function backToGame() {
@@ -226,6 +232,48 @@ function backToGame() {
     document.getElementById('showThroughput').style.display = "inline";
     document.getElementById('activity_buttons').style.display = "none";
     document.getElementById('back').style.display = "none";
+}
+
+function drawBarChart(data, x_Axis, y_Axis, stepSize) {
+    new Chart(document.getElementById("statistic_canvas"), {
+        type: 'bar',
+        data: {
+            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"],
+            datasets: [
+                {
+                    backgroundColor: "#3e95cd",
+                    data: data
+                }
+            ]
+        },
+        options: {
+            legend: {display: false},
+            responsive: true,
+            maintainAspectRatio: false,
+            title: {
+                display: true,
+                text: 'Activity'
+            },
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: y_Axis
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: stepSize
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: x_Axis
+                    }
+                }]
+            }
+        }
+    });
 }
 
 function showActivity() {
@@ -244,48 +292,10 @@ function showActivity() {
     document.getElementById('activity_buttons').style.display = "block";
     document.getElementById('back').style.display = "inline-block";
 
-    new Chart(document.getElementById("statistic_canvas"), {
-        type: 'bar',
-        data: {
-            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"],
-            datasets: [
-                {
-                    label: "Number of Tokens",
-                    backgroundColor: "#3e95cd",
-                    data: dicevalues[getSelectedValue-1]
-                }
-            ]
-        },
-        options: {
-            legend: {display: false},
-            responsive: true,
-            maintainAspectRatio: false,
-            title: {
-                display: true,
-                text: 'Activity'
-            },
-            scales: {
-                yAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Number'
-                    },
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }],
-                xAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Turn'
-                    }
-                }]
-            }
-        }
-    });
-
+    let x_Axis = 'Turn';
+    let y_Axis = 'Number';
+    drawBarChart(dicevalues[getSelectedValue-1], x_Axis, y_Axis, 1);
 }
-
 
 function drawNormalResources(player) {
     ctx.beginPath();
