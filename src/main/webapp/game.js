@@ -212,7 +212,7 @@ function startGame() {
     document.getElementById("back").style.display = "none";
 }
 
-function setButtonsForStatistics(button_to_display, value, not_display_btn1, not_display_btn2) {
+function setButtonsForStatistics(button_to_display, value, not_display_btn1, not_display_btn2, not_display_btn3) {
     document.getElementById('buttons').classList.remove('statisticButtons');
     var game_id = document.getElementById("game");
     var statistic = document.getElementById("statistic");
@@ -229,6 +229,7 @@ function setButtonsForStatistics(button_to_display, value, not_display_btn1, not
         statistic.style.display = "none";
         not_display_btn1.style.display = "inline";
         not_display_btn2.style.display = "inline";
+        not_display_btn3.style.display = "inline";
     } else {
         button_to_display.value = "Back";
         roll_btn.style.display = "none";
@@ -238,6 +239,7 @@ function setButtonsForStatistics(button_to_display, value, not_display_btn1, not
         statistic.style.display = "block";
         not_display_btn1.style.display = "none";
         not_display_btn2.style.display = "none";
+        not_display_btn3.style.display = "none";
         document.getElementById('buttons').classList.add('statisticButtons');
     }
 }
@@ -246,10 +248,22 @@ function showNumberInSystem() {
     let showActivity_btn = document.getElementById('showActivity');
     let showThroughput_btn = document.getElementById('showThroughput');
     let showNumberInSystem_btn = document.getElementById('showNumberInSystem');
-    setButtonsForStatistics(showNumberInSystem_btn, "Show Number in System", showActivity_btn, showThroughput_btn);
+    let showTimeInSystem_btn = document.getElementById('showTimeInSystem');
+    setButtonsForStatistics(showNumberInSystem_btn, "Show Number in System", showActivity_btn, showThroughput_btn, showTimeInSystem_btn);
     let x_Axis = 'Turn';
     let y_Axis = 'Number in System';
-    drawBarChart(numberinsystem[0], x_Axis, y_Axis);
+    drawBarChart(numberinsystem[0], x_Axis, y_Axis, 1);
+}
+
+function showTimeInSystem(){
+    let showActivity_btn = document.getElementById('showActivity');
+    let showThroughput_btn = document.getElementById('showThroughput');
+    let showNumberInSystem_btn = document.getElementById('showNumberInSystem');
+    let showTimeInSystem_btn = document.getElementById('showTimeInSystem');
+    setButtonsForStatistics(showNumberInSystem_btn, "Show Number in System", showActivity_btn, showThroughput_btn, showTimeInSystem_btn);
+    let x_Axis = 'Turn';
+    let y_Axis = 'Number in System';
+    drawBarChart('', x_Axis, y_Axis, 1);
 }
 
 
@@ -257,10 +271,11 @@ function showThroughput() {
     let showActivity_btn = document.getElementById('showActivity');
     let showThroughput_btn = document.getElementById('showThroughput');
     let showNumberInSystem_btn = document.getElementById('showNumberInSystem');
-    setButtonsForStatistics(showThroughput_btn, "Show Throughput", showActivity_btn, showNumberInSystem_btn);
+    let showTimeInSystem_btn = document.getElementById('showTimeInSystem');
+    setButtonsForStatistics(showThroughput_btn, "Show Throughput", showActivity_btn, showNumberInSystem_btn, showTimeInSystem_btn);
     let x_Axis = 'Turn';
     let y_Axis = 'Throughput';
-    drawBarChart(throughput[0], x_Axis, y_Axis);
+    drawBarChart(throughput[0], x_Axis, y_Axis, 1);
 }
 
 function backToGame() {
@@ -272,6 +287,7 @@ function backToGame() {
     document.getElementById('showActivity').style.display = "inline";
     document.getElementById('showNumberInSystem').style.display = "inline";
     document.getElementById('showThroughput').style.display = "inline";
+    document.getElementById('showTimeInSystem').style.display = "inline";
     document.getElementById('activity_buttons').style.display = "none";
     document.getElementById('back').style.display = "none";
 }
@@ -330,6 +346,7 @@ function showActivity() {
     document.getElementById('showActivity').style.display = "none";
     document.getElementById('showNumberInSystem').style.display = "none";
     document.getElementById('showThroughput').style.display = "none";
+    document.getElementById('showTimeInSystem').style.display = "none";
     document.getElementById('activity_buttons').style.display = "block";
     document.getElementById('back').style.display = "inline-block";
 
