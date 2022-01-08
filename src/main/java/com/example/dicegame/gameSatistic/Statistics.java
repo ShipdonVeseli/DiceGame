@@ -48,6 +48,21 @@ public class Statistics implements StatisticObserver {
         return result;
     }
 
+    public String getThroughput2() {
+        String result = "[{";
+        result += "\"Throughput\": [";
+
+        for (int i = 0; i < gameData.getNumberOFResourcesInStorage().size(); i++) {
+            result += gameData.getNumberOFResourcesInStorage().get(i);
+            if (i < gameData.getNumberOFResourcesInStorage().size() - 1) {
+                result += ",";
+            }
+        }
+
+        result += "]}]";
+        return result;
+    }
+
     public String getNumberInSystem() {
         String result = "[{";
         result += "\"Number In System\": [";

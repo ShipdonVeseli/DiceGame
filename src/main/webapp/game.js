@@ -30,8 +30,16 @@ async function getStatus() {
 async function getActivity(){
     const response = await fetch("http://localhost:8079/Game-servlet?mode=get-Activity&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"));
     for (let [key, value] of response.headers) {
-        console.log(`${key}`);
         if (`${key}` === "activity") {
+            return JSON.parse(`${value}`);
+        }
+    }
+}
+
+async function getThroughput(){
+    const response = await fetch("http://localhost:8079/Game-servlet?mode=get-Throughput&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"));
+    for (let [key, value] of response.headers) {
+        if (`${key}` === "throughput") {
             return JSON.parse(`${value}`);
         }
     }
@@ -53,7 +61,7 @@ function getActivePlayer(value, index, array) {
 }
 
 let dices = [];
-
+let throughput = [];
 for (let i = 1; i <= 6; i++) {
     let dice = new Image();
     dice.src = "/images/Dice" + i + ".png";
@@ -110,6 +118,12 @@ function drawPlayerNames(value, index, array) {
     }
 }
 
+function drawThroughput(value,index, array){
+    if(index === 0) throughput = [];
+    console.log(array[index].Throughput)
+    throughput.push(array[index].Throughput)
+}
+
 let dicevalues = []
 function drawActivity(value, index, array){
     if(index === 0) dicevalues = [];
@@ -130,6 +144,13 @@ function convertActivity(obj) {
     }).catch(err => console.log(err))
 }
 
+function convertThroughput(obj) {
+    obj.then((result) => {
+        result.forEach(drawThroughput)
+        return result;
+    }).catch(err => console.log(err))
+}
+
 function reloadField() {
     convert(getStatus());
 }
@@ -141,6 +162,7 @@ setInterval(() => {
         players[i].row = 0;
         players[i].col = 0;
     }
+    convertThroughput(getThroughput())
     convertActivity(getActivity());
     reloadField();
 }, 5000);
@@ -211,6 +233,7 @@ function showNumberInSystem() {
     drawBarChart("", x_Axis, y_Axis);
 }
 
+
 function showThroughput() {
     let showActivity_btn = document.getElementById('showActivity');
     let showThroughput_btn = document.getElementById('showThroughput');
@@ -218,7 +241,7 @@ function showThroughput() {
     setButtonsForStatistics(showThroughput_btn, "Show Throughput", showActivity_btn, showNumberInSystem_btn);
     let x_Axis = 'Turn';
     let y_Axis = 'Throughput';
-    drawBarChart("", x_Axis, y_Axis);
+    drawBarChart(throughput[0], x_Axis, y_Axis);
 }
 
 function backToGame() {
@@ -279,7 +302,6 @@ function drawBarChart(data, x_Axis, y_Axis, stepSize) {
 function showActivity() {
     ctx_statistic.clearRect(0,0,ctx_statistic.width, ctx_statistic.height);
     var getSelectedValue = document.querySelector( 'input[name="activity"]:checked').value;
-    console.log("getselect "+ getSelectedValue)
 
     document.getElementById('buttons').classList.add('statisticButtons');
     document.getElementById('game').style.display = "none";

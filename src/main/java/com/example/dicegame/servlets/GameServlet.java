@@ -132,7 +132,7 @@ public class GameServlet extends HttpServlet {
     }
 
     private void getThroughput(HttpServletResponse response, Game game) {
-        response.setHeader("Throughput", game.getStatistics().getThroughput());
+        response.setHeader("Throughput", game.getStatistics().getThroughput2());
     }
 
     private void getActivity(HttpServletResponse response, Game game) {
