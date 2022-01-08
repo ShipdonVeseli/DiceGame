@@ -44,7 +44,14 @@ async function getThroughput(){
         }
     }
 }
-
+async function getNumberInSystem(){
+    const response = await fetch("http://localhost:8079/Game-servlet?mode=get-Number-in-System&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"));
+    for(let [key, value] of response.headers) {
+        if (`${key}` === "number-in-system") {
+            return JSON.parse(`${value}`);
+        }
+    }
+}
 function rollDice() {
     fetch("http://localhost:8079/Game-servlet?mode=roll-all&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
 }
@@ -62,6 +69,7 @@ function getActivePlayer(value, index, array) {
 
 let dices = [];
 let throughput = [];
+let numberinsystem = [];
 for (let i = 1; i <= 6; i++) {
     let dice = new Image();
     dice.src = "/images/Dice" + i + ".png";
@@ -120,8 +128,11 @@ function drawPlayerNames(value, index, array) {
 
 function drawThroughput(value,index, array){
     if(index === 0) throughput = [];
-    console.log(array[index].Throughput)
     throughput.push(array[index].Throughput)
+}
+function drawNumberInSystem(value,index, array){
+    if(index === 0) numberinsystem = [];
+    numberinsystem.push(array[index].NumberInSystem)
 }
 
 let dicevalues = []
@@ -151,6 +162,13 @@ function convertThroughput(obj) {
     }).catch(err => console.log(err))
 }
 
+function convertNumberInSystem(obj) {
+    obj.then((result) => {
+        result.forEach(drawNumberInSystem);
+        return result;
+    }).catch(err => console.log(err))
+}
+
 function reloadField() {
     convert(getStatus());
 }
@@ -162,6 +180,7 @@ setInterval(() => {
         players[i].row = 0;
         players[i].col = 0;
     }
+    convertNumberInSystem(getNumberInSystem());
     convertThroughput(getThroughput())
     convertActivity(getActivity());
     reloadField();
@@ -230,7 +249,7 @@ function showNumberInSystem() {
     setButtonsForStatistics(showNumberInSystem_btn, "Show Number in System", showActivity_btn, showThroughput_btn);
     let x_Axis = 'Turn';
     let y_Axis = 'Number in System';
-    drawBarChart("", x_Axis, y_Axis);
+    drawBarChart(numberinsystem[0], x_Axis, y_Axis);
 }
 
 

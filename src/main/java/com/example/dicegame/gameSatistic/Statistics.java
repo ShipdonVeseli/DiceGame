@@ -83,6 +83,20 @@ public class Statistics implements StatisticObserver {
         return result;
     }
 
+    public String getNumberInSystem2(){
+        String result = "[{";
+        result += "\"NumberInSystem\": [";
+
+        for(int i=0; i < gameData.getNumberOFResourcesInGame().size(); i++){
+            result += gameData.getNumberOFResourcesInGame().get(i);
+            if (i < gameData.getNumberOFResourcesInGame().size() - 1){
+                result += ",";
+            }
+        }
+        result += "]}]";
+        return result;
+    }
+
     public String getTimeInSystem() {
         String result = "[{";
         result += "\"resourceDataArrayList\": [";

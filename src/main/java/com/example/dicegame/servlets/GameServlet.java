@@ -128,7 +128,7 @@ public class GameServlet extends HttpServlet {
     }
 
     private void getNumberInSystem(HttpServletResponse response, Game game) {
-        response.setHeader("Number-in-System", game.getStatistics().getNumberInSystem());
+        response.setHeader("Number-in-System", game.getStatistics().getNumberInSystem2());
     }
 
     private void getThroughput(HttpServletResponse response, Game game) {
