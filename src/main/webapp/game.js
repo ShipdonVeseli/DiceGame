@@ -83,8 +83,10 @@ function getActivePlayer(value, index, array) {
 
     if(localStorage.getItem("username") === activePlayerName) {
         document.getElementById('roll').disabled = false;
+        document.getElementById("roll").classList.remove("black");
     } else {
         document.getElementById('roll').disabled = true;
+        document.getElementById("roll").classList.add("black");
     }
 
     return activePlayerName;
@@ -161,7 +163,6 @@ function drawNumberInSystem(value,index, array){
 
 function drawTimeInSystem(value,index, array){
     if(index === 0) timeinsystem = [];
-    console.log(array[index].resourceDataArrayList)
     timeinsystem.push(array[index].resourceDataArrayList)
 }
 
