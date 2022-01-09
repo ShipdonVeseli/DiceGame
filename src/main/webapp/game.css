@@ -68,12 +68,27 @@ input#back {
 #roll, #move, #showActivity, #showNumberInSystem, #showThroughput, #showTimeInSystem {
     margin: 0.5rem;
 }
-.buttonss {
+#roll {
+    box-shadow: 0px 0px 0px 2px #35c535;
+    background:linear-gradient(to bottom, #37ce37 5%, #015901 100%);
+    border:1px solid #016901;
+    text-shadow:0px 1px 0px green;
+}
+#roll:hover {
+    background:linear-gradient(to bottom, #049b04 5%, #024902 100%);
+}
+#roll:active {
+    position:relative;
+    top:1px;
+}
+.allButtons {
     box-shadow: 0px 0px 0px 2px #b0aaaa;
     background:linear-gradient(to bottom, #b4b4b4 5%, #6c6c6e 100%);
-    background-color: #6c6e6e;
-    border-radius:10px;
     border:1px solid #77777a;
+    text-shadow:0px 1px 0px #5d5c5c;
+}
+.allButtons, #roll {
+    border-radius:10px;
     display:inline-block;
     cursor:pointer;
     color:#ffffff;
@@ -82,21 +97,21 @@ input#back {
     font-weight:bold;
     padding:0.5rem;
     text-decoration:none;
-    text-shadow:0px 1px 0px #5d5c5c;
 }
-.buttonss:hover {
+.allButtons:hover {
     background:linear-gradient(to bottom, #7e8080 5%, #a0a4a9 100%);
-    background-color: #87888a;
 }
-.buttonss:active {
+.allButtons:active {
     position:relative;
     top:1px;
 }
-.black {
-    background: black;
+.red {
+    background: #f61919 !important;
+    border: 1px solid #de0c0c !important;
+    box-shadow: 0px 0px 0px 2px darkred!important;
 }
-.black:hover {
-    background: black;
+.red:hover {
+    background:linear-gradient(to bottom, #fa2323 5%, darkred 100%)!important;
 }
 
 @media screen and (max-width: 600px){

@@ -89,11 +89,11 @@ function getActivePlayer(value, index, array) {
 
     if(localStorage.getItem("username") === activePlayerName) {
         roll_button.disabled = false;
-        roll_button.classList.remove("black");
+        roll_button.classList.remove("red");
         roll_button.removeAttribute("title");
     } else {
         roll_button.disabled = true;
-        roll_button.classList.add("black");
+        roll_button.classList.add("red");
         roll_button.setAttribute("title", "It's not your turn now");
     }
 
