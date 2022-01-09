@@ -171,20 +171,22 @@ public class GameServlet extends HttpServlet {
 
     private void makeMove(HttpServletResponse response, String username, Game game) {
         if (game.checkIfPlayerIsActivePlayer(username)) {
-            if(game.checkIfGameHasNotEnded()) {
+            if (game.checkIfGameHasNotEnded()) {
                 game.move();
                 return;
             }
         }
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
     }
 
     private void rollAll(HttpServletResponse response, String username, Game game) {
         if (game.checkIfPlayerIsActivePlayer(username)) {
-            game.rollAllDiceInGame();
-        } else {
+            if (game.checkIfGameHasNotEnded()) {
+                game.rollAllDiceInGame();
+                return;
+            }
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
-
 }
+

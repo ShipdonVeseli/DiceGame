@@ -12,7 +12,7 @@ public class Game extends StatisticSuspect {
     private int gameMode = 1;
     private int round = 0;
     private int activePlayerIndex = 0;
-    private int gameLength = 20;
+    private int gameLength = 19;
     private boolean dicesAlreadyRolled = false;
 
     private Lobby lobby;
