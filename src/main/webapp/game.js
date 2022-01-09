@@ -44,6 +44,7 @@ async function getThroughput(){
         }
     }
 }
+
 async function getNumberInSystem(){
     const response = await fetch("http://localhost:8079/Game-servlet?mode=get-Number-in-System&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"));
     for(let [key, value] of response.headers) {
@@ -52,19 +53,31 @@ async function getNumberInSystem(){
         }
     }
 }
-function rollDice() {
-    fetch("http://localhost:8079/Game-servlet?mode=roll-all&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
-}
 
-function moveTokens() {
-    fetch("http://localhost:8079/Game-servlet?mode=make-move&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+function rollDice() {
+    let button = document.getElementById('roll');
+    if(button.value === 'Roll Dices') {
+        fetch("http://localhost:8079/Game-servlet?mode=roll-all&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+        button.value = 'Move';
+    } else {
+        fetch("http://localhost:8079/Game-servlet?mode=make-move&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+        button.value = 'Roll Dices';
+    }
 }
 
 function getActivePlayer(value, index, array) {
     fetch("http://localhost:8079/Game-servlet?mode=get-Active-Player&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
 
     let indexOfActivePlayer = array[index].activePlayerIndex + 1;
-    return array[indexOfActivePlayer].playername;
+    let activePlayerName = array[indexOfActivePlayer].playername;
+
+    if(localStorage.getItem("username") === activePlayerName) {
+        document.getElementById('roll').disabled = false;
+    } else {
+        document.getElementById('roll').disabled = true;
+    }
+
+    return activePlayerName;
 }
 
 let dices = [];
