@@ -80,13 +80,16 @@ function getActivePlayer(value, index, array) {
 
     let indexOfActivePlayer = array[index].activePlayerIndex + 1;
     let activePlayerName = array[indexOfActivePlayer].playername;
+    let roll_button = document.getElementById("roll");
 
     if(localStorage.getItem("username") === activePlayerName) {
-        document.getElementById('roll').disabled = false;
-        document.getElementById("roll").classList.remove("black");
+        roll_button.disabled = false;
+        roll_button.classList.remove("black");
+        roll_button.removeAttribute("title");
     } else {
-        document.getElementById('roll').disabled = true;
-        document.getElementById("roll").classList.add("black");
+        roll_button.disabled = true;
+        roll_button.classList.add("black");
+        roll_button.setAttribute("title", "It's not your turn now");
     }
 
     return activePlayerName;
