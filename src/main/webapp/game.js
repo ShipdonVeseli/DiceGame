@@ -231,12 +231,10 @@ function setButtonsForStatistics(button_to_display, value, not_display_btn1, not
     var statistic = document.getElementById("statistic");
     var activePlayer = document.getElementById("info");
     var roll_btn = document.getElementById("roll");
-    var move_btn = document.getElementById("move");
 
     if (game_id.style.display === "none") {
         button_to_display.value = value;
         roll_btn.style.display = "inline";
-        move_btn.style.display = "inline";
         activePlayer.style.display = "block";
         game_id.style.display = "block";
         statistic.style.display = "none";
@@ -246,7 +244,6 @@ function setButtonsForStatistics(button_to_display, value, not_display_btn1, not
     } else {
         button_to_display.value = "Back";
         roll_btn.style.display = "none";
-        move_btn.style.display = "none";
         activePlayer.style.display = "none";
         game_id.style.display = "none";
         statistic.style.display = "block";
@@ -295,7 +292,6 @@ function backToGame() {
     document.getElementById('buttons').classList.remove('statisticButtons');
     document.getElementById('game').style.display = "block";
     document.getElementById('statistic').style.display = "none";
-    document.getElementById('move').style.display = "inline";
     document.getElementById('roll').style.display = "inline";
     document.getElementById('showActivity').style.display = "inline";
     document.getElementById('showNumberInSystem').style.display = "inline";
@@ -354,7 +350,6 @@ function showActivity() {
     document.getElementById('buttons').classList.add('statisticButtons');
     document.getElementById('game').style.display = "none";
     document.getElementById('statistic').style.display = "block";
-    document.getElementById('move').style.display = "none";
     document.getElementById('roll').style.display = "none";
     document.getElementById('showActivity').style.display = "none";
     document.getElementById('showNumberInSystem').style.display = "none";
