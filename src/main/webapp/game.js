@@ -75,6 +75,10 @@ function rollDice() {
     }
 }
 
+function reset() {
+    fetch("http://localhost:8079/Game-servlet?mode=reset&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+}
+
 function getActivePlayer(value, index, array) {
     fetch("http://localhost:8079/Game-servlet?mode=get-Active-Player&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
 
@@ -260,12 +264,14 @@ function setButtonsForStatistics(button_to_display, value, not_display_btn1, not
     var statistic = document.getElementById("statistic");
     var activePlayer = document.getElementById("info");
     var roll_btn = document.getElementById("roll");
+    var reset_btn = document.getElementById("reset");
 
     if (game_id.style.display === "none") {
         button_to_display.value = value;
         roll_btn.style.display = "inline";
         activePlayer.style.display = "block";
         game_id.style.display = "block";
+        reset_btn.style.display = "inline";
         statistic.style.display = "none";
         not_display_btn1.style.display = "inline";
         not_display_btn2.style.display = "inline";
@@ -275,6 +281,7 @@ function setButtonsForStatistics(button_to_display, value, not_display_btn1, not
         roll_btn.style.display = "none";
         activePlayer.style.display = "none";
         game_id.style.display = "none";
+        reset_btn.style.display = "none";
         statistic.style.display = "block";
         not_display_btn1.style.display = "none";
         not_display_btn2.style.display = "none";
@@ -328,6 +335,7 @@ function backToGame() {
     document.getElementById('showTimeInSystem').style.display = "inline";
     document.getElementById('activity_buttons').style.display = "none";
     document.getElementById('back').style.display = "none";
+    document.getElementById('reset').style.display = "inline";
 }
 
 function drawBarChart(data, x_Axis, y_Axis, stepSize, x_Size, title) {
@@ -386,6 +394,7 @@ function showActivity() {
     document.getElementById('showTimeInSystem').style.display = "none";
     document.getElementById('activity_buttons').style.display = "block";
     document.getElementById('back').style.display = "inline-block";
+    document.getElementById('reset').style.display = "none";
 
     let x_Axis = 'Turn';
     let y_Axis = 'Number';
