@@ -1,5 +1,6 @@
 let dpi = window.devicePixelRatio;
-
+let x1 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
+let x2 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34"]
 function fix_dpi() {
 //get CSS height
 //the + prefix casts it to an integer
@@ -54,6 +55,15 @@ async function getNumberInSystem(){
     }
 }
 
+async function getTimeInSystem(){
+    const response = await fetch("http://localhost:8079/Game-servlet?mode=get-Time-in-System&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"));
+    for (let [key, value] of response.headers) {
+        if (`${key}` === "time-in-system") {
+            return JSON.parse(`${value}`);
+        }
+    }
+}
+
 function rollDice() {
     let button = document.getElementById('roll');
     if(button.value === 'Roll Dices') {
@@ -83,6 +93,7 @@ function getActivePlayer(value, index, array) {
 let dices = [];
 let throughput = [];
 let numberinsystem = [];
+let timeinsystem = [];
 for (let i = 1; i <= 6; i++) {
     let dice = new Image();
     dice.src = "/images/Dice" + i + ".png";
@@ -148,6 +159,12 @@ function drawNumberInSystem(value,index, array){
     numberinsystem.push(array[index].NumberInSystem)
 }
 
+function drawTimeInSystem(value,index, array){
+    if(index === 0) timeinsystem = [];
+    console.log(array[index].resourceDataArrayList)
+    timeinsystem.push(array[index].resourceDataArrayList)
+}
+
 let dicevalues = []
 function drawActivity(value, index, array){
     if(index === 0) dicevalues = [];
@@ -182,6 +199,13 @@ function convertNumberInSystem(obj) {
     }).catch(err => console.log(err))
 }
 
+function convertTimeInSystem(obj) {
+    obj.then((result) => {
+        result.forEach(drawTimeInSystem)
+        return result;
+    }).catch(err => console.log(err))
+}
+
 function reloadField() {
     convert(getStatus());
 }
@@ -196,8 +220,9 @@ setInterval(() => {
     convertNumberInSystem(getNumberInSystem());
     convertThroughput(getThroughput())
     convertActivity(getActivity());
+    convertTimeInSystem(getTimeInSystem());
     reloadField();
-}, 5000);
+}, 600);
 
 let canvas;
 let ctx;
@@ -262,7 +287,7 @@ function showNumberInSystem() {
     setButtonsForStatistics(showNumberInSystem_btn, "Show Number in System", showActivity_btn, showThroughput_btn, showTimeInSystem_btn);
     let x_Axis = 'Turn';
     let y_Axis = 'Number in System';
-    drawBarChart(numberinsystem[0], x_Axis, y_Axis, 1);
+    drawBarChart(numberinsystem[0], x_Axis, y_Axis, 1, x1, "Tokens in System");
 }
 
 function showTimeInSystem(){
@@ -271,9 +296,9 @@ function showTimeInSystem(){
     let showNumberInSystem_btn = document.getElementById('showNumberInSystem');
     let showTimeInSystem_btn = document.getElementById('showTimeInSystem');
     setButtonsForStatistics(showNumberInSystem_btn, "Show Number in System", showActivity_btn, showThroughput_btn, showTimeInSystem_btn);
-    let x_Axis = 'Turn';
-    let y_Axis = 'Number in System';
-    drawBarChart('', x_Axis, y_Axis, 1);
+    let x_Axis = 'Order of Arrival';
+    let y_Axis = 'Time in System';
+    drawBarChart(timeinsystem[0], x_Axis, y_Axis, 1, x2, "Time in System of Token");
 }
 
 
@@ -285,7 +310,7 @@ function showThroughput() {
     setButtonsForStatistics(showThroughput_btn, "Show Throughput", showActivity_btn, showNumberInSystem_btn, showTimeInSystem_btn);
     let x_Axis = 'Turn';
     let y_Axis = 'Throughput';
-    drawBarChart(throughput[0], x_Axis, y_Axis, 1);
+    drawBarChart(throughput[0], x_Axis, y_Axis, 1, x1, "Throughput of Tokens");
 }
 
 function backToGame() {
@@ -301,11 +326,11 @@ function backToGame() {
     document.getElementById('back').style.display = "none";
 }
 
-function drawBarChart(data, x_Axis, y_Axis, stepSize) {
+function drawBarChart(data, x_Axis, y_Axis, stepSize, x_Size, title) {
     new Chart(document.getElementById("statistic_canvas"), {
         type: 'bar',
         data: {
-            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"],
+            labels: x_Size,
             datasets: [
                 {
                     backgroundColor: "#3e95cd",
@@ -319,7 +344,7 @@ function drawBarChart(data, x_Axis, y_Axis, stepSize) {
             maintainAspectRatio: false,
             title: {
                 display: true,
-                text: 'Activity'
+                text: title
             },
             scales: {
                 yAxes: [{
@@ -360,7 +385,7 @@ function showActivity() {
 
     let x_Axis = 'Turn';
     let y_Axis = 'Number';
-    drawBarChart(dicevalues[getSelectedValue-1], x_Axis, y_Axis, 1);
+    drawBarChart(dicevalues[getSelectedValue-1], x_Axis, y_Axis, 1, x1, "History of Rolls");
 }
 
 function drawNormalResources(player) {

@@ -92,4 +92,4 @@ setInterval(() => {
         isJoinedLobby();
     }
     convert(getLobbies());
-}, 5000);
+}, 600);

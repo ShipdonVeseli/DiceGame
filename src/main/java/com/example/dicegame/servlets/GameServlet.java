@@ -124,7 +124,7 @@ public class GameServlet extends HttpServlet {
     }
 
     private void getTimeInSystem(HttpServletResponse response, Game game) {
-        response.setHeader("Time-in-System", game.getStatistics().getTimeInSystem());
+        response.setHeader("Time-in-System", game.getStatistics().getTimeInSystem2());
     }
 
     private void getNumberInSystem(HttpServletResponse response, Game game) {

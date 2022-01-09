@@ -97,6 +97,21 @@ public class Statistics implements StatisticObserver {
         return result;
     }
 
+    public String getTimeInSystem2() {
+        String result = "[{";
+        result += "\"resourceDataArrayList\": [";
+
+        for(int i=0; i < resourceDataArrayList.size(); i++){
+            if(resourceDataArrayList.get(i).getTimeInSystem() != 0){
+                result += resourceDataArrayList.get(i).getTimeInSystem();
+                if(i != resourceDataArrayList.size()-1) result += ",";
+            }
+
+        }
+        result += "]}]";
+        return result;
+    }
+
     public String getTimeInSystem() {
         String result = "[{";
         result += "\"resourceDataArrayList\": [";
