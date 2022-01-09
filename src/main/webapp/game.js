@@ -77,6 +77,7 @@ function rollDice() {
 
 function reset() {
     fetch("http://localhost:8079/Game-servlet?mode=reset&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+    alert('Das Spiel wird neu gestartet.');
 }
 
 function getActivePlayer(value, index, array) {
@@ -469,12 +470,12 @@ function updateLineToAddTokenForUpperRow(player) {
 
 function updateLineToAddTokenForBottomRow(player) {
     if (player.col < player.width) {
-        player.token_x = player.x + 5 + player.col;
+        player.token_x = player.x + 5 + player.col - player.width;
         player.token_y = player.y - 15 + player.row;
     } else {
         player.col = 0;
         player.row -= 15;
-        player.token_x = player.x + 5 + player.col;
+        player.token_x = player.x + 5 + player.col - player.width;
         player.token_y = player.y - 15 + player.row;
     }
     player.col += 15;
