@@ -3,7 +3,6 @@ package com.example.dicegame.servlets;
 import com.example.dicegame.GameServer;
 import com.example.dicegame.Lobby;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -94,7 +93,7 @@ public class LobbyServlet extends HttpServlet {
 
     private void create(HttpServletResponse response, String username) {
         try {
-            if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
+            if (!gameServer.getLobbymanager().isPlayerInLobby(username)) {
                 String id = gameServer.getLobbymanager().createLobby(username).toString();
 
 
@@ -113,8 +112,12 @@ public class LobbyServlet extends HttpServlet {
     private void join(HttpServletResponse response, Map<String, String[]> map, String username) {
         UUID lobbyID = UUID.fromString(ServletFunctions.getParameterValue(map, "lobbyID"));
         try {
-            if (!gameServer.getLobbymanager().isPlayerinLobby(username)) {
-                gameServer.getLobbymanager().addUserToLobby(username, lobbyID);
+            if (!gameServer.getLobbymanager().isPlayerInLobby(username)) {
+                if (!gameServer.getLobbymanager().checkIFLobbyIsFull(lobbyID)) {
+                    gameServer.getLobbymanager().addUserToLobby(username, lobbyID);
+                }else {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                }
             } else {
                 gameServer.getLobbymanager().removePlayerFromLobby2(username);
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

@@ -15,7 +15,7 @@ public class Lobbymanager {
         this.lobbies = lobbies;
     }
 
-    public boolean isPlayerinLobby(String username) {
+    public boolean isPlayerInLobby(String username) {
         for (Lobby lobby : lobbies) {
             for (Player player : lobby.getPlayers()) {
                 if (player.getPlayerName().equals(username)) {
@@ -24,6 +24,11 @@ public class Lobbymanager {
             }
         }
         return false;
+    }
+
+    public boolean checkIFLobbyIsFull(UUID lobbyId)throws NoSuchElementException{
+        Lobby lobby=getLobby(lobbyId);
+        return lobby.getPlayers().size()>=10;
     }
 
     public boolean hasPlayerCreatedLobby(String username) {
