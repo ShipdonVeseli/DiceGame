@@ -127,6 +127,11 @@ function drawCanvas(value, index, array) {
         players[index - 1].normalResources = array[index].normalresources;
         players[index - 1].blueResources = array[index].blueresources;
 
+        if(array[index].playername !== "") {
+            loadImageForPlayer(players[index-1]);
+            drawImageForPlayer(players[index-1]);
+        }
+
         for (let i = 0; i < players[index - 1].blueResources; i++) {
             if (index > 5) {
                 updateLineToAddTokenForBottomRow(players[index - 1]);
@@ -177,7 +182,11 @@ function drawTimeInSystem(value,index, array){
 let dicevalues = []
 function drawActivity(value, index, array){
     if(index === 0) dicevalues = [];
-    dicevalues.push(array[index].dicevalues)
+    if(array[index].playername === "averageplayer"){
+        dicevalues[10] = array[index].dicevalues
+    }else{
+        dicevalues.push(array[index].dicevalues)
+    }
 }
 
 function convert(obj) {
@@ -250,9 +259,7 @@ function startGame() {
     canvas_statistic.height = canvas.width * heightRatio;
     canvas.height = canvas.width * heightRatio;
     fix_dpi();
-    loadImages();
     createplayer();
-    drawImages();
 
     document.getElementById("statistic").style.display = "none";
     document.getElementById("activity_buttons").style.display = "none";
@@ -322,7 +329,7 @@ function showThroughput() {
     setButtonsForStatistics(showThroughput_btn, "Show Throughput", showActivity_btn, showNumberInSystem_btn, showTimeInSystem_btn);
     let x_Axis = 'Turn';
     let y_Axis = 'Throughput';
-    drawBarChart(throughput[0], x_Axis, y_Axis, 1, x1, "Throughput of Tokens");
+    drawBarChart(throughput[0], x_Axis, y_Axis, 4, x1, "Throughput of Tokens");
 }
 
 function backToGame() {
@@ -399,7 +406,7 @@ function showActivity() {
 
     let x_Axis = 'Turn';
     let y_Axis = 'Number';
-    drawBarChart(dicevalues[getSelectedValue-1], x_Axis, y_Axis, 1, x1, "History of Rolls");
+    drawBarChart(dicevalues[getSelectedValue-1], x_Axis, y_Axis, "", x1, "History of Rolls");
 }
 
 function drawNormalResources(player) {
@@ -481,16 +488,12 @@ function updateLineToAddTokenForBottomRow(player) {
     player.col += 15;
 }
 
-function loadImages() {
-    players.forEach(function (player) {
-        player.img = new Image();
-        player.img.src = player.src;
-    });
+function loadImageForPlayer(player) {
+    player.img = new Image();
+    player.img.src = player.src;
 }
 
-function drawImages() {
-    players.forEach(function (player) {
-        ctx.drawImage(player.img, player.x, player.y, player.width, player.height);
-    });
-    requestAnimationFrame(drawImages);
+function drawImageForPlayer(player) {
+    ctx.drawImage(player.img, player.x, player.y, player.width, player.height);
+    requestAnimationFrame(drawImageForPlayer);
 }
