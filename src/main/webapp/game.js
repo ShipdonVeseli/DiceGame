@@ -177,7 +177,11 @@ function drawTimeInSystem(value,index, array){
 let dicevalues = []
 function drawActivity(value, index, array){
     if(index === 0) dicevalues = [];
-    dicevalues.push(array[index].dicevalues)
+    if(array[index].playername === "averageplayer"){
+        dicevalues[10] = array[index].dicevalues
+    }else{
+        dicevalues.push(array[index].dicevalues)
+    }
 }
 
 function convert(obj) {
@@ -399,7 +403,7 @@ function showActivity() {
 
     let x_Axis = 'Turn';
     let y_Axis = 'Number';
-    drawBarChart(dicevalues[getSelectedValue-1], x_Axis, y_Axis, 1, x1, "History of Rolls");
+    drawBarChart(dicevalues[getSelectedValue-1], x_Axis, y_Axis, "", x1, "History of Rolls");
 }
 
 function drawNormalResources(player) {
