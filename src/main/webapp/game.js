@@ -111,7 +111,11 @@ for (let i = 1; i <= 6; i++) {
 }
 
 function loadDiceImage(dicevalue, playerindex) {
-    ctx.drawImage(dices[dicevalue - 1], players[playerindex].x + players[playerindex].width + 15, players[playerindex].y, 50, 50);
+    if(playerindex < 5) {
+        ctx.drawImage(dices[dicevalue - 1], players[playerindex].x + players[playerindex].width + 15, players[playerindex].y, 50, 50);
+    } else {
+        ctx.drawImage(dices[dicevalue - 1], players[playerindex].x + players[playerindex].width + 15, players[playerindex].y + players[playerindex].height - 50, 50, 50);
+    }
     requestAnimationFrame(loadDiceImage);
 }
 
