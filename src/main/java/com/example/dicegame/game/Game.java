@@ -192,7 +192,23 @@ public class Game extends StatisticSuspect {
 //    }
 
     protected void moveResources() {
-        for (int i =1; i<lobby.playerCount(); i++) {
+//        for (int i =1; i<lobby.playerCount(); i++) {
+//            Player playerReceiver = lobby.getPlayer(i);
+//            Player playerSend = lobby.getPlayer(i - 1);
+//
+//            int amount = playerReceiver.getSummOfDiceValues();
+//
+//            ArrayList<Resource> resources = playerSend.getResources(amount);
+//            playerReceiver.addResources(resources);
+//
+//            playerSend.removeResources(amount);
+//
+//            playerSend.addmovedRessources(amount);
+//
+//        }
+
+
+        for (int i = lobby.playerCount() - 1; i >= 1; i--) {
             Player playerReceiver = lobby.getPlayer(i);
             Player playerSend = lobby.getPlayer(i - 1);
 
@@ -205,6 +221,7 @@ public class Game extends StatisticSuspect {
 
             playerSend.addmovedRessources(amount);
 
+
         }
     }
 
@@ -212,9 +229,10 @@ public class Game extends StatisticSuspect {
         if(round<=gameLength) {
             round++;
 
-            addNewResources();
+
             moveResources();
             moveResourcesToStorage();
+            addNewResources();
 
             changeActivePlayer();
             statisticValuesSaving();
