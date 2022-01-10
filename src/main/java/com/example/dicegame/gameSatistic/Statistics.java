@@ -1,6 +1,7 @@
 package com.example.dicegame.gameSatistic;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Statistics implements StatisticObserver {
     private GameData gameData = new GameData();
@@ -21,12 +22,27 @@ public class Statistics implements StatisticObserver {
         for(int i=0; i < playerDataArrayList.size(); i++){
             result += "{\"playername\": \""+playerDataArrayList.get(i).getPlayerName()+"\",";
             result += "\"dicevalues\": " + playerDataArrayList.get(i).getDiceValues() +"}";
-            if(i != playerDataArrayList.size() - 1) result += ",";
+            result += ",";
         }
+        result += "{\"playername\": \"averageplayer\",";
+        result += "\"dicevalues\": " + getSumDiceValues() +"}";
         result += "]";
         return result;
     }
 
+    public ArrayList<Double> getSumDiceValues(){
+        ArrayList<Double> sumDiceValues = new ArrayList<>();
+        for(int p=0; p < 10; p++){sumDiceValues.add(0.00);}
+        for(int i=0; i < playerDataArrayList.size(); i++){
+            for(int j = 0; j < playerDataArrayList.get(i).getDiceValues().size(); j++) {
+                sumDiceValues.set(j, sumDiceValues.get(j) + playerDataArrayList.get(i).getDiceValues().get(j).doubleValue());
+            }
+        }
+        for(int k=0; k < sumDiceValues.size(); k++){
+            sumDiceValues.set(k, sumDiceValues.get(k) / playerDataArrayList.size());
+        }
+        return sumDiceValues;
+    }
     public String getThroughput() {
 
         String result = "[{";
