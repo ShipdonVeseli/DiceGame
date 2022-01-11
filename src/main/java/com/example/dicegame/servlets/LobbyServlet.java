@@ -37,6 +37,10 @@ public class LobbyServlet extends HttpServlet {
             String username = ServletFunctions.getParameterValue(map, "username");
 
             switch (mode) {
+                case "login":
+                    login(response,username);
+                    break;
+
                 case "join":
                     join(response, map, username);
                     break;
@@ -66,6 +70,11 @@ public class LobbyServlet extends HttpServlet {
 
             e.printStackTrace();
         }
+    }
+
+    private void login(HttpServletResponse response, String username) {
+        boolean checkIfExist=gameServer.getLobbymanager().checkUsername(username);
+        response.setHeader("login", String.valueOf(checkIfExist));
     }
 
     private void getLobbyId(HttpServletResponse response, String username) {
