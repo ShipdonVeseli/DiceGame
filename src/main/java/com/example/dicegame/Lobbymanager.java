@@ -65,7 +65,7 @@ public class Lobbymanager {
         throw new NoSuchElementException("No lobby with id = " + lobbyId);
     }
 
-    public Lobby removePlayerFromLobby2(String userName) {
+    public Lobby removePlayer(String userName) {
         for (Lobby lobby : this.lobbies) {
             for (Player player : lobby.getPlayers()) {
                 if (player.getPlayerName().equals(userName)) {

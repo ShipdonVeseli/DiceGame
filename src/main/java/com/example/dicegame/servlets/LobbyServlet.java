@@ -74,8 +74,10 @@ public class LobbyServlet extends HttpServlet {
 
     private void login(HttpServletResponse response, String username) {
         boolean checkIfExist=gameServer.getLobbymanager().checkUsername(username);
-        response.setHeader("login", String.valueOf(checkIfExist));
+        String isUsernameAlreadyTaken = "isUsernameAlreadyTaken";
+        response.setHeader(isUsernameAlreadyTaken, String.valueOf(checkIfExist));
     }
+
 
     private void getLobbyId(HttpServletResponse response, String username) {
         Lobby lobby = gameServer.getLobbymanager().getLobbyByUsername(username);
@@ -89,8 +91,7 @@ public class LobbyServlet extends HttpServlet {
 
     private void leave(Map<String, String[]> map, String username) {
         try {
-            String IDofLobby = (ServletFunctions.getParameterValue(map, "lobbyID"));//request.getParameter("lobbyID"));
-            Lobby lobby = gameServer.getLobbymanager().removePlayerFromLobby2(username);
+            gameServer.getLobbymanager().removePlayer(username);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -103,10 +104,12 @@ public class LobbyServlet extends HttpServlet {
 
                 response.setHeader("lobbyID", id);
             } else {
-                gameServer.getLobbymanager().removePlayerFromLobby2(username);
+//                gameServer.getLobbymanager().removePlayerFromLobby2(username);
+//
+//                String id = gameServer.getLobbymanager().createLobby(username).toString();
+//                response.setHeader("lobbyID", id);
 
-                String id = gameServer.getLobbymanager().createLobby(username).toString();
-                response.setHeader("lobbyID", id);
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
         } catch (Exception e) {
             e.printStackTrace();
