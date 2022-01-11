@@ -17,12 +17,6 @@ import java.util.UUID;
 public class GameServlet extends HttpServlet {
     private GameServer gameServer = GameServer.getInstance();
 
-//    public void init() throws ServletException
-//    {
-//
-//        ServletFunctions.initFunction();
-//    }
-
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         gameFunctions(request, response);
     }

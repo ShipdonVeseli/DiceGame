@@ -16,11 +16,7 @@ public class LobbyServlet extends HttpServlet {
     private GameServer gameServer = GameServer.getInstance();
 
 
-//    public void init() throws ServletException
-//    {
-//
-//
-//    }
+
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         lobbyFunctions(request, response);
@@ -96,7 +92,6 @@ public class LobbyServlet extends HttpServlet {
             if (!gameServer.getLobbymanager().isPlayerInLobby(username)) {
                 String id = gameServer.getLobbymanager().createLobby(username).toString();
 
-
                 response.setHeader("lobbyID", id);
             } else {
                 gameServer.getLobbymanager().removePlayerFromLobby2(username);
@@ -119,7 +114,6 @@ public class LobbyServlet extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 }
             } else {
-                gameServer.getLobbymanager().removePlayerFromLobby2(username);
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
         } catch (Exception e) {
