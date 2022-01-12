@@ -124,11 +124,6 @@ function drawCanvas(value, index, array) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         let round = array[index].round;
         document.getElementById("info").innerText = "Active Player: " + getActivePlayer(value, index, array) + " - Round: " + round;
-        if(round === 20) {
-            document.getElementById('roll').style.display = 'none';
-        } else {
-            document.getElementById('roll').style.display = 'inline';
-        }
     } else {
         drawPlayerNames(value, index, array);
         loadDiceImage(array[index].dicevalue, index - 1);
