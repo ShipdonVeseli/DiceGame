@@ -60,6 +60,10 @@ public class Player extends StatisticSuspect {
         throw new NoSuchElementException("No Dice with ID= " + diceID);
     }
 
+    public void removeDice(Dice dice){
+        dices.remove(dice);
+    }
+
     public ArrayList<Dice> getDices() {
         return dices;
     }
@@ -71,6 +75,10 @@ public class Player extends StatisticSuspect {
             }
         }
         throw new NoSuchElementException();
+    }
+
+    public Dice getDice(int index){
+        return dices.get(index);
     }
 
     public void rollAllDices() {

@@ -143,6 +143,21 @@ public class Game extends StatisticSuspect {
     }
 
 
+    public void giveDiceToOtherPlayer(String playerNameSender ,String playerNameReceiver)throws IllegalStateException{
+        if(gameMode ==2){
+            Player sender= lobby.getPlayer(playerNameSender);
+            Player receiver = lobby.getPlayer(playerNameReceiver);
+
+            Dice dice=sender.getDice(0);
+
+            receiver.addDice(dice);
+            sender.removeDice(dice);
+        }else {
+            throw new IllegalStateException();
+        }
+    }
+
+
 
     protected void moveResourcesToStorage() {
         Player lastPlayer = lobby.getPlayer(lobby.playerCount() - 1);

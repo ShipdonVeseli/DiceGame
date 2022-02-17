@@ -59,6 +59,10 @@ public class GameServlet extends HttpServlet {
                     getRound(response, game);
                     break;
 
+                case "give-dice":
+                    giveDice(map, username, game);
+                    break;
+
                 case "start-game":
                     startGame(response, lobbyOfTheGame);
                     break;
@@ -102,6 +106,11 @@ public class GameServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void giveDice(Map<String, String[]> map, String username, Game game) {
+        String playerNameReceiver = ServletFunctions.getParameterValue(map, "playerNameReceiver");
+        game.giveDiceToOtherPlayer(username,playerNameReceiver);
     }
 
     private void reset(Game game) {
