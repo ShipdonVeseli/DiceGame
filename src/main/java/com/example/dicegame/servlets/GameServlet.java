@@ -60,7 +60,7 @@ public class GameServlet extends HttpServlet {
                     break;
 
                 case "give-dice":
-                    giveDice(map, username, game);
+                    giveDice(map, username, game,response);
                     break;
 
                 case "start-game":
@@ -108,9 +108,13 @@ public class GameServlet extends HttpServlet {
         }
     }
 
-    private void giveDice(Map<String, String[]> map, String username, Game game) {
+    private void giveDice(Map<String, String[]> map, String username, Game game,HttpServletResponse response) {
         String playerNameReceiver = ServletFunctions.getParameterValue(map, "playerNameReceiver");
-        game.giveDiceToOtherPlayer(username,playerNameReceiver);
+        try {
+            game.giveDiceToOtherPlayer(username, playerNameReceiver);
+        }catch (IllegalStateException e){
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
     }
 
     private void reset(Game game) {
