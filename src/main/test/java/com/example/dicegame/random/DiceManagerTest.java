@@ -11,7 +11,6 @@ class DiceManagerTest {
     DiceManager diceManager=DiceManager.getInstanz();
     @BeforeEach
     void setUp() {
-
     }
 
     @RepeatedTest(100)
@@ -31,7 +30,7 @@ class DiceManagerTest {
     }
 
     @Test
-    public void testgetDiceMinMac(){
+    public void testGetDiceMinMac(){
         try {
 
             int result1=diceManager.getDice(1,6);
@@ -54,5 +53,4 @@ class DiceManagerTest {
             fail();
         }
     }
-
 }

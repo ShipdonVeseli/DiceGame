@@ -77,7 +77,6 @@ public class Game extends StatisticSuspect {
         addStartResources();
     }
 
-
     public int getActivePlayerIndex() {
         return activePlayerIndex;
     }
@@ -104,6 +103,10 @@ public class Game extends StatisticSuspect {
         return gameMode;
     }
 
+    public void setGameMode(int gameMode) {
+        this.gameMode = gameMode;
+    }
+
     public int getRound() {
         return round;
     }
@@ -114,15 +117,10 @@ public class Game extends StatisticSuspect {
 
     public void rollDicesFromOnePlayer(String userName) throws NoSuchElementException {
         if (!dicesAlreadyRolled) {
-            for (Player playerInLobby : lobby.getPlayers()) {
-                if (userName.equals(playerInLobby)) {
-                    playerInLobby.rollAllDices();
-                    return;
-                }
-            }
+            Player player= lobby.getPlayer(userName);
+            player.rollAllDices();
             dicesAlreadyRolled = true;
         }
-        throw new NoSuchElementException("No Player with Username= " + userName);
     }
 
     public void rollAllDiceInGame() {
@@ -142,7 +140,6 @@ public class Game extends StatisticSuspect {
 
     }
 
-
     public void giveDiceToOtherPlayer(String playerNameSender ,String playerNameReceiver)throws IllegalStateException{
         if(gameMode ==2){
             Player sender= lobby.getPlayer(playerNameSender);
@@ -153,11 +150,18 @@ public class Game extends StatisticSuspect {
             receiver.addDice(dice);
             sender.removeDice(dice);
         }else {
-            throw new IllegalStateException();
+            throw new IllegalStateException("this Operation is not allowed in Game mode"+gameMode);
         }
     }
 
-
+    public void setDiceRangeFromPlayer(String username,int min,int max)throws IllegalStateException{
+        if(gameMode==3||gameMode==6||gameMode==5) {
+            Player user = lobby.getPlayer(username);
+            user.setDiceRanges(min, max);
+        }else {
+            throw new IllegalStateException("this Operation is not allowed in Game mode"+gameMode);
+        }
+    }
 
     protected void moveResourcesToStorage() {
         Player lastPlayer = lobby.getPlayer(lobby.playerCount() - 1);
@@ -167,9 +171,7 @@ public class Game extends StatisticSuspect {
         storage.addAll(resourcesFromLastPlayer);
 
         lastPlayer.removeResources(amount);
-
     }
-
 
     protected void moveResources() {
         for (int i = lobby.playerCount() - 1; i >= 1; i--) {
@@ -184,15 +186,12 @@ public class Game extends StatisticSuspect {
             playerSend.removeResources(amount);
 
             playerSend.addmovedRessources(amount);
-
-
         }
     }
 
     public void move() {
         if(round<=gameLength) {
             round++;
-
 
             moveResources();
             moveResourcesToStorage();
@@ -291,6 +290,5 @@ public class Game extends StatisticSuspect {
 
         return result;
     }
-
 
 }

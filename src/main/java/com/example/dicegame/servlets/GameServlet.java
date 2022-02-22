@@ -39,11 +39,20 @@ public class GameServlet extends HttpServlet {
             Lobby lobbyOfTheGame = gameServer.getLobbymanager().getLobby(lobbyIdOfTheGame);
             Game game = lobbyOfTheGame.getGame();
             switch (mode) {
-                case "setDice":
-                    setDice(map, username, lobbyOfTheGame);
+                case "set-Game-Mode":
+                    setGameMode(map, game);
                     break;
+
+                case "get-Game-mode":
+                    getGameMode(response, game);
+                    break;
+
+                case "setDice":
+                    setDice(map, username, response,game);
+                    break;
+
                 case "roll-me":
-                    //TODO
+                    rollMe(username, game);
                     break;
 
                 case "roll-all": //rolls all dices from all Players
@@ -115,11 +124,29 @@ public class GameServlet extends HttpServlet {
         }
     }
 
-    private void setDice(Map<String, String[]> map, String username, Lobby lobbyOfTheGame) {
-        int min= Integer.parseInt(ServletFunctions.getParameterValue(map, "min"));
-        int max=Integer.parseInt(ServletFunctions.getParameterValue(map, "max"));
-        Player user= lobbyOfTheGame.getPlayer(username);
-        user.setDiceRanges(min,max);
+    private void getGameMode(HttpServletResponse response, Game game) {
+        int gameMode= game.getGameMode();
+        response.setHeader("gameMode", String.valueOf(gameMode));
+    }
+
+    private void setGameMode(Map<String, String[]> map, Game game) {
+        int gameMode= Integer.parseInt(ServletFunctions.getParameterValue(map, "game-mode"));
+        game.setGameMode(gameMode);
+    }
+
+    private void rollMe(String username, Game game) {
+        game.rollDicesFromOnePlayer(username);
+    }
+
+    private void setDice(Map<String, String[]> map, String username,HttpServletResponse response,Game game) {
+        try {
+            int min = Integer.parseInt(ServletFunctions.getParameterValue(map, "min"));
+            int max = Integer.parseInt(ServletFunctions.getParameterValue(map, "max"));
+
+            game.setDiceRangeFromPlayer(username,min,max);
+        }catch (Exception e){
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
     }
 
     private void giveDice(Map<String, String[]> map, String username, Game game,HttpServletResponse response) {
