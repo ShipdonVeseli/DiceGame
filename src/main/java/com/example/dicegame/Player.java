@@ -14,12 +14,17 @@ public class Player extends StatisticSuspect {
     private String playerName;
     private ArrayList<Dice> dices = new ArrayList<>();
     private ArrayList<Resource> resources = new ArrayList<>();
-    private int savedRessources = 0;
+    private int savedResources = 0;
+    private boolean isAI=false;
 
 
     public Player(String username) {
         playerName = username;
         addDice(new Dice());
+    }
+
+    public void makeThisPlayerAI(){
+        isAI=true;
     }
 
     public void addResource(Resource resource) {
@@ -97,12 +102,12 @@ public class Player extends StatisticSuspect {
     }
 
     public void addmovedRessources(int amount) {
-        savedRessources += amount;
+        savedResources += amount;
     }
 
     public void saveMovedResources() {
-        saveNumberOfMovedResources(playerName, savedRessources);
-        savedRessources = 0;
+        saveNumberOfMovedResources(playerName, savedResources);
+        savedResources = 0;
     }
 
     public ArrayList<Resource> getResources(int amount) {
@@ -146,7 +151,7 @@ public class Player extends StatisticSuspect {
     }
 
     public void reset() {
-        savedRessources = 0;
+        savedResources = 0;
         resources = new ArrayList<>();
     }
 
