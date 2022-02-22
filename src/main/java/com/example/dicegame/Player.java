@@ -150,6 +150,9 @@ public class Player extends StatisticSuspect {
         resources = new ArrayList<>();
     }
 
+    public void setDiceRanges(int min ,int max){
+        dices.forEach(e->e.setRange(min,max));
+    }
 
     public String convertToJSON() {
         String result = "[{";

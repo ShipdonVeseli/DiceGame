@@ -2,6 +2,7 @@ package com.example.dicegame.servlets;
 
 import com.example.dicegame.GameServer;
 import com.example.dicegame.Lobby;
+import com.example.dicegame.Player;
 import com.example.dicegame.game.Game;
 
 import javax.servlet.ServletException;
@@ -38,8 +39,14 @@ public class GameServlet extends HttpServlet {
             Lobby lobbyOfTheGame = gameServer.getLobbymanager().getLobby(lobbyIdOfTheGame);
             Game game = lobbyOfTheGame.getGame();
             switch (mode) {
-                //rolls all dices from all Players
-                case "roll-all":
+                case "setDice":
+                    setDice(map, username, lobbyOfTheGame);
+                    break;
+                case "roll-me":
+                    //TODO
+                    break;
+
+                case "roll-all": //rolls all dices from all Players
                     rollAll(response, username, game);
                     break;
 
@@ -106,6 +113,13 @@ public class GameServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void setDice(Map<String, String[]> map, String username, Lobby lobbyOfTheGame) {
+        int min= Integer.parseInt(ServletFunctions.getParameterValue(map, "min"));
+        int max=Integer.parseInt(ServletFunctions.getParameterValue(map, "max"));
+        Player user= lobbyOfTheGame.getPlayer(username);
+        user.setDiceRanges(min,max);
     }
 
     private void giveDice(Map<String, String[]> map, String username, Game game,HttpServletResponse response) {

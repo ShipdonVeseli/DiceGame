@@ -8,6 +8,8 @@ import java.util.UUID;
 public class Dice {
 
     private UUID uuid=UUID.randomUUID();
+    private int min=1;
+    private int max=6;
     private int value;
     private DiceManager manager=DiceManager.getInstanz();
 
@@ -20,7 +22,7 @@ public class Dice {
     }
 
     public int roll(){
-        value= manager.getDice();
+        value= manager.getDice(min,max);
         return value;
     }
 
@@ -30,6 +32,11 @@ public class Dice {
 
     public int getValue() {
         return value;
+    }
+
+    public void setRange(int min, int max){
+        this.min=min;
+        this.max=max;
     }
 
     public String convertToJSON(){
