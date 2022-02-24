@@ -430,6 +430,22 @@ function drawBlueResources(player) {
     ctx.closePath();
 }
 
+function gameModeThree() {
+    var getSelectedValue = document.querySelector( 'input[name="diceValue"]:checked').value;
+    var min;
+    var max;
+    if(getSelectedValue === "1-6") {
+        min = 1;
+        max = 6;
+    } else if(getSelectedValue === "3-4") {
+        min = 3;
+        max = 4;
+    }
+
+    fetch("http://localhost:8079/Game-servlet?mode=set-Game-Mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&game-mode=3");
+    fetch("http://localhost:8079/Game-servlet?mode=setDice&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&min=" + min + "&max=" + max);
+}
+
 function createplayer() {
     for (let i = 1; i < 11; i++) {
         let player = {
