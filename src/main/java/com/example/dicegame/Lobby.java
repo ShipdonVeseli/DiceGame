@@ -21,18 +21,23 @@ public class Lobby {
         this.owner = new Player(username);
         players.add(owner);
         lobbyCount++;
+        game = new Game(this);
     }
 
     public Lobby(Player owner) {
         players.add(owner);
         lobbyCount++;
         this.owner = owner;
+        game = new Game(this);
     }
 
     public void startGame() {
         hasGameStarted = true;
-        game = new Game(this);
+      //  game = new Game(this);
     }
+
+
+
 
     public boolean isHasGameStarted() {
         return hasGameStarted;
