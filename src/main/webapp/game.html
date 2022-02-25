@@ -59,5 +59,22 @@
     <input type="submit" id="reset" class="allButtons" onclick="reset()" value="Reset"/>
 </div>
 
+<div class="gameModeThreeButtons" id="gameModeThreeButtons">
+    <form id="gameModeThree">
+        Player
+        <input type="radio" id="diceOneToSix" name="diceValue" value="1-6" checked="checked">
+        <label for="diceOneToSix">1-6</label>
+        <input type="radio" id="diceThreeToFour" name="diceValue" value="3-4">
+        <label for="diceThreeToFour">3-4</label>
+
+        <input type="submit" id="setRange" onclick="gameModeThree()" value="Set Range"/>
+    </form>
+</div>
+<div class="gameModeFour" id="gameModeFour">
+        <input type="submit" id="movegamefour" onclick="rollAndMoveDice()" class="allButtons" value="MoveBeforeRoll"/>
+        <input type="submit" id="yourPerformance" onclick="yourPerformance()" class="allButtons" value="yourPerformance"/>
+</div>
+
+
 </body>
 </html>
