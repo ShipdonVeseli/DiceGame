@@ -27,6 +27,7 @@ public class GameConfigServlet {
             Map<String, String[]> map = request.getParameterMap();
 
             ServletFunctions.printNames(map);
+
             String mode = ServletFunctions.getParameterValue(map, "mode");
             String username = ServletFunctions.getParameterValue(map, "username");
 
