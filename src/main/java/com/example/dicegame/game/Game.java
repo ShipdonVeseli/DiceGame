@@ -14,6 +14,7 @@ public class Game extends StatisticSuspect {
     private int activePlayerIndex = 0;
     private int gameLength = 19;
     private boolean dicesAlreadyRolled = false;
+    private int numberOfPlayers=10;
 
     private Lobby lobby;
 
@@ -39,6 +40,14 @@ public class Game extends StatisticSuspect {
             e.addObserver(statistics);
         });
         addStartResources();
+    }
+
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
+
+    public void setNumberOfPlayers(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
     }
 
     public int getGameLength() {
