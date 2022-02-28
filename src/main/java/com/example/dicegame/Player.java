@@ -16,6 +16,7 @@ public class Player extends StatisticSuspect {
     private ArrayList<Resource> resources = new ArrayList<>();
     private int savedResources = 0;
     private boolean isAI=false;
+    private boolean hasRolledDices=false;
 
 
     public Player(String username) {
@@ -29,6 +30,14 @@ public class Player extends StatisticSuspect {
 
     public void setAI(boolean AI) {
         isAI = AI;
+    }
+
+    public boolean isHasRolledDices() {
+        return hasRolledDices;
+    }
+
+    public void setHasRolledDices(boolean hasRolledDices) {
+        this.hasRolledDices = hasRolledDices;
     }
 
     public void addResource(Resource resource) {
@@ -95,6 +104,7 @@ public class Player extends StatisticSuspect {
             e.roll();
         });
         saveRolledDiceValue(playerName, getSummOfDiceValues());
+        hasRolledDices=true;
     }
 
     public int getSummOfDiceValues() {
@@ -105,7 +115,7 @@ public class Player extends StatisticSuspect {
         return result;
     }
 
-    public void addmovedRessources(int amount) {
+    public void addedResources(int amount) {
         savedResources += amount;
     }
 

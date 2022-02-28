@@ -37,6 +37,8 @@ public class GameConfigServlet extends HttpServlet {
             UUID lobbyIdOfTheGame = UUID.fromString(ServletFunctions.getParameterValue(map, "lobbyID"));
             Lobby lobbyOfTheGame = gameServer.getLobbymanager().getLobby(lobbyIdOfTheGame);
             Game game = lobbyOfTheGame.getGame();
+
+            GameServlet.resetPlayer(lobbyOfTheGame,username);
             switch (mode) {
                 case "set_Number_of_Players":
                     setNumberOfPlayers(map, game);

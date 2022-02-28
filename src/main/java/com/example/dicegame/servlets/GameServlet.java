@@ -26,6 +26,11 @@ public class GameServlet extends HttpServlet {
         gameFunctions(request, response);
     }
 
+    public static void resetPlayer(Lobby lobby,String playerName){
+        Player player=lobby.getPlayer(playerName);
+        player.setAI(false);
+    }
+
     private void gameFunctions(HttpServletRequest request, HttpServletResponse response) {
         try {
             Map<String, String[]> map = request.getParameterMap();
@@ -38,6 +43,7 @@ public class GameServlet extends HttpServlet {
             Lobby lobbyOfTheGame = gameServer.getLobbymanager().getLobby(lobbyIdOfTheGame);
             Game game = lobbyOfTheGame.getGame();
 
+            GameServlet.resetPlayer(lobbyOfTheGame,username);
             switch (mode) {
                 case "roll-me":
                     rollMe(username, game);
