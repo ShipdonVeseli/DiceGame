@@ -19,10 +19,15 @@ public class Player extends StatisticSuspect {
     private boolean isAI=false;
     private boolean hasRolledDices=false;
     private Timer timer=new Timer();
+    private Game game;
 
     public Player(String username) {
         playerName = username;
         addDice(new Dice());
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     public boolean isAI() {
@@ -31,6 +36,17 @@ public class Player extends StatisticSuspect {
 
     public void setAI(boolean AI) {
         isAI = AI;
+
+        try {
+
+            Player activePlayer = game.getActivePlayer();
+            if (AI && activePlayer.equals(this)) {
+                game.aiRound();
+            }
+        }catch (Exception e){
+
+        }
+
     }
 
     public boolean isHasRolledDices() {
@@ -181,10 +197,10 @@ public class Player extends StatisticSuspect {
 
     private void startTimer(){
         timer=new Timer();
-        timer.schedule(timerTask(),createDate(2));
+        timer.schedule(timerTask(),Player.createDate(2));
     }
 
-    private Date createDate(int minutes) {
+    public static Date createDate(int minutes) {
         LocalDateTime localDateTime = LocalDateTime.now().plus(Duration.of(minutes, ChronoUnit.MINUTES));
         Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
         return date;

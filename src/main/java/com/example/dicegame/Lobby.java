@@ -47,6 +47,7 @@ public class Lobby {
 
     public void addPlayer(Player player) {
         players.add(player);
+        player.setGame(game);
     }
 
     public void removePlayer(Player player) {

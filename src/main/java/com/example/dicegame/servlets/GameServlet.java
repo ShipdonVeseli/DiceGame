@@ -44,14 +44,17 @@ public class GameServlet extends HttpServlet {
             Lobby lobbyOfTheGame = gameServer.getLobbymanager().getLobby(lobbyIdOfTheGame);
             Game game = lobbyOfTheGame.getGame();
 
-            GameServlet.resetPlayer(lobbyOfTheGame,username);
             switch (mode) {
                 case "roll-me":
                     rollMe(username, game);
+
+                    GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 case "roll-all": //rolls all dices from all Players
                     rollAll(response, username, game);
+
+                    GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 case "status":
@@ -60,6 +63,8 @@ public class GameServlet extends HttpServlet {
 
                 case "make-move":
                     makeMove(response, username, game);
+
+                    GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 case "get-Active-Player":
@@ -72,6 +77,8 @@ public class GameServlet extends HttpServlet {
 
                 case "give-dice":
                     giveDice(map, username, game,response);
+
+                    GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 case "start-game":
@@ -88,22 +95,32 @@ public class GameServlet extends HttpServlet {
 
                 case "get-Activity":
                     getActivity(response, game);
+
+                    GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 case "get-Throughput":
                     getThroughput(response, game);
+
+                    GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 case "get-Number-in-System":
                     getNumberInSystem(response, game);
+
+                    GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 case "get-Time-in-System":
                     getTimeInSystem(response, game);
+
+                    GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 case "reset":
                     reset(game);
+
+                    GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 default:

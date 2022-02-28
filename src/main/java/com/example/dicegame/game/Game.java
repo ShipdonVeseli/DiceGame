@@ -7,6 +7,8 @@ import com.example.dicegame.gameSatistic.Statistics;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Game extends StatisticSuspect {
     private int gameMode = 1;
@@ -15,6 +17,7 @@ public class Game extends StatisticSuspect {
     private int gameLength = 19;
     private boolean dicesAlreadyRolled = false;
     private int numberOfPlayers = 10;
+    private Timer timer;
 
     private Lobby lobby;
 
@@ -89,6 +92,10 @@ public class Game extends StatisticSuspect {
 
     public int getActivePlayerIndex() {
         return activePlayerIndex;
+    }
+
+    public Player getActivePlayer(){
+        return lobby.getPlayer(activePlayerIndex);
     }
 
     public Statistics getStatistics() {
@@ -237,15 +244,27 @@ public class Game extends StatisticSuspect {
         }
         dicesAlreadyRolled = false;
 
-
         if(lobby.getPlayer(activePlayerIndex).isAI()){
             aiRound();
         }
     }
 
-    private void aiRound() {
+    public void aiRound() {
+        timer=new Timer();
+        timer.schedule(timerTask(),Player.createDate(1));
+    }
 
-        //TODO AI runde implentieren
+
+    private TimerTask timerTask(){
+        return new TimerTask() {
+            @Override
+            public void run() {
+                rollAllDiceInGame();
+                move();
+                timer.cancel();
+                timer=new Timer();
+            }
+        };
     }
 
 
