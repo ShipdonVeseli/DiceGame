@@ -29,9 +29,7 @@ public class Lobby {
 
     public void startGame() {
         hasGameStarted = true;
-        players.forEach(e -> {
-            e.resetTimer();
-        });
+        players.forEach(Player::resetTimer);
     }
 
     public boolean isHasGameStarted() {
@@ -92,18 +90,12 @@ public class Lobby {
 
     public int getNumberOfAllResourcesFromAllPlayers() {
         final int[] result = {0};
-        players.forEach(e -> {
-            result[0] += e.getResources().size();
-        });
+        players.forEach(e -> result[0] += e.getResources().size());
         return result[0];
     }
 
     public void increaseTimeInSystemInOllPlayerResources() {
-        players.forEach(e -> {
-            e.getResources().forEach(x -> {
-                x.increaseTimeInSystem();
-            });
-        });
+        players.forEach(e -> e.getResources().forEach(Resource::increaseTimeInSystem));
     }
 
     public String convertToJSON() {
