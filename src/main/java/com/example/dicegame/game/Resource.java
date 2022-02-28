@@ -17,6 +17,7 @@ public class Resource {
     public void increaseTimeInSystem(){
         if(blueResource){
             timeInSystem++;
+            //
         }
     }
 
