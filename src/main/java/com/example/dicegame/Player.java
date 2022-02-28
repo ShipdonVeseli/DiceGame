@@ -23,8 +23,12 @@ public class Player extends StatisticSuspect {
         addDice(new Dice());
     }
 
-    public void makeThisPlayerAI(){
-        isAI=true;
+    public boolean isAI() {
+        return isAI;
+    }
+
+    public void setAI(boolean AI) {
+        isAI = AI;
     }
 
     public void addResource(Resource resource) {

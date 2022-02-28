@@ -34,23 +34,11 @@ public class GameServlet extends HttpServlet {
 
             String mode = ServletFunctions.getParameterValue(map, "mode");
             String username = ServletFunctions.getParameterValue(map, "username");
-
             UUID lobbyIdOfTheGame = UUID.fromString(ServletFunctions.getParameterValue(map, "lobbyID"));
             Lobby lobbyOfTheGame = gameServer.getLobbymanager().getLobby(lobbyIdOfTheGame);
             Game game = lobbyOfTheGame.getGame();
-            switch (mode) {
-//                case "set-Game-Mode":
-//                    setGameMode(map, game);
-//                    break;
-//
-//                case "get-Game-mode":
-//                    getGameMode(response, game);
-//                    break;
-//
-//                case "setDice":
-//                    setDice(map, username, response,game);
-//                    break;
 
+            switch (mode) {
                 case "roll-me":
                     rollMe(username, game);
                     break;
@@ -103,14 +91,6 @@ public class GameServlet extends HttpServlet {
                     getTimeInSystem(response, game);
                     break;
 
-//                case "set-game-length":
-//                    setGameLength(map, game);
-//                    break;
-//
-//                case "get-game-length":
-//                    getGameLength(response, game);
-//                    break;
-
                 case "reset":
                     reset(game);
                     break;
@@ -124,30 +104,9 @@ public class GameServlet extends HttpServlet {
         }
     }
 
-//    private void getGameMode(HttpServletResponse response, Game game) {
-//        int gameMode= game.getGameMode();
-//        response.setHeader("gameMode", String.valueOf(gameMode));
-//    }
-//
-//    private void setGameMode(Map<String, String[]> map, Game game) {
-//        int gameMode= Integer.parseInt(ServletFunctions.getParameterValue(map, "game-mode"));
-//        game.setGameMode(gameMode);
-//    }
-
     private void rollMe(String username, Game game) {
         game.rollDicesFromOnePlayer(username);
     }
-
-//    private void setDice(Map<String, String[]> map, String username,HttpServletResponse response,Game game) {
-//        try {
-//            int min = Integer.parseInt(ServletFunctions.getParameterValue(map, "min"));
-//            int max = Integer.parseInt(ServletFunctions.getParameterValue(map, "max"));
-//
-//            game.setDiceRangeFromPlayer(username,min,max);
-//        }catch (Exception e){
-//            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-//        }
-//    }
 
     private void giveDice(Map<String, String[]> map, String username, Game game,HttpServletResponse response) {
         String playerNameReceiver = ServletFunctions.getParameterValue(map, "playerNameReceiver");
@@ -161,15 +120,6 @@ public class GameServlet extends HttpServlet {
     private void reset(Game game) {
         game.reset();
     }
-
-//    private void getGameLength(HttpServletResponse response, Game game) {
-//        response.setHeader("get-game-length", String.valueOf(game.getGameLength()));
-//    }
-//
-//    private void setGameLength(Map<String, String[]> map, Game game) {
-//        int gameLength = Integer.parseInt(ServletFunctions.getParameterValue(map, "gameLength"));
-//        game.setGameLength(gameLength);
-//    }
 
     private void getTimeInSystem(HttpServletResponse response, Game game) {
         response.setHeader("Time-in-System", game.getStatistics().getTimeInSystem2());
