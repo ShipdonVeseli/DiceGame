@@ -77,6 +77,10 @@ public class GameServlet extends HttpServlet {
                     startGame(response, lobbyOfTheGame);
                     break;
 
+                case "leave-game":
+                    leaveGame(username, lobbyOfTheGame);
+                    break;
+
                 case "has-Game-started":
                     hasGameStarted(response, lobbyOfTheGame);
                     break;
@@ -108,6 +112,11 @@ public class GameServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void leaveGame(String username, Lobby lobbyOfTheGame) {
+        Player player=lobbyOfTheGame.getPlayer(username);
+        player.setAI(true);
     }
 
     private void rollMe(String username, Game game) {

@@ -249,7 +249,6 @@ public class Game extends StatisticSuspect {
                 e.setAlreadySaved(true);
                 saveRessourceInStorage(e.getTimeInSystem());
             }
-
         });
     }
 
