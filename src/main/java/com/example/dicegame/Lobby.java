@@ -9,8 +9,6 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 
 public class Lobby {
-    private static int lobbyCount;
-
     private UUID id = UUID.randomUUID();
     private ArrayList<Player> players = new ArrayList<>();
     private Player owner;
@@ -20,24 +18,21 @@ public class Lobby {
     public Lobby(String username) {
         this.owner = new Player(username);
         players.add(owner);
-        lobbyCount++;
         game = new Game(this);
     }
 
     public Lobby(Player owner) {
         players.add(owner);
-        lobbyCount++;
         this.owner = owner;
         game = new Game(this);
     }
 
     public void startGame() {
         hasGameStarted = true;
-      //  game = new Game(this);
+        players.forEach(e -> {
+            e.resetTimer();
+        });
     }
-
-
-
 
     public boolean isHasGameStarted() {
         return hasGameStarted;
@@ -95,39 +90,33 @@ public class Lobby {
         return players.size();
     }
 
-    public int getNumberOfAllResourcesFromAllPlayers(){
+    public int getNumberOfAllResourcesFromAllPlayers() {
         final int[] result = {0};
-        players.forEach(e->{
-            result[0] +=e.getResources().size();
+        players.forEach(e -> {
+            result[0] += e.getResources().size();
         });
         return result[0];
     }
 
-    public void increaseTimeInSystemInOllPlayerResources(){
-         players.forEach(e -> {
-            e.getResources().forEach(x->{
+    public void increaseTimeInSystemInOllPlayerResources() {
+        players.forEach(e -> {
+            e.getResources().forEach(x -> {
                 x.increaseTimeInSystem();
             });
-    });
+        });
     }
 
     public String convertToJSON() {
         String result = "[{";
-        result += "\"id\": " +"\""+ id + "\""+",";
-        //result += "\"owner\": " + owner.convertToJSON() + ",";
+        result += "\"id\": " + "\"" + id + "\"" + ",";
+
         result += "\"hasGameStarted\": " + hasGameStarted + ",";
 
         result += "\"players\": [";
-//        for (Player player : players) {
-//            result += player.convertToJSON();
-//            if (players.size() > 1) {
-//                result += ",";
-//            }
-//        }
 
         for (int i = 0; i < players.size(); i++) {
-            result+=players.get(i).convertToJSON();
-            if(i<players.size()-1){
+            result += players.get(i).convertToJSON();
+            if (i < players.size() - 1) {
                 result += ",";
             }
         }

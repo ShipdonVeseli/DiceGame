@@ -5,10 +5,11 @@ import com.example.dicegame.game.Game;
 import com.example.dicegame.game.Resource;
 import com.example.dicegame.gameSatistic.StatisticSuspect;
 
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.UUID;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 public class Player extends StatisticSuspect {
     private String playerName;
@@ -17,7 +18,7 @@ public class Player extends StatisticSuspect {
     private int savedResources = 0;
     private boolean isAI=false;
     private boolean hasRolledDices=false;
-
+    private Timer timer=new Timer();
 
     public Player(String username) {
         playerName = username;
@@ -171,6 +172,31 @@ public class Player extends StatisticSuspect {
 
     public void setDiceRanges(int min ,int max){
         dices.forEach(e->e.setRange(min,max));
+    }
+
+    public void resetTimer(){
+        timer.cancel();
+        startTimer();
+    }
+
+    private void startTimer(){
+        timer=new Timer();
+        timer.schedule(timerTask(),createDate(2));
+    }
+
+    private Date createDate(int minutes) {
+        LocalDateTime localDateTime = LocalDateTime.now().plus(Duration.of(minutes, ChronoUnit.MINUTES));
+        Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        return date;
+    }
+
+    private TimerTask timerTask(){
+       return new TimerTask() {
+           @Override
+           public void run() {
+               setAI(true);
+           }
+       };
     }
 
     public String convertToJSON() {

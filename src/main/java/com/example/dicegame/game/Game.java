@@ -236,7 +236,18 @@ public class Game extends StatisticSuspect {
             activePlayerIndex = 0;
         }
         dicesAlreadyRolled = false;
+
+
+        if(lobby.getPlayer(activePlayerIndex).isAI()){
+            aiRound();
+        }
     }
+
+    private void aiRound() {
+
+        //TODO AI runde implentieren
+    }
+
 
     private void statisticValuesSaving() {
         lobby.increaseTimeInSystemInOllPlayerResources();

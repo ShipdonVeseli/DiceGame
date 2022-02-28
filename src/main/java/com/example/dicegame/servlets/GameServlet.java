@@ -29,6 +29,7 @@ public class GameServlet extends HttpServlet {
     public static void resetPlayer(Lobby lobby,String playerName){
         Player player=lobby.getPlayer(playerName);
         player.setAI(false);
+        player.resetTimer();
     }
 
     private void gameFunctions(HttpServletRequest request, HttpServletResponse response) {
