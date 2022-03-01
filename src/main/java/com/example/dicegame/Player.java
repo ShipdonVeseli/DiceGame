@@ -12,13 +12,16 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class Player extends StatisticSuspect {
+    public static final int timeoutInSeconds = 30;
+
+
     private String playerName;
     private ArrayList<Dice> dices = new ArrayList<>();
     private ArrayList<Resource> resources = new ArrayList<>();
     private int savedResources = 0;
-    private boolean isAI=false;
-    private boolean hasRolledDices=false;
-    private Timer timer=new Timer();
+    private boolean isAI = false;
+    private boolean hasRolledDices = false;
+    private Timer timer = new Timer();
     private Game game;
 
     public Player(String username) {
@@ -36,22 +39,14 @@ public class Player extends StatisticSuspect {
 
     public void setAI(boolean AI) {
         isAI = AI;
-
         try {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\nset AI: "+AI+ "player= "+playerName+" \n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-
             Player activePlayer = game.getActivePlayer();
+            System.out.println("active" + activePlayer.toString() + "\n" + "this=" + this.toString());
+            if (AI && activePlayer.equals(this)) {
+                game.aiRound();
+            }
 
-
-                System.out.println("active" + activePlayer.toString() + "\n" + "this=" + this.toString());
-                if (AI && activePlayer.equals(this)) {
-
-                    System.out.println("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
-                    game.aiRound();
-                }
-
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -103,7 +98,7 @@ public class Player extends StatisticSuspect {
         throw new NoSuchElementException("No Dice with ID= " + diceID);
     }
 
-    public void removeDice(Dice dice){
+    public void removeDice(Dice dice) {
         dices.remove(dice);
     }
 
@@ -120,7 +115,7 @@ public class Player extends StatisticSuspect {
         throw new NoSuchElementException();
     }
 
-    public Dice getDice(int index){
+    public Dice getDice(int index) {
         return dices.get(index);
     }
 
@@ -129,7 +124,7 @@ public class Player extends StatisticSuspect {
             e.roll();
         });
         saveRolledDiceValue(playerName, getSummOfDiceValues());
-        hasRolledDices=true;
+        hasRolledDices = true;
     }
 
     public int getSummOfDiceValues() {
@@ -194,29 +189,24 @@ public class Player extends StatisticSuspect {
         resources = new ArrayList<>();
     }
 
-    public void setDiceRanges(int min ,int max){
-        dices.forEach(e->e.setRange(min,max));
+    public void setDiceRanges(int min, int max) {
+        dices.forEach(e -> e.setRange(min, max));
     }
 
-    public void resetTimer(){
+    public void resetTimer() {
         try {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\ntimer restart\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             timer.cancel();
             startTimer();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void startTimer(){
+    private void startTimer() {
         try {
-
-
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\ntimer start Play= "+playerName+"\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
             timer = new Timer();
-            timer.schedule(timerTask(), Player.createDate(30));
-        }catch (Exception e){
+            timer.schedule(timerTask(), Player.createDate(timeoutInSeconds));
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -227,15 +217,15 @@ public class Player extends StatisticSuspect {
         return date;
     }
 
-    private TimerTask timerTask(){
-       return new TimerTask() {
-           @Override
-           public void run() {
-               setAI(true);
-               timer.cancel();
-               timer=new Timer();
-           }
-       };
+    private TimerTask timerTask() {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                setAI(true);
+                timer.cancel();
+                timer = new Timer();
+            }
+        };
     }
 
     public String convertToJSON() {
