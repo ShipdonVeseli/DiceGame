@@ -119,12 +119,18 @@ function loadDiceImage(dicevalue, playerindex) {
     // requestAnimationFrame(loadDiceImage);
 }
 
+let PLAYERSIZE_OF_LOBBY = 10;
 function drawCanvas(value, index, array) {
     if (index === 0) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         let round = array[index].round;
         document.getElementById("info").innerText = "Active Player: " + getActivePlayer(value, index, array) + " - Round: " + round;
     } else {
+        if(document.querySelector('select').length < PLAYERSIZE_OF_LOBBY) {
+            const select = document.querySelector('select');
+            select.options.add(new Option(array[index].playername, array[index].playername));
+        }
+
         drawPlayerNames(value, index, array);
         loadDiceImage(array[index].dicevalue, index - 1);
 
