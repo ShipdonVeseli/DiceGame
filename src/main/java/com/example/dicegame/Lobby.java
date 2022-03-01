@@ -30,8 +30,22 @@ public class Lobby {
     }
 
     public void startGame() {
+        fillLobby();
+
         hasGameStarted = true;
         players.forEach(Player::resetTimer);
+    }
+
+    private void fillLobby(){
+        int numberOfPlayers=game.getNumberOfPlayers();
+        int playerCount=playerCount();
+
+        for (int i = 0; i < (numberOfPlayers-playerCount); i++) {
+            Player player=new Player("AI Number:"+(i+1));
+            player.setAI(true);
+            addPlayer(player);
+        }
+
     }
 
     public boolean isHasGameStarted() {
