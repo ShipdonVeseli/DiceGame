@@ -38,19 +38,21 @@ public class Player extends StatisticSuspect {
         isAI = AI;
 
         try {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\nset AI"+AI+" restart\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\nset AI: "+AI+ "player= "+playerName+" \n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
 
             Player activePlayer = game.getActivePlayer();
 
-            System.out.println("active"+activePlayer.toString()+"\n"+"this="+this.toString());
-            if (AI && activePlayer.equals(this)) {
 
-                System.out.println("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
-                game.aiRound();
-            }
+                System.out.println("active" + activePlayer.toString() + "\n" + "this=" + this.toString());
+                if (AI && activePlayer.equals(this)) {
+
+                    System.out.println("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+                    game.aiRound();
+                }
+
         }catch (Exception e){
-
+            e.printStackTrace();
         }
 
     }
@@ -210,17 +212,17 @@ public class Player extends StatisticSuspect {
         try {
 
 
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\ntimer start\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\ntimer start Play= "+playerName+"\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
             timer = new Timer();
-            timer.schedule(timerTask(), Player.createDate(1));
+            timer.schedule(timerTask(), Player.createDate(30));
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public static Date createDate(int minutes) {
-        LocalDateTime localDateTime = LocalDateTime.now().plus(Duration.of(minutes, ChronoUnit.MINUTES));
+    public static Date createDate(int secounds) {
+        LocalDateTime localDateTime = LocalDateTime.now().plus(Duration.of(secounds, ChronoUnit.SECONDS));
         Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
         return date;
     }

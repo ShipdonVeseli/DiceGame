@@ -19,12 +19,14 @@ public class Lobby {
         this.owner = new Player(username);
         players.add(owner);
         game = new Game(this);
+        owner.setGame(game);
     }
 
     public Lobby(Player owner) {
         players.add(owner);
         this.owner = owner;
         game = new Game(this);
+        owner.setGame(game);
     }
 
     public void startGame() {
