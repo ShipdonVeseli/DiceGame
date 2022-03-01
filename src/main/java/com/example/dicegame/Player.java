@@ -38,9 +38,15 @@ public class Player extends StatisticSuspect {
         isAI = AI;
 
         try {
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\nset AI"+AI+" restart\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
 
             Player activePlayer = game.getActivePlayer();
+
+            System.out.println("active"+activePlayer.toString()+"\n"+"this="+this.toString());
             if (AI && activePlayer.equals(this)) {
+
+                System.out.println("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
                 game.aiRound();
             }
         }catch (Exception e){
@@ -191,13 +197,26 @@ public class Player extends StatisticSuspect {
     }
 
     public void resetTimer(){
-        timer.cancel();
-        startTimer();
+        try {
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\ntimer restart\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            timer.cancel();
+            startTimer();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void startTimer(){
-        timer=new Timer();
-        timer.schedule(timerTask(),Player.createDate(2));
+        try {
+
+
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\ntimer start\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+            timer = new Timer();
+            timer.schedule(timerTask(), Player.createDate(1));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public static Date createDate(int minutes) {
@@ -211,6 +230,8 @@ public class Player extends StatisticSuspect {
            @Override
            public void run() {
                setAI(true);
+               timer.cancel();
+               timer=new Timer();
            }
        };
     }

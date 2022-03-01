@@ -36,7 +36,7 @@ public class GameServlet extends HttpServlet {
         try {
             Map<String, String[]> map = request.getParameterMap();
 
-            ServletFunctions.printNames(map);
+          //  ServletFunctions.printNames(map);
 
             String mode = ServletFunctions.getParameterValue(map, "mode");
             String username = ServletFunctions.getParameterValue(map, "username");
@@ -78,7 +78,7 @@ public class GameServlet extends HttpServlet {
                 case "give-dice":
                     giveDice(map, username, game,response);
 
-                    GameServlet.resetPlayer(lobbyOfTheGame,username);
+                 //   GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 case "start-game":
@@ -96,25 +96,25 @@ public class GameServlet extends HttpServlet {
                 case "get-Activity":
                     getActivity(response, game);
 
-                    GameServlet.resetPlayer(lobbyOfTheGame,username);
+                   // GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 case "get-Throughput":
                     getThroughput(response, game);
 
-                    GameServlet.resetPlayer(lobbyOfTheGame,username);
+                  //  GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 case "get-Number-in-System":
                     getNumberInSystem(response, game);
 
-                    GameServlet.resetPlayer(lobbyOfTheGame,username);
+                   // GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 case "get-Time-in-System":
                     getTimeInSystem(response, game);
 
-                    GameServlet.resetPlayer(lobbyOfTheGame,username);
+                   // GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 case "reset":
@@ -167,7 +167,7 @@ public class GameServlet extends HttpServlet {
     }
 
     private void getActivity(HttpServletResponse response, Game game) {
-        System.out.println(game.getStatistics().getActivity2());
+       // System.out.println(game.getStatistics().getActivity2());
         response.setHeader("Activity", game.getStatistics().getActivity2());
     }
 
