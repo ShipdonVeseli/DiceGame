@@ -126,11 +126,7 @@ function drawCanvas(value, index, array) {
         let round = array[index].round;
         document.getElementById("info").innerText = "Active Player: " + getActivePlayer(value, index, array) + " - Round: " + round;
     } else {
-        if(document.querySelector('select').length < PLAYERSIZE_OF_LOBBY) {
-            const select = document.querySelector('select');
-            select.options.add(new Option(array[index].playername, array[index].playername));
-        }
-
+        addPlayernameToDropDownList(array, index);
         drawPlayerNames(value, index, array);
         loadDiceImage(array[index].dicevalue, index - 1);
 
@@ -162,6 +158,13 @@ function drawCanvas(value, index, array) {
                 drawNormalResources(players[index - 1]);
             }
         }
+    }
+}
+
+function addPlayernameToDropDownList(array, index) {
+    if(document.querySelector('select').length < PLAYERSIZE_OF_LOBBY) {
+        const select = document.querySelector('select');
+        select.options.add(new Option(array[index].playername, array[index].playername));
     }
 }
 
