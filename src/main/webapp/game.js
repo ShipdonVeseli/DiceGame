@@ -116,7 +116,7 @@ function loadDiceImage(dicevalue, playerindex) {
     } else {
         ctx.drawImage(dices[dicevalue - 1], players[playerindex].x + players[playerindex].width + 15, players[playerindex].y + players[playerindex].height - 50, 50, 50);
     }
-    requestAnimationFrame(loadDiceImage);
+    // requestAnimationFrame(loadDiceImage);
 }
 
 function drawCanvas(value, index, array) {
@@ -516,7 +516,7 @@ function loadImageForPlayer(player) {
 
 function drawImageForPlayer(player) {
     ctx.drawImage(player.img, player.x, player.y, player.width, player.height);
-    requestAnimationFrame(drawImageForPlayer);
+    // requestAnimationFrame(drawImageForPlayer);
 }
 //Die Funktionen bis zum nächsten Kommentar sind für Game 4
 function getCursorPosition(canvas, event) {
