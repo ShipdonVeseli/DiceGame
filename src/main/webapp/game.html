@@ -61,16 +61,15 @@
 
 <div class="gameModeTwoButtons" id="gameModeTwoButtons">
     <form id="gameModeTwo">
-        <label for="gameTwo">Player:</label>
-        <select name="gameTwo" id="gameTwo">
-
-        </select>
+        <label for="gameTwoSelection">Select Player to give Dice</label>
+        <select name="gameTwoSelection" id="gameTwoSelection"></select>
+        <input type="submit" id="gameTwoSelectedValue" onclick="gameModeTwo()" value="Choose">
     </form>
 </div>
 
 <div class="gameModeThreeButtons" id="gameModeThreeButtons">
     <form id="gameModeThree">
-        Player
+        Select Range
         <input type="radio" id="diceOneToSix" name="diceValue" value="1-6" checked="checked">
         <label for="diceOneToSix">1-6</label>
         <input type="radio" id="diceThreeToFour" name="diceValue" value="3-4">

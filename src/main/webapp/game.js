@@ -439,6 +439,15 @@ function drawBlueResources(player) {
     ctx.closePath();
 }
 
+function gameModeTwo() {
+    let selection = document.getElementById("gameTwoSelection");
+    let user = selection.options[selection.selectedIndex].text;
+
+    fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&game-mode=2");
+    fetch("http://localhost:8079/Game-servlet?mode=setDice&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&playerNameReceiver=" + user);
+
+}
+
 function gameModeThree() {
     var getSelectedValue = document.querySelector( 'input[name="diceValue"]:checked').value;
     var min;
@@ -451,8 +460,8 @@ function gameModeThree() {
         max = 4;
     }
 
-    fetch("http://localhost:8079/Game-servlet?mode=set-Game-Mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&game-mode=3");
-    fetch("http://localhost:8079/Game-servlet?mode=setDice&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&min=" + min + "&max=" + max);
+    fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&game-mode=3");
+    fetch("http://localhost:8079/Game-Config-servlet?mode=setDice&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&min=" + min + "&max=" + max);
 }
 
 function createplayer() {
