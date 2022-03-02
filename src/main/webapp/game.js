@@ -442,7 +442,7 @@ function drawBlueResources(player) {
 function gameModeTwo() {
     let selection = document.getElementById("gameTwoSelection");
     let user = selection.options[selection.selectedIndex].text;
-
+    alert(user);
     fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&game-mode=2");
     fetch("http://localhost:8079/Game-servlet?mode=give-dice&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&playerNameReceiver=" + user);
 
@@ -459,7 +459,7 @@ function gameModeThree() {
         min = 3;
         max = 4;
     }
-
+    alert("min: " + min + " max: " + max);
     fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&game-mode=3");
     fetch("http://localhost:8079/Game-Config-servlet?mode=setDice&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&min=" + min + "&max=" + max);
 }

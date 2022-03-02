@@ -59,28 +59,23 @@
     <input type="submit" id="reset" class="allButtons" onclick="reset()" value="Reset"/>
 </div>
 
-<div class="gameModeTwoButtons" id="gameModeTwoButtons">
-    <form id="gameModeTwo">
-        <label for="gameTwoSelection">Select Player to give Dice</label>
-        <select name="gameTwoSelection" id="gameTwoSelection"></select>
-        <input type="submit" id="gameTwoSelectedValue" onclick="gameModeTwo()" value="Choose">
-    </form>
+<div class="gameModeTwo" id="gameModeTwo">
+    <label for="gameTwoSelection">Select Player to give Dice</label>
+    <select name="gameTwoSelection" id="gameTwoSelection"></select>
+    <button onclick="gameModeTwo()">Select</button>
 </div>
 
-<div class="gameModeThreeButtons" id="gameModeThreeButtons">
-    <form id="gameModeThree">
-        Select Range
-        <input type="radio" id="diceOneToSix" name="diceValue" value="1-6" checked="checked">
-        <label for="diceOneToSix">1-6</label>
-        <input type="radio" id="diceThreeToFour" name="diceValue" value="3-4">
-        <label for="diceThreeToFour">3-4</label>
-
-        <input type="submit" id="setRange" onclick="gameModeThree()" value="Set Range"/>
-    </form>
+<div class="gameModeThree" id="gameModeThree">
+    Select Range
+    <input type="radio" id="diceOneToSix" name="diceValue" value="1-6" checked="checked">
+    <label for="diceOneToSix">1-6</label>
+    <input type="radio" id="diceThreeToFour" name="diceValue" value="3-4">
+    <label for="diceThreeToFour">3-4</label>
+    <button onclick="gameModeThree()">Set Range</button>
 </div>
 <div class="gameModeFour" id="gameModeFour">
-        <input type="submit" id="movegamefour" onclick="rollAndMoveDice()" class="allButtons" value="MoveBeforeRoll"/>
-        <input type="submit" id="yourPerformance" onclick="yourPerformance()" class="allButtons" value="yourPerformance"/>
+    <input type="submit" id="movegamefour" onclick="rollAndMoveDice()" class="allButtons" value="MoveBeforeRoll"/>
+    <input type="submit" id="yourPerformance" onclick="yourPerformance()" class="allButtons" value="yourPerformance"/>
 </div>
 
 
