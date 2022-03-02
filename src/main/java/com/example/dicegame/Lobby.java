@@ -41,7 +41,7 @@ public class Lobby {
         int playerCount=playerCount();
 
         for (int i = 0; i < (numberOfPlayers-playerCount); i++) {
-            Player player=new Player("AI Number:"+(i+1));
+            Player player=new Player("AI-Number-"+(i+1));
             player.setAI(true);
             addPlayer(player);
         }

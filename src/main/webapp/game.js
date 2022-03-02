@@ -444,7 +444,7 @@ function gameModeTwo() {
     let user = selection.options[selection.selectedIndex].text;
 
     fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&game-mode=2");
-    fetch("http://localhost:8079/Game-servlet?mode=setDice&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&playerNameReceiver=" + user);
+    fetch("http://localhost:8079/Game-servlet?mode=give-dice&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&playerNameReceiver=" + user);
 
 }
 
