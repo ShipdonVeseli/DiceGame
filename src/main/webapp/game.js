@@ -274,10 +274,6 @@ function startGame() {
     canvas.height = canvas.width * heightRatio;
     fix_dpi();
     createplayer();
-
-    document.getElementById("statistic").style.display = "none";
-    document.getElementById("activity_buttons").style.display = "none";
-    document.getElementById("back").style.display = "none";
 }
 
 function setButtonsForStatistics(button_to_display, value, not_display_btn1, not_display_btn2, not_display_btn3) {
