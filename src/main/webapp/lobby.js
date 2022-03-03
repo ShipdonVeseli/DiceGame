@@ -1,6 +1,11 @@
+document.getElementById("gameModeSelection").addEventListener('change', getGameMode);
+let gameMode = 1;
+function getGameMode() {
+    gameMode = this.value;
+}
+
 function startLobby(){
     let lobbyid = sessionStorage.getItem("lobbyid");
-    let gameMode = document.getElementById("gameModeSelection").value;
     fetch("http://localhost:8079/Game-servlet?mode=start-game&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
     fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&game-mode="+gameMode);
     window.location.href = "http://localhost:8079/game.html"
