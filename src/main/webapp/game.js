@@ -45,6 +45,14 @@ async function getThroughput(){
         }
     }
 }
+let gameMode;
+getGameMode = () =>
+    fetch("http://localhost:8079/Game-Config-servlet?mode=get-Game-mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+        .then(response => {
+            console.log(response.headers.get("gameMode"));
+            return Number(response.headers.get("gameMode"));
+        });
+
 
 async function getNumberInSystem(){
     const response = await fetch("http://localhost:8079/Game-servlet?mode=get-Number-in-System&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"));
@@ -274,6 +282,19 @@ function startGame() {
     canvas.height = canvas.width * heightRatio;
     fix_dpi();
     createplayer();
+    getGameMode().then(data => {
+        console.log(data);
+        switch (data) {
+            case 2:
+                document.getElementById("gameModeTwo").style.display = "block";
+                break;
+            case 3:
+                document.getElementById("gameModeThree").style.display = "block";
+                break;
+            case 4:
+                document.getElementById("gameModeFour").style.display = "block";
+        }
+    })
 }
 
 function setButtonsForStatistics(button_to_display, value, not_display_btn1, not_display_btn2, not_display_btn3) {

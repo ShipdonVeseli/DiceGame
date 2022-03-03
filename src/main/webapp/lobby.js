@@ -1,6 +1,8 @@
 function startLobby(){
     let lobbyid = sessionStorage.getItem("lobbyid");
+    let gameMode = document.getElementById("gameModeSelection").value;
     fetch("http://localhost:8079/Game-servlet?mode=start-game&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
+    fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&game-mode="+gameMode);
     window.location.href = "http://localhost:8079/game.html"
 }
 
@@ -13,6 +15,7 @@ async function createLobby(){
             sessionStorage.setItem("lobbyid", `${value}`)
         }
     }
+
 }
 
 function leaveLobby(){
@@ -39,7 +42,7 @@ function insertList(value, index, array){
     if(index === 0) document.getElementById("lobbies").innerHTML = "";
 //    document.getElementById("lobbies").innerHTML = document.getElementById("lobbies").innerHTML + "<li>"+array[index].lobbyowner+" Lobby <input type='submit' id='"+index+"' onclick='joinLobby("+index+")' name="+array[index].lobbyid+" value='JOIN LOBBY'><ul><li>Players: "+array[index].players+"</li></ul></li>";
     document.getElementById("lobbies").innerHTML = document.getElementById("lobbies").innerHTML + "<table><tr><th>"+ "Lobbyowner: " + array[index].lobbyowner+ "</th></tr><tr><td>" + "Players:" + array[index].players+ "</td></tr><tr><td>" + "<input type='submit' id='"+index+"' onclick='joinLobby("+index+")' name="+array[index].lobbyid+" value='JOIN LOBBY'>" + "</td></tr><hr></table>";
-
+    document.getElementById("gameMode").style.display = "block";
 }
 
 function convert(obj){
