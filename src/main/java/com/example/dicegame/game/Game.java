@@ -17,7 +17,6 @@ public class Game extends StatisticSuspect {
     private int round = 0;
     private int activePlayerIndex = 0;
     private int gameLength = 19;
-    private boolean dicesAlreadyRolled = false;
     private int numberOfPlayers = 10;
     private Timer timer;
 
@@ -80,7 +79,6 @@ public class Game extends StatisticSuspect {
     public void reset() {
         round = 0;
         activePlayerIndex = 0;
-        dicesAlreadyRolled = false;
         storage = new ArrayList<>();
 
         statistics.reset();
@@ -136,22 +134,18 @@ public class Game extends StatisticSuspect {
 
     public void rollDicesFromOnePlayer(String userName) throws NoSuchElementException {
         Player player = lobby.getPlayer(userName);
-        if (!dicesAlreadyRolled && !player.isHasRolledDices()) {
-
+        if (!player.isHasRolledDices()) {
             player.rollAllDices();
-            dicesAlreadyRolled = true;
         }
     }
 
     public void rollAllDiceInGame() {
-        if (!dicesAlreadyRolled) {
             lobby.getPlayers().forEach(e -> {
                 if (!e.isHasRolledDices()) {
                     e.rollAllDices();
                 }
-                dicesAlreadyRolled = true;
+
             });
-        }
     }
 
     protected void addNewResources() {
@@ -241,10 +235,8 @@ public class Game extends StatisticSuspect {
         if (activePlayerIndex < lobby.playerCount() - 1) {
             activePlayerIndex++;
         } else {
-
             activePlayerIndex = 0;
         }
-        dicesAlreadyRolled = false;
 
         if (lobby.getPlayer(activePlayerIndex).isAI()) {
             aiRound();
@@ -256,7 +248,6 @@ public class Game extends StatisticSuspect {
         timer.schedule(timerTask(), Player.createDate(timeoutInSeconds));
     }
 
-
     private TimerTask timerTask() {
         return new TimerTask() {
             @Override
@@ -266,7 +257,6 @@ public class Game extends StatisticSuspect {
             }
         };
     }
-
 
     private void statisticValuesSaving() {
 
@@ -282,7 +272,6 @@ public class Game extends StatisticSuspect {
             }
         });
     }
-
 
     @Override
     public String toString() {
@@ -342,7 +331,6 @@ public class Game extends StatisticSuspect {
             }
         }
         result += "]";
-
         return result;
     }
 
