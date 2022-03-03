@@ -34,6 +34,7 @@ public class Lobby {
 
         hasGameStarted = true;
         players.forEach(Player::resetTimer);
+        game.init();
     }
 
     private void fillLobby(){
