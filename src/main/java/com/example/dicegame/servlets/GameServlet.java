@@ -129,6 +129,7 @@ public class GameServlet extends HttpServlet {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
@@ -197,7 +198,11 @@ public class GameServlet extends HttpServlet {
     }
 
     private void status(HttpServletResponse response, Game game) {
-        response.setHeader("gameStatus", game.convertToJSON2());
+        try {
+            response.setHeader("gameStatus", game.convertToJSON2());
+        }catch (Exception e){
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
     }
 
     private void makeMove(HttpServletResponse response, String username, Game game) {

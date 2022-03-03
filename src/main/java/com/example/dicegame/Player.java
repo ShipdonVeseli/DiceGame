@@ -41,7 +41,7 @@ public class Player extends StatisticSuspect {
         isAI = AI;
         try {
             Player activePlayer = game.getActivePlayer();
-            System.out.println("active" + activePlayer.toString() + "\n" + "this=" + this.toString());
+           // System.out.println("active" + activePlayer.toString() + "\n" + "this=" + this.toString());
             if (AI && activePlayer.equals(this)) {
                 game.aiRound();
             }

@@ -29,6 +29,26 @@ public class Lobby {
         owner.setGame(game);
     }
 
+    public void autoTerminate() {
+        if (checkIfAllPlayerAreAI()) {
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n Terminate");
+         //   terminate();
+        }
+    }
+
+    public void terminate() {
+        GameServer.getInstance().getLobbymanager().removeLobby(this.getId());
+    }
+
+    public boolean checkIfAllPlayerAreAI() {
+        for (Player player : players) {
+            if (!player.isAI()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void startGame() {
         fillLobby();
 
@@ -37,12 +57,12 @@ public class Lobby {
         game.init();
     }
 
-    private void fillLobby(){
-        int numberOfPlayers=game.getNumberOfPlayers();
-        int playerCount=playerCount();
+    private void fillLobby() {
+        int numberOfPlayers = game.getNumberOfPlayers();
+        int playerCount = playerCount();
 
-        for (int i = 0; i < (numberOfPlayers-playerCount); i++) {
-            Player player=new Player("AI-Number-"+(i+1));
+        for (int i = 0; i < (numberOfPlayers - playerCount); i++) {
+            Player player = new Player("AI-Number-" + (i + 1));
             player.setAI(true);
             addPlayer(player);
         }

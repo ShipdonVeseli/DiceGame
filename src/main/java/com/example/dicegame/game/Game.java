@@ -244,6 +244,7 @@ public class Game extends StatisticSuspect {
     }
 
     public void aiRound() {
+        lobby.autoTerminate();
         timer = new Timer();
         timer.schedule(timerTask(), Player.createDate(timeoutInSeconds));
     }
