@@ -134,7 +134,9 @@ function drawCanvas(value, index, array) {
         let round = array[index].round;
         document.getElementById("info").innerText = "Active Player: " + getActivePlayer(value, index, array) + " - Round: " + round;
     } else {
-        addPlayernameToDropDownList(array, index);
+        if(localStorage.getItem("username") !== array[index].playername){
+            addPlayernameToDropDownList(array, index);
+        }
         drawPlayerNames(value, index, array);
         loadDiceImage(array[index].dicevalue, index - 1);
 
@@ -170,7 +172,7 @@ function drawCanvas(value, index, array) {
 }
 
 function addPlayernameToDropDownList(array, index) {
-    if(document.querySelector('select').length < PLAYERSIZE_OF_LOBBY) {
+    if(document.querySelector('select').length < PLAYERSIZE_OF_LOBBY-1) {
         const select = document.querySelector('select');
         select.options.add(new Option(array[index].playername, array[index].playername));
     }
@@ -459,7 +461,6 @@ function drawBlueResources(player) {
 function gameModeTwo() {
     let selection = document.getElementById("gameTwoSelection");
     let user = selection.options[selection.selectedIndex].text;
-    alert(user);
     fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&game-mode=2");
     fetch("http://localhost:8079/Game-servlet?mode=give-dice&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&playerNameReceiver=" + user);
 

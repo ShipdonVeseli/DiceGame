@@ -1,5 +1,5 @@
 document.getElementById("gameModeSelection").addEventListener('change', getGameMode);
-let gameMode = 1;
+let gameMode;
 function getGameMode() {
     gameMode = this.value;
 }
