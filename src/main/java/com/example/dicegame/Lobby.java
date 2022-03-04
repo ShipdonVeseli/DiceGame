@@ -158,7 +158,7 @@ public class Lobby {
 
     @Override
     public String toString() {
-        return "Lobby{" +
+        return "\nLobby{" +
                 "id=" + id +
                 ", players=" + players +
                 ", owner=" + owner +

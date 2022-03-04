@@ -278,7 +278,6 @@ public class Game extends StatisticSuspect {
     public String toString() {
         return "Game{" +
                 "gameMode=" + gameMode +
-                ", lobby=" + lobby +
                 ", storage=" + storage +
                 ", round=" + round +
                 '}';

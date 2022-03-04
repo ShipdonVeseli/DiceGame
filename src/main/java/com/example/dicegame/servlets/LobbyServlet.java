@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Map;
 import java.util.UUID;
 
@@ -31,7 +32,7 @@ public class LobbyServlet extends HttpServlet {
         try {
             Map<String, String[]> map = request.getParameterMap();
 
-            ServletFunctions.printNames(map);
+           // ServletFunctions.printNames(map);
 
             String mode = ServletFunctions.getParameterValue(map, "mode");
             String username = ServletFunctions.getParameterValue(map, "username");
@@ -85,7 +86,12 @@ public class LobbyServlet extends HttpServlet {
     }
 
     private void getLobbies(HttpServletResponse response) {
-        System.out.println(gameServer.getLobbymanager().convertToJSON());
+        try {
+            String out=gameServer.getLobbymanager().toString();
+            System.out.println(out);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
         response.setHeader("lobbies", gameServer.getLobbymanager().convertToJSON());
     }
 

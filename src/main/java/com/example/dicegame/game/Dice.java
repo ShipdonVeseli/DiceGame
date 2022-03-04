@@ -7,22 +7,22 @@ import java.util.UUID;
 
 public class Dice {
 
-    private UUID uuid=UUID.randomUUID();
-    private int min=1;
-    private int max=6;
+    private UUID uuid = UUID.randomUUID();
+    private int min = 1;
+    private int max = 6;
     private int value;
-    private DiceManager manager=DiceManager.getInstanz();
+    private DiceManager manager = DiceManager.getInstanz();
 
-    public void setValueForTests(int value){
-        this.value=value;
+    public void setValueForTests(int value) {
+        this.value = value;
     }
 
     public Dice() {
         roll();
     }
 
-    public int roll(){
-        value= manager.getDice(min,max);
+    public int roll() {
+        value = manager.getDice(min, max);
         return value;
     }
 
@@ -34,26 +34,25 @@ public class Dice {
         return value;
     }
 
-    public void setRange(int min, int max){
-        this.min=min;
-        this.max=max;
+    public void setRange(int min, int max) {
+        this.min = min;
+        this.max = max;
     }
 
-    public String convertToJSON(){
+    public String convertToJSON() {
         return "{"
-                +"\"uuid\": "
-                +"\""+uuid.toString()+"\""+","
-                +"\"value\": "
-                +value
-                +"}";
+                + "\"uuid\": "
+                + "\"" + uuid.toString() + "\"" + ","
+                + "\"value\": "
+                + value
+                + "}";
     }
 
     @Override
     public String toString() {
         return "Dice{" +
-                "uuid=" + uuid +
+                "uuid=" + uuid.toString() +
                 ", value=" + value +
-                ", manager=" + manager +
                 '}';
     }
 
