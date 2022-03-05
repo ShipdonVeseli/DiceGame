@@ -2,6 +2,7 @@ package com.example.dicegame.servlets;
 
 import com.example.dicegame.GameServer;
 import com.example.dicegame.Lobby;
+import com.example.dicegame.game.Game;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -125,8 +126,13 @@ public class LobbyServlet extends HttpServlet {
     private void join(HttpServletResponse response, Map<String, String[]> map, String username) {
         UUID lobbyID = UUID.fromString(ServletFunctions.getParameterValue(map, "lobbyID"));
         try {
+            Lobby lobby=gameServer.getLobbymanager().getLobby(lobbyID);
+            Game game=lobby.getGame();
+            int numberOfPlayers=lobby.getPlayers().size();
+            int maxPlayerSize=game.getNumberOfPlayers();
+
             if (!gameServer.getLobbymanager().isPlayerInLobby(username)) {
-                if (!gameServer.getLobbymanager().checkIFLobbyIsFull(lobbyID)) {
+                if (!gameServer.getLobbymanager().checkIFLobbyIsFull(lobbyID)&&(numberOfPlayers<maxPlayerSize)) {
                     gameServer.getLobbymanager().addUserToLobby(username, lobbyID);
                 }else {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
