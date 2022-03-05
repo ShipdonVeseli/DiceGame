@@ -497,7 +497,7 @@ function createplayer() {
             token_y: 0,
             width: 80,
             height: 80,
-            src: 'images/player1.png',
+            src: 'images/player' + i + '.png',
             img: new Image()
         };
 
