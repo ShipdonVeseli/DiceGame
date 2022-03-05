@@ -497,22 +497,26 @@ function createplayer() {
             token_y: 0,
             width: 80,
             height: 80,
-            src: 'images/player' + i + '.png',
+            src: 'images/player1.png',
             img: new Image()
         };
 
         player.img.src = player.src;
         players.push(player);
 
-        if (i < 5) {
+        let lastDigit = i%10;
+
+        if(lastDigit === 0){
+            PLAYER_COORDINATE_X += 0;
+        } else if (lastDigit < 5) {
             PLAYER_COORDINATE_X += 180;
-        } else if (i === 5) {
+        } else if (lastDigit === 5) {
             PLAYER_COORDINATE_X += 0;
         } else {
             PLAYER_COORDINATE_X -= 180;
         }
 
-        if (i === 5) {
+        if (lastDigit === 5 || lastDigit === 0) {
             PLAYER_COORDINATE_Y += 300;
         }
     }
