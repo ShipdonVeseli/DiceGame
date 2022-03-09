@@ -88,11 +88,12 @@ function reset() {
     alert('Das Spiel wird neu gestartet.');
 }
 
+let activePlayerName;
 function getActivePlayer(value, index, array) {
     fetch("http://localhost:8079/Game-servlet?mode=get-Active-Player&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
 
     let indexOfActivePlayer = array[index].activePlayerIndex + 1;
-    let activePlayerName = array[indexOfActivePlayer].playername;
+    activePlayerName = array[indexOfActivePlayer].playername;
     let roll_button = document.getElementById("roll");
 
     if(localStorage.getItem("username") === activePlayerName) {
@@ -147,6 +148,9 @@ function drawCanvas(value, index, array) {
         if(array[index].playername !== "") {
             loadImageForPlayer(players[index-1]);
             drawImageForPlayer(players[index-1]);
+        }
+        if(array[index].playername === activePlayerName) {
+            drawGreenRectangleForActivePlayer(players[index-1]);
         }
 
         for (let i = 0; i < players[index - 1].blueResources; i++) {
@@ -456,6 +460,12 @@ function drawBlueResources(player) {
     ctx.fill();
     ctx.stroke();
     ctx.closePath();
+}
+
+function drawGreenRectangleForActivePlayer(player) {
+    ctx.strokeStyle = "green";
+    ctx.strokeRect(player.x - 5, player.y - 5, player.width + 10, player.height + 10);
+    ctx.strokeStyle = "#000000";
 }
 
 function gameModeTwo() {
