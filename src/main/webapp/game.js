@@ -46,19 +46,29 @@ async function getThroughput(){
     }
 }
 
-getGameMode = () =>
-    fetch("http://localhost:8079/Game-Config-servlet?mode=get-Game-mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
-        .then(response => {
-            // console.log(response.headers.get("gameMode"));
-            return Number(response.headers.get("gameMode"));
-        });
+let gameMode;
+let numberOfPlayers;
+fetch("http://localhost:8079/Game-Config-servlet?mode=get-Game-mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+    .then(response => {
+        // console.log("Game Mode: " + response.headers.get("gameMode"));
+        return Number(response.headers.get("gameMode"));
+    })
+    .then(data => getGameMode(data));
 
-getNumberOfPlayers = () =>
-    fetch("http://localhost:8079/Game-Config-servlet?mode=get_Number_of_Players&lobbyID=" + sessionStorage.getItem("lobbyid"))
-        .then(response => {
-            // console.log("Number of Players: " + response.headers.get("Number_of_Players"));
-            return Number(response.headers.get("Number_of_Players"));
-        })
+function getGameMode(data) {
+    gameMode = data;
+}
+
+fetch("http://localhost:8079/Game-Config-servlet?mode=get_Number_of_Players&lobbyID=" + sessionStorage.getItem("lobbyid"))
+    .then(response => {
+        // console.log("Number of Players: " + response.headers.get("Number_of_Players"));
+        return Number(response.headers.get("Number_of_Players"));
+    })
+    .then(data => getNumberOfPlayers(data));
+
+function getNumberOfPlayers(data) {
+    numberOfPlayers = data;
+}
 
 
 async function getNumberInSystem(){
@@ -182,12 +192,10 @@ function drawCanvas(value, index, array) {
 }
 
 function addPlayernameToDropDownList(array, index) {
-    getNumberOfPlayers().then(numberOfPlayers => {
-        if(document.querySelector('select').length < numberOfPlayers-1) {
-            const select = document.querySelector('select');
-            select.options.add(new Option(array[index].playername, array[index].playername));
-        }
-    })
+    if(document.querySelector('select').length < numberOfPlayers-1) {
+        const select = document.querySelector('select');
+        select.options.add(new Option(array[index].playername, array[index].playername));
+    }
 }
 
 function drawPlayerNames(value, index, array) {
@@ -296,19 +304,17 @@ function startGame() {
     canvas.height = canvas.width * heightRatio;
     fix_dpi();
     createplayer();
-    getGameMode().then(data => {
-        console.log(data);
-        switch (data) {
-            case 2:
-                document.getElementById("gameModeTwo").style.display = "block";
-                break;
-            case 3:
-                document.getElementById("gameModeThree").style.display = "block";
-                break;
-            case 4:
-                document.getElementById("gameModeFour").style.display = "block";
-        }
-    })
+
+    switch (gameMode) {
+        case 2:
+            document.getElementById("gameModeTwo").style.display = "block";
+            break;
+        case 3:
+            document.getElementById("gameModeThree").style.display = "block";
+            break;
+        case 4:
+            document.getElementById("gameModeFour").style.display = "block";
+    }
 }
 
 function setButtonsForStatistics(button_to_display, value, not_display_btn1, not_display_btn2, not_display_btn3) {
@@ -501,45 +507,43 @@ function gameModeThree() {
 }
 
 function createplayer() {
-    getNumberOfPlayers().then(numberOfPlayers => {
-        for (let i = 1; i<=numberOfPlayers; i++) {
-            let player = {
-                tokensize: 0,
-                normalResources: 0,
-                blueResources: 0,
-                row: 0,
-                col: 0,
-                name: ' ',
-                x: PLAYER_COORDINATE_X,
-                y: PLAYER_COORDINATE_Y,
-                token_x: 0,
-                token_y: 0,
-                width: 80,
-                height: 80,
-                src: 'images/player' + i + '.png',
-                img: new Image()
-            };
+    for (let i = 1; i<=numberOfPlayers; i++) {
+        let player = {
+            tokensize: 0,
+            normalResources: 0,
+            blueResources: 0,
+            row: 0,
+            col: 0,
+            name: ' ',
+            x: PLAYER_COORDINATE_X,
+            y: PLAYER_COORDINATE_Y,
+            token_x: 0,
+            token_y: 0,
+            width: 80,
+            height: 80,
+            src: 'images/player' + i + '.png',
+            img: new Image()
+        };
 
-            player.img.src = player.src;
-            players.push(player);
+        player.img.src = player.src;
+        players.push(player);
 
-            let lastDigit = i%10;
+        let lastDigit = i%10;
 
-            if(lastDigit === 0){
-                PLAYER_COORDINATE_X += 0;
-            } else if (lastDigit < 5) {
-                PLAYER_COORDINATE_X += 180;
-            } else if (lastDigit === 5) {
-                PLAYER_COORDINATE_X += 0;
-            } else {
-                PLAYER_COORDINATE_X -= 180;
-            }
-
-            if (lastDigit === 5 || lastDigit === 0) {
-                PLAYER_COORDINATE_Y += 300;
-            }
+        if(lastDigit === 0){
+            PLAYER_COORDINATE_X += 0;
+        } else if (lastDigit < 5) {
+            PLAYER_COORDINATE_X += 180;
+        } else if (lastDigit === 5) {
+            PLAYER_COORDINATE_X += 0;
+        } else {
+            PLAYER_COORDINATE_X -= 180;
         }
-    })
+
+        if (lastDigit === 5 || lastDigit === 0) {
+            PLAYER_COORDINATE_Y += 300;
+        }
+    }
 }
 
 function updateLineToAddTokenForUpperRow(player) {
