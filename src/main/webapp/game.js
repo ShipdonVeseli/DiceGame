@@ -45,13 +45,20 @@ async function getThroughput(){
         }
     }
 }
-let gameMode;
+
 getGameMode = () =>
     fetch("http://localhost:8079/Game-Config-servlet?mode=get-Game-mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
         .then(response => {
-            console.log(response.headers.get("gameMode"));
+            // console.log(response.headers.get("gameMode"));
             return Number(response.headers.get("gameMode"));
         });
+
+getNumberOfPlayers = () =>
+    fetch("http://localhost:8079/Game-Config-servlet?mode=get_Number_of_Players&lobbyID=" + sessionStorage.getItem("lobbyid"))
+        .then(response => {
+            // console.log("Number of Players: " + response.headers.get("Number_of_Players"));
+            return Number(response.headers.get("Number_of_Players"));
+        })
 
 
 async function getNumberInSystem(){
@@ -128,7 +135,6 @@ function loadDiceImage(dicevalue, playerindex) {
     // requestAnimationFrame(loadDiceImage);
 }
 
-let PLAYERSIZE_OF_LOBBY = 10;
 function drawCanvas(value, index, array) {
     if (index === 0) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -176,10 +182,12 @@ function drawCanvas(value, index, array) {
 }
 
 function addPlayernameToDropDownList(array, index) {
-    if(document.querySelector('select').length < PLAYERSIZE_OF_LOBBY-1) {
-        const select = document.querySelector('select');
-        select.options.add(new Option(array[index].playername, array[index].playername));
-    }
+    getNumberOfPlayers().then(numberOfPlayers => {
+        if(document.querySelector('select').length < numberOfPlayers-1) {
+            const select = document.querySelector('select');
+            select.options.add(new Option(array[index].playername, array[index].playername));
+        }
+    })
 }
 
 function drawPlayerNames(value, index, array) {
@@ -493,44 +501,45 @@ function gameModeThree() {
 }
 
 function createplayer() {
-    for (let i = 1; i < 11; i++) {
-        let player = {
-            tokensize: 0,
-            normalResources: 0,
-            blueResources: 0,
-            row: 0,
-            col: 0,
-            name: ' ',
-            x: PLAYER_COORDINATE_X,
-            y: PLAYER_COORDINATE_Y,
-            token_x: 0,
-            token_y: 0,
-            width: 80,
-            height: 80,
-            src: 'images/player' + i + '.png',
-            img: new Image()
-        };
+    getNumberOfPlayers().then(numberOfPlayers => {
+        for (let i = 1; i<=numberOfPlayers; i++) {
+            let player = {
+                tokensize: 0,
+                normalResources: 0,
+                blueResources: 0,
+                row: 0,
+                col: 0,
+                name: ' ',
+                x: PLAYER_COORDINATE_X,
+                y: PLAYER_COORDINATE_Y,
+                token_x: 0,
+                token_y: 0,
+                width: 80,
+                height: 80,
+                src: 'images/player' + i + '.png',
+                img: new Image()
+            };
 
-        player.img.src = player.src;
-        players.push(player);
+            player.img.src = player.src;
+            players.push(player);
 
-        let lastDigit = i%10;
+            let lastDigit = i%10;
 
-        if(lastDigit === 0){
-            PLAYER_COORDINATE_X += 0;
-        } else if (lastDigit < 5) {
-            PLAYER_COORDINATE_X += 180;
-        } else if (lastDigit === 5) {
-            PLAYER_COORDINATE_X += 0;
-        } else {
-            PLAYER_COORDINATE_X -= 180;
+            if(lastDigit === 0){
+                PLAYER_COORDINATE_X += 0;
+            } else if (lastDigit < 5) {
+                PLAYER_COORDINATE_X += 180;
+            } else if (lastDigit === 5) {
+                PLAYER_COORDINATE_X += 0;
+            } else {
+                PLAYER_COORDINATE_X -= 180;
+            }
+
+            if (lastDigit === 5 || lastDigit === 0) {
+                PLAYER_COORDINATE_Y += 300;
+            }
         }
-
-        if (lastDigit === 5 || lastDigit === 0) {
-            PLAYER_COORDINATE_Y += 300;
-        }
-    }
-
+    })
 }
 
 function updateLineToAddTokenForUpperRow(player) {
