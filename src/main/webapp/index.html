@@ -34,24 +34,29 @@
         <div class="startGame">
             <input type="submit" value="Start Lobby" id="start" onclick="startLobby()">
         </div>
+        <div id="gameConfig">
+            <table>
+                <tr><td>
+                    <label for="gameModeSelection"></label>
+                    <select name="gameModeSelection" id="gameModeSelection">
+                        <option value="" disabled="disabled" selected="selected">Select Game Mode</option>
+                        <option value="1">Game Mode 1</option>
+                        <option value="2">Game Mode 2</option>
+                        <option value="3">Game Mode 3</option>
+                        <option value="4">Game Mode 4</option>
+                        <option value="5">Game Mode 5</option>
+                        <option value="6">Game Mode 6</option>
+                    </select>
+                </td></tr>
+                <tr><td>
+                    <label for="numberOfPlayers">Set Number of Player</label>
+                    <input type="number" id="numberOfPlayers" onchange="getNumberOfPlayers()">
+                </td></tr>
+            </table>
+        </div>
         <div class="showlobbies">
             <table id="lobbies">
             </table>
-        </div>
-        <div id="gameMode" style="display: none;">
-            <label for="gameModeSelection"></label>
-            <select name="gameModeSelection" id="gameModeSelection">
-                <option value="" disabled="disabled" selected="selected">Select Game Mode</option>
-                <option value="1">Game Mode 1</option>
-                <option value="2">Game Mode 2</option>
-                <option value="3">Game Mode 3</option>
-                <option value="4">Game Mode 4</option>
-                <option value="5">Game Mode 5</option>
-                <option value="6">Game Mode 6</option>
-            </select>
-        </div>
-        <div>
-            <input type="number" id="numberOfPlayers" onchange="getNumberOfPlayers()">
         </div>
     </form>
 </div>

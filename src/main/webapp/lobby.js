@@ -1,3 +1,7 @@
+window.onload = function () {
+    document.getElementById("gameConfig").style.display = "none";
+}
+
 document.getElementById("gameModeSelection").addEventListener('change', getGameMode);
 let gameMode;
 function getGameMode() {
@@ -10,7 +14,7 @@ function getNumberOfPlayers() {
 
 function startLobby(){
     let lobbyid = sessionStorage.getItem("lobbyid");
-    fetch("http://localhost:8079/Game-Config-servlet?mode=set_Number_of_Players&lobbyID="+lobbyid+"&Number_of_Players="+getNumberOfPlayers());
+    fetch("http://localhost:8079/Game-Config-servlet?mode=set_Number_of_Players&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&Number_of_Players="+getNumberOfPlayers());
     fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&game-mode="+gameMode);
     fetch("http://localhost:8079/Game-servlet?mode=start-game&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
     window.location.href = "http://localhost:8079/game.html"
@@ -52,7 +56,9 @@ function insertList(value, index, array){
     if(index === 0) document.getElementById("lobbies").innerHTML = "";
 //    document.getElementById("lobbies").innerHTML = document.getElementById("lobbies").innerHTML + "<li>"+array[index].lobbyowner+" Lobby <input type='submit' id='"+index+"' onclick='joinLobby("+index+")' name="+array[index].lobbyid+" value='JOIN LOBBY'><ul><li>Players: "+array[index].players+"</li></ul></li>";
     document.getElementById("lobbies").innerHTML = document.getElementById("lobbies").innerHTML + "<table><tr><th>"+ "Lobbyowner: " + array[index].lobbyowner+ "</th></tr><tr><td>" + "Players:" + array[index].players+ "</td></tr><tr><td>" + "<input type='submit' id='"+index+"' onclick='joinLobby("+index+")' name="+array[index].lobbyid+" value='JOIN LOBBY'>" + "</td></tr><hr></table>";
-    document.getElementById("gameMode").style.display = "block";
+    if(localStorage.getItem("username") === array[index].lobbyowner) {
+        document.getElementById("gameConfig").style.display = "block";
+    }
 }
 
 function convert(obj){
