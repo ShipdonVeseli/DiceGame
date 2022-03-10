@@ -10,9 +10,9 @@ function getNumberOfPlayers() {
 
 function startLobby(){
     let lobbyid = sessionStorage.getItem("lobbyid");
-    fetch("http://localhost:8079/Game-servlet?mode=start-game&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
-    fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&game-mode="+gameMode);
     fetch("http://localhost:8079/Game-Config-servlet?mode=set_Number_of_Players&lobbyID="+lobbyid+"&Number_of_Players="+getNumberOfPlayers());
+    fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&game-mode="+gameMode);
+    fetch("http://localhost:8079/Game-servlet?mode=start-game&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
     window.location.href = "http://localhost:8079/game.html"
 }
 
