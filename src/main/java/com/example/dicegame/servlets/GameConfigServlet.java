@@ -41,7 +41,7 @@ public class GameConfigServlet extends HttpServlet {
             //GameServlet.resetPlayer(lobbyOfTheGame,username);
             switch (mode) {
                 case "set_Number_of_Players":
-                    setNumberOfPlayers(map, game);
+                    setNumberOfPlayers(map, game,response);
                     break;
 
                 case "get_Number_of_Players":
@@ -90,9 +90,13 @@ public class GameConfigServlet extends HttpServlet {
         response.setHeader("Number_of_Players", String.valueOf(numberOfPlayers));
     }
 
-    private void setNumberOfPlayers(Map<String, String[]> map, Game game) {
-        int numberOfPlayers = Integer.parseInt(ServletFunctions.getParameterValue(map, "Number_of_Players"));
-        game.setNumberOfPlayers(numberOfPlayers);
+    private void setNumberOfPlayers(Map<String, String[]> map, Game game,HttpServletResponse response) {
+        if(!game.getLobby().isHasGameStarted()) {
+            int numberOfPlayers = Integer.parseInt(ServletFunctions.getParameterValue(map, "Number_of_Players"));
+            game.setNumberOfPlayers(numberOfPlayers);
+        }else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
     }
 
     private void getGameMode(HttpServletResponse response, Game game) {
