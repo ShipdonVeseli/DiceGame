@@ -3,9 +3,9 @@ window.onload = function () {
 }
 
 document.getElementById("gameModeSelection").addEventListener('change', getGameMode);
-let gameMode;
+
 function getGameMode() {
-    gameMode = this.value;
+    return this.value;
 }
 
 function getNumberOfPlayers() {
@@ -15,7 +15,7 @@ function getNumberOfPlayers() {
 function startLobby(){
     let lobbyid = sessionStorage.getItem("lobbyid");
     fetch("http://localhost:8079/Game-Config-servlet?mode=set_Number_of_Players&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&Number_of_Players="+getNumberOfPlayers());
-    fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&game-mode="+gameMode);
+    fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&game-mode="+getGameMode());
     fetch("http://localhost:8079/Game-servlet?mode=start-game&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
     window.location.href = "http://localhost:8079/game.html"
 }
