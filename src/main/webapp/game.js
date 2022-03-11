@@ -618,8 +618,12 @@ function eventListenerForChosenWeakestLink(canvas) {
                 if (mousePos.y >= players[i].y && mousePos.y <= players[i].y + players[i].height) {
                     alert(players[i].name);
                     chosenPlayer = players[i].name;
+                    let obj = {
+                        round: round,
+                        chosenPlayer: chosenPlayer
+                    }
                     if(oldRound !== round) {
-                        chosenPlayerList.push(chosenPlayer);
+                        chosenPlayerList.push(obj);
                         oldRound = round;
                     }
                 }
