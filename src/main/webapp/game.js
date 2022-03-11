@@ -641,6 +641,10 @@ function drawRedRectangleForPlayer(player) {
     ctx.strokeStyle = "#000000";
 }
 
+function checkIfWeakestLinkIsAdded() {
+    return chosenPlayerList.some(player => player.round === round);
+}
+
 function rollAndMoveDice(){
     fetch("http://localhost:8079/Game-servlet?mode=roll-all&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
     fetch("http://localhost:8079/Game-servlet?mode=make-move&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
