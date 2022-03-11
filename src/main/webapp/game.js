@@ -314,8 +314,8 @@ function startGame() {
             break;
         case 4:
             document.getElementById("gameModeFour").style.display = "block";
-            eventListenerForGameFour(canvas);
-            eventListenerForGetMousePos(canvas);
+            eventListenerForMouseDown(canvas);
+            eventListenerForMouseMove(canvas);
             break;
     }
 }
@@ -586,20 +586,6 @@ function drawImageForPlayer(player) {
 }
 //Die Funktionen bis zum nächsten Kommentar sind für Game 4
 let chosenPlayer;
-function getCursorPosition(canvas, event) {
-    const rect = canvas.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    for (var i = 0; i < players.length; i++) {
-        if (x >= players[i].x && x <= players[i].x + players[i].width) {
-            if (y >= players[i].y && y <= players[i].y + players[i].height) {
-                // alert("x: " + x + "y: " + y)
-                alert(players[i].name);
-                chosenPlayer = players[i].name;
-            }
-        }
-    }
-}
 
 function getMousePos(canvas, evt) {
     let rect = canvas.getBoundingClientRect();
@@ -609,7 +595,7 @@ function getMousePos(canvas, evt) {
     };
 }
 
-function eventListenerForGetMousePos(canvas) {
+function eventListenerForMouseMove(canvas) {
     canvas.addEventListener('mousemove', function (e) {
         let mousePos = getMousePos(canvas, e);
         for (let i=0; i<players.length; i++) {
@@ -619,12 +605,20 @@ function eventListenerForGetMousePos(canvas) {
                 }
             }
         }
-    })
+    });
 }
 
-function eventListenerForGameFour(canvas) {
+function eventListenerForMouseDown(canvas) {
     canvas.addEventListener('mousedown', function(e) {
-        getCursorPosition(canvas, e);
+        let mousePos = getMousePos(canvas, e);
+        for (let i = 0; i < players.length; i++) {
+            if (mousePos.x >= players[i].x && mousePos.x <= players[i].x + players[i].width) {
+                if (mousePos.y >= players[i].y && mousePos.y <= players[i].y + players[i].height) {
+                    alert(players[i].name);
+                    chosenPlayer = players[i].name;
+                }
+            }
+        }
     });
 }
 
