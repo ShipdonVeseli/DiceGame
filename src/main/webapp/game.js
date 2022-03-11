@@ -144,11 +144,11 @@ function loadDiceImage(dicevalue, playerindex) {
     }
     // requestAnimationFrame(loadDiceImage);
 }
-
+let round;
 function drawCanvas(value, index, array) {
     if (index === 0) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        let round = array[index].round;
+        round = array[index].round;
         document.getElementById("info").innerText = "Active Player: " + getActivePlayer(value, index, array) + " - Round: " + round;
     } else {
         if(localStorage.getItem("username") !== array[index].playername){
@@ -314,7 +314,7 @@ function startGame() {
             break;
         case 4:
             document.getElementById("gameModeFour").style.display = "block";
-            eventListenerForMouseDown(canvas);
+            eventListenerForChosenWeakestLink(canvas);
             eventListenerForMouseMove(canvas);
             break;
     }
@@ -586,6 +586,8 @@ function drawImageForPlayer(player) {
 }
 //Die Funktionen bis zum nächsten Kommentar sind für Game 4
 let chosenPlayer;
+let chosenPlayerList = [];
+let oldRound;
 
 function getMousePos(canvas, evt) {
     let rect = canvas.getBoundingClientRect();
@@ -608,7 +610,7 @@ function eventListenerForMouseMove(canvas) {
     });
 }
 
-function eventListenerForMouseDown(canvas) {
+function eventListenerForChosenWeakestLink(canvas) {
     canvas.addEventListener('mousedown', function(e) {
         let mousePos = getMousePos(canvas, e);
         for (let i = 0; i < players.length; i++) {
@@ -616,6 +618,10 @@ function eventListenerForMouseDown(canvas) {
                 if (mousePos.y >= players[i].y && mousePos.y <= players[i].y + players[i].height) {
                     alert(players[i].name);
                     chosenPlayer = players[i].name;
+                    if(oldRound !== round) {
+                        chosenPlayerList.push(chosenPlayer);
+                        oldRound = round;
+                    }
                 }
             }
         }
