@@ -624,8 +624,11 @@ function eventListenerForChosenWeakestLink(canvas) {
                     }
                     if(oldRound !== round) {
                         chosenPlayerList.push(obj);
-                        oldRound = round;
+                    } else if(oldRound === round) {
+                        chosenPlayerList.pop();
+                        chosenPlayerList.push(obj);
                     }
+                    oldRound = round;
                 }
             }
         }
