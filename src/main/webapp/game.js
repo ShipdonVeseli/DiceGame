@@ -315,6 +315,7 @@ function startGame() {
         case 4:
             document.getElementById("gameModeFour").style.display = "block";
             eventListenerForGameFour(canvas);
+            eventListenerForGetMousePos(canvas);
             break;
     }
 }
@@ -600,10 +601,37 @@ function getCursorPosition(canvas, event) {
     }
 }
 
+function getMousePos(canvas, evt) {
+    let rect = canvas.getBoundingClientRect();
+    return {
+        x: evt.clientX - rect.left,
+        y: evt.clientY - rect.top
+    };
+}
+
+function eventListenerForGetMousePos(canvas) {
+    canvas.addEventListener('mousemove', function (e) {
+        let mousePos = getMousePos(canvas, e);
+        for (let i=0; i<players.length; i++) {
+            if (mousePos.x >= players[i].x && mousePos.x <= players[i].x + players[i].width) {
+                if (mousePos.y >= players[i].y && mousePos.y <= players[i].y + players[i].height) {
+                    drawRedRectangleForPlayer(players[i]);
+                }
+            }
+        }
+    })
+}
+
 function eventListenerForGameFour(canvas) {
     canvas.addEventListener('mousedown', function(e) {
         getCursorPosition(canvas, e);
     });
+}
+
+function drawRedRectangleForPlayer(player) {
+    ctx.strokeStyle = "red";
+    ctx.strokeRect(player.x - 5, player.y - 5, player.width + 10, player.height + 10);
+    ctx.strokeStyle = "#000000";
 }
 
 function rollAndMoveDice(){
