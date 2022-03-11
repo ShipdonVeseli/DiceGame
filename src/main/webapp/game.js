@@ -314,6 +314,8 @@ function startGame() {
             break;
         case 4:
             document.getElementById("gameModeFour").style.display = "block";
+            eventListenerForGameFour(canvas);
+            break;
     }
 }
 
@@ -582,21 +584,28 @@ function drawImageForPlayer(player) {
     // requestAnimationFrame(drawImageForPlayer);
 }
 //Die Funktionen bis zum nächsten Kommentar sind für Game 4
+let chosenPlayer;
 function getCursorPosition(canvas, event) {
     const rect = canvas.getBoundingClientRect();
-    const x = event.clientX - rect.left
-    const y = event.clientY - rect.top
-    let chosenPlayer;
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
     for (var i = 0; i < players.length; i++) {
         if (x >= players[i].x && x <= players[i].x + players[i].width) {
             if (y >= players[i].y && y <= players[i].y + players[i].height) {
                 // alert("x: " + x + "y: " + y)
-                alert(players[i].name)
+                alert(players[i].name);
                 chosenPlayer = players[i].name;
-                }
             }
         }
     }
+}
+
+function eventListenerForGameFour(canvas) {
+    canvas.addEventListener('mousedown', function(e) {
+        getCursorPosition(canvas, e);
+    });
+}
+
 function rollAndMoveDice(){
     fetch("http://localhost:8079/Game-servlet?mode=roll-all&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
     fetch("http://localhost:8079/Game-servlet?mode=make-move&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
