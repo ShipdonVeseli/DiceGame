@@ -189,8 +189,13 @@ function drawCanvas(value, index, array) {
             }
         }
     }
+    //fügt den letzt gewählten Spieler in die Runde davor als Weakest Link (chosenPlayerList) ein
     if(oldRound+2 === round && !checkIfWeakestLinkIsAddedInRound(round-1)) {
         addPlayerToWeakestLinkList(round-1, chosenPlayer);
+    }
+    //wenn bis dahin kein Spieler hinzugefügt wurde, dann wird in der vorigen Runde der chosenPlayer als "nothing" gespeichert
+    if(round > 0 && !checkIfWeakestLinkIsAddedInRound(round-1)) {
+        addPlayerToWeakestLinkList(round-1, "nothing");
     }
 }
 
