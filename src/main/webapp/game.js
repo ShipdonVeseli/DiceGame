@@ -189,6 +189,7 @@ function drawCanvas(value, index, array) {
             }
         }
     }
+    addLastSelectedPlayerToList();
 }
 
 function addPlayernameToDropDownList(array, index) {
@@ -641,8 +642,16 @@ function drawRedRectangleForPlayer(player) {
     ctx.strokeStyle = "#000000";
 }
 
-function checkIfWeakestLinkIsAdded() {
+function checkIfWeakestLinkIsAddedInRound(round) {
     return chosenPlayerList.some(player => player.round === round);
+}
+
+function addLastSelectedPlayerToList() {
+    if(oldRound+2 === round && !checkIfWeakestLinkIsAddedInRound(round-1)) {
+        let obj = {round: round-1, chosenPlayer: chosenPlayer};
+        chosenPlayerList.push(obj);
+        oldRound++;
+    }
 }
 
 function rollAndMoveDice(){
