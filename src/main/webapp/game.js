@@ -144,11 +144,11 @@ function loadDiceImage(dicevalue, playerindex) {
     }
     // requestAnimationFrame(loadDiceImage);
 }
-
+let round;
 function drawCanvas(value, index, array) {
     if (index === 0) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        let round = array[index].round;
+        round = array[index].round;
         document.getElementById("info").innerText = "Active Player: " + getActivePlayer(value, index, array) + " - Round: " + round;
     } else {
         if(localStorage.getItem("username") !== array[index].playername){
@@ -188,6 +188,9 @@ function drawCanvas(value, index, array) {
                 drawNormalResources(players[index - 1]);
             }
         }
+    }
+    if(oldRound+2 === round && !checkIfWeakestLinkIsAddedInRound(round-1)) {
+        addLastSelectedPlayerToWeakestLinkList(round-1);
     }
 }
 
@@ -314,6 +317,9 @@ function startGame() {
             break;
         case 4:
             document.getElementById("gameModeFour").style.display = "block";
+            eventListenerForChosenWeakestLink(canvas);
+            eventListenerForMouseMove(canvas);
+            break;
     }
 }
 
@@ -582,21 +588,72 @@ function drawImageForPlayer(player) {
     // requestAnimationFrame(drawImageForPlayer);
 }
 //Die Funktionen bis zum nächsten Kommentar sind für Game 4
-function getCursorPosition(canvas, event) {
-    const rect = canvas.getBoundingClientRect();
-    const x = event.clientX - rect.left
-    const y = event.clientY - rect.top
-    let chosenPlayer;
-    for (var i = 0; i < players.length; i++) {
-        if (x >= players[i].x && x <= players[i].x + players[i].width) {
-            if (y >= players[i].y && y <= players[i].y + players[i].height) {
-                // alert("x: " + x + "y: " + y)
-                alert(players[i].name)
-                chosenPlayer = players[i].name;
+let chosenPlayer;
+let chosenPlayerList = [];
+let oldRound;
+
+function getMousePos(canvas, evt) {
+    let rect = canvas.getBoundingClientRect();
+    return {
+        x: evt.clientX - rect.left,
+        y: evt.clientY - rect.top
+    };
+}
+
+function eventListenerForMouseMove(canvas) {
+    canvas.addEventListener('mousemove', function (e) {
+        let mousePos = getMousePos(canvas, e);
+        for (let i=0; i<players.length; i++) {
+            if (mousePos.x >= players[i].x && mousePos.x <= players[i].x + players[i].width) {
+                if (mousePos.y >= players[i].y && mousePos.y <= players[i].y + players[i].height) {
+                    drawRedRectangleForPlayer(players[i]);
                 }
             }
         }
-    }
+    });
+}
+
+function eventListenerForChosenWeakestLink(canvas) {
+    canvas.addEventListener('mousedown', function(e) {
+        let mousePos = getMousePos(canvas, e);
+        for (let i = 0; i < players.length; i++) {
+            if (mousePos.x >= players[i].x && mousePos.x <= players[i].x + players[i].width) {
+                if (mousePos.y >= players[i].y && mousePos.y <= players[i].y + players[i].height) {
+                    alert(players[i].name);
+                    chosenPlayer = players[i].name;
+                    let obj = {
+                        round: round,
+                        chosenPlayer: chosenPlayer
+                    }
+                    if(oldRound !== round) {
+                        chosenPlayerList.push(obj);
+                    } else if(oldRound === round) {
+                        chosenPlayerList.pop();
+                        chosenPlayerList.push(obj);
+                    }
+                    oldRound = round;
+                }
+            }
+        }
+    });
+}
+
+function drawRedRectangleForPlayer(player) {
+    ctx.strokeStyle = "red";
+    ctx.strokeRect(player.x - 5, player.y - 5, player.width + 10, player.height + 10);
+    ctx.strokeStyle = "#000000";
+}
+
+function checkIfWeakestLinkIsAddedInRound(round) {
+    return chosenPlayerList.some(player => player.round === round);
+}
+
+function addLastSelectedPlayerToWeakestLinkList(round) {
+    let obj = {round: round, chosenPlayer: chosenPlayer};
+    chosenPlayerList.push(obj);
+    oldRound++;
+}
+
 function rollAndMoveDice(){
     fetch("http://localhost:8079/Game-servlet?mode=roll-all&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
     fetch("http://localhost:8079/Game-servlet?mode=make-move&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
