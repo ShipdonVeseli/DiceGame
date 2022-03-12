@@ -190,7 +190,7 @@ function drawCanvas(value, index, array) {
         }
     }
     if(oldRound+2 === round && !checkIfWeakestLinkIsAddedInRound(round-1)) {
-        addLastSelectedPlayerToWeakestLinkList(round-1);
+        addPlayerToWeakestLinkList(round-1, chosenPlayer);
     }
 }
 
@@ -648,7 +648,7 @@ function checkIfWeakestLinkIsAddedInRound(round) {
     return chosenPlayerList.some(player => player.round === round);
 }
 
-function addLastSelectedPlayerToWeakestLinkList(round) {
+function addPlayerToWeakestLinkList(round, chosenPlayer) {
     let obj = {round: round, chosenPlayer: chosenPlayer};
     chosenPlayerList.push(obj);
     oldRound++;
