@@ -135,6 +135,7 @@ public class GameServlet extends HttpServlet {
 
     private void leaveGame(String username, Lobby lobbyOfTheGame) {
         Player player=lobbyOfTheGame.getPlayer(username);
+        player.setPlayerName(player.getPlayerName()+"_KI");
         player.setAI(true);
     }
 

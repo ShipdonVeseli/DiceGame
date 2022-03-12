@@ -19,5 +19,11 @@ class PlayerTest {
     @Test
     void convertToJSONTest() {
 
+        Player player=new Player("seef");
+        player.addResource(new Resource());
+
+
+        System.out.println(player.convertToJSON());
+
     }
 }
