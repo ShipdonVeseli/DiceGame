@@ -189,7 +189,9 @@ function drawCanvas(value, index, array) {
             }
         }
     }
-    addLastSelectedPlayerToList();
+    if(oldRound+2 === round && !checkIfWeakestLinkIsAddedInRound(round-1)) {
+        addLastSelectedPlayerToWeakestLinkList(round-1);
+    }
 }
 
 function addPlayernameToDropDownList(array, index) {
@@ -646,12 +648,10 @@ function checkIfWeakestLinkIsAddedInRound(round) {
     return chosenPlayerList.some(player => player.round === round);
 }
 
-function addLastSelectedPlayerToList() {
-    if(oldRound+2 === round && !checkIfWeakestLinkIsAddedInRound(round-1)) {
-        let obj = {round: round-1, chosenPlayer: chosenPlayer};
-        chosenPlayerList.push(obj);
-        oldRound++;
-    }
+function addLastSelectedPlayerToWeakestLinkList(round) {
+    let obj = {round: round, chosenPlayer: chosenPlayer};
+    chosenPlayerList.push(obj);
+    oldRound++;
 }
 
 function rollAndMoveDice(){
