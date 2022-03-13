@@ -112,15 +112,22 @@ function getActivePlayer(value, index, array) {
     let indexOfActivePlayer = array[index].activePlayerIndex + 1;
     activePlayerName = array[indexOfActivePlayer].playername;
     let roll_button = document.getElementById("roll");
+    let moveBtnGameFour = document.getElementById("movegamefour")
 
     if(localStorage.getItem("username") === activePlayerName) {
         roll_button.disabled = false;
         roll_button.classList.remove("red");
         roll_button.removeAttribute("title");
+        moveBtnGameFour.disabled = false;
+        moveBtnGameFour.classList.remove("red");
+        moveBtnGameFour.removeAttribute("title");
     } else {
         roll_button.disabled = true;
         roll_button.classList.add("red");
         roll_button.setAttribute("title", "It's not your turn now");
+        moveBtnGameFour.disabled = true;
+        moveBtnGameFour.classList.add("red")
+        moveBtnGameFour.setAttribute("title", "It's not your turn now");
     }
 
     return activePlayerName;
@@ -323,6 +330,7 @@ function startGame() {
             break;
         case 4:
             document.getElementById("gameModeFour").style.display = "block";
+            document.getElementById("roll").style.display = "none";
             yourPerformance();
             eventListenerForChosenWeakestLink(canvas);
             eventListenerForMouseMove(canvas);

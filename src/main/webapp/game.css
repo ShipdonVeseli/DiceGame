@@ -68,16 +68,16 @@ input#back {
 #roll, #move, #showActivity, #showNumberInSystem, #showThroughput, #showTimeInSystem {
     margin: 0.5rem;
 }
-#roll {
+#roll, #movegamefour {
     box-shadow: 0px 0px 0px 2px #35c535;
     background:linear-gradient(to bottom, #37ce37 5%, #015901 100%);
     border:1px solid #016901;
     text-shadow:0px 1px 0px green;
 }
-#roll:hover {
+#roll:hover, #movegamefour:hover {
     background:linear-gradient(to bottom, #049b04 5%, #024902 100%);
 }
-#roll:active {
+#roll:active, #movegamefour:active {
     position:relative;
     top:1px;
 }
