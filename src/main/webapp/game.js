@@ -155,7 +155,9 @@ function drawCanvas(value, index, array) {
             addPlayernameToDropDownList(array, index);
         }
         drawPlayerNames(value, index, array);
-        loadDiceImage(array[index].dicevalue, index - 1);
+        if(gameMode !== 4) {
+            loadDiceImage(array[index].dicevalue, index - 1);
+        }
 
         players[index - 1].tokensize = array[index].blueresources + array[index].normalresources;
         players[index - 1].normalResources = array[index].normalresources;
