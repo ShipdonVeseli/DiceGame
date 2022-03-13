@@ -312,7 +312,6 @@ function startGame() {
     canvas.height = canvas.width * heightRatio;
     fix_dpi();
     createplayer();
-    yourPerformance();
     switch (gameMode) {
         case 2:
             document.getElementById("gameModeTwo").style.display = "block";
@@ -322,6 +321,7 @@ function startGame() {
             break;
         case 4:
             document.getElementById("gameModeFour").style.display = "block";
+            yourPerformance();
             eventListenerForChosenWeakestLink(canvas);
             eventListenerForMouseMove(canvas);
             break;
@@ -664,20 +664,47 @@ function rollAndMoveDice(){
     fetch("http://localhost:8079/Game-servlet?mode=make-move&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
 }
 
+function addImagesToYourPerformance() {
+    let table = document.getElementById("seeYourPerformance");
+}
+
 function yourPerformance() {
-    var modal = document.getElementById("myPerformance");
-    var btn = document.getElementById("myBtn");
-    var span = document.getElementsByClassName("close")[0];
-    btn.onclick = function () {
-        modal.style.display = "block";
+    const openModalButtons = document.querySelectorAll('[data-modal-target]')
+    const closeModalButtons = document.querySelectorAll('[data-close-button]')
+    const overlay = document.getElementById('overlay')
+    addImagesToYourPerformance();
+
+    openModalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modal = document.querySelector(button.dataset.modalTarget)
+            openModal(modal)
+        })
+    })
+
+    overlay.addEventListener('click', () => {
+        const modals = document.querySelectorAll('.modal.active')
+        modals.forEach(modal => {
+            closeModal(modal)
+        })
+    })
+
+    closeModalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modal = button.closest('.modal')
+            closeModal(modal)
+        })
+    })
+
+    function openModal(modal) {
+        if (modal == null) return
+        modal.classList.add('active')
+        overlay.classList.add('active')
     }
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
-    window.onclick = function (event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
+
+    function closeModal(modal) {
+        if (modal == null) return
+        modal.classList.remove('active')
+        overlay.classList.remove('active')
     }
 }
 // bis hier für Game 4

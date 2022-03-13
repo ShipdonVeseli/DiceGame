@@ -75,16 +75,17 @@
 </div>
 <div class="gameModeFour" id="gameModeFour" style="display: none;">
     <input type="submit" id="movegamefour" onclick="rollAndMoveDice()" class="allButtons" value="MoveBeforeRoll"/>
-    <button id="myBtn">Your Performance</button>
-    <div id="myPerformance" class="modal">
-        <div class="performance-content">
-            <span class="close">&times;</span>
-            <h2>Your Performance</h2>
-            <table id="seePerformance">
-
-            </table>
+    <button data-modal-target="#modal" class="allButtons">Your Performance</button>
+    <div class="modal" id="modal">
+        <div class="modal-header">
+            <div class="title">You identified: </div>
+            <button data-close-button class="close-button">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table id="seeYourPerformance"></table>
         </div>
     </div>
+    <div id="overlay"></div>
 </div>
 
 </body>
