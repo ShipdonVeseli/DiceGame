@@ -331,9 +331,9 @@ function startGame() {
         case 4:
             document.getElementById("gameModeFour").style.display = "block";
             document.getElementById("roll").style.display = "none";
-            yourPerformance();
             eventListenerForChosenWeakestLink(canvas);
             eventListenerForMouseMove(canvas);
+            yourPerformance();
             break;
     }
 }
@@ -676,16 +676,35 @@ function rollAndMoveDice(){
 
 function addImagesToYourPerformance() {
     let table = document.getElementById("seeYourPerformance");
+    let row1 = table.insertRow(0);
+
+    // for(let i=0; i<chosenPlayerList.length; i++) {
+    //     row1.insertCell(i).innerHTML = chosenPlayerList[i].chosenPlayer;
+    // }
+
+    for(let i=0; i<chosenPlayerList.length; i++) {
+        for (let j=0; j<players.length; j++) {
+            if(chosenPlayerList[i].chosenPlayer === players[j].name) {
+                //insert image
+                let img = document.createElement('img');
+                img.src = players[j].img.src;
+                img.style.height = '4em';
+                img.style.width = '4em';
+                row1.insertCell(i).appendChild(img);
+            }
+        }
+    }
+
 }
 
 function yourPerformance() {
     const openModalButtons = document.querySelectorAll('[data-modal-target]')
     const closeModalButtons = document.querySelectorAll('[data-close-button]')
     const overlay = document.getElementById('overlay')
-    addImagesToYourPerformance();
 
     openModalButtons.forEach(button => {
         button.addEventListener('click', () => {
+            addImagesToYourPerformance();
             const modal = document.querySelector(button.dataset.modalTarget)
             openModal(modal)
         })
@@ -700,6 +719,7 @@ function yourPerformance() {
 
     closeModalButtons.forEach(button => {
         button.addEventListener('click', () => {
+            document.getElementById("seeYourPerformance").innerHTML = "";
             const modal = button.closest('.modal')
             closeModal(modal)
         })
