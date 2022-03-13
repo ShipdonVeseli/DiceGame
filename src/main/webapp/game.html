@@ -75,9 +75,17 @@
 </div>
 <div class="gameModeFour" id="gameModeFour" style="display: none;">
     <input type="submit" id="movegamefour" onclick="rollAndMoveDice()" class="allButtons" value="MoveBeforeRoll"/>
-    <input type="submit" id="yourPerformance" onclick="yourPerformance()" class="allButtons" value="yourPerformance"/>
-</div>
+    <button id="myBtn">Your Performance</button>
+    <div id="myPerformance" class="modal">
+        <div class="performance-content">
+            <span class="close">&times;</span>
+            <h2>Your Performance</h2>
+            <table id="seePerformance">
 
+            </table>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
