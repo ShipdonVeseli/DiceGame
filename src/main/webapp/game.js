@@ -678,31 +678,21 @@ function addImagesToYourPerformance() {
     let table = document.getElementById("seeYourPerformance");
     let row = null;
 
-    // for(let i=0; i<chosenPlayerList.length; i++) {
-    //     row1.insertCell(i).innerHTML = chosenPlayerList[i].chosenPlayer;
-    // }
-
     let cellNumber = 0;
     for(let i=0; i<chosenPlayerList.length; i++) {
+        let lastDigit = chosenPlayerList[i].round % 10;
         if(chosenPlayerList[i].chosenPlayer === "nothing") {
-            let lastDigit = chosenPlayerList[i].round % 10;
             if(lastDigit === 0 || lastDigit === 5) {
                 row = table.insertRow(-1);
-                addImageToPerformanceTable("nothing", row, cellNumber);
-            } else {
-                addImageToPerformanceTable("nothing", row, cellNumber);
             }
+            addImageToPerformanceTable("nothing", row, cellNumber);
         } else {
             for (let j=0; j<players.length; j++) {
-                let lastDigit = chosenPlayerList[i].round % 10;
                 if(chosenPlayerList[i].chosenPlayer === players[j].name) {
-                    //insert image
-                    if(lastDigit === 5 || lastDigit === 0) {
+                    if(lastDigit === 0 || lastDigit === 5) {
                         row = table.insertRow(-1);
-                        addImageToPerformanceTable(players[j], row, cellNumber);
-                    } else {
-                        addImageToPerformanceTable(players[j], row, cellNumber);
                     }
+                    addImageToPerformanceTable(players[j], row, cellNumber);
                 }
             }
         }
