@@ -676,25 +676,37 @@ function rollAndMoveDice(){
 
 function addImagesToYourPerformance() {
     let table = document.getElementById("seeYourPerformance");
-    let row1 = table.insertRow(0);
+    let row = null;
 
     // for(let i=0; i<chosenPlayerList.length; i++) {
     //     row1.insertCell(i).innerHTML = chosenPlayerList[i].chosenPlayer;
     // }
 
+    let cellNumber = 0;
     for(let i=0; i<chosenPlayerList.length; i++) {
         for (let j=0; j<players.length; j++) {
             if(chosenPlayerList[i].chosenPlayer === players[j].name) {
+                let lastDigit = chosenPlayerList[i].round % 10;
                 //insert image
-                let img = document.createElement('img');
-                img.src = players[j].img.src;
-                img.style.height = '4em';
-                img.style.width = '4em';
-                row1.insertCell(i).appendChild(img);
+                if(lastDigit === 5 || lastDigit === 0) {
+                    row = table.insertRow(-1);
+                    addImageToPerformanceTable(players[j], row, cellNumber);
+                } else {
+                    addImageToPerformanceTable(players[j], row, cellNumber);
+                }
             }
         }
+        cellNumber++;
+        if(cellNumber === 5) cellNumber = 0;
     }
+}
 
+function addImageToPerformanceTable(player, row, cellNumber) {
+    let img = document.createElement('img');
+    img.src = player.img.src;
+    img.style.height = '4em';
+    img.style.width = '4em';
+    row.insertCell(cellNumber).appendChild(img);
 }
 
 function yourPerformance() {
@@ -711,6 +723,7 @@ function yourPerformance() {
     })
 
     overlay.addEventListener('click', () => {
+        document.getElementById("seeYourPerformance").innerHTML = "";
         const modals = document.querySelectorAll('.modal.active')
         modals.forEach(modal => {
             closeModal(modal)
