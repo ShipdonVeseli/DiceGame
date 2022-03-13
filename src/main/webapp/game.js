@@ -684,15 +684,25 @@ function addImagesToYourPerformance() {
 
     let cellNumber = 0;
     for(let i=0; i<chosenPlayerList.length; i++) {
-        for (let j=0; j<players.length; j++) {
-            if(chosenPlayerList[i].chosenPlayer === players[j].name) {
+        if(chosenPlayerList[i].chosenPlayer === "nothing") {
+            let lastDigit = chosenPlayerList[i].round % 10;
+            if(lastDigit === 0 || lastDigit === 5) {
+                row = table.insertRow(-1);
+                addImageToPerformanceTable("nothing", row, cellNumber);
+            } else {
+                addImageToPerformanceTable("nothing", row, cellNumber);
+            }
+        } else {
+            for (let j=0; j<players.length; j++) {
                 let lastDigit = chosenPlayerList[i].round % 10;
-                //insert image
-                if(lastDigit === 5 || lastDigit === 0) {
-                    row = table.insertRow(-1);
-                    addImageToPerformanceTable(players[j], row, cellNumber);
-                } else {
-                    addImageToPerformanceTable(players[j], row, cellNumber);
+                if(chosenPlayerList[i].chosenPlayer === players[j].name) {
+                    //insert image
+                    if(lastDigit === 5 || lastDigit === 0) {
+                        row = table.insertRow(-1);
+                        addImageToPerformanceTable(players[j], row, cellNumber);
+                    } else {
+                        addImageToPerformanceTable(players[j], row, cellNumber);
+                    }
                 }
             }
         }
@@ -703,7 +713,11 @@ function addImagesToYourPerformance() {
 
 function addImageToPerformanceTable(player, row, cellNumber) {
     let img = document.createElement('img');
-    img.src = player.img.src;
+    if(player === "nothing") {
+        img.src = "images/no_choosed_player.png";
+    } else {
+        img.src = player.img.src;
+    }
     img.style.height = '4em';
     img.style.width = '4em';
     row.insertCell(cellNumber).appendChild(img);
