@@ -197,9 +197,7 @@ input[type="submit"], input[type="button"] {
 .leaveLobby:before,
 .leaveLobby:after,
 .startGame:before,
-.startGame:after,
-.gameDescription:before,
-.gameDescription:after {
+.startGame:after {
     left: 0;
     height: 0;
     width: 100%;
@@ -208,8 +206,7 @@ input[type="submit"], input[type="button"] {
 .createLobby:before,
 .logout:before,
 .startGame:before,
-.leaveLobby:before,
-.gameDescription:before {
+.leaveLobby:before {
     bottom: 0;
     border: 1px solid white;
     border-top: 0;
@@ -219,8 +216,7 @@ input[type="submit"], input[type="button"] {
 .createLobby:after,
 .logout:after,
 .leaveLobby:after,
-.startGame:after,
-.gameDescription:after {
+.startGame:after {
     top: 0;
     height: 0;
 }
@@ -232,12 +228,10 @@ input[type="submit"], input[type="button"] {
 .startGame:hover:before,
 .startGame:hover:after,
 .leaveLobby:hover:before,
-.leaveLobby:hover:after,
-.gameDescription:hover:before,
-.gameDescription:hover:after {
+.leaveLobby:hover:after {
     height: 100%;
 }
-.createLobby, .logout, .startGame, .leaveLobby, .gameDescription {
+.createLobby, .logout, .startGame, .leaveLobby {
     position: relative;
     padding: 0rem 4.2rem;
     font-size: 1.4rem;
@@ -251,8 +245,7 @@ input[type="submit"], input[type="button"] {
 .createLobby:before, .createLobby:after,
 .logout:before, .logout:after,
 .startGame:before, .startGame:after,
-.leaveLobby:before, .leaveLobby:after,
-.gameDescription:before, .gameDescription:after {
+.leaveLobby:before, .leaveLobby:after {
     content: '';
     position: absolute;
     transition: inherit;
@@ -262,8 +255,7 @@ input[type="submit"], input[type="button"] {
 .createLobby:hover,
 .logout:hover,
 .startGame:hover,
-.leaveLobby:hover,
-.gameDescription:hover {
+.leaveLobby:hover {
     color: white;
     transition-delay: .5s;
 }
@@ -271,16 +263,14 @@ input[type="submit"], input[type="button"] {
 .createLobby:hover:before,
 .logout:hover:before,
 .startGame:hover:before,
-.leaveLobby:hover:before,
-.gameDescription:hover:before {
+.leaveLobby:hover:before {
     transition-delay: 0s;
 }
 
 .createLobby:hover:after,
 .logout:hover:after,
 .startGame:hover:after,
-.leaveLobby:hover:after,
-.gameDescription:after {
+.leaveLobby:hover:after {
     background: white;
     transition-delay: .35s;
 }

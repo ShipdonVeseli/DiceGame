@@ -75,10 +75,6 @@ function logout(){
     localStorage.removeItem("username");
 }
 
-function gameModeDescription(){
-    window.location.href = "gamedescription.html"
-}
-
 function setUsername() {
     localStorage.setItem("username", document.getElementById("username").value);
     document.getElementById("createSession").style.display = "none";
