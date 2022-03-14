@@ -676,23 +676,28 @@ function rollAndMoveDice(){
 
 function addImagesToYourPerformance() {
     let table = document.getElementById("seeYourPerformance");
-    let row = null;
+    let rowImage = null;
+    let rowRound = null;
 
     let cellNumber = 0;
     for(let i=0; i<chosenPlayerList.length; i++) {
         let lastDigit = chosenPlayerList[i].round % 10;
         if(chosenPlayerList[i].chosenPlayer === "nothing") {
             if(lastDigit === 0 || lastDigit === 5) {
-                row = table.insertRow(-1);
+                rowRound = table.insertRow(-1);
+                rowImage = table.insertRow(-1);
             }
-            addImageToPerformanceTable("nothing", row, cellNumber);
+            rowRound.insertCell(cellNumber).innerHTML = chosenPlayerList[i].round;
+            addImageToPerformanceTable("nothing", rowImage, cellNumber);
         } else {
             for (let j=0; j<players.length; j++) {
                 if(chosenPlayerList[i].chosenPlayer === players[j].name) {
                     if(lastDigit === 0 || lastDigit === 5) {
-                        row = table.insertRow(-1);
+                        rowRound = table.insertRow(-1);
+                        rowImage = table.insertRow(-1);
                     }
-                    addImageToPerformanceTable(players[j], row, cellNumber);
+                    rowRound.insertCell(cellNumber).innerHTML = chosenPlayerList[i].round;
+                    addImageToPerformanceTable(players[j], rowImage, cellNumber);
                 }
             }
         }
