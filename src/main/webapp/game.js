@@ -678,6 +678,7 @@ function addImagesToYourPerformance() {
     let table = document.getElementById("seeYourPerformance");
     let rowImage = null;
     let rowRound = null;
+    let rowName = null;
 
     let cellNumber = 0;
     for(let i=0; i<chosenPlayerList.length; i++) {
@@ -686,8 +687,10 @@ function addImagesToYourPerformance() {
             if(lastDigit === 0 || lastDigit === 5) {
                 rowRound = table.insertRow(-1);
                 rowImage = table.insertRow(-1);
+                rowName = table.insertRow(-1);
             }
             rowRound.insertCell(cellNumber).innerHTML = chosenPlayerList[i].round;
+            rowName.insertCell(cellNumber).innerHTML = chosenPlayerList[i].chosenPlayer;
             addImageToPerformanceTable("nothing", rowImage, cellNumber);
         } else {
             for (let j=0; j<players.length; j++) {
@@ -695,8 +698,10 @@ function addImagesToYourPerformance() {
                     if(lastDigit === 0 || lastDigit === 5) {
                         rowRound = table.insertRow(-1);
                         rowImage = table.insertRow(-1);
+                        rowName = table.insertRow(-1);
                     }
                     rowRound.insertCell(cellNumber).innerHTML = chosenPlayerList[i].round;
+                    rowName.insertCell(cellNumber).innerHTML = chosenPlayerList[i].chosenPlayer;
                     addImageToPerformanceTable(players[j], rowImage, cellNumber);
                 }
             }
