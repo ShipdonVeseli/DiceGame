@@ -541,6 +541,7 @@ function gameModeThree() {
 
 function createplayer() {
     for (let i = 1; i<=numberOfPlayers; i++) {
+        let randomNumber = Math.floor(Math.random() * 10) + 1;
         let player = {
             tokensize: 0,
             normalResources: 0,
@@ -554,7 +555,7 @@ function createplayer() {
             token_y: 0,
             width: 80,
             height: 80,
-            src: 'images/player' + i + '.png',
+            src: 'images/player' + randomNumber + '.png',
             img: new Image()
         };
 
