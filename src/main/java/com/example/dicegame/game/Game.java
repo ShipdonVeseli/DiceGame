@@ -249,6 +249,14 @@ public class Game extends StatisticSuspect {
         timer.schedule(timerTask(), Player.createDate(timeoutInSeconds));
     }
 
+    public Player getWeakestLink()throws IllegalStateException{
+        if(gameMode==4) {
+            return lobby.getWeakestPlayer();
+        }else {
+            throw new IllegalStateException("this Operation is not allowed in Game mode" + gameMode);
+        }
+    }
+
     private TimerTask timerTask() {
         return new TimerTask() {
             @Override

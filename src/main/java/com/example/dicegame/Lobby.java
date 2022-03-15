@@ -122,6 +122,19 @@ public class Lobby {
         throw new NoSuchElementException("No Player with Name= " + playerName);
     }
 
+    public Player getWeakestPlayer(){
+        final Player[] weakest = {players.get(0)};
+        players.forEach(e->{
+           Dice eDice=e.getDice(0);
+           Dice weakestDice= weakest[0].getDice(0);
+
+           if(eDice.getExpectedValue()<weakestDice.getExpectedValue()){
+               weakest[0] =e;
+           }
+        });
+        return weakest[0];
+    }
+
     public int playerCount() {
         return players.size();
     }
