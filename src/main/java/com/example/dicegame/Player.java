@@ -1,8 +1,6 @@
 package com.example.dicegame;
 
-import com.example.dicegame.game.Dice;
-import com.example.dicegame.game.Game;
-import com.example.dicegame.game.Resource;
+import com.example.dicegame.game.*;
 import com.example.dicegame.gameSatistic.StatisticSuspect;
 
 import java.time.Duration;
@@ -23,6 +21,7 @@ public class Player extends StatisticSuspect {
     private boolean hasRolledDices = false;
     private Timer timer = new Timer();
     private Game game;
+    private VotingHistory votingHistory=new VotingHistory();
 
     public Player(String username) {
         playerName = username;
@@ -187,6 +186,7 @@ public class Player extends StatisticSuspect {
     public void reset() {
         savedResources = 0;
         resources = new ArrayList<>();
+        resetVotingHistory();
     }
 
     public void setDiceRanges(int min, int max) {
@@ -270,7 +270,12 @@ public class Player extends StatisticSuspect {
     }
 
     public void vote(int round, int indexOfWeakestLink) {
+        Vote vote=new Vote(indexOfWeakestLink,round);
+        votingHistory.addVote(vote);
 
+    }
 
+    public void resetVotingHistory(){
+        votingHistory.setVotes(new ArrayList<>());
     }
 }
