@@ -48,6 +48,15 @@ public class Dice {
                 + "}";
     }
 
+    public double getExpectedValue(){
+        double probably=1/(Double.valueOf(max)-(Double.valueOf(min)-1));
+        double result=0;
+        for (int i = min; i <=max ; i++) {
+            result+=i*probably;
+        }
+        return result;
+    }
+
     @Override
     public String toString() {
         return "Dice{" +

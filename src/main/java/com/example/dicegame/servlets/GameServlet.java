@@ -45,6 +45,19 @@ public class GameServlet extends HttpServlet {
             Game game = lobbyOfTheGame.getGame();
 
             switch (mode) {
+                case "get-weakest-Link":
+
+                    break;
+                case "vote":
+
+
+
+                    break;
+
+                case "":
+
+                    break;
+
                 case "roll-me":
                     rollMe(username, game);
 
