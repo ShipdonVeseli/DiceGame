@@ -15,9 +15,9 @@ class DiceTest {
             double expectedResult = 3.5;
             dice.setRange(min, max);
 
-            double actuallResult = dice.getExpectedValue();
-            System.out.println("result = "+actuallResult);
-            assertEquals(expectedResult, actuallResult);
+            double actualResult = dice.getExpectedValue();
+            System.out.println("result = "+actualResult);
+            assertEquals(expectedResult, actualResult);
         } catch (Exception e) {
             e.printStackTrace();
             fail();
