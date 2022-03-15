@@ -19,6 +19,18 @@ function fix_dpi() {
     }
 }
 
+function setCanvasHeight(numberOfPlayers) {
+    let counter = 0;
+    for (let i=0; i<numberOfPlayers; i++) {
+        if(i%5 === 0 && numberOfPlayers !== 0) {
+            counter++;
+        }
+    }
+    if(counter !== 0) {
+        canvas.height = canvas.height * counter;
+    }
+}
+
 async function getStatus() {
     const response = await fetch("http://localhost:8079/Game-servlet?mode=status&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
     for (let [key, value] of response.headers) {
