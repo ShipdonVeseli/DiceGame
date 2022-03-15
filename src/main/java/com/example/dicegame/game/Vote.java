@@ -24,4 +24,9 @@ public class Vote {
         this.indexOfWeakestPlayer = indexOfWeakestPlayer;
         this.gameRound = gameRound;
     }
+
+    public String convertToJSON(){
+        return "{"+"\"indexOfWeakestPlayer\": "+indexOfWeakestPlayer+"," +
+                "\"gameRound\": "+gameRound+"}";
+    }
 }

@@ -192,4 +192,20 @@ public class Lobby {
                 ", hasGameStarted=" + hasGameStarted +
                 '}';
     }
+
+    public String getVotesInJson(){
+        String result = "[{";
+
+        result += "\"players\": [";
+
+        for (int i = 0; i < players.size(); i++) {
+            result += players.get(i).getVotesInJson();
+            if (i < players.size() - 1) {
+                result += ",";
+            }
+        }
+        result += "],";
+        result += "}]";
+        return result;
+    }
 }

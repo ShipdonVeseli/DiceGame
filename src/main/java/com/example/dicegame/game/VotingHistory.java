@@ -12,4 +12,21 @@ public class VotingHistory {
     public void addVote(Vote vote){
         votes.add(vote);
     }
+
+    public String convertToJSON() {
+        String result = "[{";
+
+        result += "\"votes\": [";
+
+        for (int i = 0; i < votes.size(); i++) {
+            result += votes.get(i).convertToJSON();
+            if (i < votes.size() - 1) {
+                result += ",";
+            }
+        }
+        result += "],";
+
+        result += "}]";
+        return result;
+    }
 }

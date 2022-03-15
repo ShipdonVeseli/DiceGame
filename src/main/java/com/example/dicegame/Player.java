@@ -272,10 +272,22 @@ public class Player extends StatisticSuspect {
     public void vote(int round, int indexOfWeakestLink) {
         Vote vote=new Vote(indexOfWeakestLink,round);
         votingHistory.addVote(vote);
-
     }
 
     public void resetVotingHistory(){
         votingHistory.setVotes(new ArrayList<>());
     }
+
+    public String getVotesInJson(){
+            String result = "[{";
+            result += "\"playerName\": " + "\"" + playerName + "\",";
+
+            result += "\"votingHistory\": ";
+            result +=votingHistory.convertToJSON();
+            result += "}]";
+            return result;
+    }
+
+
+
 }

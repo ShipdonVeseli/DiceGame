@@ -50,10 +50,11 @@ public class GameServlet extends HttpServlet {
                     break;
                 case "vote":
                     vote(response, map, username, game);
+                    GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 case "get-Voting-History":
-
+                    getVotingHistory(response, lobbyOfTheGame);
                     break;
 
                 case "roll-me":
@@ -141,6 +142,10 @@ public class GameServlet extends HttpServlet {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
+    }
+
+    private void getVotingHistory(HttpServletResponse response, Lobby lobbyOfTheGame) {
+        response.setHeader("getVotingHistory", lobbyOfTheGame.getVotesInJson());
     }
 
     private void getWeackestLink(HttpServletResponse response, Lobby lobbyOfTheGame, Game game) {
