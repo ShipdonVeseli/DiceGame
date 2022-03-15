@@ -257,6 +257,16 @@ public class Game extends StatisticSuspect {
         }
     }
 
+    public void voteForPlayer(String username, int indexOfWeakestLink)throws IllegalStateException{
+        if(gameMode==4) {
+            Player player=lobby.getPlayer(username);
+            player.vote(round,indexOfWeakestLink);
+
+        }else {
+            throw new IllegalStateException("this Operation is not allowed in Game mode" + gameMode);
+        }
+    }
+
     private TimerTask timerTask() {
         return new TimerTask() {
             @Override

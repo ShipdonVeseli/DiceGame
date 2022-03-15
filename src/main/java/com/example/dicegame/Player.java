@@ -268,4 +268,9 @@ public class Player extends StatisticSuspect {
     public int hashCode() {
         return Objects.hash(playerName, dices, resources);
     }
+
+    public void vote(int round, int indexOfWeakestLink) {
+
+
+    }
 }

@@ -32,7 +32,7 @@ public class Lobby {
     public void autoTerminate() {
         if (checkIfAllPlayerAreAI()) {
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n Terminate");
-         //   terminate();
+            //   terminate();
         }
     }
 
@@ -122,17 +122,26 @@ public class Lobby {
         throw new NoSuchElementException("No Player with Name= " + playerName);
     }
 
-    public Player getWeakestPlayer(){
+    public Player getWeakestPlayer() {
         final Player[] weakest = {players.get(0)};
-        players.forEach(e->{
-           Dice eDice=e.getDice(0);
-           Dice weakestDice= weakest[0].getDice(0);
+        players.forEach(e -> {
+            Dice eDice = e.getDice(0);
+            Dice weakestDice = weakest[0].getDice(0);
 
-           if(eDice.getExpectedValue()<weakestDice.getExpectedValue()){
-               weakest[0] =e;
-           }
+            if (eDice.getExpectedValue() < weakestDice.getExpectedValue()) {
+                weakest[0] = e;
+            }
         });
         return weakest[0];
+    }
+
+    public int getIndexFromPlayer(Player player)throws NoSuchElementException {
+        for (int i = 0; i <players.size() ; i++) {
+            if(players.equals(player)){
+                return i;
+            }
+        }
+        throw new NoSuchElementException();
     }
 
     public int playerCount() {

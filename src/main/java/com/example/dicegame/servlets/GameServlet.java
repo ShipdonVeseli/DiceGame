@@ -46,15 +46,13 @@ public class GameServlet extends HttpServlet {
 
             switch (mode) {
                 case "get-weakest-Link":
-
+                    getWeackestLink(response, lobbyOfTheGame, game);
                     break;
                 case "vote":
-
-
-
+                    vote(response, map, username, game);
                     break;
 
-                case "":
+                case "get-Voting-History":
 
                     break;
 
@@ -142,6 +140,28 @@ public class GameServlet extends HttpServlet {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    private void getWeackestLink(HttpServletResponse response, Lobby lobbyOfTheGame, Game game) {
+        try {
+            Player weakest= game.getWeakestLink();
+            int index= lobbyOfTheGame.getIndexFromPlayer(weakest);
+
+            response.setHeader("Index-of-weakest-Link", String.valueOf(index));
+        }catch (Exception e){
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    private void vote(HttpServletResponse response, Map<String, String[]> map, String username, Game game) {
+        try {
+            int indexOfWeakestLink = Integer.parseInt(ServletFunctions.getParameterValue(map, "indexOfWeackestLink"));
+            game.voteForPlayer(username, indexOfWeakestLink);
+        }catch (IllegalStateException illegalStateException){
+            illegalStateException.printStackTrace();
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
