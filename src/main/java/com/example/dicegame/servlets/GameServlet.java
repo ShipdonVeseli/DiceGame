@@ -58,7 +58,6 @@ public class GameServlet extends HttpServlet {
 
                 case "roll-me":
                     rollMe(username, game);
-
                     GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 

@@ -55,6 +55,10 @@ public class Lobby {
         hasGameStarted = true;
         players.forEach(Player::resetTimer);
         game.init();
+
+        if(game.getGameMode()==4){
+            game.initGameMode4();
+        }
     }
 
     private void fillLobby() {

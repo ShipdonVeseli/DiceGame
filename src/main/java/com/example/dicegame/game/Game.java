@@ -44,6 +44,8 @@ public class Game extends StatisticSuspect {
             e.addObserver(statistics);
         });
         addStartResources();
+
+
     }
 
     public int getNumberOfPlayers() {
@@ -252,6 +254,19 @@ public class Game extends StatisticSuspect {
     public Player getWeakestLink()throws IllegalStateException{
         if(gameMode==4) {
             return lobby.getWeakestPlayer();
+        }else {
+            throw new IllegalStateException("this Operation is not allowed in Game mode" + gameMode);
+        }
+    }
+
+    public void initGameMode4()throws IllegalStateException{
+        if(gameMode==4) {
+            lobby.getPlayers().forEach(e->{
+                int max=3+(int)(Math.random()*((12-3)+3));
+                int min=1+(int)(Math.random()*(((max-1)-1)+1));
+
+                e.setDiceRanges(min,max);
+            });
         }else {
             throw new IllegalStateException("this Operation is not allowed in Game mode" + gameMode);
         }
