@@ -690,35 +690,33 @@ function addImagesToYourPerformance() {
     let rowImage = null;
     let rowRound = null;
     let rowName = null;
+    let lastDigit;
 
     let cellNumber = 0;
     for(let i=0; i<chosenPlayerList.length; i++) {
-        let lastDigit = chosenPlayerList[i].round % 10;
+        lastDigit = chosenPlayerList[i].round % 10;
         if(chosenPlayerList[i].chosenPlayer === "nothing") {
-            if(lastDigit === 0 || lastDigit === 5) {
-                rowRound = table.insertRow(-1);
-                rowImage = table.insertRow(-1);
-                rowName = table.insertRow(-1);
-            }
-            rowRound.insertCell(cellNumber).innerHTML = chosenPlayerList[i].round;
-            rowName.insertCell(cellNumber).innerHTML = chosenPlayerList[i].chosenPlayer;
-            addImageToPerformanceTable("nothing", rowImage, cellNumber);
+            addAllInfoToPerformanceTable("nothing", chosenPlayerList[i]);
         } else {
             for (let j=0; j<players.length; j++) {
                 if(chosenPlayerList[i].chosenPlayer === players[j].name) {
-                    if(lastDigit === 0 || lastDigit === 5) {
-                        rowRound = table.insertRow(-1);
-                        rowImage = table.insertRow(-1);
-                        rowName = table.insertRow(-1);
-                    }
-                    rowRound.insertCell(cellNumber).innerHTML = chosenPlayerList[i].round;
-                    rowName.insertCell(cellNumber).innerHTML = chosenPlayerList[i].chosenPlayer;
-                    addImageToPerformanceTable(players[j], rowImage, cellNumber);
+                    addAllInfoToPerformanceTable(players[j], chosenPlayerList[i]);
                 }
             }
         }
         cellNumber++;
         if(cellNumber === 5) cellNumber = 0;
+    }
+
+    function addAllInfoToPerformanceTable(player, chosenplayer) {
+        if(lastDigit === 0 || lastDigit === 5) {
+            rowRound = table.insertRow(-1);
+            rowImage = table.insertRow(-1);
+            rowName = table.insertRow(-1);
+        }
+        rowRound.insertCell(cellNumber).innerHTML = chosenplayer.round;
+        rowName.insertCell(cellNumber).innerHTML = chosenplayer.chosenPlayer;
+        addImageToPerformanceTable(player, rowImage, cellNumber);
     }
 }
 
