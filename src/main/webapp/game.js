@@ -620,17 +620,15 @@ let chosenPlayer;
 let chosenPlayerList = [];
 let oldRound;
 
-function getMousePos(canvas, evt) {
-    let rect = canvas.getBoundingClientRect();
-    return {
-        x: evt.clientX - rect.left,
-        y: evt.clientY - rect.top
-    };
+function getMousePos(e) {
+    var mouseX = e.offsetX * canvas.width / canvas.clientWidth | 0;
+    var mouseY = e.offsetY * canvas.height / canvas.clientHeight | 0;
+    return {x: mouseX, y: mouseY};
 }
 
 function eventListenerForMouseMove(canvas) {
     canvas.addEventListener('mousemove', function (e) {
-        let mousePos = getMousePos(canvas, e);
+        let mousePos = getMousePos(e);
         for (let i=0; i<players.length; i++) {
             if (mousePos.x >= players[i].x && mousePos.x <= players[i].x + players[i].width) {
                 if (mousePos.y >= players[i].y && mousePos.y <= players[i].y + players[i].height) {
@@ -643,7 +641,7 @@ function eventListenerForMouseMove(canvas) {
 
 function eventListenerForChosenWeakestLink(canvas) {
     canvas.addEventListener('mousedown', function(e) {
-        let mousePos = getMousePos(canvas, e);
+        let mousePos = getMousePos(e);
         for (let i = 0; i < players.length; i++) {
             if (mousePos.x >= players[i].x && mousePos.x <= players[i].x + players[i].width) {
                 if (mousePos.y >= players[i].y && mousePos.y <= players[i].y + players[i].height) {
@@ -692,35 +690,33 @@ function addImagesToYourPerformance() {
     let rowImage = null;
     let rowRound = null;
     let rowName = null;
+    let lastDigit;
 
     let cellNumber = 0;
     for(let i=0; i<chosenPlayerList.length; i++) {
-        let lastDigit = chosenPlayerList[i].round % 10;
+        lastDigit = chosenPlayerList[i].round % 10;
         if(chosenPlayerList[i].chosenPlayer === "nothing") {
-            if(lastDigit === 0 || lastDigit === 5) {
-                rowRound = table.insertRow(-1);
-                rowImage = table.insertRow(-1);
-                rowName = table.insertRow(-1);
-            }
-            rowRound.insertCell(cellNumber).innerHTML = chosenPlayerList[i].round;
-            rowName.insertCell(cellNumber).innerHTML = chosenPlayerList[i].chosenPlayer;
-            addImageToPerformanceTable("nothing", rowImage, cellNumber);
+            addAllInfoToPerformanceTable("nothing", chosenPlayerList[i]);
         } else {
             for (let j=0; j<players.length; j++) {
                 if(chosenPlayerList[i].chosenPlayer === players[j].name) {
-                    if(lastDigit === 0 || lastDigit === 5) {
-                        rowRound = table.insertRow(-1);
-                        rowImage = table.insertRow(-1);
-                        rowName = table.insertRow(-1);
-                    }
-                    rowRound.insertCell(cellNumber).innerHTML = chosenPlayerList[i].round;
-                    rowName.insertCell(cellNumber).innerHTML = chosenPlayerList[i].chosenPlayer;
-                    addImageToPerformanceTable(players[j], rowImage, cellNumber);
+                    addAllInfoToPerformanceTable(players[j], chosenPlayerList[i]);
                 }
             }
         }
         cellNumber++;
         if(cellNumber === 5) cellNumber = 0;
+    }
+
+    function addAllInfoToPerformanceTable(player, chosenplayer) {
+        if(lastDigit === 0 || lastDigit === 5) {
+            rowRound = table.insertRow(-1);
+            rowImage = table.insertRow(-1);
+            rowName = table.insertRow(-1);
+        }
+        rowRound.insertCell(cellNumber).innerHTML = chosenplayer.round;
+        rowName.insertCell(cellNumber).innerHTML = chosenplayer.chosenPlayer;
+        addImageToPerformanceTable(player, rowImage, cellNumber);
     }
 }
 
