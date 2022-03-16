@@ -620,17 +620,15 @@ let chosenPlayer;
 let chosenPlayerList = [];
 let oldRound;
 
-function getMousePos(canvas, evt) {
-    let rect = canvas.getBoundingClientRect();
-    return {
-        x: evt.clientX - rect.left,
-        y: evt.clientY - rect.top
-    };
+function getMousePos(e) {
+    var mouseX = e.offsetX * canvas.width / canvas.clientWidth | 0;
+    var mouseY = e.offsetY * canvas.height / canvas.clientHeight | 0;
+    return {x: mouseX, y: mouseY};
 }
 
 function eventListenerForMouseMove(canvas) {
     canvas.addEventListener('mousemove', function (e) {
-        let mousePos = getMousePos(canvas, e);
+        let mousePos = getMousePos(e);
         for (let i=0; i<players.length; i++) {
             if (mousePos.x >= players[i].x && mousePos.x <= players[i].x + players[i].width) {
                 if (mousePos.y >= players[i].y && mousePos.y <= players[i].y + players[i].height) {
@@ -643,7 +641,7 @@ function eventListenerForMouseMove(canvas) {
 
 function eventListenerForChosenWeakestLink(canvas) {
     canvas.addEventListener('mousedown', function(e) {
-        let mousePos = getMousePos(canvas, e);
+        let mousePos = getMousePos(e);
         for (let i = 0; i < players.length; i++) {
             if (mousePos.x >= players[i].x && mousePos.x <= players[i].x + players[i].width) {
                 if (mousePos.y >= players[i].y && mousePos.y <= players[i].y + players[i].height) {
