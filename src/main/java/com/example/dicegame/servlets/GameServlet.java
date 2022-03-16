@@ -163,7 +163,8 @@ public class GameServlet extends HttpServlet {
     private void vote(HttpServletResponse response, Map<String, String[]> map, String username, Game game) {
         try {
             int indexOfWeakestLink = Integer.parseInt(ServletFunctions.getParameterValue(map, "indexOfWeackestLink"));
-            game.voteForPlayer(username, indexOfWeakestLink);
+            int round = Integer.parseInt(ServletFunctions.getParameterValue(map, "round"));
+            game.voteForPlayer(username, indexOfWeakestLink,round);
         }catch (IllegalStateException illegalStateException){
             illegalStateException.printStackTrace();
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
