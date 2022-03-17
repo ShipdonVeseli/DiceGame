@@ -151,9 +151,8 @@ public class GameServlet extends HttpServlet {
     private void getWeackestLink(HttpServletResponse response, Lobby lobbyOfTheGame, Game game) {
         try {
             Player weakest= game.getWeakestLink();
-            int index= lobbyOfTheGame.getIndexFromPlayer(weakest);
 
-            response.setHeader("Index-of-weakest-Link", String.valueOf(index));
+            response.setHeader("weakest-Link", weakest.getPlayerName());
         }catch (Exception e){
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -162,9 +161,9 @@ public class GameServlet extends HttpServlet {
 
     private void vote(HttpServletResponse response, Map<String, String[]> map, String username, Game game) {
         try {
-            int indexOfWeakestLink = Integer.parseInt(ServletFunctions.getParameterValue(map, "indexOfWeackestLink"));
+            String NameOfWeakestLink = ServletFunctions.getParameterValue(map, "PlayerNameWeakestLink");
             int round = Integer.parseInt(ServletFunctions.getParameterValue(map, "round"));
-            game.voteForPlayer(username, indexOfWeakestLink,round);
+            game.voteForPlayer(username, NameOfWeakestLink,round);
         }catch (IllegalStateException illegalStateException){
             illegalStateException.printStackTrace();
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

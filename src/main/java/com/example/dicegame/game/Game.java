@@ -272,8 +272,9 @@ public class Game extends StatisticSuspect {
         }
     }
 
-    public void voteForPlayer(String username, int indexOfWeakestLink, int round)throws IllegalStateException{
+    public void voteForPlayer(String username, String NameOfWeakestLink, int round)throws IllegalStateException{
         if(gameMode==4) {
+            int indexOfWeakestLink=lobby.getIndexFromPlayer(lobby.getPlayer(NameOfWeakestLink));
             Player player=lobby.getPlayer(username);
             player.vote(round,indexOfWeakestLink);
 
