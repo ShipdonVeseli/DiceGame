@@ -103,10 +103,11 @@ async function getTimeInSystem(){
 
 function rollDice() {
     let button = document.getElementById('roll');
-    if(button.value === 'Roll Dices') {
-        fetch("http://localhost:8079/Game-servlet?mode=roll-all&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+    fetch("http://localhost:8079/Game-servlet?mode=roll-me&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+
+    if(button.value === 'Roll Dices' && localStorage.getItem("username") === activePlayerName) {
         button.value = 'Move';
-    } else {
+    } else if(button.value === 'Move' && localStorage.getItem("username") === activePlayerName) {
         fetch("http://localhost:8079/Game-servlet?mode=make-move&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
         button.value = 'Roll Dices';
     }
@@ -126,21 +127,21 @@ function getActivePlayer(value, index, array) {
     let roll_button = document.getElementById("roll");
     let moveBtnGameFour = document.getElementById("movegamefour")
 
-    if(localStorage.getItem("username") === activePlayerName) {
-        roll_button.disabled = false;
-        roll_button.classList.remove("red");
-        roll_button.removeAttribute("title");
-        moveBtnGameFour.disabled = false;
-        moveBtnGameFour.classList.remove("red");
-        moveBtnGameFour.removeAttribute("title");
-    } else {
-        roll_button.disabled = true;
-        roll_button.classList.add("red");
-        roll_button.setAttribute("title", "It's not your turn now");
-        moveBtnGameFour.disabled = true;
-        moveBtnGameFour.classList.add("red")
-        moveBtnGameFour.setAttribute("title", "It's not your turn now");
-    }
+    // if(localStorage.getItem("username") === activePlayerName) {
+    //     roll_button.disabled = false;
+    //     roll_button.classList.remove("red");
+    //     roll_button.removeAttribute("title");
+    //     moveBtnGameFour.disabled = false;
+    //     moveBtnGameFour.classList.remove("red");
+    //     moveBtnGameFour.removeAttribute("title");
+    // } else {
+    //     roll_button.disabled = true;
+    //     roll_button.classList.add("red");
+    //     roll_button.setAttribute("title", "It's not your turn now");
+    //     moveBtnGameFour.disabled = true;
+    //     moveBtnGameFour.classList.add("red")
+    //     moveBtnGameFour.setAttribute("title", "It's not your turn now");
+    // }
 
     return activePlayerName;
 }
