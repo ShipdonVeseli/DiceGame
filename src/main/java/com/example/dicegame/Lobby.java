@@ -143,7 +143,7 @@ public class Lobby {
 
     public int getIndexFromPlayer(Player player)throws NoSuchElementException {
         for (int i = 0; i <players.size() ; i++) {
-            if(players.equals(player)){
+            if(players.get(i).equals(player)){
                 return i;
             }
         }
