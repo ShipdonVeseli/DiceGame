@@ -274,9 +274,12 @@ public class Game extends StatisticSuspect {
 
     public void voteForPlayer(String username, String NameOfWeakestLink, int round)throws IllegalStateException{
         if(gameMode==4) {
-            int indexOfWeakestLink=lobby.getIndexFromPlayer(lobby.getPlayer(NameOfWeakestLink));
-            Player player=lobby.getPlayer(username);
-            player.vote(round,indexOfWeakestLink);
+                Player player = lobby.getPlayer(NameOfWeakestLink);
+                int indexOfWeakestLink = lobby.getIndexFromPlayer(player);
+
+                Player player1 = lobby.getPlayer(username);
+                player1.vote(round, indexOfWeakestLink);
+
 
         }else {
             throw new IllegalStateException("this Operation is not allowed in Game mode" + gameMode);
