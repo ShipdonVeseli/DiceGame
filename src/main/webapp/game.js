@@ -60,23 +60,19 @@ async function getThroughput(){
 
 let gameMode;
 let numberOfPlayers;
-fetch("http://localhost:8079/Game-Config-servlet?mode=get-Game-mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
-    .then(response => {
-        // console.log("Game Mode: " + response.headers.get("gameMode"));
-        return Number(response.headers.get("gameMode"));
-    })
-    .then(data => getGameMode(data));
+async function gameModeRequest() {
+    await fetch("http://localhost:8079/Game-Config-servlet?mode=get-Game-mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+        .then(response => getGameMode(Number(response.headers.get("gameMode"))))
+}
 
 function getGameMode(data) {
     gameMode = data;
 }
 
-fetch("http://localhost:8079/Game-Config-servlet?mode=get_Number_of_Players&lobbyID=" + sessionStorage.getItem("lobbyid"))
-    .then(response => {
-        // console.log("Number of Players: " + response.headers.get("Number_of_Players"));
-        return Number(response.headers.get("Number_of_Players"));
-    })
-    .then(data => getNumberOfPlayers(data));
+async function numberOfPlayersRequest() {
+    await fetch("http://localhost:8079/Game-Config-servlet?mode=get_Number_of_Players&lobbyID=" + sessionStorage.getItem("lobbyid"))
+        .then(response => getNumberOfPlayers(response.headers.get("Number_of_Players")));
+}
 
 function getNumberOfPlayers(data) {
     numberOfPlayers = data;
@@ -333,22 +329,26 @@ function startGame() {
     canvas_statistic.height = canvas.width * heightRatio;
     canvas.height = canvas.width * heightRatio;
     fix_dpi();
-    createplayer();
-    switch (gameMode) {
-        case 2:
-            document.getElementById("gameModeTwo").style.display = "block";
-            break;
-        case 3:
-            document.getElementById("gameModeThree").style.display = "block";
-            break;
-        case 4:
-            document.getElementById("gameModeFour").style.display = "block";
-            document.getElementById("roll").style.display = "none";
-            eventListenerForChosenWeakestLink(canvas);
-            eventListenerForMouseMove(canvas);
-            yourPerformance();
-            break;
-    }
+    numberOfPlayersRequest().then(() => {
+        createplayer();
+    })
+    gameModeRequest().then(() => {
+        switch (gameMode) {
+            case 2:
+                document.getElementById("gameModeTwo").style.display = "block";
+                break;
+            case 3:
+                document.getElementById("gameModeThree").style.display = "block";
+                break;
+            case 4:
+                document.getElementById("gameModeFour").style.display = "block";
+                document.getElementById("roll").style.display = "none";
+                eventListenerForChosenWeakestLink(canvas);
+                eventListenerForMouseMove(canvas);
+                yourPerformance();
+                break;
+        }}
+    )
 }
 
 function setButtonsForStatistics(button_to_display, value, not_display_btn1, not_display_btn2, not_display_btn3) {
