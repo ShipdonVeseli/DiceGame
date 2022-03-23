@@ -693,19 +693,19 @@ function sendChosenPlayerRequest(round) {
 function getVotingHistory() {
     fetch("http://localhost:8079/Game-servlet?mode=get-Voting-History&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
         .then(response => {
-            example(JSON.parse(response.headers.get("getVotingHistory")));
+            readJSONChosenPlayer(JSON.parse(response.headers.get("getVotingHistory")));
         })
 }
 
-let variable;
-function example(json) {
-    variable = json;
-    for (let i=0; i<variable.players.length; i++) {
-        if(localStorage.getItem("username") === variable.players[i][0].playerName) {
-            let playerName = variable.players[i][0].playerName;
-            let indexOfChosenPlayer = variable.players[i][0].votingHistory[0].votes[0].indexOfWeakestPlayer;
-            let chosenGameRound = variable.players[i][0].votingHistory[0].votes[0].gameRound;
-            console.log(playerName + " has chosen: " + players[indexOfChosenPlayer].name + " in round: " + chosenGameRound);
+function readJSONChosenPlayer(json) {
+    for (let i=0; i<json.players.length; i++) {
+        if(localStorage.getItem("username") === json.players[i][0].playerName) {
+            let playerName = json.players[i][0].playerName;
+            for (let j = 0; j < json.players[i][0].votingHistory[0].votes.length; j++) {
+                let indexOfChosenPlayer = json.players[i][0].votingHistory[0].votes[j].indexOfWeakestPlayer;
+                let chosenGameRound = json.players[i][0].votingHistory[0].votes[j].gameRound;
+                console.log(playerName + " has chosen: " + players[indexOfChosenPlayer].name + " in round: " + chosenGameRound);
+            }
         }
     }
 }
