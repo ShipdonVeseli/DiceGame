@@ -24,7 +24,7 @@ public class VotingHistory {
                 result += ",";
             }
         }
-        result += "],";
+        result += "]";
 
         result += "}]";
         return result;
