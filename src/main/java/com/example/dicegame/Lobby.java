@@ -196,7 +196,7 @@ public class Lobby {
     }
 
     public String getVotesInJson(){
-        String result = "[{";
+        String result = "{";
 
         result += "\"players\": [";
 
@@ -206,8 +206,8 @@ public class Lobby {
                 result += ",";
             }
         }
-        result += "],";
-        result += "}]";
+        result += "]";
+        result += "}";
         return result;
     }
 }
