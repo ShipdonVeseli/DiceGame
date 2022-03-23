@@ -720,7 +720,21 @@ function insertPlayerToPerformanceList(json) {
                 let indexOfChosenPlayer = json.players[i][0].votingHistory[0].votes[j].indexOfWeakestPlayer;
                 let chosenGameRound = json.players[i][0].votingHistory[0].votes[j].gameRound;
                 console.log(playerName + " has chosen: " + players[indexOfChosenPlayer].name + " in round: " + chosenGameRound);
-                lastDigit = chosenGameRound % 10;
+
+                if(j === 0 && chosenGameRound !== 0) {
+                    for (let k=0; k<chosenGameRound; k++) {
+                        console.log("Player hat " + chosenGameRound + " mal nichts gewählt")
+                        lastDigit = k % 10;
+                        addAllInfoToYourPerformance("nothing", k);
+                        cellNumber++;
+                        if(cellNumber === 5) {
+                            cellNumber = 0;
+                        }
+                    }
+                } else {
+                    lastDigit = chosenGameRound % 10;
+                }
+
                 addAllInfoToYourPerformance(players[indexOfChosenPlayer].name, chosenGameRound);
                 cellNumber++;
                 if(cellNumber === 5) {
@@ -743,15 +757,19 @@ function insertPlayerToPerformanceList(json) {
 }
 
 function addImageToYourPerformance(playerName, row, cellNumber) {
-    for (let i=0; i<players.length; i++) {
-        if(players[i].name === playerName) {
-            let img = document.createElement('img');
-            img.src = players[i].img.src;
-            img.style.height = '4em';
-            img.style.width = '4em';
-            row.insertCell(cellNumber).appendChild(img);
+    let img = document.createElement('img');
+    if(playerName === "nothing") {
+        img.src = "images/no_choosed_player.png";
+    } else {
+        for (let i=0; i<players.length; i++) {
+            if(players[i].name === playerName) {
+                img.src = players[i].img.src;
+            }
         }
     }
+    img.style.height = '4em';
+    img.style.width = '4em';
+    row.insertCell(cellNumber).appendChild(img);
 }
 
 // function addImagesToYourPerformance() {
