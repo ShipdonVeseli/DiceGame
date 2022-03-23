@@ -722,32 +722,28 @@ function insertPlayerToPerformanceList(json) {
     let cellNumber = 0;
     for (let i = 0; i < json.players.length; i++) {
         if (localStorage.getItem("username") === json.players[i][0].playerName) {
-            let playerName = json.players[i][0].playerName;
-            for (let j = 0; j < json.players[i][0].votingHistory[0].votes.length; j++) {
-                let indexOfChosenPlayer = json.players[i][0].votingHistory[0].votes[j].indexOfWeakestPlayer;
-                let chosenGameRound = json.players[i][0].votingHistory[0].votes[j].gameRound;
-                console.log(playerName + " has chosen: " + players[indexOfChosenPlayer].name + " in round: " + chosenGameRound);
+            if(json.players[i][0].votingHistory[0].votes.length === 0) {
+                insertNothingToTable(round);
+            } else {
+                for (let j = 0; j < json.players[i][0].votingHistory[0].votes.length; j++) {
+                    let indexOfChosenPlayer = json.players[i][0].votingHistory[0].votes[j].indexOfWeakestPlayer;
+                    let chosenGameRound = json.players[i][0].votingHistory[0].votes[j].gameRound;
 
-                if(j === 0 && chosenGameRound !== 0) {
-                    for (let k=0; k<chosenGameRound; k++) {
-                        console.log("Player hat " + chosenGameRound + " mal nichts gewählt")
-                        lastDigit = k % 10;
-                        addAllInfoToYourPerformance("nothing", k);
-                        cellNumber++;
-                        if(cellNumber === 5) {
-                            cellNumber = 0;
-                        }
+                    if(j === 0 && chosenGameRound !== 0) {
+                        insertNothingToTable(chosenGameRound);
                     }
-                } else {
-                    lastDigit = chosenGameRound % 10;
-                }
 
-                addAllInfoToYourPerformance(players[indexOfChosenPlayer].name, chosenGameRound);
-                cellNumber++;
-                if(cellNumber === 5) {
-                    cellNumber = 0;
+                    lastDigit = chosenGameRound % 10;
+                    addAllInfoToYourPerformance(players[indexOfChosenPlayer].name, chosenGameRound);
                 }
             }
+        }
+    }
+
+    function insertNothingToTable(loopSize) {
+        for (let k=0; k<loopSize; k++) {
+            lastDigit = k%10;
+            addAllInfoToYourPerformance("nothing", k);
         }
     }
 
@@ -760,6 +756,10 @@ function insertPlayerToPerformanceList(json) {
         rowRound.insertCell(cellNumber).innerHTML = playerName;
         rowName.insertCell(cellNumber).innerHTML = chosenGameRound;
         addImageToYourPerformance(playerName, rowImage, cellNumber);
+        cellNumber++;
+        if (cellNumber === 5) {
+            cellNumber = 0;
+        }
     }
 }
 
