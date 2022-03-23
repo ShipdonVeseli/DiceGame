@@ -687,7 +687,7 @@ function rollAndMoveDice(){
 }
 
 function sendChosenPlayerRequest() {
-    fetch("http://localhost:8079/Game-servlet?mode=vote&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&PlayerNameWeakestLink=" + chosenPlayer + "&round=" + oldRound)
+    fetch("http://localhost:8079/Game-servlet?mode=vote&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&PlayerNameWeakestLink=" + chosenPlayer + "&round=" + Number(round-1))
 }
 
 function getVotingHistory() {
