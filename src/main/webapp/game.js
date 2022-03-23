@@ -123,7 +123,7 @@ function getActivePlayer(value, index, array) {
     let roll_button = document.getElementById("roll");
     let moveBtnGameFour = document.getElementById("movegamefour")
 
-    // if(localStorage.getItem("username") === activePlayerName) {
+    if(localStorage.getItem("username") === activePlayerName) {
     //     roll_button.disabled = false;
     //     roll_button.classList.remove("red");
     //     roll_button.removeAttribute("title");
@@ -137,7 +137,7 @@ function getActivePlayer(value, index, array) {
         moveBtnGameFour.disabled = true;
         moveBtnGameFour.classList.add("red")
         moveBtnGameFour.setAttribute("title", "It's not your turn now");
-    // }
+    }
 
     return activePlayerName;
 }
