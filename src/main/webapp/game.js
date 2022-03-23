@@ -699,14 +699,14 @@ function sendChosenPlayerRequest(round) {
     fetch("http://localhost:8079/Game-servlet?mode=vote&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&PlayerNameWeakestLink=" + chosenPlayer + "&round=" + round)
 }
 
-function getVotingHistory() {
-    fetch("http://localhost:8079/Game-servlet?mode=get-Voting-History&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+async function getVotingHistory() {
+    await fetch("http://localhost:8079/Game-servlet?mode=get-Voting-History&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
         .then(response => {
-            readJSONChosenPlayer(JSON.parse(response.headers.get("getVotingHistory")));
+            insertPlayerToPerformanceList(JSON.parse(response.headers.get("getVotingHistory")));
         })
 }
 
-function readJSONChosenPlayer(json) {
+function insertPlayerToPerformanceList(json) {
     let table = document.getElementById("seeYourPerformance");
     let rowImage = null;
     let rowRound = null;
