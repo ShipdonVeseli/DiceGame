@@ -153,13 +153,20 @@ for (let i = 1; i <= 6; i++) {
 }
 
 function loadDiceImage(dicevalue, playerindex) {
-    if(playerindex < 5) {
-        ctx.drawImage(dices[dicevalue - 1], players[playerindex].x + players[playerindex].width + 15, players[playerindex].y, 50, 50);
-    } else {
-        ctx.drawImage(dices[dicevalue - 1], players[playerindex].x + players[playerindex].width + 15, players[playerindex].y + players[playerindex].height - 50, 50, 50);
+    yupper = players[playerindex].y - 30;
+    ylower = players[playerindex].y + players[playerindex].height + 30;
+    for(indi = 0; indi < dicevalue.length; indi++){
+        if(playerindex < 5) {
+            yupper += 35;
+            ctx.drawImage(dices[dicevalue[indi] - 1], players[playerindex].x + players[playerindex].width + 15, yupper, 30, 30);
+        } else {
+            ylower -= 35;
+            ctx.drawImage(dices[dicevalue[indi] - 1], players[playerindex].x + players[playerindex].width + 15, ylower - 30, 30, 30);
+        }
     }
     // requestAnimationFrame(loadDiceImage);
 }
+
 let round;
 function drawCanvas(value, index, array) {
     if (index === 0) {

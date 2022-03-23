@@ -342,7 +342,7 @@ public class Game extends StatisticSuspect {
         result += "\"storage\": " + storage.size() + "},";
         for (int i = 0; i < lobby.playerCount(); i++) {
             result += "{\"playername\": \"" + lobby.getPlayer(i).getPlayerName() + "\",";
-            result += "\"dicevalue\": " + lobby.getPlayer(i).getSummOfDiceValues() + ",";
+            result += "\"dicevalue\": " + lobby.getPlayer(i).getDiceValues() + ",";
             if (i != lobby.playerCount() - 1) {
                 result += "\"blueresources\": " + lobby.getPlayer(i).getBlueResources() + ",";
                 result += "\"normalresources\": " + lobby.getPlayer(i).getNormalResources() + "}";

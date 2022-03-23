@@ -134,6 +134,16 @@ public class Player extends StatisticSuspect {
         return result;
     }
 
+    public String getDiceValues(){
+        String result = "[";
+        for (int i = 0; i < dices.size(); i++){
+            result += dices.get(i).getValue();
+            if(i != dices.size()-1) result+= ",";
+        }
+        result += "]";
+        return result;
+    }
+
     public void addedResources(int amount) {
         savedResources += amount;
     }
