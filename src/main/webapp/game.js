@@ -127,16 +127,16 @@ function getActivePlayer(value, index, array) {
     //     roll_button.disabled = false;
     //     roll_button.classList.remove("red");
     //     roll_button.removeAttribute("title");
-    //     moveBtnGameFour.disabled = false;
-    //     moveBtnGameFour.classList.remove("red");
-    //     moveBtnGameFour.removeAttribute("title");
+        moveBtnGameFour.disabled = false;
+        moveBtnGameFour.classList.remove("red");
+        moveBtnGameFour.removeAttribute("title");
     // } else {
     //     roll_button.disabled = true;
     //     roll_button.classList.add("red");
     //     roll_button.setAttribute("title", "It's not your turn now");
-    //     moveBtnGameFour.disabled = true;
-    //     moveBtnGameFour.classList.add("red")
-    //     moveBtnGameFour.setAttribute("title", "It's not your turn now");
+        moveBtnGameFour.disabled = true;
+        moveBtnGameFour.classList.add("red")
+        moveBtnGameFour.setAttribute("title", "It's not your turn now");
     // }
 
     return activePlayerName;
@@ -165,6 +165,9 @@ function drawCanvas(value, index, array) {
     if (index === 0) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         round = array[index].round;
+        if (round === 0) {
+            oldRound = round;
+        }
         document.getElementById("info").innerText = "Active Player: " + getActivePlayer(value, index, array) + " - Round: " + round;
     } else {
         if(localStorage.getItem("username") !== array[index].playername){
@@ -207,14 +210,20 @@ function drawCanvas(value, index, array) {
             }
         }
     }
+    
+    if (oldRound !== round && round > 0) {
+        sendChosenPlayerRequest(round - 1);
+        oldRound = round;
+    }
+    
     //fügt den letzt gewählten Spieler in die Runde davor als Weakest Link (chosenPlayerList) ein
-    if(oldRound+2 === round && !checkIfWeakestLinkIsAddedInRound(round-1)) {
-        addPlayerToWeakestLinkList(round-1, chosenPlayer);
-    }
+//     if(oldRound+2 === round && !checkIfWeakestLinkIsAddedInRound(round-1)) {
+//         addPlayerToWeakestLinkList(round-1, chosenPlayer);
+//     }
     //wenn bis dahin kein Spieler hinzugefügt wurde, dann wird in der vorigen Runde der chosenPlayer als "nothing" gespeichert
-    if(round > 0 && !checkIfWeakestLinkIsAddedInRound(round-1)) {
-        addPlayerToWeakestLinkList(round-1, "nothing");
-    }
+//     if(round > 0 && !checkIfWeakestLinkIsAddedInRound(round-1)) {
+//         addPlayerToWeakestLinkList(round-1, "nothing");
+//     }
 }
 
 function addPlayernameToDropDownList(array, index) {
@@ -618,7 +627,7 @@ function drawImageForPlayer(player) {
 }
 //Die Funktionen bis zum nächsten Kommentar sind für Game 4
 let chosenPlayer;
-let chosenPlayerList = [];
+// let chosenPlayerList = [];
 let oldRound;
 
 function getMousePos(e) {
@@ -648,17 +657,17 @@ function eventListenerForChosenWeakestLink(canvas) {
                 if (mousePos.y >= players[i].y && mousePos.y <= players[i].y + players[i].height) {
                     alert(players[i].name);
                     chosenPlayer = players[i].name;
-                    let obj = {
-                        round: round,
-                        chosenPlayer: chosenPlayer
-                    }
-                    if(oldRound !== round) {
-                        chosenPlayerList.push(obj);
-                    } else if(oldRound === round) {
-                        chosenPlayerList.pop();
-                        chosenPlayerList.push(obj);
-                    }
-                    oldRound = round;
+//                     let obj = {
+//                         round: round,
+//                         chosenPlayer: chosenPlayer
+//                     }
+//                     if(oldRound !== round) {
+//                         chosenPlayerList.push(obj);
+//                     } else if(oldRound === round) {
+//                         chosenPlayerList.pop();
+//                         chosenPlayerList.push(obj);
+//                     }
+//                     oldRound = round;
                 }
             }
         }
@@ -671,15 +680,15 @@ function drawRedRectangleForPlayer(player) {
     ctx.strokeStyle = "#000000";
 }
 
-function checkIfWeakestLinkIsAddedInRound(round) {
-    return chosenPlayerList.some(player => player.round === round);
-}
+// function checkIfWeakestLinkIsAddedInRound(round) {
+//     return chosenPlayerList.some(player => player.round === round);
+// }
 
-function addPlayerToWeakestLinkList(round, chosenPlayer) {
-    let obj = {round: round, chosenPlayer: chosenPlayer};
-    chosenPlayerList.push(obj);
-    oldRound++;
-}
+// function addPlayerToWeakestLinkList(round, chosenPlayer) {
+//     let obj = {round: round, chosenPlayer: chosenPlayer};
+//     chosenPlayerList.push(obj);
+//     oldRound++;
+// }
 
 function rollAndMoveDice(){
     fetch("http://localhost:8079/Game-servlet?mode=roll-all&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
@@ -698,64 +707,99 @@ function getVotingHistory() {
 }
 
 function readJSONChosenPlayer(json) {
-    for (let i=0; i<json.players.length; i++) {
-        if(localStorage.getItem("username") === json.players[i][0].playerName) {
-            let playerName = json.players[i][0].playerName;
-            for (let j = 0; j < json.players[i][0].votingHistory[0].votes.length; j++) {
-                let indexOfChosenPlayer = json.players[i][0].votingHistory[0].votes[j].indexOfWeakestPlayer;
-                let chosenGameRound = json.players[i][0].votingHistory[0].votes[j].gameRound;
-                console.log(playerName + " has chosen: " + players[indexOfChosenPlayer].name + " in round: " + chosenGameRound);
-            }
-        }
-    }
-}
-
-function addImagesToYourPerformance() {
     let table = document.getElementById("seeYourPerformance");
     let rowImage = null;
     let rowRound = null;
     let rowName = null;
     let lastDigit;
-
     let cellNumber = 0;
-    for(let i=0; i<chosenPlayerList.length; i++) {
-        lastDigit = chosenPlayerList[i].round % 10;
-        if(chosenPlayerList[i].chosenPlayer === "nothing") {
-            addAllInfoToPerformanceTable("nothing", chosenPlayerList[i]);
-        } else {
-            for (let j=0; j<players.length; j++) {
-                if(chosenPlayerList[i].chosenPlayer === players[j].name) {
-                    addAllInfoToPerformanceTable(players[j], chosenPlayerList[i]);
+    for (let i = 0; i < json.players.length; i++) {
+        if (localStorage.getItem("username") === json.players[i][0].playerName) {
+            let playerName = json.players[i][0].playerName;
+            for (let j = 0; j < json.players[i][0].votingHistory[0].votes.length; j++) {
+                let indexOfChosenPlayer = json.players[i][0].votingHistory[0].votes[j].indexOfWeakestPlayer;
+                let chosenGameRound = json.players[i][0].votingHistory[0].votes[j].gameRound;
+                console.log(playerName + " has chosen: " + players[indexOfChosenPlayer].name + " in round: " + chosenGameRound);
+                lastDigit = chosenGameRound % 10;
+                addAllInfoToYourPerformance(players[indexOfChosenPlayer].name, chosenGameRound);
+                cellNumber++;
+                if(cellNumber === 5) {
+                    cellNumber = 0;
                 }
             }
         }
-        cellNumber++;
-        if(cellNumber === 5) cellNumber = 0;
     }
 
-    function addAllInfoToPerformanceTable(player, chosenplayer) {
-        if(lastDigit === 0 || lastDigit === 5) {
+    function addAllInfoToYourPerformance(playerName, chosenGameRound) {
+        if (lastDigit === 0 || lastDigit === 5) {
             rowRound = table.insertRow(-1);
             rowImage = table.insertRow(-1);
             rowName = table.insertRow(-1);
         }
-        rowRound.insertCell(cellNumber).innerHTML = chosenplayer.round;
-        rowName.insertCell(cellNumber).innerHTML = chosenplayer.chosenPlayer;
-        addImageToPerformanceTable(player, rowImage, cellNumber);
+        rowRound.insertCell(cellNumber).innerHTML = playerName;
+        rowName.insertCell(cellNumber).innerHTML = chosenGameRound;
+        addImageToYourPerformance(playerName, rowImage, cellNumber);
     }
 }
 
-function addImageToPerformanceTable(player, row, cellNumber) {
-    let img = document.createElement('img');
-    if(player === "nothing") {
-        img.src = "images/no_choosed_player.png";
-    } else {
-        img.src = player.img.src;
+function addImageToYourPerformance(playerName, row, cellNumber) {
+    for (let i=0; i<players.length; i++) {
+        if(players[i].name === playerName) {
+            let img = document.createElement('img');
+            img.src = players[i].img.src;
+            img.style.height = '4em';
+            img.style.width = '4em';
+            row.insertCell(cellNumber).appendChild(img);
+        }
     }
-    img.style.height = '4em';
-    img.style.width = '4em';
-    row.insertCell(cellNumber).appendChild(img);
 }
+
+// function addImagesToYourPerformance() {
+//     let table = document.getElementById("seeYourPerformance");
+//     let rowImage = null;
+//     let rowRound = null;
+//     let rowName = null;
+//     let lastDigit;
+
+//     let cellNumber = 0;
+//     for(let i=0; i<chosenPlayerList.length; i++) {
+//         lastDigit = chosenPlayerList[i].round % 10;
+//         if(chosenPlayerList[i].chosenPlayer === "nothing") {
+//             addAllInfoToPerformanceTable("nothing", chosenPlayerList[i]);
+//         } else {
+//             for (let j=0; j<players.length; j++) {
+//                 if(chosenPlayerList[i].chosenPlayer === players[j].name) {
+//                     addAllInfoToPerformanceTable(players[j], chosenPlayerList[i]);
+//                 }
+//             }
+//         }
+//         cellNumber++;
+//         if(cellNumber === 5) cellNumber = 0;
+//     }
+
+//     function addAllInfoToPerformanceTable(player, chosenplayer) {
+//         if(lastDigit === 0 || lastDigit === 5) {
+//             rowRound = table.insertRow(-1);
+//             rowImage = table.insertRow(-1);
+//             rowName = table.insertRow(-1);
+//         }
+//         rowRound.insertCell(cellNumber).innerHTML = chosenplayer.round;
+//         rowName.insertCell(cellNumber).innerHTML = chosenplayer.chosenPlayer;
+//         addImageToPerformanceTable(player, rowImage, cellNumber);
+//     }
+// }
+
+// function addImageToPerformanceTable(player, row, cellNumber) {
+//     let img = document.createElement('img');
+//     if(player === "nothing") {
+//         img.src = "images/no_choosed_player.png";
+//     } else {
+//         img.src = player.img.src;
+//     }
+//     img.style.height = '4em';
+//     img.style.width = '4em';
+//     row.insertCell(cellNumber).appendChild(img);
+// }
 
 function yourPerformance() {
     const openModalButtons = document.querySelectorAll('[data-modal-target]')
@@ -764,9 +808,10 @@ function yourPerformance() {
 
     openModalButtons.forEach(button => {
         button.addEventListener('click', () => {
-            addImagesToYourPerformance();
-            const modal = document.querySelector(button.dataset.modalTarget)
-            openModal(modal)
+                getVotingHistory().then(() => {
+                const modal = document.querySelector(button.dataset.modalTarget)
+                openModal(modal)
+            });
         })
     })
 
