@@ -130,7 +130,7 @@ function getActivePlayer(value, index, array) {
         moveBtnGameFour.disabled = false;
         moveBtnGameFour.classList.remove("red");
         moveBtnGameFour.removeAttribute("title");
-    // } else {
+    } else {
     //     roll_button.disabled = true;
     //     roll_button.classList.add("red");
     //     roll_button.setAttribute("title", "It's not your turn now");
