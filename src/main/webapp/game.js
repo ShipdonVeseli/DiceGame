@@ -686,6 +686,30 @@ function rollAndMoveDice(){
     fetch("http://localhost:8079/Game-servlet?mode=make-move&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
 }
 
+function sendChosenPlayerRequest() {
+    fetch("http://localhost:8079/Game-servlet?mode=vote&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&PlayerNameWeakestLink=" + chosenPlayer + "&round=" + oldRound)
+}
+
+function getVotingHistory() {
+    fetch("http://localhost:8079/Game-servlet?mode=get-Voting-History&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+        .then(response => {
+            example(JSON.parse(response.headers.get("getVotingHistory")));
+        })
+}
+
+let variable;
+function example(json) {
+    variable = json;
+    for (let i=0; i<variable.players.length; i++) {
+        if(localStorage.getItem("username") === variable.players[i][0].playerName) {
+            let playerName = variable.players[i][0].playerName;
+            let indexOfChosenPlayer = variable.players[i][0].votingHistory[0].votes[0].indexOfWeakestPlayer;
+            let chosenGameRound = variable.players[i][0].votingHistory[0].votes[0].gameRound;
+            console.log(playerName + " has chosen: " + players[indexOfChosenPlayer].name + " in round: " + chosenGameRound);
+        }
+    }
+}
+
 function addImagesToYourPerformance() {
     let table = document.getElementById("seeYourPerformance");
     let rowImage = null;
