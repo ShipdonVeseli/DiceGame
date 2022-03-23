@@ -222,15 +222,6 @@ function drawCanvas(value, index, array) {
         sendChosenPlayerRequest(round - 1);
         oldRound = round;
     }
-    
-    //fügt den letzt gewählten Spieler in die Runde davor als Weakest Link (chosenPlayerList) ein
-//     if(oldRound+2 === round && !checkIfWeakestLinkIsAddedInRound(round-1)) {
-//         addPlayerToWeakestLinkList(round-1, chosenPlayer);
-//     }
-    //wenn bis dahin kein Spieler hinzugefügt wurde, dann wird in der vorigen Runde der chosenPlayer als "nothing" gespeichert
-//     if(round > 0 && !checkIfWeakestLinkIsAddedInRound(round-1)) {
-//         addPlayerToWeakestLinkList(round-1, "nothing");
-//     }
 }
 
 function addPlayernameToDropDownList(array, index) {
@@ -634,7 +625,6 @@ function drawImageForPlayer(player) {
 }
 //Die Funktionen bis zum nächsten Kommentar sind für Game 4
 let chosenPlayer;
-// let chosenPlayerList = [];
 let oldRound;
 
 function getMousePos(e) {
@@ -664,17 +654,6 @@ function eventListenerForChosenWeakestLink(canvas) {
                 if (mousePos.y >= players[i].y && mousePos.y <= players[i].y + players[i].height) {
                     alert(players[i].name);
                     chosenPlayer = players[i].name;
-//                     let obj = {
-//                         round: round,
-//                         chosenPlayer: chosenPlayer
-//                     }
-//                     if(oldRound !== round) {
-//                         chosenPlayerList.push(obj);
-//                     } else if(oldRound === round) {
-//                         chosenPlayerList.pop();
-//                         chosenPlayerList.push(obj);
-//                     }
-//                     oldRound = round;
                 }
             }
         }
@@ -686,16 +665,6 @@ function drawRedRectangleForPlayer(player) {
     ctx.strokeRect(player.x - 5, player.y - 5, player.width + 10, player.height + 10);
     ctx.strokeStyle = "#000000";
 }
-
-// function checkIfWeakestLinkIsAddedInRound(round) {
-//     return chosenPlayerList.some(player => player.round === round);
-// }
-
-// function addPlayerToWeakestLinkList(round, chosenPlayer) {
-//     let obj = {round: round, chosenPlayer: chosenPlayer};
-//     chosenPlayerList.push(obj);
-//     oldRound++;
-// }
 
 function rollAndMoveDice(){
     fetch("http://localhost:8079/Game-servlet?mode=roll-all&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
@@ -778,53 +747,6 @@ function addImageToYourPerformance(playerName, row, cellNumber) {
     img.style.width = '4em';
     row.insertCell(cellNumber).appendChild(img);
 }
-
-// function addImagesToYourPerformance() {
-//     let table = document.getElementById("seeYourPerformance");
-//     let rowImage = null;
-//     let rowRound = null;
-//     let rowName = null;
-//     let lastDigit;
-
-//     let cellNumber = 0;
-//     for(let i=0; i<chosenPlayerList.length; i++) {
-//         lastDigit = chosenPlayerList[i].round % 10;
-//         if(chosenPlayerList[i].chosenPlayer === "nothing") {
-//             addAllInfoToPerformanceTable("nothing", chosenPlayerList[i]);
-//         } else {
-//             for (let j=0; j<players.length; j++) {
-//                 if(chosenPlayerList[i].chosenPlayer === players[j].name) {
-//                     addAllInfoToPerformanceTable(players[j], chosenPlayerList[i]);
-//                 }
-//             }
-//         }
-//         cellNumber++;
-//         if(cellNumber === 5) cellNumber = 0;
-//     }
-
-//     function addAllInfoToPerformanceTable(player, chosenplayer) {
-//         if(lastDigit === 0 || lastDigit === 5) {
-//             rowRound = table.insertRow(-1);
-//             rowImage = table.insertRow(-1);
-//             rowName = table.insertRow(-1);
-//         }
-//         rowRound.insertCell(cellNumber).innerHTML = chosenplayer.round;
-//         rowName.insertCell(cellNumber).innerHTML = chosenplayer.chosenPlayer;
-//         addImageToPerformanceTable(player, rowImage, cellNumber);
-//     }
-// }
-
-// function addImageToPerformanceTable(player, row, cellNumber) {
-//     let img = document.createElement('img');
-//     if(player === "nothing") {
-//         img.src = "images/no_choosed_player.png";
-//     } else {
-//         img.src = player.img.src;
-//     }
-//     img.style.height = '4em';
-//     img.style.width = '4em';
-//     row.insertCell(cellNumber).appendChild(img);
-// }
 
 function yourPerformance() {
     const openModalButtons = document.querySelectorAll('[data-modal-target]')
