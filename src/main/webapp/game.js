@@ -20,15 +20,16 @@ function fix_dpi() {
 }
 
 function setCanvasHeight(numberOfPlayers) {
-    let counter = 0;
-    for (let i=0; i<numberOfPlayers; i++) {
-        if(i%5 === 0 && numberOfPlayers !== 0) {
-            counter++;
-        }
-    }
-    if(counter !== 0) {
-        canvas.height = canvas.height * counter;
-    }
+//     let counter = 0;
+//     for (let i=0; i<numberOfPlayers; i++) {
+//         if(i%5 === 0 && numberOfPlayers !== 0) {
+//             counter++;
+//         }
+//     }
+//     if(counter !== 0) {
+//         canvas.height = canvas.height * counter;
+//     }
+    canvas.height = players[numberOfPlayers-1].y + players[numberOfPlayers-1].height + 50;
 }
 
 async function getStatus() {
@@ -357,6 +358,7 @@ function startGame() {
     gameLengthRequest().then();
     numberOfPlayersRequest().then(() => {
         createplayer();
+        setCanvasHeight(numberOfPlayers);
     })
     gameModeRequest().then(() => {
         switch (gameMode) {
