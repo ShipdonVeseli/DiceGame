@@ -218,9 +218,11 @@ function drawCanvas(value, index, array) {
         }
     }
     
-    if (oldRound !== round && round > 0) {
-        sendChosenPlayerRequest(round - 1);
-        oldRound = round;
+    if(gameMode === 4) {
+        if (oldRound !== round && round > 0) {
+            sendChosenPlayerRequest(round - 1);
+            oldRound = round;
+        }
     }
 }
 
@@ -672,7 +674,9 @@ function rollAndMoveDice(){
 }
 
 function sendChosenPlayerRequest(round) {
-    fetch("http://localhost:8079/Game-servlet?mode=vote&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&PlayerNameWeakestLink=" + chosenPlayer + "&round=" + round)
+    if(chosenPlayer !== undefined) {
+        fetch("http://localhost:8079/Game-servlet?mode=vote&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&PlayerNameWeakestLink=" + chosenPlayer + "&round=" + round)
+    }
 }
 
 async function getVotingHistory() {
