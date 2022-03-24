@@ -18,18 +18,19 @@ function getNumberOfPlayers() {
     numberOfPlayers = document.getElementById("numberOfPlayers").value;
 }
 
-async function startLobby(){
+function startLobby(){
     let lobbyid = sessionStorage.getItem("lobbyid");
     if(numberOfPlayers !== undefined) {
-        await fetch("http://localhost:8079/Game-Config-servlet?mode=set_Number_of_Players&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&Number_of_Players="+numberOfPlayers);
+        fetch("http://localhost:8079/Game-Config-servlet?mode=set_Number_of_Players&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&Number_of_Players="+numberOfPlayers);
     }
     if(gameMode !== undefined) {
-        await fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&game-mode="+gameMode);
+        fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&game-mode="+gameMode);
     }
     if(gameRound !== undefined) {
-        await fetch("http://localhost:8079/Game-Config-servlet?mode=set-game-length&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&gameLength="+gameRound);
+        fetch("http://localhost:8079/Game-Config-servlet?mode=set-game-length&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&gameLength="+gameRound);
     }
-    await fetch("http://localhost:8079/Game-servlet?mode=start-game&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
+
+    fetch("http://localhost:8079/Game-servlet?mode=start-game&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
     window.location.href = "http://localhost:8079/game.html"
 }
 
