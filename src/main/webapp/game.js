@@ -60,6 +60,7 @@ async function getThroughput(){
 
 let gameMode;
 let numberOfPlayers;
+let gameLength;
 async function gameModeRequest() {
     await fetch("http://localhost:8079/Game-Config-servlet?mode=get-Game-mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
         .then(response => getGameMode(Number(response.headers.get("gameMode"))))
@@ -78,6 +79,14 @@ function getNumberOfPlayers(data) {
     numberOfPlayers = data;
 }
 
+async function gameLengthRequest() {
+    await fetch("http://localhost:8079/Game-Config-servlet?mode=get-game-length&lobbyID=" + sessionStorage.getItem("lobbyid"))
+        .then(response => getGameRound(response.headers.get("get-game-length")));
+}
+
+function getGameRound(data) {
+    gameLength = data;
+}
 
 async function getNumberInSystem(){
     const response = await fetch("http://localhost:8079/Game-servlet?mode=get-Number-in-System&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"));
@@ -345,6 +354,7 @@ function startGame() {
     canvas_statistic.height = canvas.width * heightRatio;
     canvas.height = canvas.width * heightRatio;
     fix_dpi();
+    gameLengthRequest().then();
     numberOfPlayersRequest().then(() => {
         createplayer();
     })
