@@ -27,7 +27,7 @@ async function startLobby(){
         await fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&game-mode="+gameMode);
     }
     if(gameRound !== undefined) {
-        await fetch("http://localhost:8079/Game-Config-servlet?mode=set-game-length&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&c="+gameRound);
+        await fetch("http://localhost:8079/Game-Config-servlet?mode=set-game-length&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&gameLength="+gameRound);
     }
     await fetch("http://localhost:8079/Game-servlet?mode=start-game&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
     window.location.href = "http://localhost:8079/game.html"
