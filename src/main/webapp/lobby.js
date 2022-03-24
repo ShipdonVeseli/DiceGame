@@ -1,7 +1,6 @@
 window.onload = function () {
     document.getElementById("gameConfig").style.display = "none";
     document.getElementById("gameModeSelection").addEventListener('change', getGameMode);
-    document.getElementById("roundDefinition").addEventListener('change', getRound);
 }
 
 let gameRound;
