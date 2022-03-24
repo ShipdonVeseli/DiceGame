@@ -15,8 +15,12 @@ function getNumberOfPlayers() {
 
 async function startLobby(){
     let lobbyid = sessionStorage.getItem("lobbyid");
-    await fetch("http://localhost:8079/Game-Config-servlet?mode=set_Number_of_Players&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&Number_of_Players="+numberOfPlayers);
-    await fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&game-mode="+gameMode);
+    if(numberOfPlayers !== undefined) {
+        await fetch("http://localhost:8079/Game-Config-servlet?mode=set_Number_of_Players&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&Number_of_Players="+numberOfPlayers);
+    }
+    if(gameMode !== undefined) {
+        await fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&game-mode="+gameMode);
+    }
     await fetch("http://localhost:8079/Game-servlet?mode=start-game&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
     window.location.href = "http://localhost:8079/game.html"
 }
