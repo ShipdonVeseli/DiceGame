@@ -1,6 +1,12 @@
 window.onload = function () {
     document.getElementById("gameConfig").style.display = "none";
     document.getElementById("gameModeSelection").addEventListener('change', getGameMode);
+    document.getElementById("roundDefinition").addEventListener('change', getRound);
+}
+
+let gameRound;
+function getRound() {
+    gameRound = document.getElementById("gameRound").value;
 }
 
 let gameMode;
@@ -20,6 +26,9 @@ async function startLobby(){
     }
     if(gameMode !== undefined) {
         await fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&game-mode="+gameMode);
+    }
+    if(gameRound !== undefined) {
+        await fetch("http://localhost:8079/Game-Config-servlet?mode=set-game-length&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&set-game-length="+gameRound);
     }
     await fetch("http://localhost:8079/Game-servlet?mode=start-game&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
     window.location.href = "http://localhost:8079/game.html"
