@@ -72,7 +72,7 @@ function getGameMode(data) {
 
 async function numberOfPlayersRequest() {
     await fetch("http://localhost:8079/Game-Config-servlet?mode=get_Number_of_Players&lobbyID=" + sessionStorage.getItem("lobbyid"))
-        .then(response => getNumberOfPlayers(response.headers.get("Number_of_Players")));
+        .then(response => getNumberOfPlayers(Number(response.headers.get("Number_of_Players"))));
 }
 
 function getNumberOfPlayers(data) {
@@ -81,7 +81,7 @@ function getNumberOfPlayers(data) {
 
 async function gameLengthRequest() {
     await fetch("http://localhost:8079/Game-Config-servlet?mode=get-game-length&lobbyID=" + sessionStorage.getItem("lobbyid"))
-        .then(response => getGameRound(response.headers.get("get-game-length")));
+        .then(response => getGameRound(Number(response.headers.get("get-game-length"))));
 }
 
 function getGameRound(data) {
