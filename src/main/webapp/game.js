@@ -361,6 +361,7 @@ function startGame() {
         setCanvasHeight(numberOfPlayers);
     })
     gameModeRequest().then(() => {
+        document.getElementById("title").innerHTML += " - Game Mode " + gameMode;
         switch (gameMode) {
             case 2:
                 document.getElementById("gameModeTwo").style.display = "block";
