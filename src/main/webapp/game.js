@@ -223,6 +223,13 @@ function drawCanvas(value, index, array) {
             sendChosenPlayerRequest(round - 1);
             oldRound = round;
         }
+        if(localStorage.getItem("username") === array[index].playername && chosenPlayer !== undefined) {
+            for (let i=0; i<players.length; i++) {
+                if (players[i].name === chosenPlayer) {
+                    drawFlagToChosenPlayer(players[i], i);
+                }
+            }
+        }
     }
 }
 
@@ -352,6 +359,7 @@ function startGame() {
             case 4:
                 document.getElementById("gameModeFour").style.display = "block";
                 document.getElementById("roll").style.display = "none";
+                loadFlagForChosenPlayer();
                 eventListenerForChosenWeakestLink(canvas);
                 eventListenerForMouseMove(canvas);
                 yourPerformance();
@@ -660,6 +668,21 @@ function eventListenerForChosenWeakestLink(canvas) {
             }
         }
     });
+}
+
+let flag;
+
+function loadFlagForChosenPlayer() {
+    flag = new Image();
+    flag.src = "/images/flag.png";
+}
+
+function drawFlagToChosenPlayer(player, index) {
+    if(index < 5) {
+        ctx.drawImage(flag, player.x + player.width/2.5, player.y + player.height + 15, 30, 30);
+    } else {
+        ctx.drawImage(flag, player.x + player.width/2.5, player.y - 50, 30, 30);
+    }
 }
 
 function drawRedRectangleForPlayer(player) {
