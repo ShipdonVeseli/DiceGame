@@ -179,6 +179,13 @@ input#back {
     pointer-events: all;
 }
 
+.buttons {
+    position: fixed;
+    left:0;
+    bottom:0;
+    width: 100%;
+    background-color: #6D7074;
+}
 @media screen and (max-width: 600px){
     #responsive-canvas {
         background-color: #919497;
