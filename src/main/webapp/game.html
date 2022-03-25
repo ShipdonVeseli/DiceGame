@@ -59,13 +59,13 @@
     <input type="submit" id="reset" class="allButtons" onclick="reset()" value="Reset"/>
 </div>
 
-<div class="gameModeTwo" id="gameModeTwo" style="display: none;">
+<div class="gameModeTwo" id="gameModeTwo" style="display: none; margin-bottom:4em">
     <label for="gameTwoSelection">Select Player to give Dice</label>
     <select name="gameTwoSelection" id="gameTwoSelection"></select>
     <button onclick="gameModeTwo()">Select</button>
 </div>
 
-<div class="gameModeThree" id="gameModeThree" style="display: none;">
+<div class="gameModeThree" id="gameModeThree" style="display: none; margin-bottom:4em">
     Select Range
     <input type="radio" id="diceOneToSix" name="diceValue" value="1-6" checked="checked">
     <label for="diceOneToSix">1-6</label>
@@ -73,7 +73,7 @@
     <label for="diceThreeToFour">3-4</label>
     <button onclick="gameModeThree()">Set Range</button>
 </div>
-<div class="gameModeFour" id="gameModeFour" style="display: none;">
+<div class="gameModeFour" id="gameModeFour" style="display: none; margin-bottom:4em">
     <input type="submit" id="movegamefour" onclick="rollAndMoveDice()" class="allButtons" value="MoveBeforeRoll"/>
     <button data-modal-target="#modal" class="allButtons">Your Performance</button>
     <div class="modal" id="modal">
