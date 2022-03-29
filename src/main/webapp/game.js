@@ -612,28 +612,22 @@ function createplayer() {
 }
 
 function updateLineToAddTokenForUpperRow(player) {
-    if (player.col < player.width) {
-        player.token_x = player.x + 5 + player.col + player.width;
-        player.token_y = player.y + player.height + 15 + player.row;
-    } else {
+    if (player.col >= player.width) {
         player.col = 0;
         player.row += 15;
-        player.token_x = player.x + 5 + player.col + player.width;
-        player.token_y = player.y + player.height + 15 + player.row;
     }
+    player.token_x = player.x + 5 + player.col + player.width;
+    player.token_y = player.y + player.height + 15 + player.row;
     player.col += 15;
 }
 
 function updateLineToAddTokenForBottomRow(player) {
-    if (player.col < player.width) {
-        player.token_x = player.x + 5 + player.col - player.width;
-        player.token_y = player.y - 15 + player.row;
-    } else {
+    if (player.col >= player.width) {
         player.col = 0;
         player.row -= 15;
-        player.token_x = player.x + 5 + player.col - player.width;
-        player.token_y = player.y - 15 + player.row;
     }
+    player.token_x = player.x + 5 + player.col - player.width;
+    player.token_y = player.y - 15 + player.row;
     player.col += 15;
 }
 
