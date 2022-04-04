@@ -2,6 +2,7 @@ package com.example.dicegame.servlets;
 
 import com.example.dicegame.GameServer;
 import com.example.dicegame.Lobby;
+import com.example.dicegame.Player;
 import com.example.dicegame.game.Game;
 
 import javax.servlet.annotation.WebServlet;
@@ -63,6 +64,10 @@ public class LobbyServlet extends HttpServlet {
                     getLobbyId(response, username);
                     break;
 
+                case "set_Token":
+                    setToken(response, map, username);
+                    break;
+
                 default:
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     break;
@@ -71,6 +76,19 @@ public class LobbyServlet extends HttpServlet {
         } catch (Exception e) {
 
             e.printStackTrace();
+        }
+    }
+
+    private void setToken(HttpServletResponse response, Map<String, String[]> map, String username) {
+        try {
+            String token=ServletFunctions.getParameterValue(map, "lobbyID");
+
+            Player player = gameServer.getLobbymanager().getLobbyByUsername(username).getPlayer(username);
+
+            player.setToken(token);
+
+        }catch (Exception e){
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 

@@ -22,10 +22,23 @@ public class Player extends StatisticSuspect {
     private Timer timer = new Timer();
     private Game game;
     private VotingHistory votingHistory=new VotingHistory();
+    private String token=null;
 
     public Player(String username) {
         playerName = username;
         addDice(new Dice());
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token)throws IllegalStateException {
+        if(this.token==null) {
+            this.token = token;
+        }else {
+            throw new IllegalStateException();
+        }
     }
 
     public void setGame(Game game) {

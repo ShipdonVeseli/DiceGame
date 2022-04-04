@@ -1,5 +1,8 @@
 package com.example.dicegame.servlets;
 
+import com.example.dicegame.Lobby;
+import com.example.dicegame.Player;
+
 import javax.servlet.http.HttpServlet;
 import java.util.Map;
 
@@ -24,5 +27,9 @@ public class ServletFunctions  {
             }
         });
         return result[0];
+    }
+    public static boolean verify(Player player,String token){
+        //Todo
+        return false;
     }
 }
