@@ -150,7 +150,7 @@ public class LobbyServlet extends HttpServlet {
             int maxPlayerSize=game.getNumberOfPlayers();
 
             if (!gameServer.getLobbymanager().isPlayerInLobby(username)) {
-                if (numberOfPlayers<maxPlayerSize) {
+                if (numberOfPlayers<maxPlayerSize && !lobby.isHasGameStarted()) {
                     gameServer.getLobbymanager().addUserToLobby(username, lobbyID);
                 }else {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
