@@ -1,35 +1,28 @@
 window.onload = function () {
     document.getElementById("gameConfig").style.display = "none";
-    document.getElementById("gameModeSelection").addEventListener('change', getGameMode);
 }
 
-let gameRound;
-function getRound() {
-    gameRound = document.getElementById("gameRound").value;
+function setGameMode() {
+    let lobbyid = sessionStorage.getItem("lobbyid");
+    let gameMode = document.getElementById("gameModeSelection").value;
+    fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&game-mode="+gameMode)
 }
 
-let gameMode;
-function getGameMode() {
-    gameMode = this.value;
+function setGameRound() {
+    let lobbyid = sessionStorage.getItem("lobbyid");
+    let gameRound = document.getElementById("gameRound").value;
+    fetch("http://localhost:8079/Game-Config-servlet?mode=set-game-length&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&gameLength="+gameRound)
 }
 
-let numberOfPlayers;
-function getNumberOfPlayers() {
-    numberOfPlayers = document.getElementById("numberOfPlayers").value;
+function setNumberOfPlayers() {
+    let lobbyid = sessionStorage.getItem("lobbyid");
+    let numberOfPlayers = document.getElementById("numberOfPlayers").value;
+    fetch("http://localhost:8079/Game-Config-servlet?mode=set_Number_of_Players&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&Number_of_Players="+numberOfPlayers)
+
 }
 
 function startLobby(){
     let lobbyid = sessionStorage.getItem("lobbyid");
-    if(numberOfPlayers !== undefined) {
-        fetch("http://localhost:8079/Game-Config-servlet?mode=set_Number_of_Players&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&Number_of_Players="+numberOfPlayers);
-    }
-    if(gameMode !== undefined) {
-        fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&game-mode="+gameMode);
-    }
-    if(gameRound !== undefined) {
-        fetch("http://localhost:8079/Game-Config-servlet?mode=set-game-length&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&gameLength="+gameRound);
-    }
-
     fetch("http://localhost:8079/Game-servlet?mode=start-game&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
     window.location.href = "http://localhost:8079/game.html"
 }

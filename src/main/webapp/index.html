@@ -38,7 +38,7 @@
             <table>
                 <tr><td>
                     <label for="gameModeSelection"></label>
-                    <select name="gameModeSelection" id="gameModeSelection">
+                    <select name="gameModeSelection" id="gameModeSelection" onchange="setGameMode()">
                         <option value="" disabled="disabled" selected="selected">Select Game Mode</option>
                         <option value="1">Game Mode 1</option>
                         <option value="2">Game Mode 2</option>
@@ -50,11 +50,11 @@
                 </td></tr>
                 <tr><td>
                     <label for="numberOfPlayers">Set Number of Players</label>
-                    <input type="number" id="numberOfPlayers" onchange="getNumberOfPlayers()">
+                    <input type="number" id="numberOfPlayers" onchange="setNumberOfPlayers()">
                 </td></tr>
                 <tr><td>
                     <label for="gameRound">Set Round</label>
-                    <input type="number" id="gameRound" onchange="getRound()">
+                    <input type="number" id="gameRound" onchange="setGameRound()">
                 </td></tr>
             </table>
         </div>
