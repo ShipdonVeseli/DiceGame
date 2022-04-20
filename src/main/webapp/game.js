@@ -120,8 +120,11 @@ function rollDice() {
 }
 
 function reset() {
-    fetch("http://localhost:8079/Game-servlet?mode=reset&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
-    alert('Das Spiel wird neu gestartet.');
+    let text = "Wollen Sie das Spiel wirklich restarten?"
+    if(confirm(text) === true) {
+        fetch("http://localhost:8079/Game-servlet?mode=reset&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+        alert("Das Spiel wird neu gestartet.")
+    }
 }
 
 let activePlayerName;
