@@ -4,9 +4,7 @@ import com.example.dicegame.game.Dice;
 import com.example.dicegame.game.Game;
 import com.example.dicegame.game.Resource;
 
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
-import java.util.UUID;
+import java.util.*;
 
 public class Lobby {
     private UUID id = UUID.randomUUID();
@@ -14,6 +12,8 @@ public class Lobby {
     private Player owner;
     private Game game;
     private boolean hasGameStarted = false;
+    private Timer terminationTimer;
+    private int timeoutInSeconds=1*60;//später auf 5min setzten (1min für Testzwecke)
 
     public Lobby(String username) {
         this.owner = new Player(username);
@@ -29,14 +29,45 @@ public class Lobby {
         owner.setGame(game);
     }
 
+    public Timer getTerminationTimer() {
+        return terminationTimer;
+    }
+
+    public void initTerminationTimer(){
+        if (checkIfAllPlayerAreAI()) {
+            terminationTimer = new Timer();
+            terminationTimer.schedule(terminationTimerTask(), Player.createDate(timeoutInSeconds));
+        }
+    }
+
+    public void resetTerminationTimer() {
+        try {
+            terminationTimer.cancel();
+            terminationTimer =null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private TimerTask terminationTimerTask() {
+        return new TimerTask() {
+            @Override
+            public void run() {
+              autoTerminate();
+              resetTerminationTimer();
+            }
+        };
+    }
+
     public void autoTerminate() {
         if (checkIfAllPlayerAreAI()) {
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n Terminate");
-            //   terminate();
+            terminate();
         }
     }
 
     public void terminate() {
+        players = null;
         GameServer.getInstance().getLobbymanager().removeLobby(this.getId());
     }
 
@@ -150,7 +181,11 @@ public class Lobby {
     }
 
     public int playerCount() {
-        return players.size();
+        try {
+            return players.size();
+        }catch (Exception e){
+            return 0;
+        }
     }
 
     public int getNumberOfAllResourcesFromAllPlayers() {

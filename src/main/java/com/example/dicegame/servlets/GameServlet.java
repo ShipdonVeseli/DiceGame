@@ -5,7 +5,6 @@ import com.example.dicegame.Lobby;
 import com.example.dicegame.Player;
 import com.example.dicegame.game.Game;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +29,10 @@ public class GameServlet extends HttpServlet {
         Player player = lobby.getPlayer(playerName);
         player.setAI(false);
         player.resetTimer();
+
+        if(lobby.getTerminationTimer()!=null){
+            lobby.resetTerminationTimer();
+        }
     }
 
     private void gameFunctions(HttpServletRequest request, HttpServletResponse response) {

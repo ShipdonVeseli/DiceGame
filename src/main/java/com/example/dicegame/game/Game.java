@@ -188,6 +188,7 @@ public class Game extends StatisticSuspect {
     }
 
     protected void moveResourcesToStorage() {
+
         Player lastPlayer = lobby.getPlayer(lobby.playerCount() - 1);
         int amount = lastPlayer.getResources().size();
         ArrayList<Resource> resourcesFromLastPlayer = lastPlayer.getResources(amount);
@@ -198,7 +199,11 @@ public class Game extends StatisticSuspect {
     }
 
     protected void moveResources() {
-        for (int i = lobby.playerCount() - 1; i >= 1; i--) {
+        int numberOfPlayers=lobby.playerCount();
+        if(numberOfPlayers==0){
+            return;
+        }
+        for (int i = numberOfPlayers- 1; i >= 1; i--) {
             Player playerReceiver = lobby.getPlayer(i);
             Player playerSend = lobby.getPlayer(i - 1);
 
@@ -214,6 +219,11 @@ public class Game extends StatisticSuspect {
     }
 
     public void move() {
+        int numberOfPlayers=lobby.playerCount();
+        if(numberOfPlayers==0){
+            return;
+        }
+
         if (round <= gameLength) {
             round++;
 
@@ -246,7 +256,7 @@ public class Game extends StatisticSuspect {
     }
 
     public void aiRound() {
-        lobby.autoTerminate();
+        lobby.initTerminationTimer();
         timer = new Timer();
         timer.schedule(timerTask(), Player.createDate(timeoutInSeconds));
     }
