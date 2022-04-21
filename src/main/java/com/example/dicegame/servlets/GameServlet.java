@@ -47,6 +47,7 @@ public class GameServlet extends HttpServlet {
             Lobby lobbyOfTheGame = gameServer.getLobbymanager().getLobby(lobbyIdOfTheGame);
             Game game = lobbyOfTheGame.getGame();
 
+
             switch (mode) {
                 case "get-weakest-Link":
                     getWeackestLink(response, lobbyOfTheGame, game);
