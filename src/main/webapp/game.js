@@ -127,6 +127,15 @@ function reset() {
     }
 }
 
+
+function leave() {
+    let text = "Wollen Sie das Spiel wirklich verlassen?"
+    if(confirm(text) === true) {
+        fetch("http://localhost:8079/Game-servlet?mode=leave-game&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+        alert("Das Spiel wird verlassen.")
+    }
+}
+
 let activePlayerName;
 function getActivePlayer(value, index, array) {
     fetch("http://localhost:8079/Game-servlet?mode=get-Active-Player&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
