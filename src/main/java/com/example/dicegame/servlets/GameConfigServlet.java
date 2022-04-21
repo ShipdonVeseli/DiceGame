@@ -41,7 +41,7 @@ public class GameConfigServlet extends HttpServlet {
             //GameServlet.resetPlayer(lobbyOfTheGame,username);
             switch (mode) {
                 case "set_Number_of_Players":
-                    setNumberOfPlayers(map, game,response);
+                    setNumberOfPlayers(map, game, response);
                     break;
 
                 case "get_Number_of_Players":
@@ -57,7 +57,7 @@ public class GameConfigServlet extends HttpServlet {
                     break;
 
                 case "setDice":
-                    setDice(map, username, response,game);
+                    setDice(map, username, response, game);
                     break;
 
                 case "set-game-length":
@@ -76,6 +76,7 @@ public class GameConfigServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+
     private void getGameLength(HttpServletResponse response, Game game) {
         response.setHeader("get-game-length", String.valueOf(game.getGameLength()));
     }
@@ -86,35 +87,36 @@ public class GameConfigServlet extends HttpServlet {
     }
 
     private void getNumberOfPlayers(HttpServletResponse response, Game game) {
-        int numberOfPlayers= game.getNumberOfPlayers();
+        int numberOfPlayers = game.getNumberOfPlayers();
         response.setHeader("Number_of_Players", String.valueOf(numberOfPlayers));
     }
 
-    private void setNumberOfPlayers(Map<String, String[]> map, Game game,HttpServletResponse response) {
-        if(!game.getLobby().isHasGameStarted()) {
+    private void setNumberOfPlayers(Map<String, String[]> map, Game game, HttpServletResponse response) {
+        if (!game.getLobby().isHasGameStarted()) {
             int numberOfPlayers = Integer.parseInt(ServletFunctions.getParameterValue(map, "Number_of_Players"));
             game.setNumberOfPlayers(numberOfPlayers);
-        }else {
+        } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
     private void getGameMode(HttpServletResponse response, Game game) {
-        int gameMode= game.getGameMode();
+        int gameMode = game.getGameMode();
         response.setHeader("gameMode", String.valueOf(gameMode));
     }
 
     private void setGameMode(Map<String, String[]> map, Game game) {
-        int gameMode= Integer.parseInt(ServletFunctions.getParameterValue(map, "game-mode"));
+        int gameMode = Integer.parseInt(ServletFunctions.getParameterValue(map, "game-mode"));
         game.setGameMode(gameMode);
     }
-    private void setDice(Map<String, String[]> map, String username,HttpServletResponse response,Game game) {
+
+    private void setDice(Map<String, String[]> map, String username, HttpServletResponse response, Game game) {
         try {
             int min = Integer.parseInt(ServletFunctions.getParameterValue(map, "min"));
             int max = Integer.parseInt(ServletFunctions.getParameterValue(map, "max"));
 
-            game.setDiceRangeFromPlayer(username,min,max);
-        }catch (Exception e){
+            game.setDiceRangeFromPlayer(username, min, max);
+        } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }

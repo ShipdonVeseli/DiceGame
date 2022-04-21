@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class Resource {
     private boolean blueResource;
-    private int timeInSystem=0;
-    private boolean alreadySaved=false;
+    private int timeInSystem = 0;
+    private boolean alreadySaved = false;
 
     public Resource() {
     }
@@ -14,10 +14,10 @@ public class Resource {
         this.blueResource = blueResource;
     }
 
-    public void increaseTimeInSystem(){
-        if(blueResource){
+    public void increaseTimeInSystem() {
+        if (blueResource) {
             timeInSystem++;
-            //
+
         }
     }
 
@@ -41,8 +41,8 @@ public class Resource {
         this.blueResource = blueResource;
     }
 
-    public String convertToJSON(){
-        return "{"+"\"blueResource\": "+blueResource+"}";
+    public String convertToJSON() {
+        return "{" + "\"blueResource\": " + blueResource + "}";
     }
 
     @Override

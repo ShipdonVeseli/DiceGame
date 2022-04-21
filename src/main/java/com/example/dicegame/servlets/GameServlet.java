@@ -26,8 +26,8 @@ public class GameServlet extends HttpServlet {
         gameFunctions(request, response);
     }
 
-    public static void resetPlayer(Lobby lobby,String playerName){
-        Player player=lobby.getPlayer(playerName);
+    public static void resetPlayer(Lobby lobby, String playerName) {
+        Player player = lobby.getPlayer(playerName);
         player.setAI(false);
         player.resetTimer();
     }
@@ -36,7 +36,7 @@ public class GameServlet extends HttpServlet {
         try {
             Map<String, String[]> map = request.getParameterMap();
 
-          //  ServletFunctions.printNames(map);
+            //  ServletFunctions.printNames(map);
 
             String mode = ServletFunctions.getParameterValue(map, "mode");
             String username = ServletFunctions.getParameterValue(map, "username");
@@ -50,7 +50,7 @@ public class GameServlet extends HttpServlet {
                     break;
                 case "vote":
                     vote(response, map, username, game);
-                    GameServlet.resetPlayer(lobbyOfTheGame,username);
+                    GameServlet.resetPlayer(lobbyOfTheGame, username);
                     break;
 
                 case "get-Voting-History":
@@ -59,13 +59,13 @@ public class GameServlet extends HttpServlet {
 
                 case "roll-me":
                     rollMe(username, game);
-                    GameServlet.resetPlayer(lobbyOfTheGame,username);
+                    GameServlet.resetPlayer(lobbyOfTheGame, username);
                     break;
 
                 case "roll-all": //rolls all dices from all Players
                     rollAll(response, username, game);
 
-                    GameServlet.resetPlayer(lobbyOfTheGame,username);
+                    GameServlet.resetPlayer(lobbyOfTheGame, username);
                     break;
 
                 case "status":
@@ -75,7 +75,7 @@ public class GameServlet extends HttpServlet {
                 case "make-move":
                     makeMove(response, username, game);
 
-                    GameServlet.resetPlayer(lobbyOfTheGame,username);
+                    GameServlet.resetPlayer(lobbyOfTheGame, username);
                     break;
 
                 case "get-Active-Player":
@@ -87,9 +87,9 @@ public class GameServlet extends HttpServlet {
                     break;
 
                 case "give-dice":
-                    giveDice(map, username, game,response);
+                    giveDice(map, username, game, response);
 
-                 //   GameServlet.resetPlayer(lobbyOfTheGame,username);
+                    //   GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 case "start-game":
@@ -107,31 +107,31 @@ public class GameServlet extends HttpServlet {
                 case "get-Activity":
                     getActivity(response, game);
 
-                   // GameServlet.resetPlayer(lobbyOfTheGame,username);
+                    // GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 case "get-Throughput":
                     getThroughput(response, game);
 
-                  //  GameServlet.resetPlayer(lobbyOfTheGame,username);
+                    //  GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 case "get-Number-in-System":
                     getNumberInSystem(response, game);
 
-                   // GameServlet.resetPlayer(lobbyOfTheGame,username);
+                    // GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 case "get-Time-in-System":
                     getTimeInSystem(response, game);
 
-                   // GameServlet.resetPlayer(lobbyOfTheGame,username);
+                    // GameServlet.resetPlayer(lobbyOfTheGame,username);
                     break;
 
                 case "reset":
                     reset(game);
 
-                    GameServlet.resetPlayer(lobbyOfTheGame,username);
+                    GameServlet.resetPlayer(lobbyOfTheGame, username);
                     break;
 
                 default:
@@ -150,10 +150,10 @@ public class GameServlet extends HttpServlet {
 
     private void getWeackestLink(HttpServletResponse response, Lobby lobbyOfTheGame, Game game) {
         try {
-            Player weakest= game.getWeakestLink();
+            Player weakest = game.getWeakestLink();
 
             response.setHeader("weakest-Link", weakest.getPlayerName());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
@@ -163,16 +163,16 @@ public class GameServlet extends HttpServlet {
         try {
             String NameOfWeakestLink = ServletFunctions.getParameterValue(map, "PlayerNameWeakestLink");
             int round = Integer.parseInt(ServletFunctions.getParameterValue(map, "round"));
-            game.voteForPlayer(username, NameOfWeakestLink,round);
-        }catch (IllegalStateException illegalStateException){
+            game.voteForPlayer(username, NameOfWeakestLink, round);
+        } catch (IllegalStateException illegalStateException) {
             illegalStateException.printStackTrace();
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
     private void leaveGame(String username, Lobby lobbyOfTheGame) {
-        Player player=lobbyOfTheGame.getPlayer(username);
-        player.setPlayerName(player.getPlayerName()+"_KI");
+        Player player = lobbyOfTheGame.getPlayer(username);
+        player.setPlayerName(player.getPlayerName() + "_KI");
         player.setAI(true);
     }
 
@@ -180,11 +180,11 @@ public class GameServlet extends HttpServlet {
         game.rollDicesFromOnePlayer(username);
     }
 
-    private void giveDice(Map<String, String[]> map, String username, Game game,HttpServletResponse response) {
+    private void giveDice(Map<String, String[]> map, String username, Game game, HttpServletResponse response) {
         String playerNameReceiver = ServletFunctions.getParameterValue(map, "playerNameReceiver");
         try {
             game.giveDiceToOtherPlayer(username, playerNameReceiver);
-        }catch (IllegalStateException e){
+        } catch (IllegalStateException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
@@ -206,7 +206,7 @@ public class GameServlet extends HttpServlet {
     }
 
     private void getActivity(HttpServletResponse response, Game game) {
-       // System.out.println(game.getStatistics().getActivity2());
+        // System.out.println(game.getStatistics().getActivity2());
         response.setHeader("Activity", game.getStatistics().getActivity2());
     }
 
@@ -238,7 +238,7 @@ public class GameServlet extends HttpServlet {
     private void status(HttpServletResponse response, Game game) {
         try {
             response.setHeader("gameStatus", game.convertToJSON2());
-        }catch (Exception e){
+        } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }

@@ -21,24 +21,12 @@ public class Player extends StatisticSuspect {
     private boolean hasRolledDices = false;
     private Timer timer = new Timer();
     private Game game;
-    private VotingHistory votingHistory=new VotingHistory();
-    private String token=null;
+    private VotingHistory votingHistory = new VotingHistory();
+
 
     public Player(String username) {
         playerName = username;
         addDice(new Dice());
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token)throws IllegalStateException {
-        if(this.token==null) {
-            this.token = token;
-        }else {
-            throw new IllegalStateException();
-        }
     }
 
     public void setGame(Game game) {
@@ -53,7 +41,7 @@ public class Player extends StatisticSuspect {
         isAI = AI;
         try {
             Player activePlayer = game.getActivePlayer();
-           // System.out.println("active" + activePlayer.toString() + "\n" + "this=" + this.toString());
+            // System.out.println("active" + activePlayer.toString() + "\n" + "this=" + this.toString());
             if (AI && activePlayer.equals(this)) {
                 game.aiRound();
             }
@@ -147,11 +135,11 @@ public class Player extends StatisticSuspect {
         return result;
     }
 
-    public String getDiceValues(){
+    public String getDiceValues() {
         String result = "[";
-        for (int i = 0; i < dices.size(); i++){
+        for (int i = 0; i < dices.size(); i++) {
             result += dices.get(i).getValue();
-            if(i != dices.size()-1) result+= ",";
+            if (i != dices.size() - 1) result += ",";
         }
         result += "]";
         return result;
@@ -293,24 +281,23 @@ public class Player extends StatisticSuspect {
     }
 
     public void vote(int round, int indexOfWeakestLink) {
-        Vote vote=new Vote(indexOfWeakestLink,round);
+        Vote vote = new Vote(indexOfWeakestLink, round);
         votingHistory.addVote(vote);
     }
 
-    public void resetVotingHistory(){
+    public void resetVotingHistory() {
         votingHistory.setVotes(new ArrayList<>());
     }
 
-    public String getVotesInJson(){
-            String result = "[{";
-            result += "\"playerName\": " + "\"" + playerName + "\",";
+    public String getVotesInJson() {
+        String result = "[{";
+        result += "\"playerName\": " + "\"" + playerName + "\",";
 
-            result += "\"votingHistory\": ";
-            result +=votingHistory.convertToJSON();
-            result += "}]";
-            return result;
+        result += "\"votingHistory\": ";
+        result += votingHistory.convertToJSON();
+        result += "}]";
+        return result;
     }
-
 
 
 }

@@ -19,8 +19,6 @@ public class LobbyServlet extends HttpServlet {
     private GameServer gameServer = GameServer.getInstance();
 
 
-
-
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         lobbyFunctions(request, response);
     }
@@ -34,14 +32,14 @@ public class LobbyServlet extends HttpServlet {
         try {
             Map<String, String[]> map = request.getParameterMap();
 
-           // ServletFunctions.printNames(map);
+            // ServletFunctions.printNames(map);
 
             String mode = ServletFunctions.getParameterValue(map, "mode");
             String username = ServletFunctions.getParameterValue(map, "username");
 
             switch (mode) {
                 case "login":
-                    login(response,username);
+                    login(response, username);
                     break;
 
                 case "join":
@@ -64,10 +62,6 @@ public class LobbyServlet extends HttpServlet {
                     getLobbyId(response, username);
                     break;
 
-                case "set_Token":
-                    setToken(response, map, username);
-                    break;
-
                 default:
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     break;
@@ -79,21 +73,9 @@ public class LobbyServlet extends HttpServlet {
         }
     }
 
-    private void setToken(HttpServletResponse response, Map<String, String[]> map, String username) {
-        try {
-            String token=ServletFunctions.getParameterValue(map, "lobbyID");
-
-            Player player = gameServer.getLobbymanager().getLobbyByUsername(username).getPlayer(username);
-
-            player.setToken(token);
-
-        }catch (Exception e){
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        }
-    }
 
     private void login(HttpServletResponse response, String username) {
-        boolean checkIfExist=gameServer.getLobbymanager().checkUsername(username);
+        boolean checkIfExist = gameServer.getLobbymanager().checkUsername(username);
         String isUsernameAlreadyTaken = "isUsernameAlreadyTaken";
         response.setHeader(isUsernameAlreadyTaken, String.valueOf(checkIfExist));
     }
@@ -106,9 +88,9 @@ public class LobbyServlet extends HttpServlet {
 
     private void getLobbies(HttpServletResponse response) {
         try {
-            String out=gameServer.getLobbymanager().toString();
+            String out = gameServer.getLobbymanager().toString();
             System.out.println(out);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         response.setHeader("lobbies", gameServer.getLobbymanager().convertToJSON());
@@ -129,11 +111,6 @@ public class LobbyServlet extends HttpServlet {
 
                 response.setHeader("lobbyID", id);
             } else {
-//                gameServer.getLobbymanager().removePlayerFromLobby2(username);
-//
-//                String id = gameServer.getLobbymanager().createLobby(username).toString();
-//                response.setHeader("lobbyID", id);
-
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
         } catch (Exception e) {
@@ -144,15 +121,15 @@ public class LobbyServlet extends HttpServlet {
     private void join(HttpServletResponse response, Map<String, String[]> map, String username) {
         UUID lobbyID = UUID.fromString(ServletFunctions.getParameterValue(map, "lobbyID"));
         try {
-            Lobby lobby=gameServer.getLobbymanager().getLobby(lobbyID);
-            Game game=lobby.getGame();
-            int numberOfPlayers=lobby.getPlayers().size();
-            int maxPlayerSize=game.getNumberOfPlayers();
+            Lobby lobby = gameServer.getLobbymanager().getLobby(lobbyID);
+            Game game = lobby.getGame();
+            int numberOfPlayers = lobby.getPlayers().size();
+            int maxPlayerSize = game.getNumberOfPlayers();
 
             if (!gameServer.getLobbymanager().isPlayerInLobby(username)) {
-                if (numberOfPlayers<maxPlayerSize && !lobby.isHasGameStarted()) {
+                if (numberOfPlayers < maxPlayerSize && !lobby.isHasGameStarted()) {
                     gameServer.getLobbymanager().addUserToLobby(username, lobbyID);
-                }else {
+                } else {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 }
             } else {

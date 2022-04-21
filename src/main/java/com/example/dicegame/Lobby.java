@@ -56,7 +56,7 @@ public class Lobby {
         players.forEach(Player::resetTimer);
         game.init();
 
-        if(game.getGameMode()==4){
+        if (game.getGameMode() == 4) {
             game.initGameMode4();
         }
     }
@@ -90,7 +90,6 @@ public class Lobby {
         players.add(player);
         player.setGame(game);
     }
-
 
 
     public void removePlayer(Player player) {
@@ -141,9 +140,9 @@ public class Lobby {
         return weakest[0];
     }
 
-    public int getIndexFromPlayer(Player player)throws NoSuchElementException {
-        for (int i = 0; i <players.size() ; i++) {
-            if(players.get(i).equals(player)){
+    public int getIndexFromPlayer(Player player) throws NoSuchElementException {
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).equals(player)) {
                 return i;
             }
         }
@@ -195,7 +194,7 @@ public class Lobby {
                 '}';
     }
 
-    public String getVotesInJson(){
+    public String getVotesInJson() {
         String result = "{";
 
         result += "\"players\": [";

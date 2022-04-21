@@ -28,8 +28,4 @@ public class ServletFunctions  {
         });
         return result[0];
     }
-    public static boolean verify(Player player,String token){
-        //Todo
-        return false;
-    }
 }

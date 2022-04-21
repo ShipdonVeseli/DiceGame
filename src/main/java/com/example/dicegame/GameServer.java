@@ -1,10 +1,9 @@
 package com.example.dicegame;
 
 
-
 public class GameServer {
     private static GameServer gameServer;
-    private Lobbymanager lobbymanager=new Lobbymanager();
+    private Lobbymanager lobbymanager = new Lobbymanager();
 
     private GameServer() {
         this.lobbymanager = new Lobbymanager();

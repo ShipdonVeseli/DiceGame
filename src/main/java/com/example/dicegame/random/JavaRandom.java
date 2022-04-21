@@ -9,7 +9,7 @@ public class JavaRandom implements RandomStrategy{
     @Override
     public Queue<Integer> fillQueue(Queue queue) throws Exception {
         for (int i=0;i<DiceManager.size;i++){
-            int randomDice= min+(int)(Math.random()*((max-min)+1)) ;
+            int randomDice= min + (int) (Math.random() * ((max - min) + 1)) ;
             queue.add(randomDice);
         }
         return queue;

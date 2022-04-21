@@ -6,14 +6,14 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class RandomSet {
 
 
-    public final static int size =1000;
+    public final static int size = 1000;
 
-    private RandomContext randomContext=new RandomContext();
-    private Queue<Integer> dices=new ConcurrentLinkedQueue<>();
-    private RandomOrgRandom randomOrgRandom=new RandomOrgRandom();
-    private JavaRandom javaRandom=new JavaRandom();
-    private int min=1;
-    private int max=6;
+    private RandomContext randomContext = new RandomContext();
+    private Queue<Integer> dices = new ConcurrentLinkedQueue<>();
+    private RandomOrgRandom randomOrgRandom = new RandomOrgRandom();
+    private JavaRandom javaRandom = new JavaRandom();
+    private int min = 1;
+    private int max = 6;
 
     public RandomSet() {
     }
@@ -31,26 +31,26 @@ public class RandomSet {
         return max;
     }
 
-    public int getDice(){
-        if(dices.size()==0){
+    public int getDice() {
+        if (dices.size() == 0) {
             fillQueue(0);
         }
         return dices.poll();
     }
 
-    private void fillQueue(int count){
+    private void fillQueue(int count) {
         try {
             randomContext.SetStrategy(randomOrgRandom);
-            randomContext.setRange(min,max);
+            randomContext.setRange(min, max);
             randomContext.fillQueue(dices);
-        }catch (Exception e){
+        } catch (Exception e) {
             //if Random.org can not be reached
             e.printStackTrace();
 
             //use java Random Instead
             try {
                 randomContext.SetStrategy(javaRandom);
-                randomContext.setRange(min,max);
+                randomContext.setRange(min, max);
                 randomContext.fillQueue(dices);
             } catch (Exception exception) {
                 exception.printStackTrace();

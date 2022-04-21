@@ -26,9 +26,9 @@ public class Lobbymanager {
         return false;
     }
 
-    public boolean checkIFLobbyIsFull(UUID lobbyId)throws NoSuchElementException{
-        Lobby lobby=getLobby(lobbyId);
-        return lobby.getPlayers().size()>=10;
+    public boolean checkIFLobbyIsFull(UUID lobbyId) throws NoSuchElementException {
+        Lobby lobby = getLobby(lobbyId);
+        return lobby.getPlayers().size() >= 10;
     }
 
     public boolean hasPlayerCreatedLobby(String username) {
@@ -109,7 +109,7 @@ public class Lobbymanager {
                     return lobby;
             }
         }
-        System.out.println("\n\n*******************\nError player not found\n"+"search="+username+"\n"+output+"\n*****************\n\n");
+        System.out.println("\n\n*******************\nError player not found\n" + "search=" + username + "\n" + output + "\n*****************\n\n");
         throw new NoSuchElementException("No Player with = " + username);
     }
 
@@ -121,7 +121,7 @@ public class Lobbymanager {
                 return lobby;
             }
         }
-        System.out.println("\n\n*******************\nError id not found\n"+"search="+id+"\n"+output+"\n*****************\n\n");
+        System.out.println("\n\n*******************\nError id not found\n" + "search=" + id + "\n" + output + "\n*****************\n\n");
         throw new NoSuchElementException("No lobby with id = " + id);
     }
 

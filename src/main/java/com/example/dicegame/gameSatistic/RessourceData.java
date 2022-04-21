@@ -1,6 +1,6 @@
 package com.example.dicegame.gameSatistic;
 
-public class RessourceData implements StatisticData{
+public class RessourceData implements StatisticData {
     private int OrderOfArrival;
     private int timeInSystem;
 
@@ -22,9 +22,9 @@ public class RessourceData implements StatisticData{
 
     @Override
     public String convertToJSON() {
-        String result="{";
-        result+="\"OrderOfArrival\": "+OrderOfArrival+",";
-        result+="\"timeInSystem\": "+timeInSystem;
+        String result = "{";
+        result += "\"OrderOfArrival\": " + OrderOfArrival + ",";
+        result += "\"timeInSystem\": " + timeInSystem;
         result += "}";
         return result;
     }

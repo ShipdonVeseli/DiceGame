@@ -12,37 +12,40 @@ public class Statistics implements StatisticObserver {
     public String getActivity() {
         String result = "[{";
         result += "\"playerDataArrayList\": [";
-        result+=printDataToJson(playerDataArrayList.toArray(new StatisticData[playerDataArrayList.size()]));
+        result += printDataToJson(playerDataArrayList.toArray(new StatisticData[playerDataArrayList.size()]));
         result += "]}]";
         return result;
     }
 
     public String getActivity2() {
         String result = "[";
-        for(int i=0; i < playerDataArrayList.size(); i++){
-            result += "{\"playername\": \""+playerDataArrayList.get(i).getPlayerName()+"\",";
-            result += "\"dicevalues\": " + playerDataArrayList.get(i).getDiceValues() +"}";
+        for (int i = 0; i < playerDataArrayList.size(); i++) {
+            result += "{\"playername\": \"" + playerDataArrayList.get(i).getPlayerName() + "\",";
+            result += "\"dicevalues\": " + playerDataArrayList.get(i).getDiceValues() + "}";
             result += ",";
         }
         result += "{\"playername\": \"averageplayer\",";
-        result += "\"dicevalues\": " + getSumDiceValues() +"}";
+        result += "\"dicevalues\": " + getSumDiceValues() + "}";
         result += "]";
         return result;
     }
 
-    public ArrayList<Double> getSumDiceValues(){
+    public ArrayList<Double> getSumDiceValues() {
         ArrayList<Double> sumDiceValues = new ArrayList<>();
-        for(int p=0; p < 10; p++){sumDiceValues.add(0.00);}
-        for(int i=0; i < playerDataArrayList.size(); i++){
-            for(int j = 0; j < playerDataArrayList.get(i).getDiceValues().size(); j++) {
+        for (int p = 0; p < 10; p++) {
+            sumDiceValues.add(0.00);
+        }
+        for (int i = 0; i < playerDataArrayList.size(); i++) {
+            for (int j = 0; j < playerDataArrayList.get(i).getDiceValues().size(); j++) {
                 sumDiceValues.set(j, sumDiceValues.get(j) + playerDataArrayList.get(i).getDiceValues().get(j).doubleValue());
             }
         }
-        for(int k=0; k < sumDiceValues.size(); k++){
+        for (int k = 0; k < sumDiceValues.size(); k++) {
             sumDiceValues.set(k, sumDiceValues.get(k) / playerDataArrayList.size());
         }
         return sumDiceValues;
     }
+
     public String getThroughput() {
 
         String result = "[{";
@@ -50,9 +53,9 @@ public class Statistics implements StatisticObserver {
 
         for (int i = 0; i < gameData.getNumberOFResourcesInStorage().size(); i++) {
             result += "{";
-            result += "\"round\": "+i;
+            result += "\"round\": " + i;
             result += ",";
-            result += "\"Number of Resources In Storage\": "+gameData.getNumberOFResourcesInStorage().get(i);
+            result += "\"Number of Resources In Storage\": " + gameData.getNumberOFResourcesInStorage().get(i);
             result += "}";
 
             if (i < gameData.getNumberOFResourcesInStorage().size() - 1) {
@@ -85,9 +88,9 @@ public class Statistics implements StatisticObserver {
 
         for (int i = 0; i < gameData.getNumberOFResourcesInGame().size(); i++) {
             result += "{";
-            result += "\"round\": "+i;
+            result += "\"round\": " + i;
             result += ",";
-            result += "\"Number of Resources In Game\": "+gameData.getNumberOFResourcesInGame().get(i);
+            result += "\"Number of Resources In Game\": " + gameData.getNumberOFResourcesInGame().get(i);
             result += "}";
 
             if (i < gameData.getNumberOFResourcesInGame().size() - 1) {
@@ -99,13 +102,13 @@ public class Statistics implements StatisticObserver {
         return result;
     }
 
-    public String getNumberInSystem2(){
+    public String getNumberInSystem2() {
         String result = "[{";
         result += "\"NumberInSystem\": [";
 
-        for(int i=0; i < gameData.getNumberOFResourcesInGame().size(); i++){
+        for (int i = 0; i < gameData.getNumberOFResourcesInGame().size(); i++) {
             result += gameData.getNumberOFResourcesInGame().get(i);
-            if (i < gameData.getNumberOFResourcesInGame().size() - 1){
+            if (i < gameData.getNumberOFResourcesInGame().size() - 1) {
                 result += ",";
             }
         }
@@ -117,10 +120,10 @@ public class Statistics implements StatisticObserver {
         String result = "[{";
         result += "\"resourceDataArrayList\": [";
 
-        for(int i=0; i < resourceDataArrayList.size(); i++){
-            if(resourceDataArrayList.get(i).getTimeInSystem() != 0){
+        for (int i = 0; i < resourceDataArrayList.size(); i++) {
+            if (resourceDataArrayList.get(i).getTimeInSystem() != 0) {
                 result += resourceDataArrayList.get(i).getTimeInSystem();
-                if(i != resourceDataArrayList.size()-1) result += ",";
+                if (i != resourceDataArrayList.size() - 1) result += ",";
             }
 
         }
@@ -132,28 +135,28 @@ public class Statistics implements StatisticObserver {
         String result = "[{";
         result += "\"resourceDataArrayList\": [";
 
-        result+=printDataToJson( resourceDataArrayList.toArray(new StatisticData[resourceDataArrayList.size()]));
+        result += printDataToJson(resourceDataArrayList.toArray(new StatisticData[resourceDataArrayList.size()]));
 
         result += "]}]";
         return result;
     }
 
-    private String printDataToJson(StatisticData[] data){
-      String result="";
+    private String printDataToJson(StatisticData[] data) {
+        String result = "";
 
-            for (int i = 0; i < data.length; i++) {
-                result += data[i].convertToJSON();
-                if (i < data.length - 1) {
-                    result += ",";
-                }
+        for (int i = 0; i < data.length; i++) {
+            result += data[i].convertToJSON();
+            if (i < data.length - 1) {
+                result += ",";
             }
+        }
         return result;
     }
 
-    public void reset(){
-        gameData=new GameData();
-        playerDataArrayList=new ArrayList<>();
-        resourceDataArrayList=new ArrayList<>();
+    public void reset() {
+        gameData = new GameData();
+        playerDataArrayList = new ArrayList<>();
+        resourceDataArrayList = new ArrayList<>();
     }
 
     @Override
@@ -184,8 +187,8 @@ public class Statistics implements StatisticObserver {
     }
 
     @Override
-    public void saveRessourceAddedToStorage( int timeInSystem) {
-        int orderOfArrival =resourceDataArrayList.size();
+    public void saveRessourceAddedToStorage(int timeInSystem) {
+        int orderOfArrival = resourceDataArrayList.size();
         RessourceData ressourceData = new RessourceData();
         ressourceData.setOrderOfArrival(orderOfArrival);
         ressourceData.setTimeInSystem(timeInSystem);
