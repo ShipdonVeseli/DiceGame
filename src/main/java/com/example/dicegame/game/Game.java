@@ -37,6 +37,13 @@ public class Game extends StatisticSuspect {
         //init();
     }
 
+    public void delete(){
+        timer.cancel();
+        timer=null;
+        lobby=null;
+        statistics=null;
+    }
+
 
     public void init() {
         addObserver(statistics);
