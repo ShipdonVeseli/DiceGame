@@ -1,15 +1,6 @@
-let dpi = window.devicePixelRatio;
 let x1 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
 let x2 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34"]
 function fix_dpi() {
-//get CSS height
-//the + prefix casts it to an integer
-//the slice method gets rid of "px"
-    let style_height = +getComputedStyle(canvas).getPropertyValue("height").slice(0, -2);
-//get CSS width
-    let style_width = +getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
-//scale the canvas
-
     if (window.screen.availWidth > 1900) {
         canvas.setAttribute('width', window.screen.availWidth/1.8);
         canvas.setAttribute('height', window.screen.availHeight/2.3);
@@ -20,15 +11,6 @@ function fix_dpi() {
 }
 
 function setCanvasHeight(numberOfPlayers) {
-//     let counter = 0;
-//     for (let i=0; i<numberOfPlayers; i++) {
-//         if(i%5 === 0 && numberOfPlayers !== 0) {
-//             counter++;
-//         }
-//     }
-//     if(counter !== 0) {
-//         canvas.height = canvas.height * counter;
-//     }
     canvas.height = players[numberOfPlayers-1].y + players[numberOfPlayers-1].height + 50;
 }
 
@@ -43,24 +25,6 @@ async function getStatus() {
             if (`${key}` === "gamestatus") {
                 return JSON.parse(`${value}`);
             }
-        }
-    }
-}
-
-async function getActivity(){
-    const response = await fetch("http://localhost:8079/Game-servlet?mode=get-Activity&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"));
-    for (let [key, value] of response.headers) {
-        if (`${key}` === "activity") {
-            return JSON.parse(`${value}`);
-        }
-    }
-}
-
-async function getThroughput(){
-    const response = await fetch("http://localhost:8079/Game-servlet?mode=get-Throughput&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"));
-    for (let [key, value] of response.headers) {
-        if (`${key}` === "throughput") {
-            return JSON.parse(`${value}`);
         }
     }
 }
@@ -95,24 +59,6 @@ function getGameRound(data) {
     gameLength = data;
 }
 
-async function getNumberInSystem(){
-    const response = await fetch("http://localhost:8079/Game-servlet?mode=get-Number-in-System&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"));
-    for(let [key, value] of response.headers) {
-        if (`${key}` === "number-in-system") {
-            return JSON.parse(`${value}`);
-        }
-    }
-}
-
-async function getTimeInSystem(){
-    const response = await fetch("http://localhost:8079/Game-servlet?mode=get-Time-in-System&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"));
-    for (let [key, value] of response.headers) {
-        if (`${key}` === "time-in-system") {
-            return JSON.parse(`${value}`);
-        }
-    }
-}
-
 function rollDice() {
     let button = document.getElementById('roll');
     fetch("http://localhost:8079/Game-servlet?mode=roll-me&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
@@ -133,14 +79,13 @@ function reset() {
     }
 }
 
-
 function leave() {
     let text = "Wollen Sie das Spiel wirklich verlassen?"
     if(confirm(text) === true) {
         fetch("http://localhost:8079/Game-servlet?mode=leave-game&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
         alert("Das Spiel wird verlassen.")
-        window.location.href = 'index.html';
         sessionStorage.removeItem("lobbyid");
+        window.location.href = 'index.html';
     }
 }
 
@@ -173,9 +118,6 @@ function getActivePlayer(value, index, array) {
 }
 
 let dices = [];
-let throughput = [];
-let numberinsystem = [];
-let timeinsystem = [];
 for (let i = 1; i <= 6; i++) {
     let dice = new Image();
     dice.src = "/images/Dice" + i + ".png";
@@ -281,61 +223,9 @@ function drawPlayerNames(value, index, array) {
     }
 }
 
-function drawThroughput(value,index, array){
-    if(index === 0) throughput = [];
-    throughput.push(array[index].Throughput)
-}
-function drawNumberInSystem(value,index, array){
-    if(index === 0) numberinsystem = [];
-    numberinsystem.push(array[index].NumberInSystem)
-}
-
-function drawTimeInSystem(value,index, array){
-    if(index === 0) timeinsystem = [];
-    timeinsystem.push(array[index].resourceDataArrayList)
-}
-
-let dicevalues = []
-function drawActivity(value, index, array){
-    if(index === 0) dicevalues = [];
-    if(array[index].playername === "averageplayer"){
-        dicevalues[10] = array[index].dicevalues
-    }else{
-        dicevalues.push(array[index].dicevalues)
-    }
-}
-
 function convert(obj) {
     obj.then((result) => {
         result.forEach(drawCanvas)
-        return result;
-    }).catch(err => console.log(err))
-}
-
-function convertActivity(obj) {
-    obj.then((result) => {
-        result.forEach(drawActivity)
-        return result;
-    }).catch(err => console.log(err))
-}
-
-function convertThroughput(obj) {
-    obj.then((result) => {
-        result.forEach(drawThroughput)
-        return result;
-    }).catch(err => console.log(err))
-}
-
-function convertNumberInSystem(obj) {
-    obj.then((result) => {
-        result.forEach(drawNumberInSystem);
-        return result;
-    }).catch(err => console.log(err))
-}
-
-function convertTimeInSystem(obj) {
-    obj.then((result) => {
-        result.forEach(drawTimeInSystem)
         return result;
     }).catch(err => console.log(err))
 }
@@ -352,10 +242,6 @@ setInterval(() => {
         players[i].col = 0;
     }
     if(!isGameTerminated) {
-        convertNumberInSystem(getNumberInSystem());
-        convertThroughput(getThroughput())
-        convertActivity(getActivity());
-        convertTimeInSystem(getTimeInSystem());
         reloadField();
     }
 }, 600);
@@ -401,149 +287,6 @@ function startGame() {
                 break;
         }}
     )
-}
-
-function setButtonsForStatistics(button_to_display, value, not_display_btn1, not_display_btn2, not_display_btn3) {
-    document.getElementById('buttons').classList.remove('statisticButtons');
-    var game_id = document.getElementById("game");
-    var statistic = document.getElementById("statistic");
-    var activePlayer = document.getElementById("info");
-    var roll_btn = document.getElementById("roll");
-    var reset_btn = document.getElementById("reset");
-
-    if (game_id.style.display === "none") {
-        button_to_display.value = value;
-        roll_btn.style.display = "inline";
-        activePlayer.style.display = "block";
-        game_id.style.display = "block";
-        reset_btn.style.display = "inline";
-        statistic.style.display = "none";
-        not_display_btn1.style.display = "inline";
-        not_display_btn2.style.display = "inline";
-        not_display_btn3.style.display = "inline";
-    } else {
-        button_to_display.value = "Back";
-        roll_btn.style.display = "none";
-        activePlayer.style.display = "none";
-        game_id.style.display = "none";
-        reset_btn.style.display = "none";
-        statistic.style.display = "block";
-        not_display_btn1.style.display = "none";
-        not_display_btn2.style.display = "none";
-        not_display_btn3.style.display = "none";
-        document.getElementById('buttons').classList.add('statisticButtons');
-    }
-}
-
-function showNumberInSystem() {
-    let showActivity_btn = document.getElementById('showActivity');
-    let showThroughput_btn = document.getElementById('showThroughput');
-    let showNumberInSystem_btn = document.getElementById('showNumberInSystem');
-    let showTimeInSystem_btn = document.getElementById('showTimeInSystem');
-    setButtonsForStatistics(showNumberInSystem_btn, "Show Number in System", showActivity_btn, showThroughput_btn, showTimeInSystem_btn);
-    let x_Axis = 'Turn';
-    let y_Axis = 'Number in System';
-    drawBarChart(numberinsystem[0], x_Axis, y_Axis, 1, x1, "Tokens in System");
-}
-
-function showTimeInSystem(){
-    let showActivity_btn = document.getElementById('showActivity');
-    let showThroughput_btn = document.getElementById('showThroughput');
-    let showNumberInSystem_btn = document.getElementById('showNumberInSystem');
-    let showTimeInSystem_btn = document.getElementById('showTimeInSystem');
-    setButtonsForStatistics(showNumberInSystem_btn, "Show Number in System", showActivity_btn, showThroughput_btn, showTimeInSystem_btn);
-    let x_Axis = 'Order of Arrival';
-    let y_Axis = 'Time in System';
-    drawBarChart(timeinsystem[0], x_Axis, y_Axis, 1, x2, "Time in System of Token");
-}
-
-
-function showThroughput() {
-    let showActivity_btn = document.getElementById('showActivity');
-    let showThroughput_btn = document.getElementById('showThroughput');
-    let showNumberInSystem_btn = document.getElementById('showNumberInSystem');
-    let showTimeInSystem_btn = document.getElementById('showTimeInSystem');
-    setButtonsForStatistics(showThroughput_btn, "Show Throughput", showActivity_btn, showNumberInSystem_btn, showTimeInSystem_btn);
-    let x_Axis = 'Turn';
-    let y_Axis = 'Throughput';
-    drawBarChart(throughput[0], x_Axis, y_Axis, 4, x1, "Throughput of Tokens");
-}
-
-function backToGame() {
-    document.getElementById('buttons').classList.remove('statisticButtons');
-    document.getElementById('game').style.display = "block";
-    document.getElementById('statistic').style.display = "none";
-    document.getElementById('roll').style.display = "inline";
-    document.getElementById('showActivity').style.display = "inline";
-    document.getElementById('showNumberInSystem').style.display = "inline";
-    document.getElementById('showThroughput').style.display = "inline";
-    document.getElementById('showTimeInSystem').style.display = "inline";
-    document.getElementById('activity_buttons').style.display = "none";
-    document.getElementById('back').style.display = "none";
-    document.getElementById('reset').style.display = "inline";
-}
-
-function drawBarChart(data, x_Axis, y_Axis, stepSize, x_Size, title) {
-    new Chart(document.getElementById("statistic_canvas"), {
-        type: 'bar',
-        data: {
-            labels: x_Size,
-            datasets: [
-                {
-                    backgroundColor: "#3e95cd",
-                    data: data
-                }
-            ]
-        },
-        options: {
-            legend: {display: false},
-            responsive: true,
-            maintainAspectRatio: false,
-            title: {
-                display: true,
-                text: title
-            },
-            scales: {
-                yAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        labelString: y_Axis
-                    },
-                    ticks: {
-                        beginAtZero: true,
-                        stepSize: stepSize
-                    }
-                }],
-                xAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        labelString: x_Axis
-                    }
-                }]
-            }
-        }
-    });
-}
-
-function showActivity() {
-    ctx_statistic.clearRect(0,0,ctx_statistic.width, ctx_statistic.height);
-    var getSelectedValue = document.querySelector( 'input[name="activity"]:checked').value;
-
-    document.getElementById('buttons').classList.add('statisticButtons');
-    document.getElementById('game').style.display = "none";
-    document.getElementById('statistic').style.display = "block";
-    document.getElementById('roll').style.display = "none";
-    document.getElementById('showActivity').style.display = "none";
-    document.getElementById('showNumberInSystem').style.display = "none";
-    document.getElementById('showThroughput').style.display = "none";
-    document.getElementById('showTimeInSystem').style.display = "none";
-    document.getElementById('activity_buttons').style.display = "block";
-    document.getElementById('back').style.display = "inline-block";
-    document.getElementById('reset').style.display = "none";
-
-    let x_Axis = 'Turn';
-    let y_Axis = 'Number';
-    drawBarChart(dicevalues[getSelectedValue-1], x_Axis, y_Axis, "", x1, "History of Rolls");
 }
 
 function drawNormalResources(player) {
