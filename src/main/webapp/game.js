@@ -34,9 +34,15 @@ function setCanvasHeight(numberOfPlayers) {
 
 async function getStatus() {
     const response = await fetch("http://localhost:8079/Game-servlet?mode=status&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
-    for (let [key, value] of response.headers) {
-        if (`${key}` === "gamestatus") {
-            return JSON.parse(`${value}`);
+    if(response.status === 400) {
+        isGameTerminated = true;
+        sessionStorage.removeItem("lobbyid");
+        window.location.href = 'index.html';
+    } else if(response.status === 200) {
+        for (let [key, value] of response.headers) {
+            if (`${key}` === "gamestatus") {
+                return JSON.parse(`${value}`);
+            }
         }
     }
 }
@@ -338,18 +344,20 @@ function reloadField() {
     convert(getStatus());
 }
 
-
+let isGameTerminated = false;
 setInterval(() => {
     for (let i = 0; i < players.length; i++) {
         players[i].tokensize = 0;
         players[i].row = 0;
         players[i].col = 0;
     }
-    convertNumberInSystem(getNumberInSystem());
-    convertThroughput(getThroughput())
-    convertActivity(getActivity());
-    convertTimeInSystem(getTimeInSystem());
-    reloadField();
+    if(!isGameTerminated) {
+        convertNumberInSystem(getNumberInSystem());
+        convertThroughput(getThroughput())
+        convertActivity(getActivity());
+        convertTimeInSystem(getTimeInSystem());
+        reloadField();
+    }
 }, 600);
 
 let canvas;
