@@ -29,9 +29,9 @@ function startLobby(){
 
 async function createLobby(){
     await fetch("http://localhost:8079/Lobby-servlet?mode=create&username="+localStorage.getItem("username"))
-        .then(response => {
-            sessionStorage.setItem("lobbyid", response.headers.get("lobbyid"));
-        })
+        // .then(response => {
+        //     sessionStorage.setItem("lobbyid", response.headers.get("lobbyid"));
+        // })
 }
 
 function leaveLobby(){
@@ -110,7 +110,7 @@ setInterval(() => {
     if(sessionStorage.getItem("lobbyid") != null) {
         isGameStarted(sessionStorage.getItem("lobbyid"))
     }else{
-        // isJoinedLobby();
+        isJoinedLobby();
     }
     convert(getLobbies());
 }, 600);
