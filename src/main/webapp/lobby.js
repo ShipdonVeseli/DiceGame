@@ -28,7 +28,7 @@ function startLobby(){
 }
 
 async function createLobby(){
-    const createresponse = await fetch("http://localhost:8079/Lobby-servlet?mode=create&username="+localStorage.getItem("username"))
+    await fetch("http://localhost:8079/Lobby-servlet?mode=create&username="+localStorage.getItem("username"))
         .then(response => {
             sessionStorage.setItem("lobbyid", response.headers.get("lobbyid"));
         })
