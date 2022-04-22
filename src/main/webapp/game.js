@@ -133,6 +133,8 @@ function leave() {
     if(confirm(text) === true) {
         fetch("http://localhost:8079/Game-servlet?mode=leave-game&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
         alert("Das Spiel wird verlassen.")
+        window.location.href = 'index.html';
+        sessionStorage.removeItem("lobbyid");
     }
 }
 
