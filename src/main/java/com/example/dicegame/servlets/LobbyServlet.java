@@ -109,7 +109,7 @@ public class LobbyServlet extends HttpServlet {
             if (!gameServer.getLobbymanager().isPlayerInLobby(username)) {
                 String id = gameServer.getLobbymanager().createLobby(username).toString();
 
-                response.setHeader("lobbyID", id);
+                response.setHeader("lobbyid", id);
             } else {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
