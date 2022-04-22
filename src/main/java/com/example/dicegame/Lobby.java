@@ -67,6 +67,8 @@ public class Lobby {
     }
 
     public void terminate() {
+        game.delete();
+        game=null;
         players = null;
         GameServer.getInstance().getLobbymanager().removeLobby(this.getId());
     }

@@ -40,10 +40,12 @@ public class Player extends StatisticSuspect {
     public void setAI(boolean AI) {
         isAI = AI;
         try {
-            Player activePlayer = game.getActivePlayer();
-            // System.out.println("active" + activePlayer.toString() + "\n" + "this=" + this.toString());
-            if (AI && activePlayer.equals(this)) {
-                game.aiRound();
+            if(game!=null) {
+                Player activePlayer = game.getActivePlayer();
+                // System.out.println("active" + activePlayer.toString() + "\n" + "this=" + this.toString());
+                if (AI && activePlayer.equals(this)) {
+                    game.aiRound();
+                }
             }
 
         } catch (Exception e) {
