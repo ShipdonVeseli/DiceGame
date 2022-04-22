@@ -243,7 +243,7 @@ public class GameServlet extends HttpServlet {
         try {
             response.setHeader("gameStatus", game.convertToJSON2());
         } catch (Exception e) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.setStatus(HttpServletResponse.SC_GONE);
         }
     }
 
