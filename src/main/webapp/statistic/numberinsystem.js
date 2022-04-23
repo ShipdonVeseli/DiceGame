@@ -14,7 +14,7 @@ function loadNumberInSystem() {
 function showNumberInSystem() {
     let x_Axis = 'Turn';
     let y_Axis = 'Number in System';
-    drawBarChart(numberinsystem, x_Axis, y_Axis, 1, x1, "Tokens in System");
+    drawBarChart(numberinsystem, x_Axis, y_Axis, 5, x1, "Tokens in System");
 }
 
 function drawBarChart(data, x_Axis, y_Axis, stepSize, x_Size, title) {
