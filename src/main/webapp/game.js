@@ -529,8 +529,7 @@ function insertWeakestLinkToPerformance(weakestLinkName) {
     let img = document.getElementById("weakest-link-image");
     let name = document.getElementById("weakest-link-name");
     name.innerHTML = weakestLinkName;
-    img.style.height = '4em';
-    img.style.width = '4em';
+    img.style.width = '3rem';
     for (let i=0; i<players.length; i++) {
         if(players[i].name === weakestLinkName) {
             img.src = players[i].img.src;
@@ -591,16 +590,20 @@ function insertPlayerToPerformanceList(json) {
     }
 
     function addAllInfoToYourPerformance(playerName, chosenGameRound) {
-        if (lastDigit === 0 || lastDigit === 5) {
+        if (lastDigit === 0 || lastDigit === 6) {
             rowRound = table.insertRow(-1);
             rowImage = table.insertRow(-1);
             rowName = table.insertRow(-1);
         }
-        rowRound.insertCell(cellNumber).innerHTML = playerName;
-        rowName.insertCell(cellNumber).innerHTML = chosenGameRound;
+        let cellName = rowRound.insertCell(cellNumber);
+        cellName.innerHTML = playerName;
+        cellName.style.fontSize = "0.8rem";
+        let cellRound = rowName.insertCell(cellNumber);
+        cellRound.innerHTML = chosenGameRound;
+        cellRound.style.fontSize = "0.8rem"
         addImageToYourPerformance(playerName, rowImage, cellNumber);
         cellNumber++;
-        if (cellNumber === 5) {
+        if (cellNumber === 6) {
             cellNumber = 0;
         }
     }
@@ -617,8 +620,7 @@ function addImageToYourPerformance(playerName, row, cellNumber) {
             }
         }
     }
-    img.style.height = '4em';
-    img.style.width = '4em';
+    img.style.width = '3rem';
     row.insertCell(cellNumber).appendChild(img);
 }
 
