@@ -44,11 +44,12 @@ function joinLobby(id){
     sessionStorage.setItem("lobbyid", lobbyid);
     fetch("http://localhost:8079/Lobby-servlet?mode=join&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
 }
-
+let lobbies = [];
 async function getLobbies(){
     const response = await fetch("http://localhost:8079/Lobby-servlet?mode=get-Lobbies")
     for (let [key, value] of response.headers) {
         if(`${key}` === "lobbies"){
+            saveLobbies(JSON.parse(`${value}`));
             return JSON.parse(`${value}`);
         }
     }
@@ -61,6 +62,22 @@ function insertList(value, index, array){
     if(localStorage.getItem("username") === array[index].lobbyowner) {
         document.getElementById("gameConfig").style.display = "block";
     }
+}
+
+function saveLobbies(data) {
+    lobbies = data;
+}
+
+function checkIfPlayerIsInLobby() {
+    for(let i=0; i<lobbies.length; i++) {
+        let playersOfLobby = lobbies[i].players.split(',');
+        for(let j=0; j<playersOfLobby.length; j++) {
+            if(localStorage.getItem("username") === playersOfLobby[j]) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 function convert(obj){
@@ -90,10 +107,12 @@ async function isGameStarted(lobbyid){
 }
 
 async function isJoinedLobby(){
-    const response2 = await fetch("http://localhost:8079/Lobby-servlet?mode=get-lobby-id&username="+localStorage.getItem("username"))
-    for (let [key, value] of response2.headers) {
-        if(`${key}` === "lobbyid"){
-            sessionStorage.setItem("lobbyid", `${value}`);
+    if(checkIfPlayerIsInLobby()) {
+        const response2 = await fetch("http://localhost:8079/Lobby-servlet?mode=get-lobby-id&username=" + localStorage.getItem("username"))
+        for (let [key, value] of response2.headers) {
+            if (`${key}` === "lobbyid") {
+                sessionStorage.setItem("lobbyid", `${value}`);
+            }
         }
     }
 }
