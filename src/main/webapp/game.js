@@ -448,6 +448,7 @@ function drawImageForPlayer(player) {
 //Die Funktionen bis zum nächsten Kommentar sind für Game 4
 let chosenPlayer;
 let oldRound;
+// let weakestLink;
 
 function getMousePos(e) {
     var mouseX = e.offsetX * canvas.width / canvas.clientWidth | 0;
@@ -514,12 +515,46 @@ function sendChosenPlayerRequest(round) {
     }
 }
 
-async function getVotingHistory() {
-    await fetch("http://localhost:8079/Game-servlet?mode=get-Voting-History&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+async function performanceRequests() {
+    var votingHistory = await fetch("http://localhost:8079/Game-servlet?mode=get-Voting-History&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"));
+    var weakestLink = await fetch("http://localhost:8079/Game-servlet?mode=get-weakest-Link&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"));
+    Promise.all([votingHistory, weakestLink])
         .then(response => {
-            insertPlayerToPerformanceList(JSON.parse(response.headers.get("getVotingHistory")));
+            insertPlayerToPerformanceList(JSON.parse(response[0].headers.get("getVotingHistory")));
+            insertWeakestLinkToPerformance(response[1].headers.get("weakest-Link"));
         })
 }
+
+function insertWeakestLinkToPerformance(weakestLinkName) {
+    let img = document.getElementById("weakest-link-image");
+    let name = document.getElementById("weakest-link-name");
+    name.innerHTML = weakestLinkName;
+    img.style.height = '4em';
+    img.style.width = '4em';
+    for (let i=0; i<players.length; i++) {
+        if(players[i].name === weakestLinkName) {
+            img.src = players[i].img.src;
+        }
+    }
+}
+
+// async function getVotingHistory() {
+//     await fetch("http://localhost:8079/Game-servlet?mode=get-Voting-History&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+//         .then(response => {
+//             insertPlayerToPerformanceList(JSON.parse(response.headers.get("getVotingHistory")));
+//         })
+// }
+
+// async function getWeakestLink() {
+//     await fetch("http://localhost:8079/Game-servlet?mode=get-weakest-Link&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+//         .then(response => {
+//             setWeakestLink(response.headers.get("weakest-Link"));
+//         })
+// }
+
+// function setWeakestLink(data) {
+//     weakestLink = data;
+// }
 
 function insertPlayerToPerformanceList(json) {
     let table = document.getElementById("seeYourPerformance");
@@ -594,7 +629,7 @@ function yourPerformance() {
 
     openModalButtons.forEach(button => {
         button.addEventListener('click', () => {
-                getVotingHistory().then(() => {
+            performanceRequests().then(() => {
                 const modal = document.querySelector(button.dataset.modalTarget)
                 openModal(modal)
             });
@@ -629,4 +664,5 @@ function yourPerformance() {
         overlay.classList.remove('active')
     }
 }
+
 // bis hier für Game 4

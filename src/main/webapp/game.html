@@ -50,12 +50,20 @@
     <input type="submit" id="movegamefour" onclick="rollAndMoveDice()" class="allButtons" value="MoveBeforeRoll"/>
     <button data-modal-target="#modal" class="allButtons">Your Performance</button>
     <div class="modal" id="modal">
-        <div class="modal-header">
-            <div class="title">You identified: </div>
+        <div id="modal-header" class="modal-header">
+            <div id="performanceTitle" class="title">Your Performance </div>
             <button data-close-button class="close-button">&times;</button>
         </div>
         <div class="modal-body">
-            <table id="seeYourPerformance"></table>
+            <div id="weakest-link">
+                <h5 style="margin-top: 0.5rem; margin-bottom: 0.5rem">Weakest Link: </h5>
+                <p id="weakest-link-name" style="margin-top: 0; margin-bottom: 0.2rem"></p>
+                <img id="weakest-link-image" alt="playerimage" src=" ">
+            </div>
+            <div>
+                <h5 style="margin-top: 0.5rem; margin-bottom: 0.5rem">You identified: </h5>
+                <table id="seeYourPerformance"></table>
+            </div>
         </div>
     </div>
     <div id="overlay"></div>
