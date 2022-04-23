@@ -23,8 +23,12 @@ function setNumberOfPlayers() {
 
 function startLobby(){
     let lobbyid = sessionStorage.getItem("lobbyid");
-    fetch("http://localhost:8079/Game-servlet?mode=start-game&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
-    window.location.href = "http://localhost:8079/game.html"
+    if(lobbyid !== null) {
+        fetch("http://localhost:8079/Game-servlet?mode=start-game&username=" + localStorage.getItem("username") + "&lobbyID=" + lobbyid)
+        window.location.href = "http://localhost:8079/game.html"
+    } else {
+        alert("Bitte erstellen Sie eine Lobby oder treten sie einer bei, um das Spiel zu starten.")
+    }
 }
 
 async function createLobby(){
