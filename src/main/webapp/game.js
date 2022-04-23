@@ -189,17 +189,34 @@ function drawCanvas(value, index, array) {
             }
         }
     }
-    
-    if(gameMode === 4) {
-        if (oldRound !== round && round > 0) {
-            sendChosenPlayerRequest(round - 1);
-            oldRound = round;
-        }
-        if(localStorage.getItem("username") === array[index].playername && chosenPlayer !== undefined) {
-            for (let i=0; i<players.length; i++) {
-                if (players[i].name === chosenPlayer) {
-                    drawFlagToChosenPlayer(players[i], i);
-                }
+
+    switch (gameMode) {
+        case 2:
+            gameTwoSettings(array, index, value);
+            break;
+        case 4:
+            gameFourSettings(array, index, value);
+            break;
+    }
+}
+
+function gameTwoSettings(array, index, value) {
+    if(localStorage.getItem("username") === array[index].playername && array[index].dicevalue.length === 0) {
+        document.getElementById("gameModeTwo").style.display = "none";
+    } else if(localStorage.getItem("username") === array[index].playername && array[index].dicevalue.length !== 0) {
+        document.getElementById("gameModeTwo").style.display = "block";
+    }
+}
+
+function gameFourSettings(array, index, value) {
+    if (oldRound !== round && round > 0) {
+        sendChosenPlayerRequest(round - 1);
+        oldRound = round;
+    }
+    if(localStorage.getItem("username") === array[index].playername && chosenPlayer !== undefined) {
+        for (let i=0; i<players.length; i++) {
+            if (players[i].name === chosenPlayer) {
+                drawFlagToChosenPlayer(players[i], i);
             }
         }
     }
