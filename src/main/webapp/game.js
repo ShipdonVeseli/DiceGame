@@ -1,5 +1,5 @@
-let x1 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
-let x2 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34"]
+let BASE_URL = "http://localhost:8079/";
+
 function fix_dpi() {
     if (window.screen.availWidth > 1900) {
         canvas.setAttribute('width', window.screen.availWidth/1.8);
@@ -15,7 +15,7 @@ function setCanvasHeight(numberOfPlayers) {
 }
 
 async function getStatus() {
-    const response = await fetch("http://localhost:8079/Game-servlet?mode=status&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+    const response = await fetch(BASE_URL + "Game-servlet?mode=status&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
     if(response.status === 400) {
         isGameTerminated = true;
         // sessionStorage.removeItem("lobbyid");
@@ -33,7 +33,7 @@ let gameMode;
 let numberOfPlayers;
 let gameLength;
 async function gameModeRequest() {
-    await fetch("http://localhost:8079/Game-Config-servlet?mode=get-Game-mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+    await fetch(BASE_URL + "Game-Config-servlet?mode=get-Game-mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
         .then(response => getGameMode(Number(response.headers.get("gameMode"))))
 }
 
@@ -42,7 +42,7 @@ function getGameMode(data) {
 }
 
 async function numberOfPlayersRequest() {
-    await fetch("http://localhost:8079/Game-Config-servlet?mode=get_Number_of_Players&lobbyID=" + sessionStorage.getItem("lobbyid"))
+    await fetch(BASE_URL + "Game-Config-servlet?mode=get_Number_of_Players&lobbyID=" + sessionStorage.getItem("lobbyid"))
         .then(response => getNumberOfPlayers(Number(response.headers.get("Number_of_Players"))));
 }
 
@@ -51,7 +51,7 @@ function getNumberOfPlayers(data) {
 }
 
 async function gameLengthRequest() {
-    await fetch("http://localhost:8079/Game-Config-servlet?mode=get-game-length&lobbyID=" + sessionStorage.getItem("lobbyid"))
+    await fetch(BASE_URL + "Game-Config-servlet?mode=get-game-length&lobbyID=" + sessionStorage.getItem("lobbyid"))
         .then(response => getGameRound(Number(response.headers.get("get-game-length"))));
 }
 
@@ -61,12 +61,12 @@ function getGameRound(data) {
 
 function rollDice() {
     let button = document.getElementById('roll');
-    fetch("http://localhost:8079/Game-servlet?mode=roll-me&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+    fetch(BASE_URL + "Game-servlet?mode=roll-me&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
 
     if(button.value === 'Roll Dices' && localStorage.getItem("username") === activePlayerName) {
         button.value = 'Move';
     } else if(button.value === 'Move' && localStorage.getItem("username") === activePlayerName) {
-        fetch("http://localhost:8079/Game-servlet?mode=make-move&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+        fetch(BASE_URL + "Game-servlet?mode=make-move&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
         button.value = 'Roll Dices';
     }
 }
@@ -74,7 +74,7 @@ function rollDice() {
 function reset() {
     let text = "Wollen Sie das Spiel wirklich restarten?"
     if(confirm(text) === true) {
-        fetch("http://localhost:8079/Game-servlet?mode=reset&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+        fetch(BASE_URL + "Game-servlet?mode=reset&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
         alert("Das Spiel wird neu gestartet.")
     }
 }
@@ -82,7 +82,7 @@ function reset() {
 function leave() {
     let text = "Wollen Sie das Spiel wirklich verlassen?"
     if(confirm(text) === true) {
-        fetch("http://localhost:8079/Game-servlet?mode=leave-game&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+        fetch(BASE_URL + "Game-servlet?mode=leave-game&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
         alert("Das Spiel wird verlassen.")
         sessionStorage.removeItem("lobbyid");
         window.location.href = 'index.html';
@@ -91,7 +91,7 @@ function leave() {
 
 let activePlayerName;
 function getActivePlayer(value, index, array) {
-    fetch("http://localhost:8079/Game-servlet?mode=get-Active-Player&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+    fetch(BASE_URL + "Game-servlet?mode=get-Active-Player&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
 
     let indexOfActivePlayer = array[index].activePlayerIndex + 1;
     activePlayerName = array[indexOfActivePlayer].playername;
@@ -361,8 +361,8 @@ function drawGreenRectangleForActivePlayer(player) {
 function gameModeTwo() {
     let selection = document.getElementById("gameTwoSelection");
     let user = selection.options[selection.selectedIndex].text;
-    fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&game-mode=2");
-    fetch("http://localhost:8079/Game-servlet?mode=give-dice&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&playerNameReceiver=" + user);
+    fetch(BASE_URL + "Game-Config-servlet?mode=set-Game-Mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&game-mode=2");
+    fetch(BASE_URL + "Game-servlet?mode=give-dice&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&playerNameReceiver=" + user);
 
 }
 
@@ -378,8 +378,8 @@ function gameModeThree() {
         max = 4;
     }
     alert("min: " + min + " max: " + max);
-    fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&game-mode=3");
-    fetch("http://localhost:8079/Game-Config-servlet?mode=setDice&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&min=" + min + "&max=" + max);
+    fetch(BASE_URL + "Game-Config-servlet?mode=set-Game-Mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&game-mode=3");
+    fetch(BASE_URL + "Game-Config-servlet?mode=setDice&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&min=" + min + "&max=" + max);
 }
 
 function createplayer() {
@@ -527,19 +527,19 @@ function drawRedRectangleForPlayer(player) {
 }
 
 function rollAndMoveDice(){
-    fetch("http://localhost:8079/Game-servlet?mode=roll-all&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
-    fetch("http://localhost:8079/Game-servlet?mode=make-move&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+    fetch(BASE_URL + "Game-servlet?mode=roll-all&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+    fetch(BASE_URL + "Game-servlet?mode=make-move&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
 }
 
 function sendChosenPlayerRequest(round) {
     if(chosenPlayer !== undefined) {
-        fetch("http://localhost:8079/Game-servlet?mode=vote&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&PlayerNameWeakestLink=" + chosenPlayer + "&round=" + round)
+        fetch(BASE_URL + "Game-servlet?mode=vote&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&PlayerNameWeakestLink=" + chosenPlayer + "&round=" + round)
     }
 }
 
 async function performanceRequests() {
-    var votingHistory = await fetch("http://localhost:8079/Game-servlet?mode=get-Voting-History&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"));
-    var weakestLink = await fetch("http://localhost:8079/Game-servlet?mode=get-weakest-Link&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"));
+    var votingHistory = await fetch(BASE_URL + "Game-servlet?mode=get-Voting-History&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"));
+    var weakestLink = await fetch(BASE_URL + "Game-servlet?mode=get-weakest-Link&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"));
     Promise.all([votingHistory, weakestLink])
         .then(response => {
             insertPlayerToPerformanceList(JSON.parse(response[0].headers.get("getVotingHistory")));

@@ -1,3 +1,5 @@
+let BASE_URL = "http://localhost:8079/";
+
 window.onload = function () {
     document.getElementById("gameConfig").style.display = "none";
 }
@@ -5,34 +7,34 @@ window.onload = function () {
 function setGameMode() {
     let lobbyid = sessionStorage.getItem("lobbyid");
     let gameMode = document.getElementById("gameModeSelection").value;
-    fetch("http://localhost:8079/Game-Config-servlet?mode=set-Game-Mode&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&game-mode="+gameMode)
+    fetch(BASE_URL + "Game-Config-servlet?mode=set-Game-Mode&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&game-mode="+gameMode)
 }
 
 function setGameRound() {
     let lobbyid = sessionStorage.getItem("lobbyid");
     let gameRound = document.getElementById("gameRound").value;
-    fetch("http://localhost:8079/Game-Config-servlet?mode=set-game-length&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&gameLength="+gameRound)
+    fetch(BASE_URL + "Game-Config-servlet?mode=set-game-length&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&gameLength="+gameRound)
 }
 
 function setNumberOfPlayers() {
     let lobbyid = sessionStorage.getItem("lobbyid");
     let numberOfPlayers = document.getElementById("numberOfPlayers").value;
-    fetch("http://localhost:8079/Game-Config-servlet?mode=set_Number_of_Players&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&Number_of_Players="+numberOfPlayers)
+    fetch(BASE_URL + "Game-Config-servlet?mode=set_Number_of_Players&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid+"&Number_of_Players="+numberOfPlayers)
 
 }
 
 function startLobby(){
     let lobbyid = sessionStorage.getItem("lobbyid");
     if(lobbyid !== null) {
-        fetch("http://localhost:8079/Game-servlet?mode=start-game&username=" + localStorage.getItem("username") + "&lobbyID=" + lobbyid)
-        window.location.href = "http://localhost:8079/game.html"
+        fetch(BASE_URL + "Game-servlet?mode=start-game&username=" + localStorage.getItem("username") + "&lobbyID=" + lobbyid)
+        window.location.href = BASE_URL + "game.html"
     } else {
         alert("Bitte erstellen Sie eine Lobby oder treten sie einer bei, um das Spiel zu starten.")
     }
 }
 
 async function createLobby(){
-    await fetch("http://localhost:8079/Lobby-servlet?mode=create&username="+localStorage.getItem("username"))
+    await fetch(BASE_URL + "Lobby-servlet?mode=create&username="+localStorage.getItem("username"))
         // .then(response => {
         //     sessionStorage.setItem("lobbyid", response.headers.get("lobbyid"));
         // })
@@ -40,17 +42,17 @@ async function createLobby(){
 
 function leaveLobby(){
     sessionStorage.removeItem("lobbyid");
-    fetch("http://localhost:8079/Lobby-servlet?mode=leave&username="+localStorage.getItem("username"))
+    fetch(BASE_URL + "Lobby-servlet?mode=leave&username="+localStorage.getItem("username"))
 }
 
 function joinLobby(id){
     let lobbyid = document.getElementById(id).getAttribute("name");
     sessionStorage.setItem("lobbyid", lobbyid);
-    fetch("http://localhost:8079/Lobby-servlet?mode=join&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
+    fetch(BASE_URL + "Lobby-servlet?mode=join&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
 }
 let lobbies = [];
 async function getLobbies(){
-    const response = await fetch("http://localhost:8079/Lobby-servlet?mode=get-Lobbies")
+    const response = await fetch(BASE_URL + "Lobby-servlet?mode=get-Lobbies")
     for (let [key, value] of response.headers) {
         if(`${key}` === "lobbies"){
             saveLobbies(JSON.parse(`${value}`));
@@ -102,17 +104,17 @@ function setUsername() {
 }
 
 async function isGameStarted(lobbyid){
-    const response2 = await fetch("http://localhost:8079/Game-servlet?mode=has-Game-started&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
+    const response2 = await fetch(BASE_URL + "Game-servlet?mode=has-Game-started&username="+localStorage.getItem("username")+"&lobbyID="+lobbyid)
     for (let [key, value] of response2.headers) {
         if(`${key}` === "isstarted" && `${value}` === "true"){
-            window.location.href = "http://localhost:8079/game.html"
+            window.location.href = BASE_URL + "game.html"
         }
     }
 }
 
 async function isJoinedLobby(){
     if(checkIfPlayerIsInLobby()) {
-        const response2 = await fetch("http://localhost:8079/Lobby-servlet?mode=get-lobby-id&username=" + localStorage.getItem("username"))
+        const response2 = await fetch(BASE_URL + "Lobby-servlet?mode=get-lobby-id&username=" + localStorage.getItem("username"))
         for (let [key, value] of response2.headers) {
             if (`${key}` === "lobbyid") {
                 sessionStorage.setItem("lobbyid", `${value}`);

@@ -2,6 +2,7 @@ let canvas_statistic;
 let ctx_statistic;
 let dicevalues = [];
 let x1 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
+let BASE_URL = "http://localhost:8079/";
 
 function loadActivity() {
     canvas_statistic = document.getElementById('statistic_canvas');
@@ -63,7 +64,7 @@ function drawBarChart(data, x_Axis, y_Axis, stepSize, x_Size, title) {
 }
 
 async function getActivity(){
-    await fetch("http://localhost:8079/Game-servlet?mode=get-Activity&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+    await fetch(BASE_URL + "Game-servlet?mode=get-Activity&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
         .then(response => {
         drawActivity(JSON.parse(response.headers.get("activity")))
     })
