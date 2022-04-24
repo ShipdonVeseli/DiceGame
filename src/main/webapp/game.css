@@ -7,6 +7,7 @@ body {
 #responsive-canvas {
     padding: 1rem;
     margin-bottom: 1rem;
+    background-color: blueviolet;
 }
 
 #statistic_canvas {
@@ -188,7 +189,7 @@ input#back {
 }
 @media screen and (max-width: 600px){
     #responsive-canvas {
-        background-color: #919497;
+        background-color: black;
         width: 100%; /*600px;*/
         height: auto;
         border-radius: 0.5rem;
@@ -200,7 +201,7 @@ input#back {
 }
 @media screen and (min-width: 600px){
     #responsive-canvas {
-        background-color: #919497;
+        background-color: blue;
         width: 100%; /*600px;*/
         height: auto;
         border-radius: 0.5rem;
@@ -212,7 +213,7 @@ input#back {
 }
 @media screen and (min-width: 768px){
     #responsive-canvas {
-        background-color: #919497;
+        background-color: yellow;
         width: 100%; /*630px;*/
         height: auto;
         border-radius: 0.5rem;
@@ -225,7 +226,7 @@ input#back {
 
 @media screen and (min-width: 900px){
     #responsive-canvas {
-        background-color: #919497;
+        background-color: green;
         width: 100%; /*700px;*/
         height: auto;
         border-radius: 0.5rem;
@@ -238,7 +239,7 @@ input#back {
 
 @media screen and (min-width: 992px){
     #responsive-canvas {
-        background-color: #919497;
+        background-color: grey;
         width: 100%; /*830px;*/
         height: auto;
         border-radius: 0.5rem;
@@ -250,7 +251,19 @@ input#back {
 }
 @media screen and (min-width: 1280px){
     #responsive-canvas {
-        background-color: #919497;
+        background-color: red;
+        width: 100%; /*1080px;*/
+        height: auto;
+        border-radius: 0.5rem;
+        box-shadow: 0 1rem 1rem rgba(0,0,0,.15);
+        margin-left: auto;
+        margin-right: auto;
+        display:block;
+    }
+}
+@media screen and (min-width: 1400px){
+    #responsive-canvas {
+        background-color: orange;
         width: 100%; /*1080px;*/
         height: auto;
         border-radius: 0.5rem;
@@ -262,7 +275,7 @@ input#back {
 }
 @media screen and (min-width: 1920px){
     #responsive-canvas {
-        background-color: #919497;
+        background-color: deeppink;
         width: 100%; /*1850px;*/
         height: auto;
         border-radius: 0.5rem;
