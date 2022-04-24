@@ -304,6 +304,9 @@ function startGame() {
     gameModeRequest().then(() => {
         document.getElementById("title").innerHTML += " - Game Mode " + gameMode;
         switch (gameMode) {
+            case 1:
+                document.getElementById("responsive-canvas").style.marginBottom = "4rem";
+                break;
             case 2:
                 document.getElementById("gameModeTwo").style.display = "block";
                 break;
