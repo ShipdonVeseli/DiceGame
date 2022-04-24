@@ -18,8 +18,8 @@ async function getStatus() {
     const response = await fetch("http://localhost:8079/Game-servlet?mode=status&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
     if(response.status === 400) {
         isGameTerminated = true;
-        sessionStorage.removeItem("lobbyid");
-        window.location.href = 'index.html';
+        // sessionStorage.removeItem("lobbyid");
+        // window.location.href = 'index.html';
     } else if(response.status === 200) {
         for (let [key, value] of response.headers) {
             if (`${key}` === "gamestatus") {
@@ -262,6 +262,7 @@ function reloadField() {
 }
 
 let isGameTerminated = false;
+let isGameEnded = false;
 setInterval(() => {
     for (let i = 0; i < players.length; i++) {
         players[i].tokensize = 0;
@@ -269,7 +270,12 @@ setInterval(() => {
         players[i].col = 0;
     }
     if(!isGameTerminated) {
-        reloadField();
+        if(round !== gameLength) {
+            reloadField();
+        } else if(!isGameEnded) {
+            alert("Game is ended");
+            isGameEnded = true;
+        }
     }
 }, 600);
 
@@ -458,11 +464,13 @@ function getMousePos(e) {
 
 function eventListenerForMouseMove(canvas) {
     canvas.addEventListener('mousemove', function (e) {
-        let mousePos = getMousePos(e);
-        for (let i=0; i<players.length; i++) {
-            if (mousePos.x >= players[i].x && mousePos.x <= players[i].x + players[i].width) {
-                if (mousePos.y >= players[i].y && mousePos.y <= players[i].y + players[i].height) {
-                    drawRedRectangleForPlayer(players[i]);
+        if(!isGameEnded) {
+            let mousePos = getMousePos(e);
+            for (let i = 0; i < players.length; i++) {
+                if (mousePos.x >= players[i].x && mousePos.x <= players[i].x + players[i].width) {
+                    if (mousePos.y >= players[i].y && mousePos.y <= players[i].y + players[i].height) {
+                        drawRedRectangleForPlayer(players[i]);
+                    }
                 }
             }
         }
@@ -471,12 +479,14 @@ function eventListenerForMouseMove(canvas) {
 
 function eventListenerForChosenWeakestLink(canvas) {
     canvas.addEventListener('mousedown', function(e) {
-        let mousePos = getMousePos(e);
-        for (let i = 0; i < players.length; i++) {
-            if (mousePos.x >= players[i].x && mousePos.x <= players[i].x + players[i].width) {
-                if (mousePos.y >= players[i].y && mousePos.y <= players[i].y + players[i].height) {
-                    alert(players[i].name);
-                    chosenPlayer = players[i].name;
+        if(!isGameEnded) {
+            let mousePos = getMousePos(e);
+            for (let i = 0; i < players.length; i++) {
+                if (mousePos.x >= players[i].x && mousePos.x <= players[i].x + players[i].width) {
+                    if (mousePos.y >= players[i].y && mousePos.y <= players[i].y + players[i].height) {
+                        alert(players[i].name);
+                        chosenPlayer = players[i].name;
+                    }
                 }
             }
         }
