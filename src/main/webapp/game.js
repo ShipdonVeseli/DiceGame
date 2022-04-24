@@ -78,6 +78,7 @@ function reset() {
     if(confirm(text) === true) {
         fetch(BASE_URL + "Game-servlet?mode=reset&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
         alert("Das Spiel wird neu gestartet.")
+        isGameEnded = false;
     }
 }
 
