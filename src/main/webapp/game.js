@@ -270,7 +270,7 @@ setInterval(() => {
         players[i].col = 0;
     }
     if(!isGameTerminated) {
-        if(round !== gameLength) {
+        if(round === undefined || round <= gameLength) {
             reloadField();
         } else if(!isGameEnded) {
             alert("Game is ended");
