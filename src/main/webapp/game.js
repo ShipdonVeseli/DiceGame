@@ -147,7 +147,12 @@ function drawCanvas(value, index, array) {
         if (round === 0) {
             oldRound = round;
         }
-        document.getElementById("info").innerText = "Active Player: " + getActivePlayer(value, index, array) + " - Round: " + round;
+        if(round === gameLength) {
+            document.getElementById("info").innerText = "Game is ended" + " - Round: " + round;
+            isGameEnded = true;
+        } else {
+            document.getElementById("info").innerText = "Active Player: " + getActivePlayer(value, index, array) + " - Round: " + round;
+        }
     } else {
         if(localStorage.getItem("username") !== array[index].playername){
             addPlayernameToDropDownList(array, index);
@@ -272,9 +277,6 @@ setInterval(() => {
     if(!isGameTerminated) {
         if(round === undefined || round <= gameLength) {
             reloadField();
-        } else if(!isGameEnded) {
-            alert("Game is ended");
-            isGameEnded = true;
         }
     }
 }, 600);
@@ -457,7 +459,7 @@ function drawImageForPlayer(player) {
 //Die Funktionen bis zum nächsten Kommentar sind für Game 4
 let chosenPlayer;
 let oldRound;
-// let weakestLink;
+let flag;
 
 function getMousePos(e) {
     var mouseX = e.offsetX * canvas.width / canvas.clientWidth | 0;
@@ -495,8 +497,6 @@ function eventListenerForChosenWeakestLink(canvas) {
         }
     });
 }
-
-let flag;
 
 function loadFlagForChosenPlayer() {
     flag = new Image();
@@ -539,34 +539,19 @@ async function performanceRequests() {
 }
 
 function insertWeakestLinkToPerformance(weakestLinkName) {
-    let img = document.getElementById("weakest-link-image");
-    let name = document.getElementById("weakest-link-name");
-    name.innerHTML = weakestLinkName;
-    img.style.width = '3rem';
-    for (let i=0; i<players.length; i++) {
-        if(players[i].name === weakestLinkName) {
-            img.src = players[i].img.src;
+    if(round === gameLength) {
+        document.getElementById("weakest-link").style.display = "block";
+        let img = document.getElementById("weakest-link-image");
+        let name = document.getElementById("weakest-link-name");
+        name.innerHTML = weakestLinkName;
+        img.style.width = '3rem';
+        for (let i = 0; i < players.length; i++) {
+            if (players[i].name === weakestLinkName) {
+                img.src = players[i].img.src;
+            }
         }
     }
 }
-
-// async function getVotingHistory() {
-//     await fetch("http://localhost:8079/Game-servlet?mode=get-Voting-History&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
-//         .then(response => {
-//             insertPlayerToPerformanceList(JSON.parse(response.headers.get("getVotingHistory")));
-//         })
-// }
-
-// async function getWeakestLink() {
-//     await fetch("http://localhost:8079/Game-servlet?mode=get-weakest-Link&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
-//         .then(response => {
-//             setWeakestLink(response.headers.get("weakest-Link"));
-//         })
-// }
-
-// function setWeakestLink(data) {
-//     weakestLink = data;
-// }
 
 function insertPlayerToPerformanceList(json) {
     let table = document.getElementById("seeYourPerformance");
