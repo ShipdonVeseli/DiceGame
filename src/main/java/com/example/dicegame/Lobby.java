@@ -13,7 +13,7 @@ public class Lobby {
     private Game game;
     private boolean hasGameStarted = false;
     private Timer terminationTimer;
-    private int timeoutInSeconds=1*60;//später auf 5min setzten (1min für Testzwecke)
+    private int timeoutInSeconds=5*60;//später auf 5min setzten (1min für Testzwecke)
 
     public Lobby(String username) {
         this.owner = new Player(username);

@@ -10,7 +10,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class Player extends StatisticSuspect {
-    public static final int timeoutInSeconds = 30;
+    public static final int timeoutInSeconds = 2*60;
 
 
     private String playerName;

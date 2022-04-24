@@ -32,7 +32,7 @@ public class LobbyServlet extends HttpServlet {
         try {
             Map<String, String[]> map = request.getParameterMap();
 
-            // ServletFunctions.printNames(map);
+             ServletFunctions.printNames(map);
 
             String mode = ServletFunctions.getParameterValue(map, "mode");
             String username = ServletFunctions.getParameterValue(map, "username");
