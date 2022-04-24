@@ -11,7 +11,9 @@ function fix_dpi() {
 }
 
 function setCanvasHeight(numberOfPlayers) {
-    canvas.height = players[numberOfPlayers-1].y + players[numberOfPlayers-1].height + 50;
+    if(players.length > 5 ) {
+        canvas.height = players[numberOfPlayers-1].y + players[numberOfPlayers-1].height + 50;
+    }
 }
 
 async function getStatus() {
@@ -597,7 +599,7 @@ function insertPlayerToPerformanceList(json) {
     }
 
     function addAllInfoToYourPerformance(playerName, chosenGameRound) {
-        if (lastDigit === 0 || lastDigit === 6) {
+        if (chosenGameRound === 0 || chosenGameRound%7 === 0) {
             rowRound = table.insertRow(-1);
             rowImage = table.insertRow(-1);
             rowName = table.insertRow(-1);
@@ -610,7 +612,7 @@ function insertPlayerToPerformanceList(json) {
         cellRound.style.fontSize = "0.8rem"
         addImageToYourPerformance(playerName, rowImage, cellNumber);
         cellNumber++;
-        if (cellNumber === 6) {
+        if (cellNumber === 7) {
             cellNumber = 0;
         }
     }
