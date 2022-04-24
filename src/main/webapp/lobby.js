@@ -1,9 +1,5 @@
 let BASE_URL = "http://localhost:8079/";
 
-window.onload = function () {
-    document.getElementById("gameConfig").style.display = "none";
-}
-
 function setGameMode() {
     let lobbyid = sessionStorage.getItem("lobbyid");
     let gameMode = document.getElementById("gameModeSelection").value;
