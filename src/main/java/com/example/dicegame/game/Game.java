@@ -72,7 +72,7 @@ public class Game extends StatisticSuspect {
     }
 
     public boolean checkIfGameHasNotEnded() {
-        return round <= gameLength;
+        return round < gameLength;
     }
 
     private void addStartResources() {
@@ -231,7 +231,7 @@ public class Game extends StatisticSuspect {
             return;
         }
 
-        if (round <= gameLength) {
+        if (round < gameLength) {
             round++;
 
             moveResources();
