@@ -209,6 +209,9 @@ function drawCanvas(value, index, array) {
         case 2:
             gameTwoSettings(array, index, value);
             break;
+        case 3:
+            gameThreeSettings();
+            break;
         case 4:
             gameFourSettings(array, index, value);
             break;
@@ -216,10 +219,16 @@ function drawCanvas(value, index, array) {
 }
 
 function gameTwoSettings(array, index, value) {
-    if(localStorage.getItem("username") === array[index].playername && array[index].dicevalue.length === 0) {
+    if((localStorage.getItem("username") === array[index].playername && array[index].dicevalue.length === 0) || isGameEnded) {
         document.getElementById("gameModeTwo").style.display = "none";
     } else if(localStorage.getItem("username") === array[index].playername && array[index].dicevalue.length !== 0) {
         document.getElementById("gameModeTwo").style.display = "block";
+    }
+}
+
+function gameThreeSettings() {
+    if(isGameEnded || round > 0) {
+        document.getElementById("gameModeThree").style.display = "none";
     }
 }
 
