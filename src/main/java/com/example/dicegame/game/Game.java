@@ -277,10 +277,14 @@ public class Game extends StatisticSuspect {
     }
 
     public void initGameMode4()throws IllegalStateException{
+        int maximumMaxvalue=9;
+        int minimumMaxvalue=3;
+        int minimumMinvalue=1;
         if(gameMode==4) {
             lobby.getPlayers().forEach(e->{
-                int max=3+(int)(Math.random()*((9-3)+3));
-                int min=1+(int)(Math.random()*(((max-1)-1)+1));
+
+                int max=minimumMaxvalue+(int)(Math.random()*((maximumMaxvalue-minimumMaxvalue)+minimumMaxvalue));
+                int min=minimumMinvalue+(int)(Math.random()*(((max-1)-minimumMinvalue)+minimumMinvalue));
 
                 e.setDiceRanges(min,max);
             });
