@@ -1,4 +1,4 @@
-let BASE_URL = "http://localhost:8079/";
+let BASE_URL = "https://fhdicegame2.azurewebsites.net/";
 
 function setGameMode() {
     let lobbyid = sessionStorage.getItem("lobbyid");
@@ -84,7 +84,7 @@ function checkIfPlayerIsInLobby() {
 
 function convert(obj){
     obj.then((result) => {
-        result.forEach(insertList)
+        result.forEach(insertList);
         return result;
     }).catch(err=>console.log(err))
 }
@@ -129,7 +129,7 @@ if(localStorage.getItem("username") !== null) {
 //Endlosschleife für das realtime laden
 setInterval(() => {
     if(sessionStorage.getItem("lobbyid") != null) {
-        isGameStarted(sessionStorage.getItem("lobbyid"))
+        isGameStarted(sessionStorage.getItem("lobbyid"));
     }else{
         isJoinedLobby();
     }

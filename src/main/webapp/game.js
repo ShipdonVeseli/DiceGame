@@ -1,4 +1,4 @@
-let BASE_URL = "http://localhost:8079/";
+let BASE_URL = "https://fhdicegame2.azurewebsites.net/";
 
 function fix_dpi() {
     if (window.screen.availWidth > 1900) {

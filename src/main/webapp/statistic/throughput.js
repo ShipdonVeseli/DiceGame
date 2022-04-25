@@ -2,7 +2,7 @@ let canvas_statistic;
 let ctx_statistic;
 let throughput = [];
 let x1 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
-let BASE_URL = "http://localhost:8079/";
+let BASE_URL = "https://fhdicegame2.azurewebsites.net/";
 
 function loadThroughput() {
     canvas_statistic = document.getElementById('statistic_canvas');

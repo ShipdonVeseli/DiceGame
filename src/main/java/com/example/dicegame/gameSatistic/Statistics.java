@@ -35,12 +35,12 @@ public class Statistics implements StatisticObserver {
         for (int p = 0; p < 10; p++) {
             sumDiceValues.add(0.00);
         }
-        for (int i = 0; i < playerDataArrayList.size(); i++) {
-            for (int j = 0; j < playerDataArrayList.get(i).getDiceValues().size(); j++) {
+        for (int i = 0; i < playerDataArrayList.size()-1; i++) {
+            for (int j = 0; j < playerDataArrayList.get(i).getDiceValues().size()-1; j++) {
                 sumDiceValues.set(j, sumDiceValues.get(j) + playerDataArrayList.get(i).getDiceValues().get(j).doubleValue());
             }
         }
-        for (int k = 0; k < sumDiceValues.size(); k++) {
+        for (int k = 0; k < sumDiceValues.size()-1; k++) {
             sumDiceValues.set(k, sumDiceValues.get(k) / playerDataArrayList.size());
         }
         return sumDiceValues;
