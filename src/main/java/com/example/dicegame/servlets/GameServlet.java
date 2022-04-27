@@ -138,11 +138,38 @@ public class GameServlet extends HttpServlet {
                     GameServlet.resetPlayer(lobbyOfTheGame, username);
                     break;
 
+                case "request-Dice-form-Ai":
+                    requestDiceFormAi(game,response,map,username,lobbyOfTheGame);
+
+                    GameServlet.resetPlayer(lobbyOfTheGame, username);
+                    break;
+
                 default:
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     break;
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    private void requestDiceFormAi(Game game, HttpServletResponse response, Map<String, String[]> map, String username, Lobby lobby) {
+        try {
+            if (game.getGameMode() == 2) {
+                String aiName = ServletFunctions.getParameterValue(map, "ai_Player_Name");
+                Player ai = lobby.getPlayer(aiName);
+
+                if(ai.isAI()){
+                    game.giveDiceToOtherPlayer(aiName,username);
+
+                }else {
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                }
+            } else {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            }
+        }catch (Exception e){
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
