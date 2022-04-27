@@ -1,5 +1,5 @@
-let BASE_URL = "https://fhdicegame2.azurewebsites.net/";
-
+//let BASE_URL = "https://fhdicegame2.azurewebsites.net/";
+let BASE_URL = "http://localhost:8079/";
 function setGameMode() {
     let lobbyid = sessionStorage.getItem("lobbyid");
     let gameMode = document.getElementById("gameModeSelection").value;

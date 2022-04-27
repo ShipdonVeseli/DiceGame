@@ -1,5 +1,5 @@
-let BASE_URL = "https://fhdicegame2.azurewebsites.net/";
-
+//let BASE_URL = "https://fhdicegame2.azurewebsites.net/";
+let BASE_URL = "http://localhost:8079/";
 function fix_dpi() {
     if (window.screen.availWidth > 1900) {
         canvas.setAttribute('width', window.screen.availWidth/1.8);
@@ -7,6 +7,9 @@ function fix_dpi() {
     } else if (window.screen.availWidth > 1000) {
         canvas.setAttribute('width', window.screen.availWidth/1.3);
         canvas.setAttribute('height', window.screen.availHeight/1.7);
+    }else if (window.screen.availWidth < 1000){
+        canvas.setAttribute('width', window.screen.availWidth/0.4);
+        canvas.setAttribute('height', window.screen.availHeight/1.1);
     }
 }
 
@@ -94,10 +97,10 @@ function leave() {
 
 let activePlayerName;
 function getActivePlayer(value, index, array) {
-    fetch(BASE_URL + "Game-servlet?mode=get-Active-Player&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
+    //fetch(BASE_URL + "Game-servlet?mode=get-Active-Player&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
 
     let indexOfActivePlayer = array[index].activePlayerIndex + 1;
-    activePlayerName = array[indexOfActivePlayer].playername;
+    activePlayerName = array[index].activeplayername;
     let roll_button = document.getElementById("roll");
     let moveBtnGameFour = document.getElementById("movegamefour")
 

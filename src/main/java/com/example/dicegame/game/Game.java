@@ -359,6 +359,7 @@ public class Game extends StatisticSuspect {
         result += "{\"gameMode\": " + gameMode + ",";
         result += "\"lobbyid\": \"" + lobby.getId() + "\",";
         result += "\"round\": " + round + ",";
+        result += "\"activeplayername\": \"" + getActivePlayer().getPlayerName() + "\",";
         result += "\"activePlayerIndex\": " + activePlayerIndex + ",";
         result += "\"storage\": " + storage.size() + "},";
         for (int i = 0; i < lobby.playerCount(); i++) {
