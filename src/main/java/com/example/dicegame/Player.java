@@ -122,11 +122,12 @@ public class Player extends StatisticSuspect {
     }
 
     public void rollAllDices() {
+        hasRolledDices = true;
         dices.forEach(e -> {
             e.roll();
         });
         saveRolledDiceValue(playerName, getSummOfDiceValues());
-        hasRolledDices = true;
+
     }
 
     public int getSummOfDiceValues() {
