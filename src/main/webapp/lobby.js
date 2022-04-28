@@ -24,7 +24,7 @@ function setNumberOfPlayers() {
 function startLobby(){
     let lobbyid = sessionStorage.getItem("lobbyid");
     if(lobbyid !== null) {
-        if(checkIfOwnerLobbyIdPairIsExists({'lobbyowner': localStorage.getItem("username"), 'lobbyid': lobbyid})){
+        if(checkIfOwnerLobbyIdPairExists({'lobbyowner': localStorage.getItem("username"), 'lobbyid': lobbyid})){
             fetch(BASE_URL + "Game-servlet?mode=start-game&username=" + localStorage.getItem("username") + "&lobbyID=" + lobbyid)
             window.location.href = BASE_URL + "game.html"
         } else {
