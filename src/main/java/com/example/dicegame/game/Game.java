@@ -28,7 +28,7 @@ public class Game extends StatisticSuspect {
 
     public Game(Lobby lobby) {
         this.lobby = lobby;
-        init();
+      //  init();
     }
 
     public Game(int gameMode, Lobby lobby) {
@@ -47,7 +47,9 @@ public class Game extends StatisticSuspect {
 
     public void init() {
         addObserver(statistics);
+
         lobby.getPlayers().forEach(e -> {
+
             e.addObserver(statistics);
         });
         addStartResources();
@@ -156,7 +158,7 @@ public class Game extends StatisticSuspect {
             lobby.getPlayers().forEach(e -> {
                 if (!e.isHasRolledDices()) {
 //                    System.out.println("??????????????????????????????????????????????????????????????????????????????????????????????" +
-//                            "\nrollAllDiceInGame player ="+e.getPlayerName());
+//                           "\nrollAllDiceInGame player ="+e.getPlayerName());
                     e.rollAllDices();
                 }
             });
