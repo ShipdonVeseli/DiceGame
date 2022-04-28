@@ -157,7 +157,7 @@ public class GameServlet extends HttpServlet {
     private void requestDiceFormAi(Game game, HttpServletResponse response, Map<String, String[]> map, String username, Lobby lobby) {
         try {
             if (game.getGameMode() == 2) {
-                String aiName = ServletFunctions.getParameterValue(map, "ai_Player_Name");
+                String aiName = ServletFunctions.getParameterValue(map, "aiplayername");
                 Player ai = lobby.getPlayer(aiName);
 
                 if(ai.isAI()){

@@ -232,6 +232,7 @@ function gameTwoSettings(array, index, value) {
         document.getElementById("gameModeTwo").style.display = "none";
     } else if(localStorage.getItem("username") === array[index].playername && array[index].dicevalue.length !== 0) {
         document.getElementById("gameModeTwo").style.display = "block";
+        document.getElementById("gameModeTwoAI").style.display = "block";
     }
 }
 
@@ -254,14 +255,25 @@ function gameFourSettings(array, index, value) {
         }
     }
 }
+function addPlayernameToDropDownList(array, index) {
+    if(document.getElementById("gameTwoSelection").length < numberOfPlayers-1) {
+        const select = document.getElementById("gameTwoSelection");
+        select.options.add(new Option(array[index].playername, array[index].playername));
+    }
+    if(document.getElementById("gameTwoSelectionAIReq").length < numberOfPlayers-1) {
+        const select = document.getElementById("gameTwoSelectionAIReq");
+        select.options.add(new Option(array[index].playername, array[index].playername));
+    }
 
+}
+/*
 function addPlayernameToDropDownList(array, index) {
     if(document.querySelector('select').length < numberOfPlayers-1) {
         const select = document.querySelector('select');
         select.options.add(new Option(array[index].playername, array[index].playername));
     }
 }
-
+*/
 function drawPlayerNames(value, index, array) {
     ctx.font = '15px calibri';
     ctx.fillStyle = 'black';
@@ -374,6 +386,15 @@ function gameModeTwo() {
     fetch(BASE_URL + "Game-servlet?mode=give-dice&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&playerNameReceiver=" + user);
 
 }
+
+function gameModeTwoAIReq() {
+    let selection = document.getElementById("gameTwoSelectionAIReq");
+    let user = selection.options[selection.selectedIndex].text;
+    fetch(BASE_URL + "Game-Config-servlet?mode=set-Game-Mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&game-mode=2");
+    fetch(BASE_URL + "Game-servlet?mode=request-Dice-form-Ai&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&aiplayername=" + user);
+
+}
+
 
 function gameModeThree() {
     var getSelectedValue = document.querySelector( 'input[name="diceValue"]:checked').value;
