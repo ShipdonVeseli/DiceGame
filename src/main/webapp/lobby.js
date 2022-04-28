@@ -1,5 +1,7 @@
 //let BASE_URL = "https://fhdicegame2.azurewebsites.net/";
 let BASE_URL = "http://localhost:8079/";
+let ownerLobbyIdPairs = [];
+
 function setGameMode() {
     let lobbyid = sessionStorage.getItem("lobbyid");
     let gameMode = document.getElementById("gameModeSelection").value;
@@ -22,10 +24,14 @@ function setNumberOfPlayers() {
 function startLobby(){
     let lobbyid = sessionStorage.getItem("lobbyid");
     if(lobbyid !== null) {
-        fetch(BASE_URL + "Game-servlet?mode=start-game&username=" + localStorage.getItem("username") + "&lobbyID=" + lobbyid)
-        window.location.href = BASE_URL + "game.html"
+        if(checkIfOwnerLobbyIdPairIsExists({'lobbyowner': localStorage.getItem("username"), 'lobbyid': lobbyid})){
+            fetch(BASE_URL + "Game-servlet?mode=start-game&username=" + localStorage.getItem("username") + "&lobbyID=" + lobbyid)
+            window.location.href = BASE_URL + "game.html"
+        } else {
+            alert("Sie sind nicht der Lobbyowner.");
+        }
     } else {
-        alert("Bitte erstellen Sie eine Lobby oder treten sie einer bei, um das Spiel zu starten.")
+        alert("Bitte erstellen Sie eine Lobby, um das Spiel zu starten.")
     }
 }
 
@@ -57,8 +63,24 @@ async function getLobbies(){
     }
 }
 
+function checkIfOwnerLobbyIdPairExists(pair) {
+    for(let i=0; i<ownerLobbyIdPairs.length; i++) {
+        if(pair.lobbyid === ownerLobbyIdPairs[i].lobbyid && pair.lobbyowner === ownerLobbyIdPairs[i].lobbyowner) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function insertList(value, index, array){
-    if(index === 0) document.getElementById("lobbies").innerHTML = "";
+    if(index === 0) {
+        document.getElementById("lobbies").innerHTML = "";
+        ownerLobbyIdPairs = [];
+    }
+    let pair = {'lobbyowner': array[index].lobbyowner, 'lobbyid': array[index].lobbyid};
+    if(!checkIfOwnerLobbyIdPairExists(pair)) {
+        ownerLobbyIdPairs.push(pair);
+    }
 //    document.getElementById("lobbies").innerHTML = document.getElementById("lobbies").innerHTML + "<li>"+array[index].lobbyowner+" Lobby <input type='submit' id='"+index+"' onclick='joinLobby("+index+")' name="+array[index].lobbyid+" value='JOIN LOBBY'><ul><li>Players: "+array[index].players+"</li></ul></li>";
     document.getElementById("lobbies").innerHTML = document.getElementById("lobbies").innerHTML + "<table><tr><th>"+ "Lobbyowner: " + array[index].lobbyowner+ "</th></tr><tr><td>" + "Players:" + array[index].players+ "</td></tr><tr><td>" + "Game Mode:" + array[index].gamemode+ "</td></tr><tr><td>" + "Number of Players:" + array[index].numberofplayers+ "</td></tr><tr><td>" + "Rounds:" + array[index].gamelength+ "</td></tr><tr><td>" + "<input type='submit' id='"+index+"' onclick='joinLobby("+index+")' name="+array[index].lobbyid+" value='JOIN LOBBY'>" + "</td></tr><hr></table>";
     if(localStorage.getItem("username") === array[index].lobbyowner) {
