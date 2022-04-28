@@ -21,11 +21,16 @@ function setNumberOfPlayers() {
 
 function startLobby(){
     let lobbyid = sessionStorage.getItem("lobbyid");
+    let ownerLobbyPair = JSON.parse(sessionStorage.getItem("ownerLobbyPair"));
     if(lobbyid !== null) {
-        fetch(BASE_URL + "Game-servlet?mode=start-game&username=" + localStorage.getItem("username") + "&lobbyID=" + lobbyid)
-        window.location.href = BASE_URL + "game.html"
+        if (ownerLobbyPair.lobbyid === lobbyid && localStorage.getItem("username") === ownerLobbyPair.lobbyOwner) {
+            fetch(BASE_URL + "Game-servlet?mode=start-game&username=" + localStorage.getItem("username") + "&lobbyID=" + lobbyid)
+            window.location.href = BASE_URL + "game.html"
+        } else {
+            alert("Sie sind nicht der Lobbyowner.");
+        }
     } else {
-        alert("Bitte erstellen Sie eine Lobby oder treten sie einer bei, um das Spiel zu starten.")
+        alert("Sie sind nicht in einer Lobby.")
     }
 }
 
@@ -58,6 +63,11 @@ async function getLobbies(){
 }
 
 function insertList(value, index, array){
+    let ownerLobbyPair = {
+        'lobbyOwner': array[index].lobbyowner,
+        'lobbyid': array[index].lobbyid
+    };
+    sessionStorage.setItem("ownerLobbyPair", JSON.stringify(ownerLobbyPair));
     if(index === 0) document.getElementById("lobbies").innerHTML = "";
 //    document.getElementById("lobbies").innerHTML = document.getElementById("lobbies").innerHTML + "<li>"+array[index].lobbyowner+" Lobby <input type='submit' id='"+index+"' onclick='joinLobby("+index+")' name="+array[index].lobbyid+" value='JOIN LOBBY'><ul><li>Players: "+array[index].players+"</li></ul></li>";
     document.getElementById("lobbies").innerHTML = document.getElementById("lobbies").innerHTML + "<table><tr><th>"+ "Lobbyowner: " + array[index].lobbyowner+ "</th></tr><tr><td>" + "Players:" + array[index].players+ "</td></tr><tr><td>" + "Game Mode:" + array[index].gamemode+ "</td></tr><tr><td>" + "Number of Players:" + array[index].numberofplayers+ "</td></tr><tr><td>" + "Rounds:" + array[index].gamelength+ "</td></tr><tr><td>" + "<input type='submit' id='"+index+"' onclick='joinLobby("+index+")' name="+array[index].lobbyid+" value='JOIN LOBBY'>" + "</td></tr><hr></table>";
