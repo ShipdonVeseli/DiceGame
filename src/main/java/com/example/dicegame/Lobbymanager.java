@@ -135,7 +135,7 @@ public class Lobbymanager {
     public String convertToJSON() {
         String result = "[";
         for (int i = 0; i < getLobbies().size(); i++) {
-            result += "{\"lobbyid\": \"" + lobbies.get(i).getId().toString() + "\", \"lobbyowner\": \"" + lobbies.get(i).getOwner().getPlayerName() + "\", \"players\": \"";
+            result += "{\"lobbyid\": \"" + lobbies.get(i).getId().toString() + "\", \"gamemode\": \"" + lobbies.get(i).getGame().getGameMode() + "\", \"gamelength\": \"" + lobbies.get(i).getGame().getGameLength() + "\", \"numberofplayers\": \"" + lobbies.get(i).getGame().getNumberOfPlayers() + "\", \"lobbyowner\": \"" + lobbies.get(i).getOwner().getPlayerName() + "\", \"players\": \"";
             for (int j = 0; j < lobbies.get(i).getPlayers().size(); j++) {
                 result += lobbies.get(i).getPlayers().get(j).getPlayerName();
                 if (j != lobbies.get(i).getPlayers().size() - 1) result += ",";
