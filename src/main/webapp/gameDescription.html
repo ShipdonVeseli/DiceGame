@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Description</title>
+</head>
+<body>
+<h1>Dice Game - Description</h1>
+<div id="usage">
+    <h3 style="text-align: center">Bedienung</h3>
+    <ul>
+        <li>
+            Zu Beginn des Spiels wird der Benutzer aufgefordert, einen Usernamen festzulegen, womit dieser in Folge identifiziert wird.
+        </li>
+        <li>
+            Sobald der Benutzer einen Usernamen festgelegt hat, gelangt dieser auf die "eingeloggte Seite".
+        </li>
+        <li>
+            Auf dieser Seite hat der Benutzer die Möglichkeit, eine Lobby zu erstellen oder bestehender Lobbies beizutreten.
+        </li>
+        <li>
+            Der Ersteller der Lobby wird zum Lobbyowner. Dieser kann Konfigurationen im Zusammenhang mit dem Spiel festlegen wie: Anzahl der Spieler (der Rest wird mit KIs befüllt), das Game Modus & wie viele Runden gespielt werden soll.
+        </li>
+        <li>
+            Nur der Lobbyowner kann Spielkonfigurationen vornehmen & das Spiel starten.
+        </li>
+    </ul>
+    <p>In den folgenden Sektionen werden die einzelnen Game Modis näher beschrieben.</p>
+</div>
+<div id="gameMode1">
+<p>
+
+</p>
+</div>
+<button class="accordion">Game Mode 1</button>
+<div class="panel">
+    <p>In diesem ersten Würfelspiel können wir die Auswirkungen eines Systems abhängiger Ereignisse
+        mit statistischen Schwankungen untersuchen.
+        <ul>
+            <li>
+                Die Spieler werden nebeneinander angeordnet & jeder Spieler startet mit 4 Token.
+            </li>
+            <li>
+                Durch den Buttonklick "Roll Dices" kann jeder Spieler einmal pro Runde <b>für sich selber</b> Würfeln.
+            </li>
+            <li>
+                Der Spieler, der dran ist wird als "aktiver Spieler" angezeigt. Der aktive Spieler verschiebt <b>für jeden Spieler</b> durch Buttonklick "Move" die Anzahl der jeweils gewürfelten Token zum nächsten Spieler.
+            </li>
+            <li>
+                Abhängig von der gewürfelten Zahl vom ersten Spieler werden jede Runde neue Token ins Spiel eingespeist.
+            </li>
+            <li>
+                Durch den letzten Spieler werden die Token vom System wieder ausgespeist.
+            </li>
+            <li>
+                Ziel des Spiel ist es, so viele Token als möglich beim letzten Spieler aufzusammeln.
+            </li>
+        </ul>
+    </p>
+</div>
+
+<button class="accordion">Game Mode 2</button>
+<div class="panel">
+    <p>
+        Das Prinzip beim Game Mode 2 ist derselbe wie bei Game Mode 1 nur mit dem Unterschied, dass die Würfel an einen anderen Spieler abgegeben werden können.
+        Ziel ist es, verschiedene Strategien auszuprobieren, um am Ende des Spiels einen höheren Durchsatz zu erzielen als im Game Mode 1.
+    </p>
+</div>
+
+<button class="accordion">Game Mode 3</button>
+<div class="panel">
+    <p></p>
+</div>
+
+<button class="accordion">Game Mode 4</button>
+<div class="panel">
+    <p></p>
+</div>
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        });
+    }
+</script>
+</body>
+<style>
+    body {
+        font-family: Verdana, "Lucida Sans Unicode", sans-serif;
+        background-color: #e0dddd;
+    }
+    .accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+    .active, .accordion:hover {
+        background-color: #ccc;
+    }
+    .accordion:after {
+        content: '\002B';
+        color: #777;
+        font-weight: bold;
+        float: right;
+        margin-left: 5px;
+    }
+
+    .active:after {
+        content: "\2212";
+    }
+    .panel {
+        padding: 0 18px;
+        display: none;
+        background-color: white;
+        overflow: hidden;
+    }
+    h1 {
+        border-radius: 0.25rem;
+        border: 1px solid #919497;
+        box-shadow: 0 1rem 1rem rgba(0,0,0,.15);
+        padding: 0.8em;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        text-align: center;
+        color: #343a40;
+    }
+</style>
+</html>
