@@ -62,6 +62,7 @@ async function gameLengthRequest() {
 
 function getGameRound(data) {
     gameLength = data;
+    sessionStorage.setItem("gameLength", gameLength);
 }
 
 function rollDice() {
