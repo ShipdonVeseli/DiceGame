@@ -1,5 +1,6 @@
 //let BASE_URL = "https://fhdicegame2.azurewebsites.net/";
 let BASE_URL = "http://localhost:8079/";
+
 function fix_dpi() {
     if (window.screen.availWidth > 1900) {
         canvas.setAttribute('width', window.screen.availWidth/1.8);
@@ -72,6 +73,7 @@ function rollDice() {
     if(button.value === 'Roll Dices' && localStorage.getItem("username") === activePlayerName) {
         button.value = 'Move';
     } else if(button.value === 'Move' && localStorage.getItem("username") === activePlayerName) {
+        fetch(BASE_URL + "Game-servlet?mode=roll-all&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
         fetch(BASE_URL + "Game-servlet?mode=make-move&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid"))
         button.value = 'Roll Dices';
     }

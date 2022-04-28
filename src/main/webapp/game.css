@@ -189,7 +189,7 @@ input#back {
 }
 @media screen and (max-width: 600px){
     #responsive-canvas {
-        background-color: black;
+        background-color: grey;
         width: 100%; /*600px;*/
         height: auto;
         border-radius: 0.5rem;
@@ -201,7 +201,7 @@ input#back {
 }
 @media screen and (min-width: 600px){
     #responsive-canvas {
-        background-color: blue;
+        background-color: grey;
         width: 100%; /*600px;*/
         height: auto;
         border-radius: 0.5rem;
@@ -213,7 +213,7 @@ input#back {
 }
 @media screen and (min-width: 768px){
     #responsive-canvas {
-        background-color: yellow;
+        background-color: grey;
         width: 100%; /*630px;*/
         height: auto;
         border-radius: 0.5rem;
@@ -226,7 +226,7 @@ input#back {
 
 @media screen and (min-width: 900px){
     #responsive-canvas {
-        background-color: green;
+        background-color: grey;
         width: 100%; /*700px;*/
         height: auto;
         border-radius: 0.5rem;
@@ -251,7 +251,7 @@ input#back {
 }
 @media screen and (min-width: 1280px){
     #responsive-canvas {
-        background-color: red;
+        background-color: grey;
         width: 100%; /*1080px;*/
         height: auto;
         border-radius: 0.5rem;
@@ -263,7 +263,7 @@ input#back {
 }
 @media screen and (min-width: 1400px){
     #responsive-canvas {
-        background-color: orange;
+        background-color: grey;
         width: 100%; /*1080px;*/
         height: auto;
         border-radius: 0.5rem;
@@ -275,7 +275,7 @@ input#back {
 }
 @media screen and (min-width: 1920px){
     #responsive-canvas {
-        background-color: deeppink;
+        background-color: grey;
         width: 100%; /*1850px;*/
         height: auto;
         border-radius: 0.5rem;

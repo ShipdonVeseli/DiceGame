@@ -5,6 +5,7 @@ let x1 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "
 //let BASE_URL = "https://fhdicegame2.azurewebsites.net/";
 let BASE_URL = "http://localhost:8079/";
 
+
 function loadThroughput() {
     canvas_statistic = document.getElementById('statistic_canvas');
     ctx_statistic = canvas_statistic.getContext('2d');

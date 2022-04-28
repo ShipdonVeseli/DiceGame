@@ -17,16 +17,19 @@ class StatisticsTest {
         Game game = new Game(lobby);
 
         try {
-            game.rollAllDiceInGame();
+            game.rollDicesFromOnePlayer("test 1");
+            game.rollDicesFromOnePlayer("test 2");
             game.move();
 
-            game.rollAllDiceInGame();
+            game.rollDicesFromOnePlayer("test 1");
+            game.rollDicesFromOnePlayer("test 2");
             game.move();
 
-            game.rollAllDiceInGame();
+            game.rollDicesFromOnePlayer("test 1");
+            game.rollDicesFromOnePlayer("test 2");
             game.move();
 
-            String result = game.getStatistics().getActivity();
+            String result = game.getStatistics().getActivity2();
             System.out.println(result);
 
         } catch (Exception e) {
