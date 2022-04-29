@@ -54,6 +54,7 @@ async function numberOfPlayersRequest() {
 
 function getNumberOfPlayers(data) {
     numberOfPlayers = data;
+    sessionStorage.setItem("numberOfPlayers", numberOfPlayers);
 }
 
 async function gameLengthRequest() {

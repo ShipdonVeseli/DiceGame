@@ -7,6 +7,7 @@ let BASE_URL = "http://localhost:8079/";
 function loadActivity() {
     canvas_statistic = document.getElementById('statistic_canvas');
     ctx_statistic = canvas_statistic.getContext('2d');
+    createActivityButtons();
     getActivity().then(() => {
         showActivity();
     })
@@ -20,6 +21,37 @@ function showActivity() {
     let x_Axis = 'Turn';
     let y_Axis = 'Number';
     drawBarChart(dicevalues[getSelectedValue-1], x_Axis, y_Axis, "", x1, "History of Rolls");
+}
+
+function createActivityButtons() {
+    let numberOfPlayers = Number(sessionStorage.getItem("numberOfPlayers"));
+    for(let i=1; i<=numberOfPlayers; i++) {
+        let radiobox = createRadioButton('activity_player' + i, i.toString(), i.toString());
+        if(i===1) {
+            radiobox.checked = true;
+        }
+    }
+    createRadioButton('activity_all', numberOfPlayers+1, 'all');
+}
+
+function createRadioButton(id, value, innerHTML) {
+    let radiobox = document.createElement('input');
+    radiobox.type = 'radio';
+    radiobox.id = id;
+    radiobox.value = value;
+    radiobox.name = 'activity';
+    radiobox.onclick = function () {
+        showActivity();
+    }
+
+    let label = document.createElement('label');
+    label.htmlFor = id;
+    label.innerHTML = innerHTML;
+
+    let container = document.getElementById("activity_buttons");
+    container.appendChild(radiobox);
+    container.appendChild(label);
+    return radiobox;
 }
 
 function gameLengthToArray(gameLength) {
