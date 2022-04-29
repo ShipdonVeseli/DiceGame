@@ -32,7 +32,7 @@ public class Statistics implements StatisticObserver {
 
     public ArrayList<Double> getSumDiceValues() {
         ArrayList<Double> sumDiceValues = new ArrayList<>();
-        for (int p = 0; p < playerDataArrayList.get(0).getDiceValues().size(); p++) {
+        for (int p = 0; p < 100; p++) {
             sumDiceValues.add(0.00);
         }
         for (int i = 0; i < playerDataArrayList.size(); i++) {
