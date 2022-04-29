@@ -1,7 +1,6 @@
 let canvas_statistic;
 let ctx_statistic;
 let numberinsystem = [];
-let x1 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
 //let BASE_URL = "https://fhdicegame2.azurewebsites.net/";
 let BASE_URL = "http://localhost:8079/";
 
@@ -16,7 +15,17 @@ function loadNumberInSystem() {
 function showNumberInSystem() {
     let x_Axis = 'Turn';
     let y_Axis = 'Number in System';
+    let gameLength = sessionStorage.getItem("gameLength");
+    let x1 = gameLengthToArray(gameLength);
     drawBarChart(numberinsystem, x_Axis, y_Axis, 5, x1, "Tokens in System");
+}
+
+function gameLengthToArray(gameLength) {
+    let result = [];
+    for(let i=0; i<=gameLength; i++) {
+        result.push(i.toString());
+    }
+    return result;
 }
 
 function drawBarChart(data, x_Axis, y_Axis, stepSize, x_Size, title) {
