@@ -1,7 +1,6 @@
 let canvas_statistic;
 let ctx_statistic;
 let timeinsystem = [];
-let x2 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34"]
 //let BASE_URL = "https://fhdicegame2.azurewebsites.net/";
 let BASE_URL = "http://localhost:8079/";
 
@@ -17,7 +16,11 @@ function loadTimeInSystem() {
 function showTimeInSystem(){
     let x_Axis = 'Order of Arrival';
     let y_Axis = 'Time in System';
-    drawBarChart(timeinsystem, x_Axis, y_Axis, 1, x2, "Time in System of Token");
+    let x1 = [];
+    for (let i=0; i<=35; i++) {
+        x1.push(i.toString());
+    }
+    drawBarChart(timeinsystem, x_Axis, y_Axis, 1, x1, "Time in System of Token");
 }
 
 function drawBarChart(data, x_Axis, y_Axis, stepSize, x_Size, title) {
