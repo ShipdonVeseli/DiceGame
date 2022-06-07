@@ -30,7 +30,7 @@ public class GameServlet extends HttpServlet {
         player.setAI(false);
         player.resetTimer();
 
-        if(lobby.getTerminationTimer()!=null){
+        if (lobby.getTerminationTimer() != null) {
             lobby.resetTerminationTimer();
         }
     }
@@ -139,7 +139,7 @@ public class GameServlet extends HttpServlet {
                     break;
 
                 case "request-Dice-form-Ai":
-                    requestDiceFormAi(game,response,map,username,lobbyOfTheGame);
+                    requestDiceFormAi(game, response, map, username, lobbyOfTheGame);
 
                     GameServlet.resetPlayer(lobbyOfTheGame, username);
                     break;
@@ -160,16 +160,16 @@ public class GameServlet extends HttpServlet {
                 String aiName = ServletFunctions.getParameterValue(map, "aiplayername");
                 Player ai = lobby.getPlayer(aiName);
 
-                if(ai.isAI()){
-                    game.giveDiceToOtherPlayer(aiName,username);
+                if (ai.isAI()) {
+                    game.giveDiceToOtherPlayer(aiName, username);
 
-                }else {
+                } else {
                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 }
             } else {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
@@ -208,7 +208,9 @@ public class GameServlet extends HttpServlet {
     }
 
     private void rollMe(String username, Game game) {
-        game.rollDicesFromOnePlayer(username);
+        if(checkIfOperationCanBeMadeGame6(game)) {
+            game.rollDicesFromOnePlayer(username);
+        }
     }
 
     private void giveDice(Map<String, String[]> map, String username, Game game, HttpServletResponse response) {
@@ -275,7 +277,7 @@ public class GameServlet extends HttpServlet {
     }
 
     private void makeMove(HttpServletResponse response, String username, Game game) {
-        if (game.checkIfPlayerIsActivePlayer(username)) {
+        if (game.checkIfPlayerIsActivePlayer(username)&&checkIfOperationCanBeMadeGame6(game)) {
             if (game.checkIfGameHasNotEnded()) {
                 game.move();
                 return;
@@ -285,7 +287,7 @@ public class GameServlet extends HttpServlet {
     }
 
     private void rollAll(HttpServletResponse response, String username, Game game) {
-        if (game.checkIfPlayerIsActivePlayer(username)) {
+        if (game.checkIfPlayerIsActivePlayer(username)&&checkIfOperationCanBeMadeGame6(game)) {
             if (game.checkIfGameHasNotEnded()) {
                 game.rollAllDiceInGame();
                 return;
@@ -293,5 +295,16 @@ public class GameServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
+
+    private boolean checkIfOperationCanBeMadeGame6(Game game) {
+        Boolean result;
+        if (game.getGameMode() == 6) {
+            result = game.game6ConfigCheck();
+        } else {
+            result = true;
+        }
+        return result;
+    }
+
 }
 
