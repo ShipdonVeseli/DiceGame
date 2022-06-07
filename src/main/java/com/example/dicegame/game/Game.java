@@ -338,10 +338,12 @@ public class Game extends StatisticSuspect {
         });
     }
 
-    public boolean canGame6start() throws IllegalStateException {
+
+
+    public boolean game6ConfigCheck() throws IllegalStateException {
         int numberOfPlayer=0;
         if (gameMode != 6) {
-            throw new IllegalStateException("Game is " + gameMode);
+            return false;
         } else {
             ArrayList<Player>players= lobby.getPlayers();
 

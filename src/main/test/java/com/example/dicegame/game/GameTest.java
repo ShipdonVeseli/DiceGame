@@ -258,4 +258,129 @@ class GameTest {
     }
 
 
+    @Test
+    void game6ConfigCheckTest() {
+        Lobby lobby;
+        Game game;
+        Boolean result;
+        String playerName1="test1";
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1;
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby=new Lobby(playerName1);
+        player1=lobby.getPlayer(0);
+        lobby.addPlayer(player2);
+        lobby.addPlayer(player3);
+        lobby.addPlayer(player4);
+
+        game=new Game(6,lobby);
+
+        player1.getDices().get(0).setRange(1,6);
+        player2.getDices().get(0).setRange(2,6);
+        player3.getDices().get(0).setRange(2,6);
+        player4.getDices().get(0).setRange(2,6);
+
+        assertTrue(game.game6ConfigCheck());
+    }
+
+    @Test
+    void game6ConfigCheckTest2() {
+        Lobby lobby;
+        Game game;
+        Boolean result;
+        String playerName1="test1";
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1;
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby=new Lobby(playerName1);
+        player1=lobby.getPlayer(0);
+        lobby.addPlayer(player2);
+        lobby.addPlayer(player3);
+        lobby.addPlayer(player4);
+
+        game=new Game(1,lobby);
+
+        player1.getDices().get(0).setRange(1,6);
+        player2.getDices().get(0).setRange(2,6);
+        player3.getDices().get(0).setRange(2,6);
+        player4.getDices().get(0).setRange(2,6);
+
+        assertFalse(game.game6ConfigCheck());
+    }
+
+    @Test
+    void game6ConfigCheckTest3() {
+        Lobby lobby;
+        Game game;
+        Boolean result;
+        String playerName1="test1";
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1;
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby=new Lobby(playerName1);
+        player1=lobby.getPlayer(0);
+        lobby.addPlayer(player2);
+        lobby.addPlayer(player3);
+        lobby.addPlayer(player4);
+
+        game=new Game(6,lobby);
+
+        player1.getDices().get(0).setRange(1,6);
+        player2.getDices().get(0).setRange(1,6);
+        player3.getDices().get(0).setRange(2,6);
+        player4.getDices().get(0).setRange(2,6);
+
+        assertFalse(game.game6ConfigCheck());
+    }
+
+    @Test
+    void game6ConfigCheckTest4() {
+        Lobby lobby;
+        Game game;
+        Boolean result;
+        String playerName1="test1";
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1;
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby=new Lobby(playerName1);
+        player1=lobby.getPlayer(0);
+        lobby.addPlayer(player2);
+        lobby.addPlayer(player3);
+        lobby.addPlayer(player4);
+
+        game=new Game(6,lobby);
+
+        player1.getDices().get(0).setRange(2,6);
+        player2.getDices().get(0).setRange(2,6);
+        player3.getDices().get(0).setRange(2,6);
+        player4.getDices().get(0).setRange(2,6);
+
+        assertFalse(game.game6ConfigCheck());
+    }
+
+
 }
