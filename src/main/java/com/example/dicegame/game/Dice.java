@@ -39,6 +39,14 @@ public class Dice {
         this.max = max;
     }
 
+    public int getMin() {
+        return min;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
     public String convertToJSON() {
         return "{"
                 + "\"uuid\": "

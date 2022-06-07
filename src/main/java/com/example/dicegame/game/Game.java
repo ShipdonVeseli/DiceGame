@@ -28,7 +28,7 @@ public class Game extends StatisticSuspect {
 
     public Game(Lobby lobby) {
         this.lobby = lobby;
-      //  init();
+        //  init();
     }
 
     public Game(int gameMode, Lobby lobby) {
@@ -37,11 +37,11 @@ public class Game extends StatisticSuspect {
         //init();
     }
 
-    public void delete(){
+    public void delete() {
         timer.cancel();
-        timer=null;
-        lobby=null;
-        statistics=null;
+        timer = null;
+        lobby = null;
+        statistics = null;
     }
 
 
@@ -144,8 +144,8 @@ public class Game extends StatisticSuspect {
     public void rollDicesFromOnePlayer(String userName) throws NoSuchElementException {
         Player player = lobby.getPlayer(userName);
         if (!player.isHasRolledDices()) {
-           // System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" +
-           //         "\nrollDicesFromOnePlayer player ="+player.getPlayerName());
+            // System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" +
+            //         "\nrollDicesFromOnePlayer player ="+player.getPlayerName());
             player.rollAllDices();
         }
     }
@@ -153,13 +153,13 @@ public class Game extends StatisticSuspect {
     public void rollAllDiceInGame() {
 //        System.out.println("??????????????????????????????????????????????????????????????????????????????????????????????" +
 //                "\nrollAllDiceInGame called player count=" + lobby.getPlayers().size());
-            lobby.getPlayers().forEach(e -> {
-                if (!e.isHasRolledDices()) {
+        lobby.getPlayers().forEach(e -> {
+            if (!e.isHasRolledDices()) {
 //                    System.out.println("??????????????????????????????????????????????????????????????????????????????????????????????" +
 //                            "\nrollAllDiceInGame player ="+e.getPlayerName());
-                    e.rollAllDices();
-                }
-            });
+                e.rollAllDices();
+            }
+        });
     }
 
     protected void addNewResources() {
@@ -211,11 +211,11 @@ public class Game extends StatisticSuspect {
     }
 
     protected void moveResources() {
-        int numberOfPlayers=lobby.playerCount();
-        if(numberOfPlayers==0){
+        int numberOfPlayers = lobby.playerCount();
+        if (numberOfPlayers == 0) {
             return;
         }
-        for (int i = numberOfPlayers- 1; i >= 1; i--) {
+        for (int i = numberOfPlayers - 1; i >= 1; i--) {
             Player playerReceiver = lobby.getPlayer(i);
             Player playerSend = lobby.getPlayer(i - 1);
 
@@ -231,8 +231,8 @@ public class Game extends StatisticSuspect {
     }
 
     public void move() {
-        int numberOfPlayers=lobby.playerCount();
-        if(numberOfPlayers==0){
+        int numberOfPlayers = lobby.playerCount();
+        if (numberOfPlayers == 0) {
             return;
         }
 
@@ -273,42 +273,42 @@ public class Game extends StatisticSuspect {
         timer.schedule(timerTask(), Player.createDate(timeoutInSeconds));
     }
 
-    public Player getWeakestLink()throws IllegalStateException{
-        if(gameMode==4) {
+    public Player getWeakestLink() throws IllegalStateException {
+        if (gameMode == 4) {
             return lobby.getWeakestPlayer();
-        }else {
+        } else {
             throw new IllegalStateException("this Operation is not allowed in Game mode" + gameMode);
         }
     }
 
-    public void initGameMode4()throws IllegalStateException{
-        int maximumMaxvalue=9;
-        int minimumMaxvalue=3;
-        int minimumMinvalue=1;
-        if(gameMode==4) {
-            lobby.getPlayers().forEach(e->{
+    public void initGameMode4() throws IllegalStateException {
+        int maximumMaxvalue = 9;
+        int minimumMaxvalue = 3;
+        int minimumMinvalue = 1;
+        if (gameMode == 4) {
+            lobby.getPlayers().forEach(e -> {
 
-                int max=minimumMaxvalue+(int)(Math.random()*((maximumMaxvalue-minimumMaxvalue)+minimumMaxvalue));
-                int min=minimumMinvalue+(int)(Math.random()*(((max-1)-minimumMinvalue)+minimumMinvalue));
+                int max = minimumMaxvalue + (int) (Math.random() * ((maximumMaxvalue - minimumMaxvalue) + minimumMaxvalue));
+                int min = minimumMinvalue + (int) (Math.random() * (((max - 1) - minimumMinvalue) + minimumMinvalue));
 
-                e.setDiceRanges(min,max);
+                e.setDiceRanges(min, max);
             });
-        }else {
+        } else {
             throw new IllegalStateException("this Operation is not allowed in Game mode" + gameMode);
         }
     }
 
-    public void voteForPlayer(String username, String NameOfWeakestLink, int round)throws IllegalStateException{
-        if(gameMode==4) {
-                Player player = lobby.getPlayer(NameOfWeakestLink);
+    public void voteForPlayer(String username, String NameOfWeakestLink, int round) throws IllegalStateException {
+        if (gameMode == 4) {
+            Player player = lobby.getPlayer(NameOfWeakestLink);
 
-                int indexOfWeakestLink = lobby.getIndexFromPlayer(player);
+            int indexOfWeakestLink = lobby.getIndexFromPlayer(player);
 
-                Player player1 = lobby.getPlayer(username);
-                player1.vote(round, indexOfWeakestLink);
+            Player player1 = lobby.getPlayer(username);
+            player1.vote(round, indexOfWeakestLink);
 
 
-        }else {
+        } else {
             throw new IllegalStateException("this Operation is not allowed in Game mode" + gameMode);
         }
     }
@@ -336,6 +336,22 @@ public class Game extends StatisticSuspect {
                 saveRessourceInStorage(e.getTimeInSystem());
             }
         });
+    }
+
+    public boolean canGame6start() throws IllegalStateException {
+        int numberOfPlayer=0;
+        if (gameMode != 6) {
+            throw new IllegalStateException("Game is " + gameMode);
+        } else {
+            ArrayList<Player>players= lobby.getPlayers();
+
+            for (Player player:players){
+                if(player.is1to6()){
+                    numberOfPlayer++;
+                }
+            }
+        }
+        return numberOfPlayer==1;
     }
 
     @Override

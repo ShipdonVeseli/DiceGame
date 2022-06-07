@@ -10,7 +10,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class Player extends StatisticSuspect {
-    public static final int timeoutInSeconds = 2*60;
+    public static final int timeoutInSeconds = 2 * 60;
 
 
     private String playerName;
@@ -40,7 +40,7 @@ public class Player extends StatisticSuspect {
     public void setAI(boolean AI) {
         isAI = AI;
         try {
-            if(game!=null) {
+            if (game != null) {
                 Player activePlayer = game.getActivePlayer();
                 // System.out.println("active" + activePlayer.toString() + "\n" + "this=" + this.toString());
                 if (AI && activePlayer.equals(this)) {
@@ -303,4 +303,17 @@ public class Player extends StatisticSuspect {
     }
 
 
+    public boolean is1to6() {
+        boolean result = false;
+        if (dices.size() == 1) {
+            Dice dice = getDice(0);
+            if (dice.getMin() == 1 && dice.getMax() == 6) {
+                result = true;
+            }
+
+        } else {
+            result = false;
+        }
+        return result;
+    }
 }
