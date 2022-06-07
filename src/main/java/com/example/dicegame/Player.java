@@ -307,11 +307,14 @@ public class Player extends StatisticSuspect {
         boolean result = false;
         if (dices.size() == 1) {
             Dice dice = getDice(0);
+            System.out.println("range= "+dice.getMin()+"-"+dice.getMax());
             if (dice.getMin() == 1 && dice.getMax() == 6) {
                 result = true;
             }
 
+
         } else {
+            System.out.println("zu groß= "+dices.size());
             result = false;
         }
         return result;

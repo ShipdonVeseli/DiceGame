@@ -49,8 +49,6 @@ class LobbymanagerTest {
         assertTrue(result);
     }
 
-
-
     @Test
     void convertToJSONTest() {
         try {
