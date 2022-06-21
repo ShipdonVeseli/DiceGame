@@ -17,6 +17,27 @@ class PlayerTest {
 
     }
 
+    @Test
+    void testEquals2(){
+        String name="test";
+
+        Player player=new Player(name);
+        Player player2=new Player(name);
+
+        Resource resource=new Resource();
+        Resource resource1=new Resource();
+
+        player.addResource(resource);
+        player2.addResource(resource);
+
+        assertFalse(player.equals(player2));
+
+    }//+tests
+
+
+
+
+
 
     @Test
     void test1to6with2Dices(){
