@@ -62,4 +62,59 @@ class LobbymanagerTest {
             fail();
         }
     }
+
+    @Test
+    void checkIFLobbyIsFullTest(){
+       //ToDo
+    }
+
+    @Test
+    void hasPlayerCreatedLobbyTest(){
+        //ToDo
+    }
+
+    @Test
+    void addPlayerToLobbyTest(){
+        //ToDo
+    }
+
+    @Test
+    void addUserToLobbyTest(){
+        //ToDo
+    }
+
+    @Test
+    void removePlayerFromLobbyTest(){
+        //ToDo
+    }
+
+    @Test
+    void removePlayerTest(){
+        //ToDo
+    }
+
+    @Test
+    void removeLobbyTest(){
+        //ToDo
+    }
+
+    @Test
+    void createLobbyTest(){
+        //ToDo
+    }
+
+    @Test
+    void getLobbyByUsernameTest(){
+        //ToDo
+    }
+
+    @Test
+    void getLobbyTest(){
+        //ToDo
+    }
+
+    @Test
+    void checkUsernameTest(){
+        //ToDo
+    }
 }
