@@ -382,5 +382,96 @@ class GameTest {
         assertFalse(game.game6ConfigCheck());
     }
 
+    @Test
+    void deleteTest(){
+        //ToDo
+    }
+
+    @Test
+    void initTest(){
+        //ToDo
+    }
+
+    @Test
+    void addStartResourcesTest(){
+        //ToDo
+    }
+
+    @Test
+    void resetTest(){
+        //ToDo
+    }
+
+    @Test
+    void checkIfPlayerIsActivePlayerTest(){
+        //ToDo
+    }
+
+    @Test
+    void rollDicesFromOnePlayerTest(){
+        //ToDo
+    }
+
+    @Test
+    void rollAllDiceInGameTest(){
+        //ToDo
+    }
+
+    @Test
+    void giveDiceToOtherPlayerTest(){
+        //ToDo
+    }
+
+    @Test
+    void setDiceRangeFromPlayerTest(){
+        //ToDo
+    }
+
+    @Test
+    void moveTest(){
+        //ToDo
+    }
+
+    @Test
+    void resetPlayerForTheNextRoundTest(){
+        //ToDo
+    }
+
+    @Test
+    void changeActivePlayerTest(){
+        //ToDo
+    }
+
+    @Test
+    void aiRoundTest(){
+        //ToDo
+    }
+
+    @Test
+    void getWeakestLinkTest(){
+        //ToDo
+    }
+
+    @Test
+    void initGameMode4Test(){
+        //ToDo
+    }
+
+    @Test
+    void voteForPlayerTest(){
+        //ToDo
+    }
+
+    @Test
+    void timerTaskTest(){
+        //ToDo
+    }
+
+    @Test
+    void statisticValuesSavingTest(){
+        //ToDo
+    }
+
+
 
 }
