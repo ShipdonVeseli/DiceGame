@@ -85,4 +85,102 @@ class PlayerTest {
         System.out.println(player.convertToJSON());
 
     }
+
+
+    @Test
+    void setAiTest(){
+        //ToDo
+        //timertest!!
+    }
+
+    @Test
+    void removeDiceTest(){
+        //ToDo
+    }
+
+    @Test
+    void getDiceTest(){
+        //ToDo
+    }
+
+    @Test
+    void rollAllDiceTest(){
+        //ToDO
+    }
+
+    @Test
+    void getSummOfDiceValuesTest(){
+        //ToDo
+    }
+
+
+    @Test
+    void getDiceValuesTest(){
+        //ToDo
+    }
+
+    @Test
+    void getResourcesTest(){
+        //ToDo
+    }
+
+    @Test
+    void getBlueResourcesTest(){
+        //ToDo
+    }
+
+    @Test
+    void getNormalResources(){
+        //ToDo
+    }
+
+    @Test
+    void checkSizeTest(){
+        //ToDo
+    }
+
+    @Test
+    void removeResourcesTest(){
+        //ToDo
+    }
+
+    @Test
+    void resetTest(){
+        //ToDo
+    }
+
+    @Test
+    void setDiceRangesTest(){
+        //ToDo
+    }
+
+    @Test
+    void resetTimerTest(){
+        //ToDo
+    }
+
+    @Test
+    void startTimerTest(){
+        //ToDo
+    }
+
+    @Test
+    void createDateTest(){
+        //ToDo
+    }
+
+    @Test
+    void timerTaskTest(){
+        //ToDo
+    }
+
+    @Test
+    void voteTest(){
+        //ToDo
+    }
+
+    @Test
+    void resetVotingHistoryTest(){
+        //ToDo
+    }
 }
