@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LobbyServletTest {
 
-    @Test
+    /*@Test
     public void testIfLobbyServletCanBeReachedLobby() {
         try {
             HttpSend httpSend = new HttpSend("http://localhost:8079/Lobby-servlet");
@@ -29,9 +29,10 @@ class LobbyServletTest {
             e.printStackTrace();
             fail();
         }
-    }
+    }*/
 
 
+    /*
     @Test
     public void testCreateLobby() {
         try {
@@ -56,6 +57,8 @@ class LobbyServletTest {
             fail();
         }
     }
+    */
+
 
     @Test
     public void testJoinLobby(){
