@@ -156,4 +156,64 @@ class StatisticsTest {
             fail();
         }
     }
+
+    @Test
+    void saveNumberOFResourcesInStorageTest(){
+        //ToDo
+    }
+
+    @Test
+    void saveNumberOFResourcesInGameTest(){
+        //ToDo
+    }
+
+    @Test
+    void saveRessourceAddedToStorageTest(){
+        //ToDo
+    }
+
+    @Test
+    void saveDiceRolledTest(){
+        //ToDo
+    }
+
+    @Test
+    void saveMovedRessourceTest(){
+        //ToDo
+    }
+
+    @Test
+    void resetTest(){
+        //ToDo
+    }
+
+    @Test
+    void printDataToJsonTest(){
+        //ToDo
+    }
+
+    @Test
+    void getTimeInSystem2Test(){
+        //ToDo
+    }
+
+    @Test
+    void getNumberInSystem2Test(){
+        //ToDo
+    }
+
+    @Test
+    void getThroughput2Test(){
+        //ToDo
+    }
+
+    @Test
+    void getSumDiceValuesTest(){
+        //ToDo
+    }
+
+    @Test
+    void getActivity2Test(){
+        //ToDo
+    }
 }

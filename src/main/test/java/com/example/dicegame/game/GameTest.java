@@ -355,7 +355,7 @@ class GameTest {
     void game6ConfigCheckTest4() {
         Lobby lobby;
         Game game;
-        Boolean result;
+
         String playerName1="test1";
         String playerName2="test2";
         String playerName3="test3";
