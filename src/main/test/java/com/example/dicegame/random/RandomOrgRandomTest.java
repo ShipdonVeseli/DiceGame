@@ -9,16 +9,34 @@ import static org.junit.jupiter.api.Assertions.*;
 class RandomOrgRandomTest {
 
     @Test
-    public void test(){
+     void testSizeOfResponse(){
         try {
+           ConcurrentLinkedQueue concurrentLinkedQueue=new ConcurrentLinkedQueue();
            RandomOrgRandom randomOrgRandom =new RandomOrgRandom();
+           int expectedSize=DiceManager.size;
+           int actualSize=0;
 
-           randomOrgRandom.getRandomValuesFromRandomOrg(new ConcurrentLinkedQueue());
+           randomOrgRandom.getRandomValuesFromRandomOrg(concurrentLinkedQueue);
+           actualSize=concurrentLinkedQueue.size();
+
+           System.out.println(concurrentLinkedQueue);
+
+           assertEquals(expectedSize,actualSize);
 
         }catch (Exception e){
             e.printStackTrace();
             fail();
         }
     }
+
+    @Test
+     void testWrite(){
+        //ToDo
+    }
+
+    void getRandomValuesFromRandomOrgTest(){
+        //ToDo
+    }
+
 
 }
