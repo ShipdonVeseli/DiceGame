@@ -34,6 +34,7 @@ class RandomOrgRandomTest {
         //ToDo
     }
 
+    @Test
     void getRandomValuesFromRandomOrgTest(){
         //ToDo
     }
