@@ -75,7 +75,7 @@ public class Game extends StatisticSuspect {
         return round < gameLength;
     }
 
-    private void addStartResources() {
+    protected void addStartResources() {
         for (int i = 0; i < lobby.getPlayers().size() - 1; i++) {
             Player player = lobby.getPlayer(i);
             player.addResource(new Resource(false));
@@ -116,7 +116,7 @@ public class Game extends StatisticSuspect {
             Player player = lobby.getPlayer(playerName);
             return lobby.getPlayer(activePlayerIndex).equals(player);
         } catch (Exception e) {
-            e.printStackTrace();
+          //  e.printStackTrace();
             return false;
         }
     }

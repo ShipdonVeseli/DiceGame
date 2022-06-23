@@ -485,7 +485,92 @@ class GameTest {
 
     @Test
     void checkIfPlayerIsActivePlayerTest(){
-        //ToDo
+        Lobby lobby;
+        Game game;
+
+       boolean actualResult;
+
+        String playerName1="test1";
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1;
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby=new Lobby(playerName1);
+        player1=lobby.getPlayer(0);
+        lobby.getPlayers().add(player2);
+        lobby.getPlayers().add(player3);
+        lobby.getPlayers().add(player4);
+
+        game=new Game(1,lobby);
+
+        actualResult= game.checkIfPlayerIsActivePlayer(playerName1);
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void checkIfPlayerIsActivePlayerTest2(){
+        Lobby lobby;
+        Game game;
+
+        boolean actualResult;
+
+        String playerName1="test1";
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1;
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby=new Lobby(playerName1);
+        player1=lobby.getPlayer(0);
+        lobby.getPlayers().add(player2);
+        lobby.getPlayers().add(player3);
+        lobby.getPlayers().add(player4);
+
+        game=new Game(1,lobby);
+
+        actualResult= game.checkIfPlayerIsActivePlayer(playerName2);
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void checkIfPlayerIsActivePlayerTest3(){
+        Lobby lobby;
+        Game game;
+
+        boolean actualResult;
+
+        String playerName1="test1";
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1;
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby=new Lobby(playerName1);
+        player1=lobby.getPlayer(0);
+        lobby.getPlayers().add(player2);
+        lobby.getPlayers().add(player3);
+        lobby.getPlayers().add(player4);
+
+        game=new Game(1,lobby);
+
+        actualResult= game.checkIfPlayerIsActivePlayer("test 1234");
+
+        assertFalse(actualResult);
     }
 
     @Test
