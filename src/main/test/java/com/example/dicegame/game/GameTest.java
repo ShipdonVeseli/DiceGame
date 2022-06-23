@@ -2,6 +2,8 @@ package com.example.dicegame.game;
 
 import com.example.dicegame.Lobby;
 import com.example.dicegame.Player;
+import com.example.dicegame.gameSatistic.StatisticObserver;
+import com.example.dicegame.gameSatistic.Statistics;
 import com.example.dicegame.random.DiceManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -389,7 +391,82 @@ class GameTest {
 
     @Test
     void initTest(){
-        //ToDo
+        Lobby lobby;
+        Game game;
+
+        String playerName1="test1";
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1;
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby=new Lobby(playerName1);
+        player1=lobby.getPlayer(0);
+        lobby.getPlayers().add(player2);
+        lobby.getPlayers().add(player3);
+        lobby.getPlayers().add(player4);
+
+
+        game=new Game(1,lobby);
+
+        game.init();
+
+        Statistics actuallStatistics=game.getStatistics();
+
+        StatisticObserver p1statisic=player1.getObservers().get(0);
+        StatisticObserver p2statisic=player2.getObservers().get(0);
+        StatisticObserver p3statisic=player3.getObservers().get(0);
+        StatisticObserver p4statisic=player4.getObservers().get(0);
+
+        assertNotNull(actuallStatistics);
+        assertNotNull(p1statisic);
+        assertNotNull(p2statisic);
+        assertNotNull(p3statisic);
+        assertNotNull(p4statisic);
+    }
+
+    @Test
+    void initTest2(){
+        Lobby lobby;
+        Game game;
+
+        String playerName1="test1";
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1;
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby=new Lobby(playerName1);
+        player1=lobby.getPlayer(0);
+        lobby.getPlayers().add(player2);
+        lobby.getPlayers().add(player3);
+        lobby.getPlayers().add(player4);
+
+
+        game=new Game(1,lobby);
+
+        game.init();
+
+        Statistics actuallStatistics=game.getStatistics();
+
+        StatisticObserver p1statisic=player1.getObservers().get(0);
+        StatisticObserver p2statisic=player2.getObservers().get(0);
+        StatisticObserver p3statisic=player3.getObservers().get(0);
+        StatisticObserver p4statisic=player4.getObservers().get(0);
+
+
+        assertEquals(actuallStatistics,p1statisic);
+        assertEquals(actuallStatistics,p2statisic);
+        assertEquals(actuallStatistics,p3statisic);
+        assertEquals(actuallStatistics,p4statisic);
     }
 
     @Test
