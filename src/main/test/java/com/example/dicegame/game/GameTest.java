@@ -394,7 +394,88 @@ class GameTest {
 
     @Test
     void addStartResourcesTest(){
-        //ToDo
+        Lobby lobby;
+        Game game;
+
+        ArrayList<Resource>expectedResources=new ArrayList<>();
+
+        String playerName1="test1";
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1;
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby=new Lobby(playerName1);
+        player1=lobby.getPlayer(0);
+        lobby.getPlayers().add(player2);
+        lobby.getPlayers().add(player3);
+        lobby.getPlayers().add(player4);
+
+        expectedResources.add(new Resource(false));
+        expectedResources.add(new Resource(false));
+        expectedResources.add(new Resource(false));
+        expectedResources.add(new Resource(false));
+
+        game=new Game(1,lobby);
+
+        game.addStartResources();
+
+
+        assertIterableEquals(expectedResources,player1.getResources());
+        assertIterableEquals(expectedResources,player2.getResources());
+        assertIterableEquals(expectedResources,player3.getResources());
+        assertIterableEquals(new ArrayList<Resource>(),player4.getResources());
+
+
+    }
+
+    @Test
+    void addStartResourcesTest2(){
+        Lobby lobby;
+        Game game;
+
+        String playerName1="test1";
+
+        Player player1;
+
+        lobby=new Lobby(playerName1);
+        player1=lobby.getPlayer(0);
+
+        game=new Game(1,lobby);
+
+        game.addStartResources();
+
+        assertIterableEquals(new ArrayList<Resource>(),player1.getResources());
+    }
+
+    @Test
+    void addStartResourcesTest3(){
+        try {
+
+            Lobby lobby;
+            Game game;
+
+            String playerName1 = "test1";
+
+            Player player1;
+
+            lobby = new Lobby(playerName1);
+            player1 = lobby.getPlayer(0);
+
+            lobby.getPlayers().remove(0);
+            System.out.println("player count= "+lobby.getPlayers().size());
+            game = new Game(1, lobby);
+
+            game.addStartResources();
+
+        }catch (Exception e){
+            e.printStackTrace();
+            fail();
+        }
     }
 
     @Test
