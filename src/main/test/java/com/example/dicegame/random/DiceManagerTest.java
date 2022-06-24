@@ -15,7 +15,7 @@ class DiceManagerTest {
         diceManager = DiceManager.getInstanz();
     }
 
-    @RepeatedTest(100)
+    @Test
     public void testGetDice() {
         try {
 
@@ -23,6 +23,7 @@ class DiceManagerTest {
 
             System.out.println("result= " + result);
             assertTrue(result >= 1 && result <= 6);
+            diceManager.clearRandomSets();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,6 +41,7 @@ class DiceManagerTest {
 
             System.out.println("result= " + result);
             assertTrue(result >= 1 && result <= 6);
+            diceManager.clearRandomSets();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,6 +65,7 @@ class DiceManagerTest {
             size = diceManager.getRandomSets().size();
 
             assertEquals(expectedResult, size);
+            diceManager.clearRandomSets();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,11 +77,12 @@ class DiceManagerTest {
     @Test
     public void testGetSize2() {
         try {
-            int size = diceManager.getRandomSets().size();
+            int size ;
             int expectedResult = 0;
 
-
+            size=  diceManager.getRandomSets().size();
             assertEquals(expectedResult, size);
+            diceManager.clearRandomSets();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,12 +94,15 @@ class DiceManagerTest {
     public void testGetSize3() {
         try {
 
-            int size = diceManager.getRandomSets().size();
+            int size ;
             int expectedResult = 1;
 
             diceManager.getDice(1, 6);
 
+            size= diceManager.getRandomSets().size();
+
             assertEquals(expectedResult, size);
+            diceManager.clearRandomSets();
         } catch (Exception e) {
             e.printStackTrace();
             fail();

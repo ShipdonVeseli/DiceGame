@@ -10,6 +10,11 @@ public abstract class StatisticSuspect {
         observers.add(observer);
     }
 
+
+    public ArrayList<StatisticObserver> getObservers() {
+        return observers;
+    }
+
     public void removeObserver(StatisticObserver observer) {
         observers.add(observer);
     }
