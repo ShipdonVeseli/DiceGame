@@ -3,7 +3,9 @@ package com.example.dicegame.game;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+//WARNING
+//This test Class SHOULD NOT be automatically run
+//You may be baned from Random.org
 class DiceTest {
 
     @Test
