@@ -49,6 +49,7 @@ public class Lobbymanager {
         addPlayerToLobby(new Player(userName), lobbyId);
     }
 
+    /*
     public void removePlayerFromLobby(String userName, String lobbyId) {
         Lobby lobby = getLobby(UUID.fromString(lobbyId));
         for (Player pl : lobby.getPlayers()) {
@@ -58,7 +59,7 @@ public class Lobbymanager {
             }
         }
         throw new NoSuchElementException("No lobby with id = " + lobbyId);
-    }
+    }*/
 
     public Lobby removePlayer(String userName) {
         for (Lobby lobby : this.lobbies) {
