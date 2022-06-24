@@ -63,14 +63,54 @@ class LobbymanagerTest {
         }
     }
 
-    @Test
-    void checkIFLobbyIsFullTest(){
-       //ToDo
-    }
+
 
     @Test
     void hasPlayerCreatedLobbyTest(){
-        //ToDo
+        String userName="Test";
+        Player player=new Player(userName);
+        Lobbymanager lobbymanager=new Lobbymanager();
+        Lobby lobby=new Lobby(player);
+
+        lobbymanager.getLobbies().add(lobby);
+
+        boolean result=lobbymanager.hasPlayerCreatedLobby(userName);
+
+        assertTrue(result);
+    }
+
+    @Test
+    void hasPlayerCreatedLobbyTest2(){
+        String userName="Test";
+        String userName2="Test2";
+        Player player=new Player(userName);
+        Player player2=new Player(userName2);
+        Lobbymanager lobbymanager=new Lobbymanager();
+        Lobby lobby=new Lobby(player);
+        lobby.getPlayers().add(player2);
+
+        lobbymanager.getLobbies().add(lobby);
+
+        boolean result=lobbymanager.hasPlayerCreatedLobby(userName2);
+
+        assertFalse(result);
+    }
+
+    @Test
+    void hasPlayerCreatedLobbyTest3(){
+        String userName="Test";
+        String userName2="Test2";
+        Player player=new Player(userName);
+        Player player2=new Player(userName2);
+        Lobbymanager lobbymanager=new Lobbymanager();
+        Lobby lobby=new Lobby(player);
+        lobby.getPlayers().add(player2);
+
+        lobbymanager.getLobbies().add(lobby);
+
+        boolean result=lobbymanager.hasPlayerCreatedLobby("userName2");
+
+        assertFalse(result);
     }
 
     @Test

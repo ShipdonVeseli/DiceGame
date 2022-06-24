@@ -26,11 +26,6 @@ public class Lobbymanager {
         return false;
     }
 
-    public boolean checkIFLobbyIsFull(UUID lobbyId) throws NoSuchElementException {
-        Lobby lobby = getLobby(lobbyId);
-        return lobby.getPlayers().size() >= 10;
-    }
-
     public boolean hasPlayerCreatedLobby(String username) {
         for (Lobby lobby : lobbies) {
             if (lobby.getOwner().getPlayerName().equals(username)) {
