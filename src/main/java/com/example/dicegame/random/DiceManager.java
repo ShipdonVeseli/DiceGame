@@ -46,4 +46,8 @@ public class DiceManager {
         return random.getDice();
     }
 
+    public void clearRandomSets(){
+        randomSets=new ArrayList<>();
+    }
+
 }
