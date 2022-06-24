@@ -163,32 +163,6 @@ class LobbymanagerTest {
         assertEquals(expectedSize, actualSize);
     }
 
-    /*
-    @Test
-    void removePlayerFromLobbyTest(){
-        String userName="Test";
-        String userName2="Test2";
-        Player player=new Player(userName);
-        Player player2=new Player(userName2);
-        Lobbymanager lobbymanager=new Lobbymanager();
-        Lobby lobby=new Lobby(player);
-        lobby.getPlayers().add(player2);
-
-        ArrayList<Player>expectedResult=new ArrayList<>();
-        ArrayList<Player>actualResult;
-
-        expectedResult.add(player);
-
-
-        lobbymanager.getLobbies().add(lobby);
-
-       // lobbymanager.removePlayerFromLobby(player2.getPlayerName(),lobby.getId().toString());
-
-        actualResult=lobby.getPlayers();
-
-        assertIterableEquals(expectedResult,actualResult);
-    }*/
-
     @Test
     void removePlayerTest() {
         String userName = "Test";
@@ -207,7 +181,6 @@ class LobbymanagerTest {
 
         lobbymanager.getLobbies().add(lobby);
 
-        // lobbymanager.removePlayerFromLobby(player2.getPlayerName(),lobby.getId().toString());
         lobbymanager.removePlayer(userName2);
 
         actualResult = lobby.getPlayers();
@@ -215,34 +188,6 @@ class LobbymanagerTest {
         assertIterableEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void removePlayerTest2() {
-        String userName = "Test";
-        String userName2 = "Test2";
-        Player player = new Player(userName);
-        Player player2 = new Player(userName2);
-        Player player3 = new Player(userName2);
-
-        Lobbymanager lobbymanager = new Lobbymanager();
-        Lobby lobby = new Lobby(player);
-        lobby.getPlayers().add(player2);
-        lobby.getPlayers().add(player3);
-
-        ArrayList<Player> expectedResult = new ArrayList<>();
-        ArrayList<Player> actualResult;
-
-        expectedResult.add(player);
-
-
-        lobbymanager.getLobbies().add(lobby);
-
-        // lobbymanager.removePlayerFromLobby(player2.getPlayerName(),lobby.getId().toString());
-        lobbymanager.removePlayer(userName2);
-
-        actualResult = lobby.getPlayers();
-
-        assertIterableEquals(expectedResult, actualResult);
-    }
 
     @Test
     void removeLobbyTest() {
@@ -353,30 +298,6 @@ class LobbymanagerTest {
 
         assertThrows(NoSuchElementException.class, () -> {
             Lobby result = lobbymanager.getLobbyByUsername("userName3");
-        });
-    }
-
-    @Test
-    void getLobbyByUsernameTest3() {
-        String userName = "Test";
-        String userName2 = "Test2";
-        String userName3 = "Test2";
-        Player player = new Player(userName);
-        Player player2 = new Player(userName2);
-        Player player3 = new Player(userName3);
-
-        Lobbymanager lobbymanager = new Lobbymanager();
-        Lobby lobby = new Lobby(player);
-        lobby.getPlayers().add(player2);
-
-        Lobby lobby2 = new Lobby(player3);
-
-        lobbymanager.getLobbies().add(lobby);
-        lobbymanager.getLobbies().add(lobby2);
-
-
-        assertThrows(IllegalStateException.class, () -> {
-            Lobby result = lobbymanager.getLobbyByUsername(userName2);
         });
     }
 
