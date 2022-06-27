@@ -275,7 +275,14 @@ public class Game extends StatisticSuspect {
 
     public Player getWeakestLink() throws IllegalStateException {
         if (gameMode == 4) {
-            return lobby.getWeakestPlayer();
+            try {
+                Player weakestPlayer=lobby.getWeakestPlayer();
+                return weakestPlayer;
+            }catch (Exception e){
+                e.printStackTrace();
+                throw new IllegalStateException("game is empty" );
+            }
+
         } else {
             throw new IllegalStateException("this Operation is not allowed in Game mode" + gameMode);
         }

@@ -160,7 +160,10 @@ public class Lobby {
         throw new NoSuchElementException("No Player with Name= " + playerName);
     }
 
-    public Player getWeakestPlayer() {
+    public Player getWeakestPlayer()throws IllegalStateException {
+        if(players.size()==0){
+            throw new IllegalStateException("no players in the lobby");
+        }
         final Player[] weakest = {players.get(0)};
         players.forEach(e -> {
             Dice eDice = e.getDice(0);
