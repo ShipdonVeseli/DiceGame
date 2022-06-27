@@ -29,6 +29,10 @@ public class Lobby {
         owner.setGame(game);
     }
 
+    public void setTimeoutInSeconds(int timeoutInSeconds) {
+        this.timeoutInSeconds = timeoutInSeconds;
+    }
+
     public Timer getTerminationTimer() {
         return terminationTimer;
     }

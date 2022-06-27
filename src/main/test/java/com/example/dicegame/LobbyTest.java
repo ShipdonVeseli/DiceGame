@@ -12,8 +12,31 @@ import static org.junit.jupiter.api.Assertions.*;
 class LobbyTest {
 
     @Test
-    void initTerminationTimerTest() {
+    void initTerminationTimerTest() throws InterruptedException {
+        String playerName1 = "Test_1";
 
+        Lobby lobby = new Lobby(playerName1);
+        UUID lobbyId = lobby.getId();
+        Lobbymanager lobbymanager = GameServer.getInstance().getLobbymanager();
+
+        lobbymanager.getLobbies().add(lobby);
+
+        lobby.getPlayers().get(0).setAI(true);
+        lobby.setTimeoutInSeconds(10);
+
+        lobby.initTerminationTimer();
+
+        try {
+            lobbymanager.getLobby(lobbyId);
+        }catch (Exception e){
+            e.printStackTrace();
+            fail();
+        }
+        Thread.sleep(15000);
+
+        assertThrows(NoSuchElementException.class, () -> {
+            lobbymanager.getLobby(lobbyId);
+        });
     }
 
     @Test
@@ -21,14 +44,44 @@ class LobbyTest {
 
     }
 
-    @Test
-    void terminationTimerTask() {
-
-    }
 
     @Test
     void autoTerminateTest() {
 
+        String playerName1 = "Test_1";
+
+        Lobby lobby = new Lobby(playerName1);
+        UUID lobbyId = lobby.getId();
+        Lobbymanager lobbymanager = GameServer.getInstance().getLobbymanager();
+
+        lobbymanager.getLobbies().add(lobby);
+
+        lobby.autoTerminate();
+
+        try {
+            assertNotNull(lobbymanager.getLobby(lobbyId));
+        }catch (Exception e){
+            fail();
+        }
+    }
+
+    @Test
+    void autoTerminateTest2() {
+
+        String playerName1 = "Test_1";
+
+        Lobby lobby = new Lobby(playerName1);
+        UUID lobbyId = lobby.getId();
+        Lobbymanager lobbymanager = GameServer.getInstance().getLobbymanager();
+
+        lobbymanager.getLobbies().add(lobby);
+
+        lobby.getPlayers().get(0).setAI(true);
+        lobby.autoTerminate();
+
+        assertThrows(NoSuchElementException.class, () -> {
+          lobbymanager.getLobby(lobbyId);
+        });
     }
 
     @Test
