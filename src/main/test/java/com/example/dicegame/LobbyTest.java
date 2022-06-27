@@ -40,8 +40,36 @@ class LobbyTest {
     }
 
     @Test
-    void resetTerminationTimerTest() {
-
+    void resetTerminationTimerTest() throws InterruptedException {
+//        String playerName1 = "Test_1";
+//
+//        Lobby lobby = new Lobby(playerName1);
+//        UUID lobbyId = lobby.getId();
+//        Lobbymanager lobbymanager = GameServer.getInstance().getLobbymanager();
+//
+//        lobbymanager.getLobbies().add(lobby);
+//
+//        lobby.getPlayers().get(0).setAI(true);
+//        lobby.setTimeoutInSeconds(20);
+//
+//        lobby.initTerminationTimer();
+//
+//        try {
+//            lobbymanager.getLobby(lobbyId);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            fail();
+//        }
+//        Thread.sleep(15000);
+//        resetTerminationTimerTest();
+//        Thread.sleep(15000);
+//
+//        try {
+//            lobbymanager.getLobby(lobbyId);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            fail();
+//        }
     }
 
 
