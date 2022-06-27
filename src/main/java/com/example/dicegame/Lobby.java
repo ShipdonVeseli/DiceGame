@@ -67,9 +67,13 @@ public class Lobby {
     }
 
     public void terminate() {
-        game.delete();
-        game=null;
-        players = null;
+        try {
+            game.delete();
+            game = null;
+            players = null;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         GameServer.getInstance().getLobbymanager().removeLobby(this.getId());
     }
 
