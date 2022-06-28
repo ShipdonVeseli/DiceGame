@@ -90,7 +90,9 @@ public class Player extends StatisticSuspect {
         dices.add(dice);
     }
 
-
+    public VotingHistory getVotingHistory() {
+        return votingHistory;
+    }
 
     public void removeDice(UUID diceID) throws NoSuchElementException {
         for (Dice dice : dices) {

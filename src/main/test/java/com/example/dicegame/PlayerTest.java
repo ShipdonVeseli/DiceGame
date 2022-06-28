@@ -2,6 +2,7 @@ package com.example.dicegame;
 
 import com.example.dicegame.game.Dice;
 import com.example.dicegame.game.Resource;
+import com.example.dicegame.game.Vote;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -120,9 +121,9 @@ class PlayerTest {
         dice1.setValueForTests(4);
         dice2.setValueForTests(4);
 
-        actualResult=player.getSummOfDiceValues();
+        actualResult = player.getSummOfDiceValues();
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -132,12 +133,12 @@ class PlayerTest {
 
         player.getDices().remove(0);
 
-        int expectedResult =0 ;
+        int expectedResult = 0;
         int actualResult;
 
-        actualResult=player.getSummOfDiceValues();
+        actualResult = player.getSummOfDiceValues();
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -155,9 +156,9 @@ class PlayerTest {
         dice1.setValueForTests(4);
         dice2.setValueForTests(4);
 
-        actualResult=player.getDiceValues();
+        actualResult = player.getDiceValues();
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -170,9 +171,9 @@ class PlayerTest {
         String expectedResult = "[]";
         String actualResult;
 
-        actualResult=player.getDiceValues();
+        actualResult = player.getDiceValues();
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -180,15 +181,15 @@ class PlayerTest {
         String playerName = "test";
         Player player = new Player(playerName);
 
-        int amound=2;
+        int amound = 2;
 
-        Resource resource1=new Resource(false);
-        Resource resource2=new Resource(false);
-        Resource resource3=new Resource(false);
-        Resource resource4=new Resource(false);
+        Resource resource1 = new Resource(false);
+        Resource resource2 = new Resource(false);
+        Resource resource3 = new Resource(false);
+        Resource resource4 = new Resource(false);
 
-        ArrayList<Resource> expectedResult=new ArrayList<>();
-        ArrayList<Resource> actualResult=new ArrayList<>();
+        ArrayList<Resource> expectedResult = new ArrayList<>();
+        ArrayList<Resource> actualResult = new ArrayList<>();
 
 
         player.getResources().add(resource1);
@@ -199,23 +200,23 @@ class PlayerTest {
         expectedResult.add(resource1);
         expectedResult.add(resource2);
 
-        actualResult=player.getResources(amound);
+        actualResult = player.getResources(amound);
 
-        assertIterableEquals(expectedResult,actualResult);
+        assertIterableEquals(expectedResult, actualResult);
     }
 
     @Test
     void getResourcesTest2() {
         String playerName = "test";
         Player player = new Player(playerName);
-        int amound=2;
+        int amound = 2;
 
-        ArrayList<Resource> expectedResult=new ArrayList<>();
-        ArrayList<Resource> actualResult=new ArrayList<>();
+        ArrayList<Resource> expectedResult = new ArrayList<>();
+        ArrayList<Resource> actualResult = new ArrayList<>();
 
-        actualResult=player.getResources(amound);
+        actualResult = player.getResources(amound);
 
-        assertIterableEquals(expectedResult,actualResult);
+        assertIterableEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -223,24 +224,24 @@ class PlayerTest {
         String playerName = "test";
         Player player = new Player(playerName);
 
-        boolean isBlue=true;
+        boolean isBlue = true;
 
-        Resource resource1=new Resource(isBlue);
-        Resource resource2=new Resource(isBlue);
-        Resource resource3=new Resource(isBlue);
-        Resource resource4=new Resource(isBlue);
+        Resource resource1 = new Resource(isBlue);
+        Resource resource2 = new Resource(isBlue);
+        Resource resource3 = new Resource(isBlue);
+        Resource resource4 = new Resource(isBlue);
 
-        int expectedResult=4;
-        int actualResult=0;
+        int expectedResult = 4;
+        int actualResult = 0;
 
         player.getResources().add(resource1);
         player.getResources().add(resource2);
         player.getResources().add(resource3);
         player.getResources().add(resource4);
 
-        actualResult=player.getBlueResources();
+        actualResult = player.getBlueResources();
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -248,12 +249,12 @@ class PlayerTest {
         String playerName = "test";
         Player player = new Player(playerName);
 
-        int expectedResult=0;
-        int actualResult=0;
+        int expectedResult = 0;
+        int actualResult = 0;
 
-        actualResult=player.getBlueResources();
+        actualResult = player.getBlueResources();
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -261,24 +262,24 @@ class PlayerTest {
         String playerName = "test";
         Player player = new Player(playerName);
 
-        boolean isBlue=false;
+        boolean isBlue = false;
 
-        Resource resource1=new Resource(isBlue);
-        Resource resource2=new Resource(isBlue);
-        Resource resource3=new Resource(isBlue);
-        Resource resource4=new Resource(isBlue);
+        Resource resource1 = new Resource(isBlue);
+        Resource resource2 = new Resource(isBlue);
+        Resource resource3 = new Resource(isBlue);
+        Resource resource4 = new Resource(isBlue);
 
-        int expectedResult=4;
-        int actualResult=0;
+        int expectedResult = 4;
+        int actualResult = 0;
 
         player.getResources().add(resource1);
         player.getResources().add(resource2);
         player.getResources().add(resource3);
         player.getResources().add(resource4);
 
-        actualResult=player.getNormalResources();
+        actualResult = player.getNormalResources();
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -286,12 +287,12 @@ class PlayerTest {
         String playerName = "test";
         Player player = new Player(playerName);
 
-        int expectedResult=0;
-        int actualResult=0;
+        int expectedResult = 0;
+        int actualResult = 0;
 
-        actualResult=player.getNormalResources();
+        actualResult = player.getNormalResources();
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -299,26 +300,25 @@ class PlayerTest {
         String playerName = "test";
         Player player = new Player(playerName);
 
-        boolean isBlue=false;
+        boolean isBlue = false;
 
-        Resource resource1=new Resource(isBlue);
-        Resource resource2=new Resource(isBlue);
-        Resource resource3=new Resource(isBlue);
-        Resource resource4=new Resource(isBlue);
+        Resource resource1 = new Resource(isBlue);
+        Resource resource2 = new Resource(isBlue);
+        Resource resource3 = new Resource(isBlue);
+        Resource resource4 = new Resource(isBlue);
 
-        int expectedResult=4;
-        int actualResult=0;
+        int expectedResult = 4;
+        int actualResult = 0;
 
         player.getResources().add(resource1);
         player.getResources().add(resource2);
         player.getResources().add(resource3);
         player.getResources().add(resource4);
 
-        actualResult=player.checkSize(5);
+        actualResult = player.checkSize(5);
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
-
 
 
     @Test
@@ -326,24 +326,24 @@ class PlayerTest {
         String playerName = "test";
         Player player = new Player(playerName);
 
-        boolean isBlue=false;
+        boolean isBlue = false;
 
-        Resource resource1=new Resource(isBlue);
-        Resource resource2=new Resource(isBlue);
-        Resource resource3=new Resource(isBlue);
-        Resource resource4=new Resource(isBlue);
+        Resource resource1 = new Resource(isBlue);
+        Resource resource2 = new Resource(isBlue);
+        Resource resource3 = new Resource(isBlue);
+        Resource resource4 = new Resource(isBlue);
 
-        int expectedResult=3;
-        int actualResult=0;
+        int expectedResult = 3;
+        int actualResult = 0;
 
         player.getResources().add(resource1);
         player.getResources().add(resource2);
         player.getResources().add(resource3);
         player.getResources().add(resource4);
 
-        actualResult=player.checkSize(3);
+        actualResult = player.checkSize(3);
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -351,24 +351,24 @@ class PlayerTest {
         String playerName = "test";
         Player player = new Player(playerName);
 
-        boolean isBlue=false;
+        boolean isBlue = false;
 
-        Resource resource1=new Resource(isBlue);
-        Resource resource2=new Resource(isBlue);
-        Resource resource3=new Resource(isBlue);
-        Resource resource4=new Resource(isBlue);
+        Resource resource1 = new Resource(isBlue);
+        Resource resource2 = new Resource(isBlue);
+        Resource resource3 = new Resource(isBlue);
+        Resource resource4 = new Resource(isBlue);
 
-        int expectedResult=0;
-        int actualResult=0;
+        int expectedResult = 0;
+        int actualResult = 0;
 
         player.getResources().add(resource1);
         player.getResources().add(resource2);
         player.getResources().add(resource3);
         player.getResources().add(resource4);
 
-        actualResult=player.checkSize(-1);
+        actualResult = player.checkSize(-1);
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -376,15 +376,15 @@ class PlayerTest {
         String playerName = "test";
         Player player = new Player(playerName);
 
-        int amound=2;
+        int amound = 2;
 
-        Resource resource1=new Resource(false);
-        Resource resource2=new Resource(false);
-        Resource resource3=new Resource(false);
-        Resource resource4=new Resource(false);
+        Resource resource1 = new Resource(false);
+        Resource resource2 = new Resource(false);
+        Resource resource3 = new Resource(false);
+        Resource resource4 = new Resource(false);
 
-        ArrayList<Resource> expectedResult=new ArrayList<>();
-        ArrayList<Resource> actualResult=new ArrayList<>();
+        ArrayList<Resource> expectedResult = new ArrayList<>();
+        ArrayList<Resource> actualResult = new ArrayList<>();
 
 
         player.getResources().add(resource1);
@@ -397,9 +397,9 @@ class PlayerTest {
 
         player.removeResources(2);
 
-        actualResult=player.getResources();
+        actualResult = player.getResources();
 
-        assertIterableEquals(expectedResult,actualResult);
+        assertIterableEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -407,21 +407,21 @@ class PlayerTest {
         String playerName = "test";
         Player player = new Player(playerName);
 
-        int amound=2;
+        int amound = 2;
 
-        ArrayList<Resource> expectedResult=new ArrayList<>();
+        ArrayList<Resource> expectedResult = new ArrayList<>();
         ArrayList<Resource> actualResult;
 
         try {
             player.removeResources(2);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
 
-        actualResult=player.getResources();
+        actualResult = player.getResources();
 
-        assertIterableEquals(expectedResult,actualResult);
+        assertIterableEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -431,7 +431,41 @@ class PlayerTest {
 
     @Test
     void setDiceRangesTest() {
-        //ToDo
+        String playerName = "test";
+        Player player = new Player(playerName);
+
+        Dice dice1 = player.getDices().get(0);
+        Dice dice2 = new Dice();
+
+        player.getDices().add(dice2);
+
+        int min = 1;
+        int max = 6;
+
+        player.setDiceRanges(min, max);
+
+        assertTrue(dice1.getMin() == min && dice1.getMax() == max);
+        assertTrue(dice2.getMin() == min && dice2.getMax() == max);
+    }
+
+    @Test
+    void setDiceRangesTest2() {
+        String playerName = "test";
+        Player player = new Player(playerName);
+
+        player.getDices().remove(0);
+
+        int min = 1;
+        int max = 6;
+
+        try {
+
+            player.setDiceRanges(min, max);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+
     }
 
     @Test
@@ -456,11 +490,39 @@ class PlayerTest {
 
     @Test
     void voteTest() {
-        //ToDo
+        String playerName = "test";
+        Player player = new Player(playerName);
+
+        ArrayList<Vote> expectedResult = new ArrayList<>();
+        ArrayList<Vote> actualResult;
+
+        Vote vote1=new Vote(1,1);
+
+        expectedResult.add(vote1);
+
+        player.vote(1,1);
+
+        actualResult=player.getVotingHistory().getVotes();
+
+        assertIterableEquals(expectedResult,actualResult);
     }
 
     @Test
     void resetVotingHistoryTest() {
-        //ToDo
+        String playerName = "test";
+        Player player = new Player(playerName);
+
+        ArrayList<Vote> expectedResult = new ArrayList<>();
+        ArrayList<Vote> actualResult;
+
+        Vote vote1=new Vote(1,1);
+
+        player.getVotingHistory().getVotes().add(vote1);
+
+        player.resetVotingHistory();
+
+        actualResult=player.getVotingHistory().getVotes();
+
+        assertIterableEquals(expectedResult,actualResult);
     }
 }

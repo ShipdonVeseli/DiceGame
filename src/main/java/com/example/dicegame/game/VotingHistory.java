@@ -13,6 +13,10 @@ public class VotingHistory {
         votes.add(vote);
     }
 
+    public ArrayList<Vote> getVotes() {
+        return votes;
+    }
+
     public String convertToJSON() {
         String result = "[{";
 
