@@ -184,9 +184,11 @@ public class Player extends StatisticSuspect {
         return counter;
     }
 
-    private int checkSize(int amount) {
+    protected int checkSize(int amount) {
         if (amount > resources.size()) {
             amount = resources.size();
+        }else if(amount<0){
+            amount=0;
         }
         return amount;
     }
