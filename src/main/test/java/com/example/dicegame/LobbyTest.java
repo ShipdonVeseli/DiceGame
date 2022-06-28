@@ -54,6 +54,8 @@ class LobbyTest {
 //
 //        lobby.initTerminationTimer();
 //
+//        System.out.println("a");
+//
 //        try {
 //            lobbymanager.getLobby(lobbyId);
 //        }catch (Exception e){
@@ -61,9 +63,11 @@ class LobbyTest {
 //            fail();
 //        }
 //        Thread.sleep(15000);
+//        System.out.println("ab");
 //        resetTerminationTimerTest();
 //        Thread.sleep(15000);
 //
+//        System.out.println("abc");
 //        try {
 //            lobbymanager.getLobby(lobbyId);
 //        }catch (Exception e){
