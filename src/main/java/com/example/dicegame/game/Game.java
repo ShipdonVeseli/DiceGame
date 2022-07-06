@@ -116,7 +116,7 @@ public class Game extends StatisticSuspect {
             Player player = lobby.getPlayer(playerName);
             return lobby.getPlayer(activePlayerIndex).equals(player);
         } catch (Exception e) {
-          //  e.printStackTrace();
+            //  e.printStackTrace();
             return false;
         }
     }
@@ -181,10 +181,15 @@ public class Game extends StatisticSuspect {
             Player sender = lobby.getPlayer(playerNameSender);
             Player receiver = lobby.getPlayer(playerNameReceiver);
 
-            Dice dice = sender.getDice(0);
+            if (sender.getDices().size() > 0) {
+                Dice dice = sender.getDice(0);
 
-            receiver.addDice(dice);
-            sender.removeDice(dice);
+
+                receiver.addDice(dice);
+                sender.removeDice(dice);
+            } else {
+                throw new IllegalStateException("player " + playerNameSender + " has not enough dices");
+            }
         } else {
             throw new IllegalStateException("this Operation is not allowed in Game mode" + gameMode);
         }
@@ -276,11 +281,11 @@ public class Game extends StatisticSuspect {
     public Player getWeakestLink() throws IllegalStateException {
         if (gameMode == 4) {
             try {
-                Player weakestPlayer=lobby.getWeakestPlayer();
+                Player weakestPlayer = lobby.getWeakestPlayer();
                 return weakestPlayer;
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-                throw new IllegalStateException("game is empty" );
+                throw new IllegalStateException("game is empty");
             }
 
         } else {
@@ -346,21 +351,20 @@ public class Game extends StatisticSuspect {
     }
 
 
-
     public boolean game6ConfigCheck() throws IllegalStateException {
-        int numberOfPlayer=0;
+        int numberOfPlayer = 0;
         if (gameMode != 6) {
             return false;
         } else {
-            ArrayList<Player>players= lobby.getPlayers();
+            ArrayList<Player> players = lobby.getPlayers();
 
-            for (Player player:players){
-                if(player.is1to6()){
+            for (Player player : players) {
+                if (player.is1to6()) {
                     numberOfPlayer++;
                 }
             }
         }
-        return numberOfPlayer==1;
+        return numberOfPlayer == 1;
     }
 
     @Override

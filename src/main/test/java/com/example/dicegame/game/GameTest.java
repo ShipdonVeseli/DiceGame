@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -662,8 +664,135 @@ class GameTest {
 
     @Test
     void giveDiceToOtherPlayerTest(){
-        //ToDo
+        Lobby lobby;
+        Game game;
+
+       int gameMode=2;
+
+        String playerName1="test1";
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1;
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby=new Lobby(playerName1);
+        player1=lobby.getPlayer(0);
+        lobby.getPlayers().add(player2);
+        lobby.getPlayers().add(player3);
+        lobby.getPlayers().add(player4);
+
+        game=new Game(gameMode,lobby);
+
+        game.giveDiceToOtherPlayer(playerName1,playerName2);
+
+
+        int player1ExpecedDiceNumber=0;
+        int player1ActualDiceNumber=player1.getDices().size();
+
+        int player2ExpecedDiceNumber=2;
+        int player2ActualDiceNumber=player2.getDices().size();
+
+        assertEquals(player1ExpecedDiceNumber,player1ActualDiceNumber);
+        assertEquals(player2ExpecedDiceNumber,player2ActualDiceNumber);
     }
+
+    @Test
+    void giveDiceToOtherPlayerTest2(){
+        Lobby lobby;
+        Game game;
+
+        int gameMode=2;
+
+        String playerName1="test1";
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1;
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby=new Lobby(playerName1);
+        player1=lobby.getPlayer(0);
+        lobby.getPlayers().add(player2);
+        lobby.getPlayers().add(player3);
+        lobby.getPlayers().add(player4);
+
+        game=new Game(gameMode,lobby);
+
+        assertThrows(NoSuchElementException.class, () -> {
+            game.giveDiceToOtherPlayer("null",playerName2);
+        });
+    }
+
+    @Test
+    void giveDiceToOtherPlayerTest3(){
+        Lobby lobby;
+        Game game;
+
+        int gameMode=2;
+
+        String playerName1="test1";
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1;
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby=new Lobby(playerName1);
+        player1=lobby.getPlayer(0);
+        lobby.getPlayers().add(player2);
+        lobby.getPlayers().add(player3);
+        lobby.getPlayers().add(player4);
+
+        game=new Game(gameMode,lobby);
+
+        assertThrows(NoSuchElementException.class, () -> {
+            game.giveDiceToOtherPlayer(playerName1,"null");
+        });
+    }
+
+    @Test
+    void giveDiceToOtherPlayerTest4(){
+        Lobby lobby;
+        Game game;
+
+        int gameMode=2;
+
+        String playerName1="test1";
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1;
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby=new Lobby(playerName1);
+        player1=lobby.getPlayer(0);
+        lobby.getPlayers().add(player2);
+        lobby.getPlayers().add(player3);
+        lobby.getPlayers().add(player4);
+
+        game=new Game(gameMode,lobby);
+
+        player1.getDices().remove(0);
+
+        assertThrows(IllegalStateException.class, () -> {
+            game.giveDiceToOtherPlayer(playerName1,playerName2);
+        });
+    }
+
+
 
     @Test
     void setDiceRangeFromPlayerTest(){

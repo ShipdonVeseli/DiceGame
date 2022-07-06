@@ -35,7 +35,7 @@ class PlayerTest {
 
         assertFalse(player.equals(player2));
 
-    }//+tests
+    }
 
 
     @Test
