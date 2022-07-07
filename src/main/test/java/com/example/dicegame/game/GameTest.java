@@ -127,21 +127,28 @@ class GameTest {
         p2.addResources(resourcesP2);
 
         System.out.println("p2 res size= " + p2.getResources().size());
-        int expectedNumberOfResurcesINP2 = p2.getResources().size() - p2.getSummOfDiceValues();
-        int expectedNumberOfResurcesINPStorage = p2.getSummOfDiceValues();
+        System.out.println("p1 res size= " + p1.getResources().size());
+//
+//        int player1DiceRoll=2;
+//        int player2DiceRoll=2;
+//
+//        p1.getDices().get(0).setValueForTests(player1DiceRoll);
+//        p1.getDices().get(0).setValueForTests(player2DiceRoll);
 
+        int expectedNumberOfResurcesINP2 = 0;
+        int expectedNumberOfResurcesINPStorage = 8;
 
         game.moveResourcesToStorage();
 
-        int actuallNumberOfResurcesINP2 = p2.getResources().size();
+        System.out.println();
+        System.out.println("p2 res size= " + p2.getResources().size());
+        System.out.println("p1 res size= " + p1.getResources().size());
+
+        int actuallNumberOfResurcesINP1 = p2.getResources().size();
         int actuallNumberOfResurcesINPStorage = game.getStorage().size();
-        System.out.println("Dice= " + p2.getSummOfDiceValues());
-        System.out.println("expectedNumberOfResurcesINP2= " + expectedNumberOfResurcesINP2 + "\nactuallNumberOfResurcesINP2= " + actuallNumberOfResurcesINP2);
-        System.out.println("expectedNumberOfResurcesINPStorage= " + expectedNumberOfResurcesINPStorage + "\nactuallNumberOfResurcesINPStorage= " + actuallNumberOfResurcesINPStorage);
 
-        assertEquals(expectedNumberOfResurcesINP2, actuallNumberOfResurcesINP2);
         assertEquals(expectedNumberOfResurcesINPStorage, actuallNumberOfResurcesINPStorage);
-
+        assertEquals(expectedNumberOfResurcesINP2, actuallNumberOfResurcesINP1);
     }
 
 
