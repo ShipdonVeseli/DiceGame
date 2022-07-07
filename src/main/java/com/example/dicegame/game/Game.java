@@ -254,7 +254,7 @@ public class Game extends StatisticSuspect {
         }
     }
 
-    private void resetPlayerForTheNextRound() {
+    protected void resetPlayerForTheNextRound() {
         lobby.getPlayers().forEach(e -> {
             e.setHasRolledDices(false);
         });

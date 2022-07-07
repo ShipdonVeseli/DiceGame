@@ -312,7 +312,6 @@ class GameTest {
         assertEquals(expetedP3ResourceCount, actualP3ResourceCount);
     }
 
-
     @Test
     void game6ConfigCheckTest() {
         Lobby lobby;
@@ -435,11 +434,6 @@ class GameTest {
         player4.getDices().get(0).setRange(2,6);
 
         assertFalse(game.game6ConfigCheck());
-    }
-
-    @Test
-    void deleteTest(){
-        //ToDo
     }
 
     @Test
@@ -704,16 +698,6 @@ class GameTest {
     }
 
     @Test
-    void rollDicesFromOnePlayerTest(){
-        //ToDo
-    }
-
-    @Test
-    void rollAllDiceInGameTest(){
-        //ToDo
-    }
-
-    @Test
     void giveDiceToOtherPlayerTest(){
         Lobby lobby;
         Game game;
@@ -847,32 +831,146 @@ class GameTest {
 
     @Test
     void setDiceRangeFromPlayerTest(){
-        //ToDo
+        Lobby lobby;
+        Game game;
+
+        int gameMode=1;
+
+        String playerName1="test1";
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1;
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby=new Lobby(playerName1);
+        player1=lobby.getPlayer(0);
+        lobby.getPlayers().add(player2);
+        lobby.getPlayers().add(player3);
+        lobby.getPlayers().add(player4);
+
+        game=new Game(gameMode,lobby);
+
+        assertThrows(IllegalStateException.class, () -> {
+            game.setDiceRangeFromPlayer(playerName1,1,2);
+        });
     }
+
+    @Test
+    void setDiceRangeFromPlayerTest2(){
+        Lobby lobby;
+        Game game;
+
+        int gameMode=3;
+
+        String playerName1="test1";
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1;
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby=new Lobby(playerName1);
+        player1=lobby.getPlayer(0);
+        lobby.getPlayers().add(player2);
+        lobby.getPlayers().add(player3);
+        lobby.getPlayers().add(player4);
+
+        game=new Game(gameMode,lobby);
+
+        int min=1;
+        int max=2;
+
+        game.setDiceRangeFromPlayer(playerName1,min,max);
+
+        assertEquals(max,player1.getDices().get(0).getMax());
+        assertEquals(min,player1.getDices().get(0).getMin());
+    }
+
 
     @Test
     void moveTest(){
-        //ToDo
+        Lobby lobby;
+        Game game;
+
+        int gameMode=2;
+        String playerName="Test";
+        lobby=new Lobby(playerName);
+        lobby.getPlayers().remove(0);
+        game=new Game(lobby);
+
+        try {
+        game.move();
+        }catch (Exception e){
+            e.printStackTrace();
+            fail();
+        }
     }
 
     @Test
-    void resetPlayerForTheNextRoundTest(){
-        //ToDo
-    }
-
-    @Test
-    void changeActivePlayerTest(){
-        //ToDo
-    }
-
-    @Test
-    void aiRoundTest(){
-        //ToDo
+    void moveTest2(){
+       //ToDo
     }
 
     @Test
     void getWeakestLinkTest(){
-        //ToDo
+        Lobby lobby;
+        Game game;
+
+        int gameMode=4;
+        String playerName="Test";
+        lobby=new Lobby(playerName);
+        lobby.getPlayers().remove(0);
+        game=new Game(gameMode,lobby);
+
+        assertThrows(IllegalStateException.class, () -> {
+            game.getWeakestLink();
+        });
+    }
+
+    @Test
+    void getWeakestLinkTest2(){
+        Lobby lobby;
+        Game game;
+
+        int gameMode=2;
+        String playerName="Test";
+        lobby=new Lobby(playerName);
+        game=new Game(gameMode,lobby);
+
+        assertThrows(IllegalStateException.class, () -> {
+            game.getWeakestLink();
+        });
+    }
+
+    @Test
+    void getWeakestLinkTest3(){
+        Lobby lobby;
+        Game game;
+
+        int gameMode=4;
+        String playerName="Test";
+        lobby=new Lobby(playerName);
+
+        Player player1=lobby.getPlayers().get(0);
+        Player player2=new Player("Test2");
+
+        lobby.getPlayers().add(player2);
+
+        game=new Game(gameMode,lobby);
+
+        player1.setDiceRanges(2,20);
+        player2.setDiceRanges(1,2);
+
+        Player result= game.getWeakestLink();
+
+        assertEquals(player2,result);
     }
 
     @Test
@@ -886,15 +984,7 @@ class GameTest {
     }
 
     @Test
-    void timerTaskTest(){
-        //ToDo
-    }
-
-    @Test
     void statisticValuesSavingTest(){
         //ToDo
     }
-
-
-
 }
