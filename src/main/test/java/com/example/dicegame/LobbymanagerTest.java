@@ -319,7 +319,6 @@ class LobbymanagerTest {
         lobbymanager.getLobbies().add(lobby);
         lobbymanager.getLobbies().add(lobby2);
 
-
         Lobby result = lobbymanager.getLobby(lobby.getId());
 
         assertEquals(lobby, result);
@@ -343,7 +342,6 @@ class LobbymanagerTest {
         lobbymanager.getLobbies().add(lobby);
         lobbymanager.getLobbies().add(lobby2);
 
-
         assertThrows(NoSuchElementException.class, () -> {
             Lobby result = lobbymanager.getLobby(UUID.randomUUID());
         });
@@ -365,14 +363,12 @@ class LobbymanagerTest {
 
         lobbymanager.getLobbies().add(lobby);
 
+        boolean result = lobbymanager.checkUsername(userName2);
+        int expectedSize = 2;
+        int actualSize = lobby.getPlayers().size();
 
-
-       boolean result= lobbymanager.checkUsername(userName2);
-       int expectedSize=2;
-       int actualSize=lobby.getPlayers().size();
-
-       assertTrue(result);
-       assertEquals(expectedSize,actualSize);
+        assertTrue(result);
+        assertEquals(expectedSize, actualSize);
 
     }
 }

@@ -318,10 +318,8 @@ public class Game extends StatisticSuspect {
 
             Player player1 = lobby.getPlayer(username);
             player1.vote(round, indexOfWeakestLink);
-
-
         } else {
-            throw new IllegalStateException("this Operation is not allowed in Game mode" + gameMode);
+            throw new IllegalStateException("this Operation is not allowed in Game mode " + gameMode);
         }
     }
 

@@ -975,16 +975,125 @@ class GameTest {
 
     @Test
     void initGameMode4Test(){
-        //ToDo
+        Lobby lobby;
+        Game game;
+
+        int gameMode=1;
+        String playerName="Test";
+        lobby=new Lobby(playerName);
+
+        game=new Game(gameMode,lobby);
+
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1=lobby.getPlayers().get(0);
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby.getPlayers().add(player2);
+        lobby.getPlayers().add(player3);
+        lobby.getPlayers().add(player4);
+
+        assertThrows(IllegalStateException.class, () -> {
+            game.initGameMode4();
+        });
+    }
+
+    @Test
+    void initGameMode4Test2(){
+        Lobby lobby;
+        Game game;
+
+        int gameMode=4;
+        String playerName="Test";
+        lobby=new Lobby(playerName);
+
+        game=new Game(gameMode,lobby);
+
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1=lobby.getPlayers().get(0);
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby.getPlayers().add(player2);
+        lobby.getPlayers().add(player3);
+        lobby.getPlayers().add(player4);
+
+       try {
+            game.initGameMode4();
+        }catch (Exception e){
+           e.printStackTrace();
+           fail();
+       }
     }
 
     @Test
     void voteForPlayerTest(){
-        //ToDo
+        Lobby lobby;
+        Game game;
+
+        int gameMode=1;
+        String playerName="Test";
+        lobby=new Lobby(playerName);
+
+        game=new Game(gameMode,lobby);
+
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1=lobby.getPlayers().get(0);
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby.getPlayers().add(player2);
+        lobby.getPlayers().add(player3);
+        lobby.getPlayers().add(player4);
+
+        assertThrows(IllegalStateException.class, () -> {
+            game.voteForPlayer(playerName,playerName2,1);
+        });
     }
 
     @Test
-    void statisticValuesSavingTest(){
-        //ToDo
+    void voteForPlayerTest2(){
+        Lobby lobby;
+        Game game;
+
+        int gameMode=4;
+        String playerName="Test";
+        lobby=new Lobby(playerName);
+
+        game=new Game(gameMode,lobby);
+
+        String playerName2="test2";
+        String playerName3="test3";
+        String playerName4="test4";
+
+        Player player1=lobby.getPlayers().get(0);
+        Player player2 =new Player(playerName2);
+        Player player3 =new Player(playerName3);
+        Player player4 =new Player(playerName4);
+
+        lobby.getPlayers().add(player2);
+        lobby.getPlayers().add(player3);
+        lobby.getPlayers().add(player4);
+
+        game.voteForPlayer(playerName,playerName2,1);
+        try {
+            Vote result = player1.getVotingHistory().getVotes().get(0);
+            System.out.println(result);
+        }catch (Exception e){
+            e.printStackTrace();
+            fail();
+        }
     }
 }
