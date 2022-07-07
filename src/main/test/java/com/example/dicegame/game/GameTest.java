@@ -224,6 +224,94 @@ class GameTest {
         assertEquals(expetedP3ResourceCount, actualP3ResourceCount);
     }
 
+    @Test
+    void moveResourcesTest2() {
+        Player p1 = new Player("Test1");
+        Player p2 = new Player("Test2");
+        Player p3 = new Player("Test3");
+        Player p4 = new Player("Test4");
+
+        Lobby lobby = new Lobby(p1);
+        lobby.addPlayer(p2);
+        lobby.addPlayer(p3);
+        lobby.addPlayer(p4);
+
+        ArrayList<Resource> resourcesP3 = new ArrayList<>();
+        resourcesP3.add(new Resource());
+        resourcesP3.add(new Resource());
+
+        ArrayList<Resource> resourcesP2 = new ArrayList<>();
+        resourcesP2.add(new Resource());
+        resourcesP2.add(new Resource());
+        resourcesP2.add(new Resource());
+        resourcesP2.add(new Resource());
+
+        p2.addResources(resourcesP2);
+        p3.addResources(resourcesP3);
+
+        p3.getDices().get(0).setValueForTests(3);
+        p4.getDices().get(0).setValueForTests(20);
+
+        int expetedP3ResourceCount = 3;
+        int expetedP4ResourceCount = 2;
+
+        Game game = new Game(1, lobby);
+        System.out.println(game);
+        System.out.println();
+        game.moveResources();
+        System.out.println();
+        System.out.println(game);
+
+        int actualP4ResourceCount = p4.getResources().size();
+        int actualP3ResourceCount = p3.getResources().size();
+        System.out.println(actualP4ResourceCount);
+        System.out.println(actualP3ResourceCount);
+
+        assertEquals(expetedP4ResourceCount, actualP4ResourceCount);
+        assertEquals(expetedP3ResourceCount, actualP3ResourceCount);
+    }
+
+    @Test
+    void moveResourcesTest3() {
+        Player p1 = new Player("Test1");
+        Player p2 = new Player("Test2");
+        Player p3 = new Player("Test3");
+        Player p4 = new Player("Test4");
+
+        Lobby lobby = new Lobby(p1);
+        lobby.addPlayer(p2);
+        lobby.addPlayer(p3);
+        lobby.addPlayer(p4);
+
+        ArrayList<Resource> resourcesP3 = new ArrayList<>();
+
+        ArrayList<Resource> resourcesP2 = new ArrayList<>();
+
+        p2.addResources(resourcesP2);
+        p3.addResources(resourcesP3);
+
+        p3.getDices().get(0).setValueForTests(3);
+        p4.getDices().get(0).setValueForTests(20);
+
+        int expetedP3ResourceCount = 0;
+        int expetedP4ResourceCount = 0;
+
+        Game game = new Game(1, lobby);
+        System.out.println(game);
+        System.out.println();
+        game.moveResources();
+        System.out.println();
+        System.out.println(game);
+
+        int actualP4ResourceCount = p4.getResources().size();
+        int actualP3ResourceCount = p3.getResources().size();
+        System.out.println(actualP4ResourceCount);
+        System.out.println(actualP3ResourceCount);
+
+        assertEquals(expetedP4ResourceCount, actualP4ResourceCount);
+        assertEquals(expetedP3ResourceCount, actualP3ResourceCount);
+    }
+
 
     @Test
     void game6ConfigCheckTest() {
