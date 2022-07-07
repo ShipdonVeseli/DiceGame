@@ -128,12 +128,6 @@ class GameTest {
 
         System.out.println("p2 res size= " + p2.getResources().size());
         System.out.println("p1 res size= " + p1.getResources().size());
-//
-//        int player1DiceRoll=2;
-//        int player2DiceRoll=2;
-//
-//        p1.getDices().get(0).setValueForTests(player1DiceRoll);
-//        p1.getDices().get(0).setValueForTests(player2DiceRoll);
 
         int expectedNumberOfResurcesINP2 = 0;
         int expectedNumberOfResurcesINPStorage = 8;
@@ -183,42 +177,6 @@ class GameTest {
 
     }
 
-
-    @Test
-    void moveResourcesToStorageTest3() {
-        Player p1 = new Player("Test1");
-        Player p2 = new Player("Test2");
-        Lobby lobby = new Lobby(p1);
-        lobby.addPlayer(p2);
-        Game game = new Game(1, lobby);
-
-        ArrayList<Resource> resourcesP2 = new ArrayList<>();
-        resourcesP2.add(new Resource());
-        resourcesP2.add(new Resource());
-
-
-        p2.getDices().get(0).setValueForTests(4);
-
-        p2.addResources(resourcesP2);
-
-        System.out.println("p2 res size= " + p2.getResources().size());
-        int expectedNumberOfResurcesINP2 = 0;
-        int expectedNumberOfResurcesINPStorage = 2;
-
-
-        game.moveResourcesToStorage();
-
-        int actuallNumberOfResurcesINP2 = p2.getResources().size();
-        int actuallNumberOfResurcesINPStorage = game.getStorage().size();
-        System.out.println("Dice= " + p2.getSummOfDiceValues());
-        System.out.println("expectedNumberOfResurcesINP2= " + expectedNumberOfResurcesINP2 + "\nactuallNumberOfResurcesINP2= " + actuallNumberOfResurcesINP2);
-        System.out.println("expectedNumberOfResurcesINPStorage= " + expectedNumberOfResurcesINPStorage + "\nactuallNumberOfResurcesINPStorage= " + actuallNumberOfResurcesINPStorage);
-
-        assertEquals(expectedNumberOfResurcesINP2, actuallNumberOfResurcesINP2);
-        assertEquals(expectedNumberOfResurcesINPStorage, actuallNumberOfResurcesINPStorage);
-
-    }
-
     @Test
     void moveResourcesTest() {
         Player p1 = new Player("Test1");
@@ -244,11 +202,11 @@ class GameTest {
         p2.addResources(resourcesP2);
         p3.addResources(resourcesP3);
 
-        p2.getDices().get(0).setValueForTests(3);
-        p3.getDices().get(0).setValueForTests(2);
+        p3.getDices().get(0).setValueForTests(3);
+        p4.getDices().get(0).setValueForTests(2);
 
-        int expetedP2ResourceCount = 1;
         int expetedP3ResourceCount = 3;
+        int expetedP4ResourceCount = 2;
 
         Game game = new Game(1, lobby);
         System.out.println(game);
@@ -257,15 +215,13 @@ class GameTest {
         System.out.println();
         System.out.println(game);
 
-        int actualP2ResourceCount = p2.getResources().size();
+        int actualP4ResourceCount = p4.getResources().size();
         int actualP3ResourceCount = p3.getResources().size();
-        System.out.println(actualP2ResourceCount);
+        System.out.println(actualP4ResourceCount);
         System.out.println(actualP3ResourceCount);
 
-        assertEquals(expetedP2ResourceCount, actualP2ResourceCount);
+        assertEquals(expetedP4ResourceCount, actualP4ResourceCount);
         assertEquals(expetedP3ResourceCount, actualP3ResourceCount);
-
-
     }
 
 
