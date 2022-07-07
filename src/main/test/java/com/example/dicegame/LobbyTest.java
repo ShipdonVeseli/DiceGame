@@ -28,7 +28,7 @@ class LobbyTest {
 
         try {
             lobbymanager.getLobby(lobbyId);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
@@ -38,44 +38,6 @@ class LobbyTest {
             lobbymanager.getLobby(lobbyId);
         });
     }
-
-    @Test
-    void resetTerminationTimerTest() throws InterruptedException {
-//        String playerName1 = "Test_1";
-//
-//        Lobby lobby = new Lobby(playerName1);
-//        UUID lobbyId = lobby.getId();
-//        Lobbymanager lobbymanager = GameServer.getInstance().getLobbymanager();
-//
-//        lobbymanager.getLobbies().add(lobby);
-//
-//        lobby.getPlayers().get(0).setAI(true);
-//        lobby.setTimeoutInSeconds(20);
-//
-//        lobby.initTerminationTimer();
-//
-//        System.out.println("a");
-//
-//        try {
-//            lobbymanager.getLobby(lobbyId);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            fail();
-//        }
-//        Thread.sleep(15000);
-//        System.out.println("ab");
-//        resetTerminationTimerTest();
-//        Thread.sleep(15000);
-//
-//        System.out.println("abc");
-//        try {
-//            lobbymanager.getLobby(lobbyId);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            fail();
-//        }
-    }
-
 
     @Test
     void autoTerminateTest() {
@@ -92,7 +54,7 @@ class LobbyTest {
 
         try {
             assertNotNull(lobbymanager.getLobby(lobbyId));
-        }catch (Exception e){
+        } catch (Exception e) {
             fail();
         }
     }
@@ -112,7 +74,7 @@ class LobbyTest {
         lobby.autoTerminate();
 
         assertThrows(NoSuchElementException.class, () -> {
-          lobbymanager.getLobby(lobbyId);
+            lobbymanager.getLobby(lobbyId);
         });
     }
 
