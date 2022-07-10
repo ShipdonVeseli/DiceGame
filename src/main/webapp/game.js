@@ -225,6 +225,9 @@ function drawCanvas(value, index, array) {
         case 4:
             gameFourSettings(array, index, value);
             break;
+        case 6:
+            gameSixSettings();
+            break;
     }
 }
 
@@ -256,6 +259,13 @@ function gameFourSettings(array, index, value) {
         }
     }
 }
+
+function gameSixSettings() {
+    if(isGameEnded || round > 0) {
+        document.getElementById("gameModeSix").style.display = "none";
+    }
+}
+
 function addPlayernameToDropDownList(array, index) {
     if(document.getElementById("gameTwoSelection").length < numberOfPlayers-1) {
         const select = document.getElementById("gameTwoSelection");
