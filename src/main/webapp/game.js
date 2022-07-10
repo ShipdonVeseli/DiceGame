@@ -1,4 +1,4 @@
-//let BASE_URL = "https://fhdicegame2.azurewebsites.net/";
+//let BASE_URL = "https://campusdicegame.azurewebsites.net/";
 let BASE_URL = "http://localhost:8079/";
 
 function fix_dpi() {
@@ -128,7 +128,7 @@ function getActivePlayer(value, index, array) {
 }
 
 let dices = [];
-for (let i = 1; i <= 6; i++) {
+for (let i = 1; i <= 12; i++) {
     let dice = new Image();
     dice.src = "/images/Dice" + i + ".png";
     dices.push(dice);
@@ -310,7 +310,7 @@ setInterval(() => {
             reloadField();
         }
     }
-}, 600);
+}, 2500);
 
 let canvas;
 let ctx;

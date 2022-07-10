@@ -1,5 +1,6 @@
-//let BASE_URL = "https://fhdicegame2.azurewebsites.net/";
+//let BASE_URL = "https://campusdicegame.azurewebsites.net/";
 let BASE_URL = "http://localhost:8079/";
+
 let ownerLobbyIdPairs = [];
 
 function setGameMode() {
@@ -156,4 +157,4 @@ setInterval(() => {
         isJoinedLobby();
     }
     convert(getLobbies());
-}, 600);
+}, 4000);
