@@ -354,6 +354,9 @@ function startGame() {
                 eventListenerForMouseMove(canvas);
                 yourPerformance();
                 break;
+            case 6:
+                document.getElementById("gameModeSix").style.display = "block";
+                break;
         }}
     )
 }
@@ -393,9 +396,7 @@ function gameModeTwoAIReq() {
     let user = selection.options[selection.selectedIndex].text;
     fetch(BASE_URL + "Game-Config-servlet?mode=set-Game-Mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&game-mode=2");
     fetch(BASE_URL + "Game-servlet?mode=request-Dice-form-Ai&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&aiplayername=" + user);
-
 }
-
 
 function gameModeThree() {
     var getSelectedValue = document.querySelector( 'input[name="diceValue"]:checked').value;
@@ -411,6 +412,13 @@ function gameModeThree() {
     alert("min: " + min + " max: " + max);
     fetch(BASE_URL + "Game-Config-servlet?mode=set-Game-Mode&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&game-mode=3");
     fetch(BASE_URL + "Game-Config-servlet?mode=setDice&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&min=" + min + "&max=" + max);
+}
+
+function gameModeSix() {
+    let min = document.getElementById("min").value;
+    let max = document.getElementById("max").value;
+    fetch(BASE_URL + "Game-Config-servlet?mode=setDice&username=" + localStorage.getItem("username") + "&lobbyID=" + sessionStorage.getItem("lobbyid") + "&min=" + min + "&max=" + max);
+    document.getElementById("gameModeSix").style.display = "none";
 }
 
 function createplayer() {

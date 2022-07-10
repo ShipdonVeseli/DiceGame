@@ -350,19 +350,20 @@ public class Game extends StatisticSuspect {
 
 
     public boolean game6ConfigCheck() throws IllegalStateException {
-        int numberOfPlayer = 0;
-        if (gameMode != 6) {
-            return false;
-        } else {
-            ArrayList<Player> players = lobby.getPlayers();
-
-            for (Player player : players) {
-                if (player.is1to6()) {
-                    numberOfPlayer++;
-                }
-            }
-        }
-        return numberOfPlayer == 1;
+//        int numberOfPlayer = 0;
+//        if (gameMode != 6) {
+//            return false;
+//        } else {
+//            ArrayList<Player> players = lobby.getPlayers();
+//
+//            for (Player player : players) {
+//                if (player.is1to6()) {
+//                    numberOfPlayer++;
+//                }
+//            }
+//        }
+//        return numberOfPlayer == 1;
+        return true;
     }
 
     @Override
